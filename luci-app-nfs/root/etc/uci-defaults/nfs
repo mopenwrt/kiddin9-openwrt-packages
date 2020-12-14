@@ -1,0 +1,15 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@nfs[-1]
+	add ucitrack nfs
+	set ucitrack.@nfs[-1].init=nfs
+	commit ucitrack
+EOF
+
+/etc/init.d/nfs enable && /etc/init.d/nfs restart
+
+rm -f /tmp/luci-indexcache
+
+killall -HUP rpcd 2>/dev/null
+exit 0

@@ -1,0 +1,24 @@
+#!/bin/sh /etc/rc.common
+START=50
+
+NAME="cpufreq"
+
+start()
+{
+	config_load cpufreq
+	config_get "governor" "${NAME}" "governor"
+	config_get "minfreq" "${NAME}" "minfreq"
+	config_get "maxfreq" "${NAME}" "maxfreq"
+	config_get "upthreshold" "${NAME}" "upthreshold" "50"
+	config_get "factor" "${NAME}" "factor" "10"
+
+	[ -z "${governor}" ] && exit 0
+
+	echo "${governor}" > "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor"
+	echo "${minfreq}" > "/sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq"
+	echo "${maxfreq}" > "/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq"
+	if [ "${governor}" = "ondemand" ]; then
+		echo "${upthreshold}" > "/sys/devices/system/cpu/cpufreq/ondemand/up_threshold"
+		echo "${factor}" > "/sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor"
+	fi
+}

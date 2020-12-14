@@ -1,0 +1,8 @@
+#!/bin/sh
+
+/etc/init.d/haproxy disable
+/etc/init.d/haproxy stop
+
+rm -f /tmp/luci-indexcache
+killall -HUP rpcd 2>/dev/null
+exit 0

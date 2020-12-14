@@ -1,0 +1,108 @@
+#!/bin/sh
+
+if [ "$(uci get network.wan.ipv6)" == 0 ]; then
+	sysctl -w net.ipv6.conf.all.disable_ipv6=1
+	sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+	sysctl -w net.ipv6.conf.default.disable_ipv6=1
+	sysctl -w net.ipv6.conf.all.disable_ipv6=1
+else
+	sysctl -w net.ipv6.conf.all.disable_ipv6=0
+	sysctl -w net.ipv6.conf.lo.disable_ipv6=0
+	sysctl -w net.ipv6.conf.default.disable_ipv6=0
+	sysctl -w net.ipv6.conf.all.disable_ipv6=0
+fi
+if [ ! -f /etc/inited ]; then
+	[ "$(uci get dhcp.@dnsmasq[0].noresolv)" ] && {
+		uci del dhcp.@dnsmasq[0].noresolv
+		uci commit dhcp
+		service dnsmasq reload
+	}
+# sh -c "cat '/usr/share/patch/adblock.patch'  | patch -d '/' -p1 --forward" >/dev/null 2>&1
+fi
+
+function opkgupgrade() {
+	c1=0
+	c2=0
+	c3=0
+	while :; do
+		curl --connect-timeout 5 https://op.supes.top >/dev/null 2>&1
+		if [ "$?" == "0" ]; then
+			while :; do
+			opkg update >/tmp/opkgupdate.log 2>&1
+				if [ "$?" == "0" ]; then
+					udok=true
+					source /etc/profile.d/opkginstall.sh
+					if [ ! -f /etc/inited ]; then
+						[ -f "/etc/backup/installed_packages.txt" ] && {
+							for ipk in $(cat /etc/backup/installed_packages.txt | grep -oE '(.*overlay|luci-app.*|luci-theme.*|default-settings)' | awk '{print $1}'); do
+								[[ ! "$(echo $ipk | grep 'luci.*opkg.*')" ]] && {
+									while :; do
+										opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
+										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
+											break
+										}
+										[ $c2 == 3 ] && {
+										udok=false
+										break
+										} || let c2++
+										sleep 1
+									rm -f /var/lock/opkg.lock
+									done
+								}
+							done
+						}
+						[ $udok == true ] && {
+							rm -f /etc/config/*-opkg
+							touch /etc/inited
+						}
+					else
+						[ ! -d /etc/backup ] && mkdir /etc/backup
+						find /usr/lib/opkg/info -name "*.control" \( \
+						\( -exec test -f /overlay/upper/{} \; -exec echo {} \; \) -o \
+						\( -exec test -f /rom/{} \; -exec find {} -name "luci-app*" \; \) \
+						\) | sed -e 's?/usr/lib/opkg/info/\(.*\).control$?\1 overlay?g' >/etc/backup/installed_packages.txt
+						[ -f "/etc/backup/installed_packages.txt" ] && {
+							for ipk in $(cat /etc/backup/installed_packages.txt | grep -oE '(.*overlay|luci-app.*|luci-theme.*|default-settings)' | awk '{print $1}'); do
+								[[ "$(echo $(opkg list-upgradable) | grep $ipk)" && ! "$(echo $ipk | grep 'luci.*opkg.*')" ]] && {
+									echo $ipk
+									while :; do
+										opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
+										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
+											break
+										}
+										[ $c2 == 3 ] && {
+										udok=false
+										break
+										} || let c2++
+										sleep 1
+									rm -f /var/lock/opkg.lock
+									done
+								}
+							done
+						}
+						[ $udok == true ] && {
+							rm -f /etc/config/*-opkg
+						}
+					fi
+					rm -f /var/lock/opkg.lock
+					break
+				fi
+				[ $c3 == 10 ] && break || let c3++
+			done
+			rm -f /var/lock/opkg.lock
+			break
+		fi
+		[ $c1 == 120 ] && break || let c1++
+		sleep 5
+	done
+}
+(
+	opkgupgrade
+	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
+		sleep 5
+		/bin/coremark >/tmp/coremark.log
+		cat /tmp/coremark.log | grep "CoreMark 1.0" | cut -d "/" -f 1 >/etc/bench.log
+		sed -i 's/CoreMark 1.0/(CpuMark/g' /etc/bench.log
+		echo " Scores)" >>/etc/bench.log
+	}
+) &

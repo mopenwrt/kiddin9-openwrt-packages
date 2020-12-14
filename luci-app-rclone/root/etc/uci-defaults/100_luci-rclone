@@ -1,0 +1,12 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@rclone[-1]
+	add ucitrack rclone
+	set ucitrack.@rclone[-1].init=rclone
+	commit ucitrack
+EOF
+
+rm -f /tmp/luci-indexcache
+killall -HUP rpcd 2>/dev/null
+exit 0

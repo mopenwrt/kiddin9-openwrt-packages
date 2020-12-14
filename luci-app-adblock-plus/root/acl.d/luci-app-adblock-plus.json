@@ -1,0 +1,11 @@
+{
+	"luci-app-adblock-plus": {
+		"description": "Grant UCI access for luci-app-adblock-plus",
+		"read": {
+			"uci": [ "adblock-plus" ]
+		},
+		"write": {
+			"uci": [ "adblock-plus" ]
+		}
+	}
+}

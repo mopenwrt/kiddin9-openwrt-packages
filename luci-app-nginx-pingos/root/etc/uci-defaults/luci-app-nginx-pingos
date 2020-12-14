@@ -1,0 +1,12 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@pingos[-1]
+	add ucitrack pingos
+	set ucitrack.@pingos[-1].init=pingos
+	commit ucitrack
+EOF
+
+rm -rf /tmp/luci-*cache
+killall -HUP rpcd 2>/dev/null
+exit 0
