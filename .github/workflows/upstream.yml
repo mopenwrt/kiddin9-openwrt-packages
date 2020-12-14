@@ -9,8 +9,8 @@
 name: Merge-upstream
 on:
   push:
-    branches: 
-      - master
+    paths:
+      - '.github/workflows/upstream.yml'
   schedule:
     - cron: 0 */12 * * *
   watch:
@@ -104,7 +104,7 @@ jobs:
       uses: garypang13/debugger-action@master
       if: 1 == 0
 
-    - name: Custom
+    - name: Modify
       run: |
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat} cups* \
         mt-drivers coremark luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,docker,adbyby-plus,advancedsetting} fcgiwrap \
@@ -137,7 +137,6 @@ jobs:
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion c0re100/qBittorrent-Enhanced-Edition)/g" qBittorrent-Enhanced-Edition/Makefile
         sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" */Makefile
         sed -i 's/SUBDIRS=/M=/g' */Makefile
-        rm -f create_acl_for_luci.warn create_acl_for_luci.err
         for ipk in $(ls); do
         	if [[ -d "$ipk/root/usr/share/rpcd/acl.d" && -d "$ipk/root/etc/uci-defaults" ]]; then
         		grep -q "killall -HUP rpcd" $ipk/root/etc/uci-defaults/* ||
