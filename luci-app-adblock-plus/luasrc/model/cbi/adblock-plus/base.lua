@@ -20,7 +20,7 @@ o.title=translate("Block CNshort APP and Website")
 
 o=s:option(Flag,"safe_search")
 o.title=translate("Safe Search")
-o.description=translate("Enforcing SafeSearch for google, bing, duckduckgo, yandex, youtube and pixabay.")
+o.description=translate("Enforcing SafeSearch for google, bing, duckduckgo, yandex and youtube.")
 
 o=s:option(Flag,"cron_mode")
 o.title=translate("Enable automatic update rules")
