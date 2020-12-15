@@ -9,7 +9,6 @@ opkg() {
 		/etc/init.d/ucitrack reload
 	elif [[ $(echo $@ | grep -o ' remove ') ]]; then
 		command opkg $@
-		echo $@
 		grep -q '"nas",' /usr/lib/lua/luci/controller/*.lua ||
 			sed -i '/_("NAS")/d' /usr/lib/lua/luci/controller/turboacc.lua
 		rm -Rf /tmp/luci-*
