@@ -62,17 +62,23 @@ function to_check()
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/hiwifi-hc5962/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
         download_url = "https://op.supes.top/firmware/hiwifi-hc5962/" ..dateyr.. "-openwrt-ramips-mt7621-hiwifi_hc5962-squashfs-sysupgrade.bin"
-    elseif model:match(".*D2") then
+    elseif model:match(".*D2.*") then
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/newifi-d2/version.txt"}, nil, api.command_timeout)
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/newifi-d2/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
         download_url = "https://op.supes.top/firmware/newifi-d2/" ..dateyr.. "-openwrt-ramips-mt7621-newifi-d2-squashfs-sysupgrade.bin"
-    elseif model:match(".*XIAOYU") then
+    elseif model:match(".*XIAOYU.*") then
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/XY-C5/version.txt"}, nil, api.command_timeout)
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/XY-C5/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
 		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
         download_url = "https://op.supes.top/firmware/XY-C5/" ..dateyr.. "-openwrt-ramips-mt7621-xiaoyu_xy-c5-squashfs-sysupgrade.bin"
+    elseif model:match(".*RPI-4.*") then
+		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/Rpi-4B/version.txt"}, nil, api.command_timeout)
+		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/Rpi-4B/updatelogs.txt"}, nil, api.command_timeout)
+		check_update()
+		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
+        download_url = "https://op.supes.top/firmware/Rpi-4B/" ..dateyr.. "-openwrt-bcm27xx-bcm2711-rpi-4-squashfs-sysupgrade.img.gz"
 	else
 		local needs_update = false
 		return {
