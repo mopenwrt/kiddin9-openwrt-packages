@@ -30,8 +30,8 @@ add_dns(){
 	if [ -n "$url" -a ! -s /tmp/adblock-plus/failed ];then
 		mkdir -p $T
 		if [ $flash = 1 ];then
-			ln -sf $L/rules.conf $T/rules.conf
-			ln -sf $L/url $T/url
+			ln -sf $L/rules/rules.conf $T/rules.conf
+			ln -sf $L/rules/url $T/url
 		fi
 		ln -sf $T/rules.conf $D/rules.conf
 	fi
@@ -385,8 +385,8 @@ start(){
 		exit 1
 	fi
 	if [ -n "$url" ];then
-		[ $flash = 0 -a ! -s $T/rules.conf ] && B=1
-		[ $flash = 1 -a ! -s $L/rules.conf ] && B=1
+		[ $flash = 0 -a ! -s $T/rules/rules.conf ] && B=1
+		[ $flash = 1 -a ! -s $L/rules/rules.conf ] && B=1
 	fi
 	if [ $B = 1 ];then
 		echo "`eval $E` [Download Adblock Plus Rules...]"
@@ -416,7 +416,7 @@ stop(){
 	rm -rf /tmp/dnsmasq.d/adblock-plus.conf $D /var/lock/adblock-plus.lock
 	if [ "$(echo $url | sed 's/ /\n/g' | sort -u)" != "$(cat $T/url 2>/dev/null)" ];then
 		rm -rf $T
-		[ -d $L ] && rm -rf $L
+		[ -d $L/rules ] && rm -rf $L/rules
 	fi
 	([ -h $T/url -a $flash = 0 ] || [ -z "$url" ]) && rm -rf $T
 	[ $enable = 0 ] && del_cron

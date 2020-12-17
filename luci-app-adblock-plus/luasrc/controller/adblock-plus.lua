@@ -31,7 +31,7 @@ local icount=0
 	if tonumber(icount)>0 then
 		oldcount=luci.sys.exec("find /tmp/adblock-plus -type f -name rules.conf -exec cat {} \\; 2>/dev/null | wc -l")
 		if tonumber(icount) ~= tonumber(oldcount) then
-			luci.sys.exec("[ -h /tmp/adblock-plus/url ] && (rm -f /etc/adblock-plus/*;cp -a /tmp/ad_tmp/* /etc/adblock-plus) || (rm -f /tmp/adblock-plus/*;cp -a /tmp/ad_tmp/* /tmp/adblock-plus)")
+			luci.sys.exec("[ -h /tmp/adblock-plus/url ] && (rm -f /etc/adblock-plus/rules/*;cp -a /tmp/ad_tmp/* /etc/adblock-plus/rules) || (rm -f /tmp/adblock-plus/*;cp -a /tmp/ad_tmp/* /tmp/adblock-plus)")
 			luci.sys.exec("/etc/init.d/adblock-plus restart &")
 			retstring=tostring(math.ceil(tonumber(icount)))
 		else

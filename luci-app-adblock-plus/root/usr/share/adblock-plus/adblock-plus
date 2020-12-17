@@ -60,15 +60,15 @@ down(){
 		[ "$1" = 2 ] && rm -f $LOCK && exit
 		X=`uci -q get adblock-plus.@adblock-plus[0].flash`
 		Y=`md5sum $G/* | awk '{print$1}'`
-		[ $X = 0 ] && Z=`md5sum $P/* 2>/dev/null | awk '{print$1}'` || Z=`md5sum /etc/adblock-plus/* 2>/dev/null | awk '{print$1}'`
+		[ $X = 0 ] && Z=`md5sum $P/* 2>/dev/null | awk '{print$1}'` || Z=`md5sum /etc/adblock-plus/rules/* 2>/dev/null | awk '{print$1}'`
 		if [ "$Y" != "$Z" ];then
 			[ "$1" = 1 ] || echo "`eval $E` [Subscribe Rules Need Update]"
 			if [ "$X" = 0 ];then
 				rm -f $P/*
 				cp -a $G/* $P
 			else
-				rm -f /etc/adblock-plus/*
-				cp -a $G/* /etc/adblock-plus
+				rm -f /etc/adblock-plus/rules/*
+				cp -a $G/* /etc/adblock-plus/rules
 			fi
 			D=1
 		else

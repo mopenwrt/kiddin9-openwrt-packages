@@ -18,7 +18,7 @@ function f.handle(self,state,data)
 			luci.sys.call("> /etc/adblock-plus/white.list")
 		end
 		luci.sys.exec("for i in $(cat /etc/adblock-plus/white.list);do sed -i -e \"/\\/$i\\//d\" -e \"/\\.$i\\//d\" /tmp/adblock-plus/rules.conf 2>/dev/null;\\\
-		[ -s /etc/adblock-plus/rules.conf ] && sed -i -e \"/\\/$i\\//d\" -e \"/\\.$i\\//d\" /etc/adblock-plus/rules.conf;done;\\\
+		[ -s /etc/adblock-plus/rules/rules.conf ] && sed -i -e \"/\\/$i\\//d\" -e \"/\\.$i\\//d\" /etc/adblock-plus/rules/rules.conf;done;\\\
 		[ -s /tmp/adblock-plus/rules.conf ] && rm -f /tmp/dnsmasq.adblock-plus/rules.conf && /etc/init.d/adblock-plus start")
 	end
 	return true
