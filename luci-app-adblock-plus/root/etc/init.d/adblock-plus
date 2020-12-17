@@ -385,7 +385,7 @@ start(){
 		exit 1
 	fi
 	if [ -n "$url" ];then
-		[ $flash = 0 -a ! -s $T/rules/rules.conf ] && B=1
+		[ $flash = 0 -a ! -s $T/rules.conf ] && B=1
 		[ $flash = 1 -a ! -s $L/rules/rules.conf ] && B=1
 	fi
 	if [ $B = 1 ];then
