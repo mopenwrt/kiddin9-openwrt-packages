@@ -429,6 +429,7 @@ o = s:option(Flag, "mux", translate("Mux"))
 o.rmempty = false
 o:depends("type", "vmess")
 o:depends({type = "vless", xtls = false})
+o:depends("type", "trojan")
 
 o = s:option(Value, "concurrency", translate("Concurrency"))
 o.datatype = "uinteger"
