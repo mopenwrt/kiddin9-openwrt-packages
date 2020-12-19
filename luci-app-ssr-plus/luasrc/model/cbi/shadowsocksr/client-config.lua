@@ -130,9 +130,9 @@ o:value("ssr", translate("ShadowsocksR"))
 if nixio.fs.access("/usr/bin/ss-redir") then
 o:value("ss", translate("Shadowsocks New Version"))
 end
-if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/xray/xray") or nixio.fs.access("/usr/bin/v2ray/v2ray") or nixio.fs.access("/usr/bin/v2ray") then
+if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/v2ray") then
 o:value("vmess", translate("Vmess"))
-o:value("vless", translate("VLESS"))
+o:value("vless", translate("Vless"))
 end
 if nixio.fs.access("/usr/sbin/trojan") then
 o:value("trojan", translate("Trojan"))

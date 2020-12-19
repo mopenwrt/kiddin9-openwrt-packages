@@ -30,7 +30,7 @@ f_bin(){
 	case $1 in
 		ss)w=$(which ss-local);;
 		ssr)w=$(which ssr-local);;
-		v2ray|vless)w=$(which v2ray) || w=/usr/bin/v2ray/v2ray;;
+		vmess|vless)w=$(which xray) || w=$(which v2ray);;
 		trojan)w=$(which trojan);;
 		naiveproxy)w=$(which naive);;
 	esac
@@ -119,7 +119,7 @@ curl_check(){
 	case $type in
 		ss|ssr)
 			$cmd -c $J >/dev/null 2>&1 &;;
-		v2ray|vless)
+		vmess|vless)
 			/usr/share/ssrplus/gen${type}config $1 tcp 0 $lport $ip > $J
 			sed -i 's/\\//g' $J
 			$cmd -c $J >/dev/null 2>&1 &;;

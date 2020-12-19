@@ -324,7 +324,7 @@ start_retcp(){
 			done
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` Main Node: $name $threads Threads Started!" >> $LOG;;
-		v2ray|vless)
+		vmess|vless)
 			if [ $SO_SERVER = $GLOBAL_SERVER ];then
 				port=$(uci_get_by_type socks5_proxy local_port 1080);socks5_start=1;V2=v2-ssr-retcp-ssr-socks5.json
 			else
@@ -379,7 +379,7 @@ start_reudp(){
 			$cmd -c $CONFIG_UDP_FILE -U >/dev/null 2>&1 &
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` UDP Relay: $name Started!" >> $LOG;;
-		v2ray|vless)
+		vmess|vless)
 			$BIN_DIR/gen${type}config $UDP_RELAY_SERVER udp $udp_local_port 0 $udp_server > /var/etc/v2-ssr-reudp.json
 			sed -i 's/\\//g' /var/etc/v2-ssr-reudp.json
 			$cmd -c /var/etc/v2-ssr-reudp.json >/dev/null 2>&1 &
@@ -420,7 +420,7 @@ start_renf(){
 			$cmd -c $CONFIG_NF_FILE >/dev/null 2>&1 &
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` NF Shunt   : $name Started!" >> $LOG;;
-		v2ray|vless)
+		vmess|vless)
 			$BIN_DIR/gen${type}config $NF_SERVER tcp $nf_local_port 0 $nf_ip > /var/etc/v2-ssr-nf.json
 			sed -i 's/\\//g' /var/etc/v2-ssr-nf.json
 			$cmd -c /var/etc/v2-ssr-nf.json >/dev/null 2>&1 &
@@ -717,7 +717,7 @@ start_local(){
 			$cmd -c $CONFIG_SOCK5_FILE -u >/dev/null 2>&1 &
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` Socks5 Node: $name Started!" >> $LOG;;
-		v2ray|vless)
+		vmess|vless)
 			$BIN_DIR/gen${type}config $SO_SERVER tcp 0 $socks5_port $socks5_ip > /var/etc/v2-ssr-socks5.json
 			sed -i 's/\\//g' /var/etc/v2-ssr-socks5.json
 			$cmd -c /var/etc/v2-ssr-socks5.json >/dev/null 2>&1 &
