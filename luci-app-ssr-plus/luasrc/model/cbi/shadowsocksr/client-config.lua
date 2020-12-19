@@ -412,7 +412,6 @@ o.default = "xtls-rprx-splice"
 o:depends("xtls", true)
 
 o = s:option(Value, "tls_host", translate("TLS Host"))
-o:depends("type", "trojan")
 o:depends("tls", true)
 o:depends("xtls", true)
 o.rmempty = true
@@ -429,7 +428,6 @@ o = s:option(Flag, "mux", translate("Mux"))
 o.rmempty = false
 o:depends("type", "vmess")
 o:depends({type = "vless", xtls = false})
-o:depends("type", "trojan")
 
 o = s:option(Value, "concurrency", translate("Concurrency"))
 o.datatype = "uinteger"
