@@ -319,8 +319,8 @@ msgstr "传输协议"
 msgid "allowInsecure"
 msgstr "允许不安全连接"
 
-msgid "Allowing insecure connection will not check the validity of the TLS certificate provided by the remote host"
-msgstr "允许不安全连接将不会检查远端主机所提供的 TLS 证书的有效性"
+msgid "If true, allowss insecure connection at TLS client, e.g., TLS server uses unverifiable certificates."
+msgstr "是否允许不安全连接。当选择时，将不会检查远端主机所提供的 TLS 证书的有效性。"
 
 msgid "Flow"
 msgstr "流控 (Flow)"
