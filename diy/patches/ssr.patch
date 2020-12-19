@@ -22,13 +22,3 @@
 +	/etc/init.d/shadowsocksr enable
  	/etc/uci-defaults/luci-ssr-plus && rm -f /etc/uci-defaults/luci-ssr-plus
  fi
-
---- a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-+++ b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-@@ -657,5 +657,5 @@
- 
- start_switch(){
--	if [ $(uci_get_by_type global enable_switch 0) = 1 -a $(uci_get_by_name $GLOBAL_SERVER switch_enable 0) = 1 -a -z "$switch_server" ];then
-+	if [ $(uci_get_by_type global enable_switch 0) = 1 -a -z "$switch_server" ];then
- 		service_start $BIN_DIR/ssr-switch start
- 		switch_enable=1
