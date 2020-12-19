@@ -330,7 +330,7 @@ start_retcp(){
 			else
 				port=0;V2=v2-ssr-retcp.json
 			fi
-			$BIN_DIR/gen${type}config $GLOBAL_SERVER tcp $local_port $port $server > /var/etc/$V2
+			$BIN_DIR/genv2config $GLOBAL_SERVER tcp $local_port $port $server > /var/etc/$V2
 			sed -i 's/\\//g' /var/etc/$V2
 			$cmd -c /var/etc/$V2 >/dev/null 2>&1 &
 			echo "`eval $DATE` Main Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG
