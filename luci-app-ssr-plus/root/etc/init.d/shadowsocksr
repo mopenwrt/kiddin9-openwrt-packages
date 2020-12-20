@@ -380,7 +380,7 @@ start_reudp(){
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` UDP Relay: $name Started!" >> $LOG;;
 		vmess|vless)
-			$BIN_DIR/gen${type}config $UDP_RELAY_SERVER udp $udp_local_port 0 $udp_server > /var/etc/v2-ssr-reudp.json
+			lua $BIN_DIR/genv2config $UDP_RELAY_SERVER udp $udp_local_port 0 $udp_server > /var/etc/v2-ssr-reudp.json
 			sed -i 's/\\//g' /var/etc/v2-ssr-reudp.json
 			$cmd -c /var/etc/v2-ssr-reudp.json >/dev/null 2>&1 &
 			echo "`eval $DATE` UDP Relay: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG;;
