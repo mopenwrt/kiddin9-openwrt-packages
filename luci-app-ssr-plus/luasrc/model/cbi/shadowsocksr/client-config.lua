@@ -407,10 +407,12 @@ o:depends({type = "vless", xtls = false})
 o:depends("type", "trojan")
 
 -- XTLS
+if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/xray/xray") then
 o = s:option(Flag, "xtls", translate("XTLS"))
 o.rmempty = true
 o.default = "0"
 o:depends({type = "vless", transport = "tcp", tls = false})
+end
 
 -- Flow
 o = s:option(Value, "vless_flow", translate("Flow"))
