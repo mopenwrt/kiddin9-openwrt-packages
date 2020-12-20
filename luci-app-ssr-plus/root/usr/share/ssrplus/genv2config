@@ -59,13 +59,13 @@ outbound = {
 	streamSettings = {
 		network = server.transport,
 		security = (server.xtls == '1') and "xtls" or (server.tls == '1') and "tls" or "none",
-		tlsSettings = (server.tls == '1' and (server.insecure == "1" or server.tls_host)) and {
+		tlsSettings = (server.tls == '1') and {
 			allowInsecure = (server.insecure == "1") and true or nil,
-			serverName=server.tls_host
+			serverName = (server.tls_host) and server.tls_host or server.server
 		} or nil,
-		xtlsSettings = (server.xtls == '1' and (server.insecure == "1" or server.tls_host)) and {
+		xtlsSettings = (server.xtls == '1') and {
 			allowInsecure = (server.insecure == "1") and true or nil,
-			serverName=server.tls_host
+			serverName = (server.tls_host) and server.tls_host or server.server
 		} or nil,
 		tcpSettings = (server.transport == "tcp" and server.tcp_guise == "http") and {
 			header = {
