@@ -8,8 +8,6 @@ local m, s, o, kcp_enable
 local shadowsocksr = "shadowsocksr"
 local sid = arg[1]
 local uuid = luci.sys.exec("cat /proc/sys/kernel/random/uuid")
-local A=luci.sys.call("which obfs-local >/dev/null")
-local B=luci.sys.call("which v2ray-plugin >/dev/null")
 
 local function isKcptun(file)
 if not nixio.fs.access(file, "rwx", "rx", "rx") then
@@ -132,10 +130,8 @@ o:value("ssr", translate("ShadowsocksR"))
 if nixio.fs.access("/usr/bin/ss-redir") then
 o:value("ss", translate("Shadowsocks New Version"))
 end
-if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/v2ray") then
 o:value("vmess", translate("Vmess"))
 o:value("vless", translate("Vless"))
-end
 if nixio.fs.access("/usr/sbin/trojan") then
 o:value("trojan", translate("Trojan"))
 end
@@ -207,17 +203,13 @@ o.rmempty = true
 o:depends("type", "ss")
 
 -- Shadowsocks Plugin
-if A==0 or B==0 then
 o=s:option(ListValue,"plugin",translate("Plugin"))
 o:value("",translate("Disable"))
-if A==0 then
+if luci.sys.call("which obfs-local >/dev/null")==0 then
 o:value("obfs-local",translate("simple-obfs"))
 end
-if B==0 then
 o:value("v2ray-plugin",translate("v2ray-plugin"))
-end
 o:depends("type","ss")
-end
 
 o=s:option(Value,"plugin_opts",translate("Plugin Opts"))
 o:depends("plugin","obfs-local")
