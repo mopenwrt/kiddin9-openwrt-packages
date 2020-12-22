@@ -11,5 +11,4 @@ EOF
 # remove LuCI cache
 rm -rf /tmp/luci-indexcache /tmp/luci-modulecache
 
-killall -HUP rpcd 2>/dev/null
 exit 0
