@@ -68,7 +68,7 @@ function storage_info()
 	root_total=$(awk '/\// {print $(NF-4)}' <<<${RootInfo})
 
 	# storage info
-	BootInfo=$(df -h /boot)
+	BootInfo=$(df -h /boot) 2>/dev/null
 	boot_usage=$(awk '/\// {print $(NF-1)}' <<<${BootInfo} | sed 's/%//g')
 	boot_total=$(awk '/\// {print $(NF-4)}' <<<${BootInfo})
 
