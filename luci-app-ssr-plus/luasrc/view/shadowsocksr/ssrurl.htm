@@ -83,7 +83,7 @@
 				if (obj) {
 					return obj;
 				} else {
-					alert("<%:Faltal on get option, please help in debug: %>" + opt);
+					alert("<%:Faltal on get option:%>" + opt);
 					return document.getElementById(this.fallback);
 				}
 			},
@@ -96,7 +96,7 @@
 						ret[i] = objs[i].value;
 					}
 				} else {
-					alert("<%:Faltal on get option, please help in debug: %>" + opt);
+					alert("<%:Faltal on get option:%>" + opt);
 				}
 				return ret;
 			},
@@ -197,9 +197,9 @@
 			textarea.select();
 			try {
 				document.execCommand("copy"); // Security exception may be thrown by some browsers.
-				s.innerHTML = "<font color='green'><%:Share to clipboard successfully, copy to batch mode still: %></font>";
+				s.innerHTML = "<font color='green'><%:Share to clipboard successfully%></font>";
 			} catch (ex) {
-				s.innerHTML = "<font color='red'><%:Unable share to clipboard, copy to batch mode still: %></font>";
+				s.innerHTML = "<font color='red'><%:Unable share to clipboard%></font>";
 			} finally {
 				document.body.removeChild(textarea);
 			}
@@ -220,7 +220,7 @@
 				if (obj) {
 					return obj;
 				} else {
-					alert('<%:Faltal on get option, please help in debug: %>' + opt);
+					alert('<%:Faltal on get option:%>' + opt);
 					return document.getElementById(this.fallback);
 				}
 			},
@@ -237,7 +237,7 @@
 						obj.value = val;
 					}
 				} else {
-					alert('<%:Faltal on set option, please help in debug: %>' + opt + ' = ' + val);
+					alert('<%:Faltal on set option:%>' + opt + ' = ' + val);
 				}
 			},
 			setlist: function(opt, vlist) {
@@ -250,7 +250,7 @@
 					}
 					alert("Manually input the option:\n" + opt + "s:\n[" + values + "]");
 				} else {
-					alert("<%:Faltal on set option, please help in debug: %>" + opt);
+					alert("<%:Faltal on set option:%>" + opt);
 				}
 			}
 		}
@@ -262,7 +262,7 @@
 		}
 		opt.base = 'cbid.shadowsocksr.' + sid
 		opt.fallback = urlname + '-dummy';
-		var ssrurl = prompt('<%:Paste Share URL Here%>', '');
+		var ssrurl = prompt('<%:Paste Share URL Here%> ssr:// | ss:// | vmess:// | trojan:// | trojan-go://', '');
 		if (ssrurl === null || ssrurl === "") {
 			s.innerHTML = "<font color='red'><%:User cancelled%></font>";
 			return false;
@@ -562,10 +562,10 @@
 				opt.get('kcp_guise').dispatchEvent(event);
 			}
 		} else {
-			s.innerHTML = "<font color='red'><%:Invalid Share URL Format%></font>: " + ssu[0];
+			s.innerHTML = "<font color='red'><%:Invalid Share URL Format:%></font>: " + ssu[0];
 			return false;
 		}
-		s.innerHTML = "<font color='green'><%:Import Finished %></font>";
+		s.innerHTML = "<font color='green'><%:Import Finished%></font>";
 		return false;
 	}
 

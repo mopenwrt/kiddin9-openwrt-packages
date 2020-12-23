@@ -570,3 +570,36 @@ msgstr "检查服务器"
 
 msgid "Log"
 msgstr "日志"
+
+msgid "From Share URL"
+msgstr "导入配置信息"
+
+msgid "Build Share URL"
+msgstr "导出配置信息"
+
+msgid "Import Finished"
+msgstr "导入完成："
+
+msgid "Not a supported scheme:"
+msgstr "不支持此格式："
+
+msgid "Invalid Share URL Format"
+msgstr "无效的配置链接"
+
+msgid "User cancelled"
+msgstr "用户已取消"
+
+msgid "Paste Share URL Here"
+msgstr "在此处粘贴配置链接"
+
+msgid "Unable share to clipboard"
+msgstr "复制配置链接到剪贴板失败"
+
+msgid "Share to clipboard successfully"
+msgstr "成功复制配置链接到剪贴板"
+
+msgid "Faltal on get option:"
+msgstr "获取选项错误："
+
+msgid "Faltal on set option:"
+msgstr "获取选项错误："

@@ -73,7 +73,7 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan \
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy \
@@ -83,7 +83,7 @@ define Package/$(PKG_NAME)
  	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
-	TITLE:=SS/SSR/V2Ray/Xray/Trojan/NaiveProxy/Socks5/Tun LuCI interface
+	TITLE:=SS/SSR/V2Ray/Xray/Trojan/Trojan-Go/NaiveProxy/Socks5/Tun LuCI interface
 	PKGARCH:=all
 	DEPENDS:=+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +smartdns +coreutils +coreutils-base64 +curl +tcping +chinadns-ng +lua +luci-compat \
 	+shadowsocks-libev-ss-redir +shadowsocks-libev-ss-local +shadowsocksr-libev-redir +shadowsocksr-libev-local \
@@ -96,6 +96,8 @@ define Package/$(PKG_NAME)
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Xray:xray \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan:trojan \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan:ipt2socks \
+	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go:trojan-go \
+	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go:ipt2socks \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy:naiveproxy \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun:kcptun-client \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy:redsocks2 \
