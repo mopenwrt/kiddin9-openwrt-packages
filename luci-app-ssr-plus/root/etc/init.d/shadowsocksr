@@ -70,7 +70,7 @@ f_bin(){
 		ssr)ret=$(which ssr-redir);;
 		ssr-local)ret=$(which ssr-local);;
 		ssr-server)ret=$(which ssr-server);;
-		vmess|vless)ret=$(which xray) || $(which v2ray);;
+		vmess|vless)ret=$(which xray) || ret=$(which v2ray);;
 		trojan)ret=$(which trojan);;
 		naiveproxy)ret=$(which naive);;
 		socks5|tun)ret=$(which redsocks2);;
