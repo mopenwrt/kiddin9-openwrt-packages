@@ -40,6 +40,10 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Xray
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan
 	bool "Include Trojan"
+	default n
+
+config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go
+	bool "Include Trojan Go"
 	default y
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy
