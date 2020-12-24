@@ -338,10 +338,10 @@ start_retcp(){
 				echo "`eval $DATE` Socks5 Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG
 			fi;;
 		trojan|trojan-go)
-			redir_tcp=$threads
 			$BIN_DIR/gentrojanconfig $GLOBAL_SERVER nat $local_port $server $threads > /var/etc/trojan-ssr-retcp.json
 			sed -i 's/\\//g' /var/etc/trojan-ssr-retcp.json
 			if [ $type = trojan ];then
+				redir_tcp=$threads
 				for i in $(seq 1 $threads);do
 					$cmd --config /var/etc/trojan-ssr-retcp.json >/dev/null 2>&1 &
 				done
