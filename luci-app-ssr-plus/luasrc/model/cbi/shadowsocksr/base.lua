@@ -1,7 +1,7 @@
 local m,s,o
 local ssr="shadowsocksr"
 
-m=Map(ssr,translate("ShadowSocksR Plus+ Settings"),translate("<h3>Support SS/SSR/V2RAY/TROJAN/NAIVEPROXY/SOCKS5/TUN etc.</h3>"))
+m=Map(ssr,translate("ShadowSocksR Plus+ Settings"),translate("<h3>Support SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc.</h3>"))
 m:section(SimpleSection).template="shadowsocksr/status"
 
 local server_table={}

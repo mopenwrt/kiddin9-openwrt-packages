@@ -4,8 +4,8 @@ msgstr "基本设置"
 msgid "ShadowSocksR Plus+ Settings"
 msgstr "ShadowSocksR Plus+ 设置"
 
-msgid "<h3>Support SS/SSR/V2RAY/TROJAN/NAIVEPROXY/SOCKS5/TUN etc.</h3>"
-msgstr "<h3>支持 SS/SSR/V2RAY/TROJAN/NAIVEPROXY/SOCKS5/TUN 等协议</h3>"
+msgid "<h3>Support SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc.</h3>"
+msgstr "<h3>支持 SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN 等协议</h3>"
 
 msgid "ShadowSocksR Plus+ RUNNING"
 msgstr "ShadowSocksR Plus+ 客户端运行中"
