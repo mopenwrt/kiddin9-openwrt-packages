@@ -150,7 +150,7 @@
 			url = encodeURIComponent(v_password.value) +
 				"@" + v_server.value +
 				":" + v_port.value + "/?";
-			if (opt.get("stream_security").value === "tls") {
+			if (opt.get("tls").value === "tls") {
 				url += "tls=1";
 				url += opt.query("sni", "tls_host");
 				url += opt.query("allowinsecure", "insecure");
@@ -158,7 +158,7 @@
 				url += "tls=0";
 			}
 			if (v_type === "trojan-go") {
-				if (opt.get("stream_security").value === "none" && opt.get("trojan_transport").value === "original") {
+				if (opt.get("tls").value === "none" && opt.get("trojan_transport").value === "original") {
 					var plugin = {};
 					plugin.type = opt.get("plugin_type").value;
 					if (plugin.type !== "plaintext") {
@@ -399,8 +399,8 @@
 				tls = queryParam.plugin === undefined;
 			}
 			if (tls === false) { alert("TODO: plugin params for trojan-go."); }
-			opt.set('stream_security', tls ? "tls" : "none");
-			opt.get('stream_security').dispatchEvent(event);
+			opt.set('tls', tls ? "tls" : "none");
+			opt.get('tls').dispatchEvent(event);
 			if (tls) {
 				opt.set('tls_host', queryParam.peer || queryParam.sni || '');
 				opt.set('insecure', queryParam.allowinsecure === '1');
@@ -457,8 +457,8 @@
 			opt.set('server', m.hostname);
 			opt.set('server_port', m.port || "443");
 			opt.set('password', decodeURIComponent(password));
-			opt.set('stream_security', (queryParam.tls && queryParam.tls === '1') ? 'tls' : 'none');
-			opt.get('stream_security').dispatchEvent(event);
+			opt.set('tls', (queryParam.tls && queryParam.tls === '1') ? 'tls' : 'none');
+			opt.get('tls').dispatchEvent(event);
 			var plugin = queryParam.plugin !== undefined;
 			if (plugin) {
 				opt.set('trojan_transport', 'original');
@@ -476,8 +476,8 @@
 					alert(queryParam.plugin);
 			}
 			var tls = !plugin && queryParam.tls === '1';
-			opt.set('stream_security', tls ? "tls" : "none");
-			opt.get('stream_security').dispatchEvent(event);
+			opt.set('tls', tls ? "tls" : "none");
+			opt.get('tls').dispatchEvent(event);
 			if (tls) {
 				opt.set('tls_host', queryParam.peer || queryParam.sni || '');
 				opt.set('insecure', queryParam.allowinsecure === '1');

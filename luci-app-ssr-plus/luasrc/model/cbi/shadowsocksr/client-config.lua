@@ -156,7 +156,7 @@ end
 if nixio.fs.access("/usr/sbin/trojan") then
 o:value("trojan", translate("Trojan"))
 end
-if nixio.fs.access("/usr/sbin/trojan-go") then
+if nixio.fs.access("/usr/bin/trojan-go") then
 o:value("trojan-go", translate("Trojan-Go"))
 end
 if nixio.fs.access("/usr/bin/naive") then
@@ -298,6 +298,17 @@ o:value("quic", "QUIC")
 o.rmempty = true
 o:depends("type", "vmess")
 o:depends("type", "vless")
+
+-- For Trojan-Go
+
+
+o = s:option(ListValue, "trojan_transport", translate("Transport"))
+o:value("original", "Original")
+o:value("ws", "WebSocket")
+o:value("h2", "HTTP/2")
+o:value("h2+ws", "HTTP/2 & WebSocket")
+o.default = "ws"
+o:depends("type", "trojan-go")
 
 -- [[ TCP部分 ]]--
 
@@ -459,6 +470,11 @@ o:depends("tls", true)
 o:depends("xtls", true)
 o.rmempty = true
 
+o = s:option(ListValue, "fingerprint", translate("Finger Print"))
+for _, v in ipairs(force_fp) do o:value(v) end
+o:depends({ type = "trojan-go", tls = "tls" })
+o.default = "firefox"
+
 -- [[ allowInsecure ]]--
 o = s:option(Flag, "insecure", translate("allowInsecure"))
 o.rmempty = false
@@ -466,27 +482,12 @@ o:depends("tls", true)
 o:depends("xtls", true)
 o.description = translate("If true, allowss insecure connection at TLS client, e.g., TLS server uses unverifiable certificates.")
 
--- [[ Mux ]]--
-o = s:option(Flag, "mux", translate("Mux"))
-o.rmempty = false
-o:depends("type", "vmess")
-o:depends({type = "vless", xtls = false})
-o:depends("type", "trojan-go")
-
-o = s:option(Value, "concurrency", translate("Concurrency"))
-o.datatype = "uinteger"
-o.rmempty = true
-o.default = "8"
-o:depends("mux", "1")
-
 -- [[ Cert ]]--
 o = s:option(Flag, "certificate", translate("Self-signed Certificate"))
 o.rmempty = true
 o.default = "0"
-o:depends("type", "trojan")
-o:depends("type", "trojan-go")
-o:depends("type", "vmess")
-o:depends("type", "vless")
+o:depends({ tls = true, insecure = false })
+o:depends({ xtls = true, insecure = false })
 o.description = translate("If you have a self-signed certificate,please check the box")
 
 o = s:option(DummyValue, "upload", translate("Upload"))
@@ -522,6 +523,35 @@ o:depends("certificate", 1)
 o:value("/etc/ssl/private/")
 o.description = translate("Please confirm the current certificate path")
 o.default = "/etc/ssl/private/"
+
+o = s:option(Flag, "ss_aead", translate("Shadowsocks2"))
+o:depends("type", "trojan-go")
+o.default = "0"
+o.rmempty = false
+
+o = s:option(ListValue, "ss_aead_method", translate("Encrypt Method"))
+for _, v in ipairs(encrypt_methods_ss_aead) do o:value(v, v) end
+o.default = "aead_aes_128_gcm"
+o.rmempty = false
+o:depends("ss_aead", "1")
+
+o = s:option(Value, "ss_aead_pwd", translate("Password"))
+o.password = true
+o.rmempty = true
+o:depends("ss_aead", "1")
+
+-- [[ Mux ]]--
+o = s:option(Flag, "mux", translate("Mux"))
+o.rmempty = false
+o:depends("type", "vmess")
+o:depends({type = "vless", xtls = false})
+o:depends("type", "trojan-go")
+
+o = s:option(Value, "concurrency", translate("Concurrency"))
+o.datatype = "uinteger"
+o.rmempty = true
+o.default = "8"
+o:depends("mux", "1")
 
 o = s:option(Flag, "fast_open", translate("TCP Fast Open"))
 o.rmempty = true
@@ -576,35 +606,5 @@ o.default = "--nocomp"
 o:depends("type", "ssr")
 o:depends("type", "ss")
 end
-
--- For Trojan-Go
-o = s:option(ListValue, "fingerprint", translate("Finger Print"))
-for _, v in ipairs(force_fp) do o:value(v) end
-o:depends({ type = "trojan-go", stream_security = "tls" })
-o.default = "firefox"
-
-o = s:option(ListValue, "trojan_transport", translate("Transport"))
-o:value("original", "Original")
-o:value("ws", "WebSocket")
-o:value("h2", "HTTP/2")
-o:value("h2+ws", "HTTP/2 & WebSocket")
-o.default = "ws"
-o:depends("type", "trojan-go")
-
-o = s:option(Flag, "ss_aead", translate("Shadowsocks2"))
-o:depends("type", "trojan-go")
-o.default = "0"
-o.rmempty = false
-
-o = s:option(ListValue, "ss_aead_method", translate("Encrypt Method"))
-for _, v in ipairs(encrypt_methods_ss_aead) do o:value(v, v) end
-o.default = "aead_aes_128_gcm"
-o.rmempty = false
-o:depends("ss_aead", "1")
-
-o = s:option(Value, "ss_aead_pwd", translate("Password"))
-o.password = true
-o.rmempty = true
-o:depends("ss_aead", "1")
 
 return m
