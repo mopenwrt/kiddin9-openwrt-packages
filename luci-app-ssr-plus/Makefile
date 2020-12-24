@@ -145,6 +145,7 @@ endef
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
+	sed -i 's/vmess_id/uuid/g' /etc/config/shadowsocksr
 	/etc/init.d/shadowsocksr enable
 	/etc/uci-defaults/luci-ssr-plus && rm -f /etc/uci-defaults/luci-ssr-plus
 fi
