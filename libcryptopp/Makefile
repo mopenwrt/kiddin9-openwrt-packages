@@ -17,10 +17,10 @@ PKG_HASH:=skip
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
-CMAKE_INSTALL:=1
+PKG_FIXUP:=autoreconf
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
 
 define Package/libcryptopp
   SECTION:=libs
@@ -36,15 +36,13 @@ define Package/package/libcryptopp
   abstract base classes.
 endef
 
-CMAKE_OPTIONS += -DCMAKE_CXX_FLAGS="$(FPIC)"
-CMAKE_OPTIONS += -DBUILD_STATIC=ON
-CMAKE_OPTIONS += -DBUILD_SHARED=ON
-
 UNPACK_CMD=cd $(PKG_BUILD_DIR) && unzip "$(DL_DIR)/$(PKG_SOURCE)"
+
 define Build/Prepare
 	$(Build/Prepare/Default)
 	cd $(PKG_BUILD_DIR) && rm -f GNUmakefile GNUmakefile-cross
 endef
+
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/cryptopp
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/cryptopp/* $(1)/usr/include/cryptopp/
