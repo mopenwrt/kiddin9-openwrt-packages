@@ -269,8 +269,8 @@ o.default = 16
 o.rmempty = true
 o:depends("type", "vmess")
 
--- VmessId
-o = s:option(Value, "vmess_id", translate("Vmess/VLESS ID (UUID)"))
+-- UUID
+o = s:option(Value, "uuid", translate("Vmess/VLESS ID (UUID)"))
 o.rmempty = true
 o.default = uuid
 o:depends("type", "vmess")

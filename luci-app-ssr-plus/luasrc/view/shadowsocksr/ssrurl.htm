@@ -1,4 +1,7 @@
 <%+cbi/valueheader%>
+<%
+local dsp = require "luci.dispatcher"
+-%>
 <script type="text/javascript">//<![CDATA[
 	function padright(str, cnt, pad) {
 		return str + Array(cnt + 1).join(pad);
@@ -72,19 +75,23 @@
 		r.href = r.origin + r.pathname + r.search + r.hash;
 		return m && r;
 	}
-	
+
 	function buildUrl(btn, urlname, sid) {
 		var opt = {
 			base: "cbid.shadowsocksr",
+			client : true,
 			fallback: "dummy",
 			get: function(opt) {
 				var id = this.base + "." + opt;
-				var obj = document.getElementsByName(id)[0] || document.getElementsByClassName(id)[0] || document.getElementById(id);
+				var obj = document.getElementsByName(id)[0] || document.getElementsByClassName(id)[0] || document.getElementById(id)
 				if (obj) {
 					return obj;
 				} else {
-					alert("<%:Faltal on get option:%>" + opt);
-					return document.getElementById(this.fallback);
+					obj = document.getElementById(this.fallback);
+					if  (opt === "server") obj.value = "0.0.0.0";
+					else if (opt === "mux") obj.value = "0";
+					if (this.client || (opt !== "server" && opt !== "mux")) alert("<%:Faltal on get option: %>" + opt);
+					return obj;
 				}
 			},
 			getlist: function(opt) {
@@ -96,7 +103,7 @@
 						ret[i] = objs[i].value;
 					}
 				} else {
-					alert("<%:Faltal on get option:%>" + opt);
+					alert("<%:Faltal on get option: %>" + opt);
 				}
 				return ret;
 			},
@@ -119,7 +126,8 @@
 			alert("Never");
 			return false;
 		}
-		opt.base = "cbid.shadowsocksr." + sid;
+		opt.base = 'cbid.shadowsocksr.' + sid;
+		opt.client = urlname.indexOf("server") === -1;
 		opt.fallback = urlname + "-dummy";
 		var v_type = opt.get("type").value;
 		var v_alias = opt.get("alias");
@@ -141,16 +149,16 @@
 				b64encsafe(v_password.value) +
 				"/?obfsparam=" + b64encsafe(v_obfs_param.value) +
 				"&protoparam=" + b64encsafe(v_protocol_param.value) +
-				"&remarks=" + b64encutf8safe(v_alias.value);
+				"&alias=" + b64encutf8safe(v_alias.value);
 			url = b64encsafe(ssr_str);
 		} else if (v_type === "trojan" || v_type === "trojan-go") {
-			var v_password = opt.get("password");
+			var v_password = opt.get(!opt.client && v_type === "trojan-go"  ? "passwords" : "password");
 			var v_server = opt.get("server");
 			var v_port = opt.get("server_port");
 			url = encodeURIComponent(v_password.value) +
 				"@" + v_server.value +
 				":" + v_port.value + "/?";
-			if (opt.get("tls").value === "tls") {
+			if (opt.get("tls").checked) {
 				url += "tls=1";
 				url += opt.query("sni", "tls_host");
 				url += opt.query("allowinsecure", "insecure");
@@ -158,7 +166,7 @@
 				url += "tls=0";
 			}
 			if (v_type === "trojan-go") {
-				if (opt.get("tls").value === "none" && opt.get("trojan_transport").value === "original") {
+				if (!opt.get("tls").checked && opt.get("trojan_transport").value === "original") {
 					var plugin = {};
 					plugin.type = opt.get("plugin_type").value;
 					if (plugin.type !== "plaintext") {
@@ -190,16 +198,17 @@
 			url += "#" + encodeURI(v_alias.value);
 		}
 		if (url) {
+			url = v_type.toLowerCase() + "://" + url;
 			var textarea = document.createElement("textarea");
-			textarea.textContent =  v_type + "://" + url
+			textarea.textContent =  url;
 			textarea.style.position = "fixed";
 			document.body.appendChild(textarea);
 			textarea.select();
 			try {
 				document.execCommand("copy"); // Security exception may be thrown by some browsers.
-				s.innerHTML = "<font color='green'><%:Share to clipboard successfully%></font>";
+				s.innerHTML = "<font color='green'><%:Share to clipboard successfully %></font>";
 			} catch (ex) {
-				s.innerHTML = "<font color='red'><%:Unable share to clipboard%></font>";
+				s.innerHTML = "<font color='red'><%:Unable share to clipboard %></font>";
 			} finally {
 				document.body.removeChild(textarea);
 			}
@@ -212,6 +221,7 @@
 	function fromUrl(btn, urlname, sid) {
 		var opt = {
 			base: 'cbid.shadowsocksr',
+			client : true,
 			fallback: 'dummy',
 			get: function(opt) {
 				var obj;
@@ -220,7 +230,7 @@
 				if (obj) {
 					return obj;
 				} else {
-					alert('<%:Faltal on get option:%>' + opt);
+					if (this.client || (opt !== "server" && opt !== "mux")) alert('<%:Faltal on get option: %>' + opt);
 					return document.getElementById(this.fallback);
 				}
 			},
@@ -237,7 +247,7 @@
 						obj.value = val;
 					}
 				} else {
-					alert('<%:Faltal on set option:%>' + opt + ' = ' + val);
+					alert('<%:Faltal on set option: %>' + opt + ' = ' + val);
 				}
 			},
 			setlist: function(opt, vlist) {
@@ -250,7 +260,7 @@
 					}
 					alert("Manually input the option:\n" + opt + "s:\n[" + values + "]");
 				} else {
-					alert("<%:Faltal on set option:%>" + opt);
+					alert("<%:Faltal on set option: %>" + opt);
 				}
 			}
 		}
@@ -260,7 +270,8 @@
 			alert("Never");
 			return false;
 		}
-		opt.base = 'cbid.shadowsocksr.' + sid
+		opt.base = 'cbid.shadowsocksr.' + sid;
+		opt.client = urlname.indexOf("server") === -1;
 		opt.fallback = urlname + '-dummy';
 		var ssrurl = prompt('<%:Paste Share URL Here%> ssr:// | ss:// | vmess:// | trojan:// | trojan-go://', '');
 		if (ssrurl === null || ssrurl === "") {
@@ -304,7 +315,7 @@
 			opt.set('password', b64decsafe(ssm[6]));
 			opt.set('obfs_param', dictvalue(pdict, 'obfsparam'));
 			opt.set('protocol_param', dictvalue(pdict, 'protoparam'));
-			var rem = pdict['remarks'];
+			var rem = pdict['alias'];
 			if (typeof(rem) !== 'undefined' && rem !== '' && rem.length > 0)
 				opt.set('alias', b64decutf8safe(rem));
 		} else if (ssu[0] === "ss") {
@@ -393,13 +404,13 @@
 			opt.get('type').dispatchEvent(event);
 			opt.set('server', m.hostname);
 			opt.set('server_port', m.port || "443");
-			opt.set('password', decodeURIComponent(password));
+			opt.set(!opt.client && stype === "trojan-go" ? 'passwords' : 'password', decodeURIComponent(password));
 			var tls = true;
 			if (stype === "trojan-go") {
 				tls = queryParam.plugin === undefined;
 			}
 			if (tls === false) { alert("TODO: plugin params for trojan-go."); }
-			opt.set('tls', tls ? "tls" : "none");
+			opt.set('tls', tls);
 			opt.get('tls').dispatchEvent(event);
 			if (tls) {
 				opt.set('tls_host', queryParam.peer || queryParam.sni || '');
@@ -456,8 +467,8 @@
 			opt.get('type').dispatchEvent(event);
 			opt.set('server', m.hostname);
 			opt.set('server_port', m.port || "443");
-			opt.set('password', decodeURIComponent(password));
-			opt.set('tls', (queryParam.tls && queryParam.tls === '1') ? 'tls' : 'none');
+			opt.set(opt.client ? 'password' : 'passwords', decodeURIComponent(password));
+			opt.set('tls', (queryParam.tls && queryParam.tls === '1'));
 			opt.get('tls').dispatchEvent(event);
 			var plugin = queryParam.plugin !== undefined;
 			if (plugin) {
@@ -476,7 +487,7 @@
 					alert(queryParam.plugin);
 			}
 			var tls = !plugin && queryParam.tls === '1';
-			opt.set('tls', tls ? "tls" : "none");
+			opt.set('tls', tls);
 			opt.get('tls').dispatchEvent(event);
 			if (tls) {
 				opt.set('tls_host', queryParam.peer || queryParam.sni || '');
@@ -529,12 +540,13 @@
 				param = sstr.substr(ploc + 2);
 			}
 			var ssm = JSON.parse(sstr);
+			console.log(ssm);
 			opt.set('alias', ssm.ps);
 			opt.set('server', ssm.add);
 			opt.set('server_port', ssm.port);
 			opt.set('alter_id', ssm.aid);
-			opt.set('vmess_id', ssm.id);
-			opt.set('tls', ssm.tls === "tls" ? "tls" : "none");
+			opt.set('uuid', ssm.id);
+			opt.set('tls', ssm.tls === "tls");
 			opt.get('tls').dispatchEvent(event);
 			if (ssm.tls === "tls") {
 				opt.set('tls_host', ssm.host);
@@ -562,10 +574,10 @@
 				opt.get('kcp_guise').dispatchEvent(event);
 			}
 		} else {
-			s.innerHTML = "<font color='red'><%:Invalid Share URL Format:%></font>: " + ssu[0];
+			s.innerHTML = "<font color='red'><%:Invalid Share URL Format%></font>: " + ssu[0];
 			return false;
 		}
-		s.innerHTML = "<font color='green'><%:Import Finished%></font>";
+		s.innerHTML = "<font color='green'><%:Import Finished %></font>";
 		return false;
 	}
 
