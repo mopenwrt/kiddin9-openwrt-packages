@@ -160,7 +160,11 @@ local dsp = require "luci.dispatcher"
 				":" + v_port.value + "/?";
 			if (opt.get("tls").checked) {
 				url += "tls=1";
-				url += opt.query("sni", "tls_host");
+				if (opt.query("sni", "tls_host") == "&sni=") {
+					url += opt.query("sni", "server");
+				} else {
+					url += opt.query("sni", "tls_host");
+				}
 				url += opt.query("allowinsecure", "insecure");
 			} else if (v_type === "trojan-go") {
 				url += "tls=0";
