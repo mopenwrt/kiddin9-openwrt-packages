@@ -68,10 +68,11 @@ function storage_info()
 	root_total=$(awk '/\// {print $(NF-4)}' <<<${RootInfo})
 
 	# storage info
+	[ -d /boot ] && {
 	BootInfo=$(df -h /boot) 2>/dev/null
 	boot_usage=$(awk '/\// {print $(NF-1)}' <<<${BootInfo} | sed 's/%//g')
 	boot_total=$(awk '/\// {print $(NF-4)}' <<<${BootInfo})
-
+	}
 	StorageInfo=$(df -h $MEDIA_STORAGE 2>/dev/null | grep $MEDIA_STORAGE)
 	if [[ -n "${StorageInfo}" && ${RootInfo} != *$MEDIA_STORAGE* ]]; then
 		media_usage=$(awk '/\// {print $(NF-1)}' <<<${StorageInfo} | sed 's/%//g')
