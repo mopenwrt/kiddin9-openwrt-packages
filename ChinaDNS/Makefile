@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/lrinQVQ/openwrt-chinadns/releases/download/v$(PKG_VERSION)
-PKG_MD5SUM:=5c7aa6a89a969a1dd6469b4808b0759b
+PKG_HASH:=skip
 
 PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE

@@ -13,7 +13,7 @@ PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/socks-relay
-PKG_MD5SUM:=8121ff3d1b741de95dd6eacc5ad5811c
+PKG_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 

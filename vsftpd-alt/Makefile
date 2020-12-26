@@ -13,7 +13,7 @@ PKG_RELEASE:=7
 
 PKG_SOURCE:=vsftpd-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://security.appspot.com/downloads/
-PKG_MD5SUM:=da119d084bd3f98664636ea05b5bb398
+PKG_HASH:=skip
 PKG_LICENSE:=GPLv2
 
 BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
