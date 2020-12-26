@@ -1,4 +1,10 @@
 module("luci.controller.bypass",package.seeall)
+local http = require "luci.http"
+local api = require "luci.model.cbi.bypass.api"
+local kcptun = require "luci.model.cbi.bypass.kcptun"
+local xray = require "luci.model.cbi.bypass.xray"
+local v2ray = require "luci.model.cbi.bypass.v2ray"
+local trojan_go = require "luci.model.cbi.bypass.trojan_go"
 function index()
 	if not nixio.fs.access("/etc/config/bypass") then
 		return
@@ -11,6 +17,7 @@ function index()
 	entry({"admin","services","bypass","control"},cbi("bypass/control"),_("Access Control"),3).leaf=true
 	entry({"admin","services","bypass","domain"},form("bypass/domain"),_("Domain List"),4).leaf=true
 	entry({"admin","services","bypass","advanced"},cbi("bypass/advanced"),_("Advanced Settings"),5).leaf=true
+	entry({"admin", "services", "bypass", "app_update"}, cbi("bypass/app_update"), _("App Update"), 6).leaf = true
 	if luci.sys.call("which ssr-server >/dev/null")==0 or luci.sys.call("which ss-server >/dev/null")==0 or luci.sys.call("which microsocks >/dev/null")==0 then
 	      entry({"admin","services","bypass","server"},arcombine(cbi("bypass/server"),cbi("bypass/server-config")),_("SSR Server"),6).leaf=true
 	end
@@ -22,6 +29,14 @@ function index()
 	entry({"admin","services","bypass","checkport"},call("check_port"))
 	entry({"admin","services","bypass","run"},call("act_status"))
 	entry({"admin","services","bypass","ping"},call("act_ping"))
+	entry({"admin", "services", bypass, "kcptun_check"}, call("kcptun_check")).leaf = true
+	entry({"admin", "services", bypass, "kcptun_update"}, call("kcptun_update")).leaf = true
+	entry({"admin", "services", bypass, "xray_check"}, call("xray_check")).leaf = true
+	entry({"admin", "services", bypass, "xray_update"}, call("xray_update")).leaf = true
+	entry({"admin", "services", bypass, "v2ray_check"}, call("v2ray_check")).leaf = true
+	entry({"admin", "services", bypass, "v2ray_update"}, call("v2ray_update")).leaf = true
+	entry({"admin", "services", bypass, "trojan_go_check"}, call("trojan_go_check")).leaf = true
+	entry({"admin", "services", bypass, "trojan_go_update"}, call("trojan_go_update")).leaf = true
 end
 
 function subscribe()
@@ -130,7 +145,7 @@ function refresh_data()
 end
 
 function check_port()
-	local retstring="<br/><br/>"
+	local retstring="<br/>"
 	local s
 	local server_name
 	local iret=1
@@ -140,6 +155,7 @@ function check_port()
 		elseif s.server and s.server_port then
 			server_name="%s:%s"%{s.server,s.server_port}
 		end
+		luci.sys.exec(s.server..">>/a")
 		local dp=luci.sys.exec("netstat -unl | grep 5336 >/dev/null && echo -n 5336 || echo -n 53")
 		local ip=luci.sys.exec("echo "..s.server.." | grep -E \"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$\" || \\\
 		nslookup "..s.server.." 127.0.0.1#"..dp.." 2>/dev/null | grep Address | awk -F' ' '{print$NF}' | grep -E \"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$\" | sed -n 1p")
@@ -161,4 +177,80 @@ function check_port()
 	end)
 	luci.http.prepare_content("application/json")
 	luci.http.write_json({ret=retstring})
+end
+
+function kcptun_check()
+	local json = kcptun.to_check("")
+	http_write_json(json)
+end
+
+function kcptun_update()
+	local json = nil
+	local task = http.formvalue("task")
+	if task == "extract" then
+		json = kcptun.to_extract(http.formvalue("file"), http.formvalue("subfix"))
+	elseif task == "move" then
+		json = kcptun.to_move(http.formvalue("file"))
+	else
+		json = kcptun.to_download(http.formvalue("url"))
+	end
+
+	http_write_json(json)
+end
+
+function xray_check()
+	local json = xray.to_check("")
+	http_write_json(json)
+end
+
+function xray_update()
+	local json = nil
+	local task = http.formvalue("task")
+	if task == "extract" then
+		json = xray.to_extract(http.formvalue("file"), http.formvalue("subfix"))
+	elseif task == "move" then
+		json = xray.to_move(http.formvalue("file"))
+	else
+		json = xray.to_download(http.formvalue("url"))
+	end
+
+	http_write_json(json)
+end
+
+function v2ray_check()
+	local json = v2ray.to_check("")
+	http_write_json(json)
+end
+
+function v2ray_update()
+	local json = nil
+	local task = http.formvalue("task")
+	if task == "extract" then
+		json = v2ray.to_extract(http.formvalue("file"), http.formvalue("subfix"))
+	elseif task == "move" then
+		json = v2ray.to_move(http.formvalue("file"))
+	else
+		json = v2ray.to_download(http.formvalue("url"))
+	end
+
+	http_write_json(json)
+end
+
+function trojan_go_check()
+	local json = trojan_go.to_check("")
+	http_write_json(json)
+end
+
+function trojan_go_update()
+	local json = nil
+	local task = http.formvalue("task")
+	if task == "extract" then
+		json = trojan_go.to_extract(http.formvalue("file"), http.formvalue("subfix"))
+	elseif task == "move" then
+		json = trojan_go.to_move(http.formvalue("file"))
+	else
+		json = trojan_go.to_download(http.formvalue("url"))
+	end
+
+	http_write_json(json)
 end

@@ -114,7 +114,7 @@ o:value("208.67.222.222,208.67.220.220","208.67.222.222,208.67.220.220 (OpenDNS)
 for _,key in pairs(key_table) do o:depends({nf_server=key,dns_mode=1}) end
 
 o=s:option(ListValue,"dns_mode_l",translate("Domestic Resolve Dns Mode"),
-translate("If DoH resolution is not normal,use UDP mode and select ISP DNS"))
+translate("use UDP mode and select ISP DNS"))
 o:value("0",translate("Use SmartDNS DoH query"))
 o:value("1",translate("Use SmartDNS UDP query"))
 
