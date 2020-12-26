@@ -1,4 +1,4 @@
-module("luci.model.cbi.gpsysupgrade.api.api", package.seeall)
+module("luci.model.cbi.gpsysupgrade.api", package.seeall)
 local fs = require "nixio.fs"
 local sys = require "luci.sys"
 local uci = require"luci.model.uci".cursor()

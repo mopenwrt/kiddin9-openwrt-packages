@@ -29,14 +29,14 @@ function index()
 	entry({"admin","services","bypass","checkport"},call("check_port"))
 	entry({"admin","services","bypass","run"},call("act_status"))
 	entry({"admin","services","bypass","ping"},call("act_ping"))
-	entry({"admin", "services", bypass, "kcptun_check"}, call("kcptun_check")).leaf = true
-	entry({"admin", "services", bypass, "kcptun_update"}, call("kcptun_update")).leaf = true
-	entry({"admin", "services", bypass, "xray_check"}, call("xray_check")).leaf = true
-	entry({"admin", "services", bypass, "xray_update"}, call("xray_update")).leaf = true
-	entry({"admin", "services", bypass, "v2ray_check"}, call("v2ray_check")).leaf = true
-	entry({"admin", "services", bypass, "v2ray_update"}, call("v2ray_update")).leaf = true
-	entry({"admin", "services", bypass, "trojan_go_check"}, call("trojan_go_check")).leaf = true
-	entry({"admin", "services", bypass, "trojan_go_update"}, call("trojan_go_update")).leaf = true
+	entry({"admin", "services", "bypass", "kcptun_check"}, call("kcptun_check")).leaf = true
+	entry({"admin", "services", "bypass", "kcptun_update"}, call("kcptun_update")).leaf = true
+	entry({"admin", "services", "bypass", "xray_check"}, call("xray_check")).leaf = true
+	entry({"admin", "services", "bypass", "xray_update"}, call("xray_update")).leaf = true
+	entry({"admin", "services", "bypass", "v2ray_check"}, call("v2ray_check")).leaf = true
+	entry({"admin", "services", "bypass", "v2ray_update"}, call("v2ray_update")).leaf = true
+	entry({"admin", "services", "bypass", "trojan_go_check"}, call("trojan_go_check")).leaf = true
+	entry({"admin", "services", "bypass", "trojan_go_update"}, call("trojan_go_update")).leaf = true
 end
 
 function subscribe()
@@ -177,6 +177,11 @@ function check_port()
 	end)
 	luci.http.prepare_content("application/json")
 	luci.http.write_json({ret=retstring})
+end
+
+local function http_write_json(content)
+	http.prepare_content("application/json")
+	http.write_json(content or {code = 1})
 end
 
 function kcptun_check()

@@ -4,7 +4,7 @@ local appname = "gpsysupgrade"
 local ucic = luci.model.uci.cursor()
 local http = require "luci.http"
 local util = require "luci.util"
-local sysupgrade = require "luci.model.cbi.gpsysupgrade.api.sysupgrade"
+local sysupgrade = require "luci.model.cbi.gpsysupgrade.sysupgrade"
 
 function index()
 	appname = "gpsysupgrade"
