@@ -993,10 +993,8 @@ start() {
 	fi
 
 	if rules; then
-
 		if start_retcp; then
 			[ -n "$UDP_RELAY_SERVER" ] && start_reudp
-
 			[ -n "$NF" ] && start_renf
 			gen_dns
 			start_switch
@@ -1010,7 +1008,6 @@ start() {
 }
 
 stop() {
-
 	kill -9 $(ps -w | grep ssr-rules | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep gfw.b64 | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep $BIN_DIR/checknetwork | grep -v grep | awk '{print$1}') 2>/dev/null
@@ -1043,16 +1040,16 @@ restart() {
 	STATUS=N
 	stop
 	if [ -s $DNS_T ]; then
-		cat >$DNS_T <<EOF
-speed-check-mode none
-cache-persist no
-cache-size 0
-log-level fatal
-log-file $LOG
-bind :5335
-bind :5336
-bind :5337
-EOF
+		cat <<-EOF >$DNS_T
+			speed-check-mode none
+			cache-persist no
+			cache-size 0
+			log-level fatal
+			log-file $LOG
+			bind :5335
+			bind :5336
+			bind :5337
+		EOF
 		if [ $dns_mode_l = 0 -a $(uci_get_by_type global isp_dns 0) = 0 ]; then
 			dns_l="223.5.5.5 223.6.6.6"
 		else
