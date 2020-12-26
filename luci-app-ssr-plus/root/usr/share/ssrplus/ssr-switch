@@ -121,10 +121,10 @@ curl_check(){
 		ss|ssr)
 			$cmd -c $J >/dev/null 2>&1 &;;
 		vmess|vless)
-			/usr/share/ssrplus/gen${type}config $1 tcp 0 $lport $ip > $J
+			/usr/share/ssrplus/genv2config $1 tcp 0 $lport $ip > $J
 			sed -i 's/\\//g' $J
 			$cmd -c $J >/dev/null 2>&1 &;;
-		trojan)
+		trojan|trojan-go)
 			/usr/share/ssrplus/gentrojanconfig $1 client $lport $ip > $J
 			sed -i 's/\\//g' $J
 			$cmd -c $J >/dev/null 2>&1 &;;
