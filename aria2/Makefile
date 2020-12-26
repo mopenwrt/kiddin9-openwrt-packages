@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aria2
-PKG_VERSION:=1.35.0
+PKG_VERSION:=2.35.0
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -117,4 +117,5 @@ define Package/aria2/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/aria2.conf/* $(1)/usr/share/aria2/
 endef
 
+$(eval $(call Download,aria2.conf))
 $(eval $(call BuildPackage,aria2))

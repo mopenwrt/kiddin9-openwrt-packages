@@ -84,7 +84,7 @@ gen_config_file(){
 		tcp)[ $kcp_enable = 1 ] && hostip=127.0.0.1 || hostip=$server;PROTO=redir;lport=$local_port;fname="retcp";;
 		udp)hostip=$udp_server;PROTO=redir;lport=$udp_local_port;fname="reudp";;
 		nf)hostip=$nf_ip;lport=$nf_local_port;fname="nf";;
-		socks)hostip=$socks5_ip;lport=$socks5_port;PROTO=socks;fname="socks";;
+		socks)hostip=$socks5_ip;lport=$socks5_port;PROTO=socks;fname="socks5";;
 	esac
 	[ $(uci_get_by_name $1 fast_open 0) = 1 ] && fast=true || fast=false
 	type=$(uci_get_by_name $1 type)
