@@ -4,10 +4,6 @@ STOP=15
 SERVICE_DAEMONIZE=1
 NAME=shadowsocksr
 FWI=$(uci -q get firewall.$NAME.path) || FWI=/var/etc/shadowsocksr.include
-CONFIG_FILE=/var/etc/ssr-retcp.json
-CONFIG_UDP_FILE=/var/etc/ssr-reudp.json
-CONFIG_NF_FILE=/var/etc/ssr-nf.json
-CONFIG_SOCK5_FILE=/var/etc/ssr-socks5.json
 CRON_FILE=/etc/crontabs/root
 LOCK=/var/lock/ssr-plusboot.lock
 SDNS=/var/etc/smartdns
@@ -27,9 +23,6 @@ chinadns_flag=0
 local_enable=0
 switch_enable=0
 switch_server=$1
-trojan_udp=0
-ip_port=0
-trojan_udp_port=0
 server_count=0
 STATUS=Y
 
@@ -50,7 +43,6 @@ SO_SERVER=$(uci_get_by_type socks5_proxy server 0)
 dns_mode_l=$(uci_get_by_type global dns_mode_l 0)
 threads=$(uci_get_by_type global threads 0)
 [ $threads = 0 ] && threads=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
-
 firstdown(){
 	[ $1 = 1 ] && A=$BIN_DIR/checknetwork && B=check
 	[ $1 = 2 ] && A=$BIN_DIR/update && B=--First
@@ -72,7 +64,7 @@ f_bin(){
 		ssr-local)ret=$(which ssr-local);;
 		ssr-server)ret=$(which ssr-server);;
 		vmess|vless)ret=$(which xray) || ret=$(which v2ray);;
-		trojan)ret=$(which trojan);;
+		trojan)ret=$(which trojan-plus);;
 		trojan-go)ret=$(which trojan-go);;
 		naiveproxy)ret=$(which naive);;
 		socks5|tun)ret=$(which redsocks2);;
@@ -81,18 +73,23 @@ f_bin(){
 }
 
 gen_config_file(){
+	rtype=$2
+	ssport=$3
+	serv_ip=$4
 	sport=$(uci_get_by_name $1 server_port)
-	lport=$(uci_get_by_name $1 local_port 1234)
+	socks5_port=$(uci_get_by_type socks5_proxy local_port 1080)
 	pass=$(uci_get_by_name $1 password)
 	timeout=$(uci_get_by_name $1 timeout 60)
-	case $2 in
-		0)[ $kcp_enable = 1 ] && hostip=127.0.0.1 || hostip=$server;config_file=$CONFIG_FILE;PROTO=redir;FILE_NAME=retcp;;
-		1)hostip=$udp_server;config_file=$CONFIG_UDP_FILE;PROTO=redir;FILE_NAME=nf;;
-		2)hostip=$nf_ip;lport=$nf_local_port;config_file=$CONFIG_NF_FILE;;
-		3)hostip=$socks5_ip;lport=$socks5_port;config_file=$CONFIG_SOCK5_FILE;PROTO=socks;FILE_NAME=socks5;;
+	case $rtype in
+		tcp)[ $kcp_enable = 1 ] && hostip=127.0.0.1 || hostip=$server;PROTO=redir;lport=$local_port;fname="retcp";;
+		udp)hostip=$udp_server;PROTO=redir;lport=$udp_local_port;fname="reudp";;
+		nf)hostip=$nf_ip;lport=$nf_local_port;fname="nf";;
+		socks)hostip=$socks5_ip;lport=$socks5_port;PROTO=socks;fname="socks";;
 	esac
 	[ $(uci_get_by_name $1 fast_open 0) = 1 ] && fast=true || fast=false
 	type=$(uci_get_by_name $1 type)
+	config_file="/var/etc/$type-ssr-$fname.json"
+
 	case $type in
 		ss)
 			cat <<-EOF > $config_file
@@ -111,7 +108,8 @@ EOF
 			plugin=$(uci_get_by_name $1 plugin 0)
 			if [ $plugin != 0 -a -x "$(which $plugin)" ];then
 				sed -i "s@$hostip\",@$hostip\",\n\"plugin\":\"$plugin\",\n\"plugin_opts\":\"$(uci_get_by_name $1 plugin_opts)\",@" $config_file
-			fi;;
+			fi
+			;;
 		ssr)
 			cat <<-EOF > $config_file
 {
@@ -132,13 +130,26 @@ EOF
 EOF
 ;;
 	naiveproxy)
-		cat <<-EOF > /var/etc/naive-ssr-$FILE_NAME.json
+		cat <<-EOF > $config_file
 {
 "listen":"$PROTO://0.0.0.0:$lport",
 "proxy":"https://$(uci_get_by_name $1 username):$pass@$(uci_get_by_name $1 server):$sport",
-"concurrency":"${3:-1}"
+"concurrency":"$threads"
 }
 EOF
+;;
+	vmess|vless)
+		[ $rtype == "udp" ] && smode="udp" || smode="tcp"
+		lua $BIN_DIR/genv2config $1 $smode $lport $ssport $serv_ip >$config_file
+		sed -i 's/\\//g' $config_file
+;;
+	trojan|trojan-go)
+		case "$rtype" in
+		tcp|udp|nf) smode="nat";;
+		socks) smode="client";;
+		esac
+		lua $BIN_DIR/gentrojanconfig $1 $smode $lport $serv_ip $threads>$config_file
+		sed -i 's/\\//g' $config_file
 ;;
 	esac
 }
@@ -243,7 +254,7 @@ start_rules(){
 			fi
 			udp_server=$(echo "$A" | sed -n 1p)
 		fi
-		udp_local_port=$(uci_get_by_name $UDP_RELAY_SERVER local_port 1234)
+		udp_local_port="2345"
 		UDP=1
 	fi
 	[ "$UDP" = 1 ] && UDP="-S $udp_server -L $udp_local_port"
@@ -295,6 +306,8 @@ start_rules(){
 }
 
 start_retcp(){
+
+	rtype="tcp"
 	if [ $kcp_enable = 1 ];then
 		cmd=$(which kcptun-client) || cmd=0
 		if [ ! -x $cmd ];then
@@ -308,7 +321,6 @@ start_retcp(){
 		[ -n "$password" ] && password="--key "${password}
 		service_start $cmd -r $kcp_server:$kcp_port -l :$server_port $password $kcp_param
 	fi
-	gen_config_file $GLOBAL_SERVER 0 $threads
 	type=$(uci_get_by_name $GLOBAL_SERVER type)
 	cmd=$(f_bin $type)
 	if [ ! -x $cmd ];then
@@ -318,43 +330,48 @@ start_retcp(){
 	redir_tcp=1
 	case $type in
 		ss|ssr)
+			gen_config_file $GLOBAL_SERVER $rtype
 			redir_tcp=$threads
 			for i in $(seq 1 $threads);do
-				$cmd -c $CONFIG_FILE >/dev/null 2>&1 &
+				$cmd -c $config_file >/dev/null 2>&1 &
 			done
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` Main Node: $name $threads Threads Started!" >> $LOG;;
 		vmess|vless)
+		
 			if [ $SO_SERVER = $GLOBAL_SERVER ];then
-				port=$(uci_get_by_type socks5_proxy local_port 1080);socks5_start=1;V2=v2-ssr-retcp-ssr-socks5.json
+				port=$(uci_get_by_type socks5_proxy local_port 1080);socks5_start=1
 			else
-				port=0;V2=v2-ssr-retcp.json
+				port=0
 			fi
-			lua $BIN_DIR/genv2config $GLOBAL_SERVER tcp $local_port $port $server > /var/etc/$V2
-			sed -i 's/\\//g' /var/etc/$V2
-			$cmd -c /var/etc/$V2 >/dev/null 2>&1 &
+			gen_config_file $GLOBAL_SERVER $rtype $port $server
+			$cmd -c $config_file >/dev/null 2>&1 &
+			
 			echo "`eval $DATE` Main Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG
 			if [ "$socks5_start" = 1 ];then
 				echo "`eval $DATE` Socks5 Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG
-			fi;;
+			fi
+				;;
 		trojan|trojan-go)
-			$BIN_DIR/gentrojanconfig $GLOBAL_SERVER nat $local_port $server $threads > /var/etc/trojan-ssr-retcp.json
-			sed -i 's/\\//g' /var/etc/trojan-ssr-retcp.json
+			gen_config_file $GLOBAL_SERVER $rtype "" $server
+			$cmd --config $config_file >/dev/null 2>&1 &
 			if [ $type = trojan ];then
 				redir_tcp=$threads
 				for i in $(seq 1 $threads);do
-					$cmd --config /var/etc/trojan-ssr-retcp.json >/dev/null 2>&1 &
+					$cmd --config $config_file >/dev/null 2>&1 &
 				done
-				name="Trojan"
-				ver="$($cmd --version 2>&1 | head -1 | awk '{print$4}')"
+				name="Trojan-Plus"
+				ver="$($cmd --version 2>&1 | head -1 | awk '{print$3}')"
 			else
-				$cmd --config /var/etc/trojan-ssr-retcp.json >/dev/null 2>&1 &
 				name="Trojan-Go"
 				ver="$($cmd --version 2>&1 | head -1 | awk '{print$2}')"
 			fi
+			
 			echo "`eval $DATE` Main Node: $name (Ver $ver) $threads Threads Started!" >> $LOG;;
+			
 		naiveproxy)
-			$cmd /var/etc/naive-ssr-retcp.json >/dev/null 2>&1 &
+			gen_config_file $GLOBAL_SERVER $rtype
+			$cmd $config_file >/dev/null 2>&1 &
 			echo "`eval $DATE` Main Node: $($cmd --version | head -1) Threads Started!" >> $LOG;;
 		socks5)
 			redir_tcp=$threads
@@ -375,6 +392,7 @@ start_retcp(){
 }
 
 start_reudp(){
+	rtype="udp"
 	type=$(uci_get_by_name $UDP_RELAY_SERVER type)
 	cmd=$(f_bin $type)
 	if [ ! -x $cmd ];then
@@ -383,32 +401,27 @@ start_reudp(){
 	redir_udp=1
 	case $type in
 		ss|ssr)
-			gen_config_file $UDP_RELAY_SERVER 1
-			$cmd -c $CONFIG_UDP_FILE -U >/dev/null 2>&1 &
+			gen_config_file $UDP_RELAY_SERVER $rtype
+			$cmd -c $config_file -U >/dev/null 2>&1 &
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` UDP Relay: $name Started!" >> $LOG;;
 		vmess|vless)
-			lua $BIN_DIR/genv2config $UDP_RELAY_SERVER udp $udp_local_port 0 $udp_server > /var/etc/v2-ssr-reudp.json
-			sed -i 's/\\//g' /var/etc/v2-ssr-reudp.json
-			$cmd -c /var/etc/v2-ssr-reudp.json >/dev/null 2>&1 &
+			gen_config_file $UDP_RELAY_SERVER $rtype 0 $udp_server
+			$cmd -c $config_file >/dev/null 2>&1 &
 			echo "`eval $DATE` UDP Relay: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG;;
 		trojan|trojan-go)
-			let ip_port=udp_local_port+1;[ $ip_port = "$nf_local_port" ] && let ip_port=ip_port+1
-			$BIN_DIR/gentrojanconfig $UDP_RELAY_SERVER client $ip_port $udp_server $thread > /var/etc/trojan-ssr-reudp.json
-			sed -i 's/\\//g' /var/etc/trojan-ssr-reudp.json
-			$cmd --config /var/etc/trojan-ssr-reudp.json >/dev/null 2>&1 &
-			ipt2socks -U -b 0.0.0.0 -4 -s 127.0.0.1 -p $ip_port -l $udp_local_port >/dev/null 2>&1 &
-			trojan_udp=1
-			trojan_udp_port=$udp_local_port
+			gen_config_file $UDP_RELAY_SERVER $rtype "" $udp_server
+			$cmd --config $config_file >/dev/null 2>&1 &
 			[ $type = trojan ] && {
-			name="Trojan"
-			ver="$($cmd --version 2>&1 | head -1 | awk '{print$4}')"
+			name="Trojan-Plus"
+			ver="$($cmd --version 2>&1 | head -1 | awk '{print$3}')"
 			} || {
 			name="Trojan-Go"
 			ver="$($cmd --version 2>&1 | head -1 | awk '{print$2}')"
 			}
 			echo "`eval $DATE` Main Node: $name (Ver $ver) $threads Threads Started!" >> $LOG;;
 		naiveproxy)
+			gen_config_file $UDP_RELAY_SERVER $rtype
 			redir_udp=0
 			echo "`eval $DATE` $($cmd --version | head -1) UDP Relay not supported!" >> $LOG;;
 		socks5)
@@ -423,6 +436,7 @@ start_reudp(){
 }
 
 start_renf(){
+	rtype="nf"
 	type=$(uci_get_by_name $NF_SERVER type)
 	cmd=$(f_bin $type)
 	if [ ! -x $cmd ];then
@@ -431,30 +445,28 @@ start_renf(){
 	redir_nf=1
 	case $type in
 		ss|ssr)
-			gen_config_file $NF_SERVER 2
-			$cmd -c $CONFIG_NF_FILE >/dev/null 2>&1 &
+			gen_config_file $NF_SERVER $rtype
+			$cmd -c $config_file >/dev/null 2>&1 &
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` NF Shunt   : $name Started!" >> $LOG;;
 		vmess|vless)
-			lua $BIN_DIR/genv2config $NF_SERVER tcp $nf_local_port 0 $nf_ip > /var/etc/v2-ssr-nf.json
-			sed -i 's/\\//g' /var/etc/v2-ssr-nf.json
-			$cmd -c /var/etc/v2-ssr-nf.json >/dev/null 2>&1 &
+			gen_config_file $NF_SERVER $rtype 0 $nf_ip
+			$cmd -c $config_file >/dev/null 2>&1 &
 			echo "`eval $DATE` NF Shunt   : $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG;;
 		trojan|trojan-go)
-			$BIN_DIR/gentrojanconfig $NF_SERVER nat $nf_local_port $nf_ip $thread > /var/etc/trojan-ssr-nf.json
-			sed -i 's/\\//g' /var/etc/trojan-ssr-nf.json
-			$cmd --config /var/etc/trojan-ssr-nf.json >/dev/null 2>&1 &
+			gen_config_file $NF_SERVER $rtype "" $nf_ip		
+			$cmd --config $config_file >/dev/null 2>&1 &
 			[ $type = trojan ] && {
-			name="Trojan"
-			ver="$($cmd --version 2>&1 | head -1 | awk '{print$4}')"
+			name="Trojan-Plus"
+			ver="$($cmd --version 2>&1 | head -1 | awk '{print$3}')"
 			} || {
 			name="Trojan-Go"
 			ver="$($cmd --version 2>&1 | head -1 | awk '{print$2}')"
 			}
 			echo "`eval $DATE` Main Node: $name (Ver $ver) $threads Threads Started!" >> $LOG;;
 		naiveproxy)
-			gen_config_file $NF_SERVER 2
-			$cmd /var/etc/naive-ssr-nf.json >/dev/null 2>&1 &
+			gen_config_file $NF_SERVER $rtype
+			$cmd $config_file >/dev/null 2>&1 &
 			echo "`eval $DATE` NF Shunt   : $($cmd --version | head -1) Started!" >>$LOG;;
 		socks5)
 			$BIN_DIR/genred2config /var/etc/redsocks-ssr-nf.json socks5 tcp $nf_local_port $nf_ip $(uci_get_by_name $NF_SERVER server_port) \
@@ -711,6 +723,7 @@ del_cron(){
 }
 
 start_local(){
+	rtype="socks"
 	[ $SO_SERVER = 0 -o "$socks5_start" = 1 ] && return
 	socks5_ip=$(uci_get_by_name $SO_SERVER server)
 	if ! echo $socks5_ip | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$">/dev/null;then
@@ -732,32 +745,29 @@ start_local(){
 		echo "`eval $DATE` Socks5 Node: Can't find $(echo $type | tr a-z A-Z) program, start failed!" >> $LOG;return 1
 	fi
 	local_enable=1
-	socks5_port=$(uci_get_by_type socks5_proxy local_port 1080)
-	gen_config_file $SO_SERVER 3
 	case $type in
 		ss|ssr)
-			$cmd -c $CONFIG_SOCK5_FILE -u >/dev/null 2>&1 &
+			gen_config_file $SO_SERVER $rtype
+			$cmd -c $config_file -u >/dev/null 2>&1 &
 			[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
 			echo "`eval $DATE` Socks5 Node: $name Started!" >> $LOG;;
 		vmess|vless)
-			lua $BIN_DIR/genv2config $SO_SERVER tcp 0 $socks5_port $socks5_ip > /var/etc/v2-ssr-socks5.json
-			sed -i 's/\\//g' /var/etc/v2-ssr-socks5.json
-			$cmd -c /var/etc/v2-ssr-socks5.json >/dev/null 2>&1 &
+			gen_config_file $SO_SERVER $rtype 0 $socks5_port $socks5_ip
+			$cmd -c $config_file >/dev/null 2>&1 &
 			echo "`eval $DATE` Socks5 Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >> $LOG;;
 		trojan|trojan-go)
-			$BIN_DIR/gentrojanconfig $SO_SERVER client $socks5_port $socks5_ip $thread > /var/etc/trojan-ssr-socks5.json
-			sed -i 's/\\//g' /var/etc/trojan-ssr-socks5.json
-			$cmd --config /var/etc/trojan-ssr-socks5.json >/dev/null 2>&1 &
+			gen_config_file $SO_SERVER $rtype "" $socks5_ip
+			$cmd --config $config_file >/dev/null 2>&1 &
 			[ $type = trojan ] && {
-			name="Trojan"
-			ver="$($cmd --version 2>&1 | head -1 | awk '{print$4}')"
+			name="Trojan-Plus"
+			ver="$($cmd --version 2>&1 | head -1 | awk '{print$3}')"
 			} || {
 			name="Trojan-Go"
 			ver="$($cmd --version 2>&1 | head -1 | awk '{print$2}')"
 			}
 			echo "`eval $DATE` Main Node: $name (Ver $ver) $threads Threads Started!" >> $LOG;;
 		naiveproxy)
-			$cmd /var/etc/naive-ssr-socks5.json >/dev/null 2>&1 &
+			$cmd $config_file >/dev/null 2>&1 &
 			echo "`eval $DATE` Socks5 Node: $($cmd --version | head -1) Started!" >>$LOG;;
 	esac
 	ipset add ss_spec_wan_ac $socks5_ip 2>/dev/null
@@ -857,18 +867,22 @@ start_server(){
 start_monitor(){
 	if [ $(uci_get_by_type global monitor_enable 0) = 1 ];then
 		let total=redir_tcp+kcp_enable+redir_udp+redir_nf+smartdns_flag+chinadns_flag+local_enable+server_count+switch_enable
-		[ $total -gt 0 ] && service_start $BIN_DIR/ssr-monitor $redir_tcp $kcp_enable $redir_udp $redir_nf $smartdns_flag $chinadns_flag $local_enable $server_count $trojan_udp $ip_port $trojan_udp_port
+		[ $total -gt 0 ] && service_start $BIN_DIR/ssr-monitor $redir_tcp $kcp_enable $redir_udp $redir_nf $smartdns_flag $chinadns_flag $local_enable $server_count
 	fi
 }
 
 start(){
+
 	if [ -n "$switch_server" ];then
 		GLOBAL_SERVER=$switch_server
 		switch_enable=1
 	fi
+	
 	if rules;then
+	
 		if start_retcp;then
 			[ -n "$UDP_RELAY_SERVER" ] && start_reudp
+			
 			[ -n "$NF" ] && start_renf
 			gen_dns
 			start_switch
@@ -882,6 +896,7 @@ start(){
 }
 
 stop(){
+
 	kill -9 $(ps -w | grep ssr-rules | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep gfw.b64 | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep $BIN_DIR/checknetwork | grep -v grep | awk '{print$1}') 2>/dev/null
@@ -896,7 +911,7 @@ stop(){
 	[ -z "$switch_server" ] && kill -9 $(ps -w | grep ssr-switch | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep ssr-monitor | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep ssr-preload | grep -v grep | awk '{print$1}') 2>/dev/null
-	killall -q -9 ss-redir ssr-redir v2ray xray trojan trojan-go ipt2socks naive redsocks2 kcptun-client obfs-local obfs-server v2ray-plugin ss-local ss-server ssr-local ssr-server microsocks smartdns chinadns-ng
+	killall -q -9 ss-redir ssr-redir v2ray xray trojan-plus trojan-go ipt2socks naive redsocks2 kcptun-client obfs-local obfs-server v2ray-plugin ss-local ss-server ssr-local ssr-server microsocks smartdns chinadns-ng
 	rm -rf $DNS_DIR /var/etc/*ssr*.json /tmp/dnsmasq.d/dnsmasq-ssr.conf $CON_T /var/lock/ssr-plus.lock
 	[ $run_mode = gfw -o $gfw_mode = 1 ] || rm -f /tmp/ssrplus/gfw.list
 	[ $run_mode = router ] || rm -f /tmp/ssrplus/china_v6.txt

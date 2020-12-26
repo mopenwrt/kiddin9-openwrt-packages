@@ -19,9 +19,6 @@ smartdns=$5
 chinadns=$6
 socks5=$7
 server_count=$8
-trojan_udp=$9
-ip_port=$10
-trojan_udp_port=$11
 server=`cat /tmp/etc/$NAME.include | grep '\-A SS_SPEC_WAN_AC \-d' | grep RETURN | awk '{print$4}' | sed 's/\/.*//'`
 GLOBAL_SERVER=$(uci_get_by_type global global_server)
 kcp_port=$(uci_get_by_name $GLOBAL_SERVER kcp_port)
@@ -102,15 +99,6 @@ while :;do
 			echo "$(date "+%Y-%m-%d %H:%M:%S") SSR Server Error. Restart!" >> /tmp/ssrplus.log
 			/etc/init.d/shadowsocksr restart
 			exit 0
-		fi
-	fi
-#trojan_udp
-	if [ $trojan_udp = 1 ];then
-		t=`ps -w | grep ipt2socks |grep -v grep | wc -l`
-		if [ $t = 0 ];then
-			echo "$(date "+%Y-%m-%d %H:%M:%S") ipt2socks2 Error. Restart!" >> /tmp/ssrplus.log
-			killall -q -9 ipt2socks
-			ipt2socks -U -b 0.0.0.0 -4 -s 127.0.0.1 -p $ip_port -l $trojan_udp_port >/dev/null 2>&1 &
 		fi
 	fi
 done

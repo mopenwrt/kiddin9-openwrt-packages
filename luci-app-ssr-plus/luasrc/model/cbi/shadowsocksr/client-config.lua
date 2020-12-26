@@ -153,7 +153,7 @@ if nixio.fs.access("/usr/bin/xray") or nixio.fs.access("/usr/bin/v2ray") then
 o:value("vmess", translate("Vmess"))
 o:value("vless", translate("Vless"))
 end
-if nixio.fs.access("/usr/sbin/trojan") then
+if nixio.fs.access("/usr/sbin/trojan-plus") then
 o:value("trojan", translate("Trojan"))
 end
 if nixio.fs.access("/usr/bin/trojan-go") then
