@@ -5,7 +5,7 @@ local node_section = arg[1]
 local run_type = arg[2]
 local local_port = arg[3]
 local ip_addr=arg[4]
-local threads = tonumber(arg[5])
+local threads = tonumber(arg[5]) or 2
 
 local node = ucursor:get_all("bypass", node_section)
 
