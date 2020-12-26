@@ -31,7 +31,8 @@ f_bin(){
 		ss)w=$(which ss-local);;
 		ssr)w=$(which ssr-local);;
 		vmess|vless)w=$(which xray) || w=$(which v2ray);;
-		trojan)w=$(which trojan);;
+		trojan)w=$(which trojan-plus);;
+		trojan-go)w=$(which trojan-go);;
 		naiveproxy)w=$(which naive);;
 	esac
 	echo ${w:=0}
