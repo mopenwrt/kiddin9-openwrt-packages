@@ -1,0 +1,16 @@
+#!/bin/sh
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@bypass[-1]
+	add ucitrack bypass
+	set ucitrack.@bypass[-1].init=bypass
+	commit ucitrack
+	delete firewall.bypass
+	set firewall.bypass=include
+	set firewall.bypass.type=script
+	set firewall.bypass.path=/var/etc/bypass.include
+	set firewall.bypass.reload=1
+	commit firewall
+EOF
+rm -rf /tmp/luci-modulecache /tmp/luci-indexcache*
+killall -HUP rpcd 2>/dev/null
+exit 0

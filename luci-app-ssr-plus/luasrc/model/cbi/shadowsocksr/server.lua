@@ -1,69 +1,107 @@
-local m,s,o
+-- Copyright (C) 2017 yushi studio <ywb94@qq.com>
+-- Licensed to the public under the GNU General Public License v3.
+require "luci.http"
+require "luci.dispatcher"
+local m, sec, o
+local shadowsocksr = "shadowsocksr"
+local encrypt_methods = {
+"table",
+"rc4",
+"rc4-md5",
+"rc4-md5-6",
+"aes-128-cfb",
+"aes-192-cfb",
+"aes-256-cfb",
+"aes-128-ctr",
+"aes-192-ctr",
+"aes-256-ctr",
+"bf-cfb",
+"camellia-128-cfb",
+"camellia-192-cfb",
+"camellia-256-cfb",
+"cast5-cfb",
+"des-cfb",
+"idea-cfb",
+"rc2-cfb",
+"seed-cfb",
+"salsa20",
+"chacha20",
+"chacha20-ietf",
+}
 
-m=Map("shadowsocksr")
-s=m:section(TypedSection,"server_global",translate("Global Setting"))
-s.anonymous=true
+local protocol = {
+"origin",
+"verify_deflate",
+"auth_sha1_v4",
+"auth_aes128_sha1",
+"auth_aes128_md5",
+"auth_chain_a",
+}
 
-o=s:option(Flag,"enable_server",translate("Enable Server"))
+obfs = {
+"plain",
+"http_simple",
+"http_post",
+"random_head",
+"tls1.2_ticket_auth",
+"tls1.2_ticket_fastauth",
+}
 
-s=m:section(TypedSection,"server_config",translate("Server Setting"))
-s.anonymous=true
-s.addremove=true
-s.template="cbi/tblsection"
-s.extedit=luci.dispatcher.build_url("admin/services/shadowsocksr/server/%s")
-function s.create(...)
-	local sid=TypedSection.create(...)
+m = Map(shadowsocksr)
+-- [[ Global Setting ]]--
+sec = m:section(TypedSection, "server_global", translate("Global Setting"))
+sec.anonymous = true
+
+o = sec:option(Flag, "enable_server", translate("Enable Server"))
+o.rmempty = false
+
+-- [[ Server Setting ]]--
+sec = m:section(TypedSection, "server_config", translate("Server Setting"))
+sec.anonymous = true
+sec.addremove = true
+sec.template = "cbi/tblsection"
+sec.extedit = luci.dispatcher.build_url("admin/services/shadowsocksr/server/%s")
+function sec.create(...)
+	local sid = TypedSection.create(...)
 	if sid then
-		luci.http.redirect(s.extedit%sid)
+		luci.http.redirect(sec.extedit % sid)
 		return
 	end
 end
 
-o=s:option(Flag,"enable",translate("Enable"))
+o = sec:option(Flag, "enable", translate("Enable"))
 function o.cfgvalue(...)
 	return Value.cfgvalue(...) or translate("0")
 end
-o.rmempty=false
+o.rmempty = false
 
-o=s:option(DummyValue,"type",translate("Server Type"))
+o = sec:option(DummyValue, "type", translate("Server Type"))
+function o.cfgvalue(...)
+	return Value.cfgvalue(...) or "ssr"
+end
+
+o = sec:option(DummyValue, "server_port", translate("Server Port"))
 function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "-"
 end
 
-o=s:option(DummyValue,"server_port",translate("Server Port"))
+o = sec:option(DummyValue, "username", translate("Username"))
 function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "-"
 end
 
-o=s:option(DummyValue,"username",translate("Username"))
+o = sec:option(DummyValue, "encrypt_method", translate("Encrypt Method"))
 function o.cfgvalue(...)
-	return Value.cfgvalue(...) or "-"
-end
-
-o=s:option(DummyValue,"encrypt_method_ss",translate("Encrypt Method (SS)"))
-function o.cfgvalue(...)
-	local v=Value.cfgvalue(...)
+	local v = Value.cfgvalue(...)
 	return v and v:upper() or "-"
 end
 
-o=s:option(DummyValue,"plugin",translate("Plugin (SS)"))
-function o.cfgvalue(...)
-	local v=Value.cfgvalue(...)
-	return v and v:upper() or "-"
-end
-
-o=s:option(DummyValue,"encrypt_method",translate("Encrypt Method"))
-function o.cfgvalue(...)
-	local v=Value.cfgvalue(...)
-	return v and v:upper() or "-"
-end
-
-o=s:option(DummyValue,"protocol",translate("Protocol"))
+o = sec:option(DummyValue, "protocol", translate("Protocol"))
 function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "-"
 end
 
-o=s:option(DummyValue,"obfs",translate("Obfs"))
+o = sec:option(DummyValue, "obfs", translate("Obfs"))
 function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "-"
 end
