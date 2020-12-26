@@ -325,7 +325,6 @@ start_rules() {
 }
 
 start_retcp() {
-
 	rtype="tcp"
 	if [ $kcp_enable = 1 ]; then
 		cmd=$(which kcptun-client) || cmd=0
