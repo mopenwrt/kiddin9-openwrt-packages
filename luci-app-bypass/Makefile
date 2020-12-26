@@ -143,7 +143,8 @@ endef
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	sed -i 's/vmess_id/uuid/g' /etc/config/bypass
+	cp -n /etc/config/shadowsocksr /etc/config/bypass 2>/dev/null
+	sed -i 's/vmess_id/uuid/g' /etc/config/bypass 2>/dev/null
 	/etc/init.d/bypass enable
 	/etc/uci-defaults/luci-app-bypass && rm -f /etc/uci-defaults/luci-app-bypass
 fi
