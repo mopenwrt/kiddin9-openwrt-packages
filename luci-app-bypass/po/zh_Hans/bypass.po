@@ -610,6 +610,9 @@ msgstr "获取选项错误："
 msgid "Faltal on set option:"
 msgstr "获取选项错误："
 
+msgid "Check update"
+msgstr "检查更新"
+
 msgid "Update..."
 msgstr "更新中"
 
