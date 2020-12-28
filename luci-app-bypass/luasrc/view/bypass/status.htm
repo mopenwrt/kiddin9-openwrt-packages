@@ -202,7 +202,7 @@ margin-bottom:2.2rem;
 			</div>
 		</div>
 
-		<div class="pure-u-1-4 check">
+		<div class="pure-u-1-4 check" onclick="check_connect('baidu', 'www.baidu.com')">
 			<div class="block pure-g">
 				<div class="pure-u-8-24">
 					<div class="img-con">
@@ -214,7 +214,7 @@ margin-bottom:2.2rem;
 				</div>
 			</div>
 		</div>
-		<div class="pure-u-1-4 check">
+		<div class="pure-u-1-4 check" onclick="check_connect('google', 'https://www.google.com/generate_204')">
 			<div class="block pure-g">
 				<div class="pure-u-8-24">
 					<div class="img-con">
@@ -343,6 +343,7 @@ margin-bottom:2.2rem;
 							s.className="red";
 							s.innerHTML = '<%:Problem detected!%>';
 						}
+					div.setAttribute('onclick','check_connect("' + type + '","' + url + '")');
 					}
 				);
 			}
