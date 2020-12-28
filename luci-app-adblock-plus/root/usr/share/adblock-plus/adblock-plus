@@ -9,7 +9,6 @@ if [ -f $LOCK ];then
 fi
 touch $LOCK
 
-A="Download Adblock Plus Rules"
 B="Download Subscribe Rules"
 C=0
 D=0
@@ -67,6 +66,8 @@ down(){
 				rm -f $P/*
 				cp -a $G/* $P
 			else
+				[ ! -d "/etc/adblock-plus/rules" ] &&
+					mkdir /etc/adblock-plus/rules
 				rm -f /etc/adblock-plus/rules/*
 				cp -a $G/* /etc/adblock-plus/rules
 			fi

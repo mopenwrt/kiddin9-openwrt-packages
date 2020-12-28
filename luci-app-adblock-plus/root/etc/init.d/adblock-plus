@@ -1,7 +1,6 @@
 #!/bin/sh /etc/rc.common
 START=99
 STOP=10
-A=0
 B=0
 CRON_FILE=/etc/crontabs/root
 D=/tmp/dnsmasq.adblock-plus
@@ -389,8 +388,8 @@ start(){
 		[ $flash = 1 -a ! -s $L/rules/rules.conf ] && B=1
 	fi
 	if [ $B = 1 ];then
-		echo "`eval $E` [Download Adblock Plus Rules...]"
-		$P/addown --down $A $B >/dev/null 2>&1 &
+		echo "`eval $E` [Download Subscribe Rules...]"
+		$P/addown --down $B >/dev/null 2>&1 &
 		exit 9
 	fi
 	echo "`eval $E` [Load Adblock Plus Rules]"

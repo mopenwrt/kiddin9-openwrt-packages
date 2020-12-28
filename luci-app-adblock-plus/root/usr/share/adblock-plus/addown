@@ -9,15 +9,9 @@ B=/tmp/adblock-plus
 C=/tmp/adupdate.log
 D="date +'%Y-%m-%d %H:%M:%S'"
 E="curl -Lfso"
-F="Download Adblock Plus Rules"
 G="Download Subscribe Rules"
 
 if [ "$2" = 1 ];then
-	mkdir -p $B
-	echo "`eval $D` [$F]" > $C
-fi
-
-if [ "$3" = 1 ];then
 	echo "`eval $D` [$G]" >> $C
 	/usr/share/adblock-plus/adblock-plus addown >> $C
 fi
