@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qBittorrent-Enhanced-Edition
-PKG_VERSION:=4.3.1.11
+PKG_VERSION:=4.3.2.10
 PKG_RELEASE=1
 
 STRIP:=true
