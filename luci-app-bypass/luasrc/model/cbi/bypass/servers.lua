@@ -7,7 +7,7 @@ uci:foreach(ssr,"servers",function(s)
 	server_count=server_count+1
 end)
 
-m=Map(ssr,translate("Servers subscription and manage"))
+m=Map(ssr,translate("Servers subscription and manage"),translate("Support SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc."))
 s=m:section(TypedSection,"server_subscribe")
 s.anonymous=true
 

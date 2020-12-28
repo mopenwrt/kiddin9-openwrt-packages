@@ -42,7 +42,7 @@ ipset_r(){
 	[ -n "$NF_SERVER" ] && ipset -N netflix hash:net 2>/dev/null
 	if [ $MODE != all ];then
 		[ -n "$LAN_FP_IP" ] && ipset -N fplan hash:net 2>/dev/null
-		[ -n "$WAN_FW_IP" -o $MODE != router -o -s /etc/ssr/black.list ] && ipset -N blacklist hash:net 2>/dev/null
+		[ -n "$WAN_FW_IP" -o $MODE != router -o -s /etc/bypass/black.list ] && ipset -N blacklist hash:net 2>/dev/null
 		for ip in $LAN_FP_IP;do ipset -! add fplan $ip;done
 		for ip in $WAN_FW_IP;do ipset -! add blacklist $ip;done
 	fi

@@ -5,6 +5,7 @@ local kcptun = require "luci.model.cbi.bypass.kcptun"
 local xray = require "luci.model.cbi.bypass.xray"
 local v2ray = require "luci.model.cbi.bypass.v2ray"
 local trojan_go = require "luci.model.cbi.bypass.trojan_go"
+local appname = "bypass"
 function index()
 	if not nixio.fs.access("/etc/config/bypass") then
 		return
@@ -37,6 +38,11 @@ function index()
 	entry({"admin", "services", "bypass", "v2ray_update"}, call("v2ray_update")).leaf = true
 	entry({"admin", "services", "bypass", "trojan_go_check"}, call("trojan_go_check")).leaf = true
 	entry({"admin", "services", "bypass", "trojan_go_update"}, call("trojan_go_update")).leaf = true
+	entry({'admin', 'services', "bypass", 'ip'}, call('check_ip')) -- 获取ip情况
+	entry({"admin", "services", "bypass", "status"}, call("status")).leaf = true
+	entry({"admin", "services", "bypass", "socks_status"}, call("socks_status")).leaf = true
+	entry({"admin", "services", "bypass", "connect_status"}, call("connect_status")).leaf = true
+	entry({"admin", "services", "bypass", "check_port"}, call("check_port")).leaf = true
 end
 
 function subscribe()
@@ -258,4 +264,90 @@ function trojan_go_update()
 	end
 
 	http_write_json(json)
+end
+
+function get_iso(ip)
+    local mm = require 'maxminddb'
+    local db = mm.open('/usr/share/bypass/GeoLite2-Country.mmdb')
+    local res = db:lookup(ip)
+    return string.lower(res:get('country', 'iso_code'))
+end
+
+function get_cname(ip)
+    local mm = require 'maxminddb'
+    local db = mm.open('/usr/share/bypass/GeoLite2-Country.mmdb')
+    local res = db:lookup(ip)
+    return string.lower(res:get('country', 'names', 'zh-CN'))
+end
+
+function check_site(host, port)
+    local nixio = require "nixio"
+    local socket = nixio.socket("inet", "stream")
+    socket:setopt("socket", "rcvtimeo", 2)
+    socket:setopt("socket", "sndtimeo", 2)
+    local ret = socket:connect(host, port)
+    socket:close()
+    return ret
+end
+
+-- 获取当前代理状态 与节点ip
+function check_ip()
+    local e = {}
+    local d = {}
+    local port = 80
+    local ip = luci.sys.exec('curl --retry 3 -m 10 -LfsA "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36" http://api.ipify.org/')
+    d.flag = 'un'
+    d.country = 'Unknown'
+    if (ip ~= '') then
+        local status, code = pcall(get_iso, ip)
+        if (status) then
+            d.flag = code
+        end
+        local status1, country = pcall(get_cname, ip)
+        if (status1) then
+            d.country = country
+        end
+    end
+    e.outboard = ip
+    e.outboardip = d
+    e.baidu = check_site('www.baidu.com', port)
+    e.taobao = check_site('www.taobao.com', port)
+    e.google = check_site('www.google.com', port)
+    e.youtube = check_site('www.youtube.com', port)
+    luci.http.prepare_content('application/json')
+    luci.http.write_json(e)
+end
+
+function status()
+	-- local dns_mode = ucic:get(appname, "@global[0]", "dns_mode")
+	local e = {}
+	e.dns_mode_status = luci.sys.call("pidof smartdns >/dev/null") == 0
+	e.socks5_status = luci.sys.call("ps -w | grep ssr-socks5 | grep -v grep >/dev/null") == 0
+	e.tcp_node_status = luci.sys.call("ps -w | grep ssr-retcp | grep -v grep >/dev/null") == 0
+	e.udp_node_status = luci.sys.call("ps -w | grep ssr-reudp | grep -v grep >/dev/null") == 0
+	e.kcptun_tcp_node_status = luci.sys.call("pidof kcptun-client >/dev/null") == 0
+	e.nf_node_status = luci.sys.call("ps -w | grep ssr-nf | grep -v grep >/dev/null") == 0
+	e.server_status = luci.sys.call("ps -w | grep ssr-server | grep -v grep >/dev/null") == 0
+	e.chinadns_status = luci.sys.call("ps -w | grep chinadns-ng | grep -v grep >/dev/null") == 0
+	luci.http.prepare_content("application/json")
+	luci.http.write_json(e)
+end
+
+function connect_status()
+	local e = {}
+	e.use_time = ""
+	local url = luci.http.formvalue("url")
+	local result = luci.sys.exec('curl --connect-timeout 3 -o /dev/null -I -skL -w "%{http_code}:%{time_starttransfer}" ' .. url)
+	local code = tonumber(luci.sys.exec("echo -n '" .. result .. "' | awk -F ':' '{print $1}'") or "0")
+	if code ~= 0 then
+		local use_time = luci.sys.exec("echo -n '" .. result .. "' | awk -F ':' '{print $2}'")
+		if use_time:find("%.") then
+			e.use_time = string.format("%.2f", use_time * 1000)
+		else
+			e.use_time = string.format("%.2f", use_time / 1000)
+		end
+		e.ping_type = "curl"
+	end
+	luci.http.prepare_content("application/json")
+	luci.http.write_json(e)
 end

@@ -1,9 +1,9 @@
 local fs=require "nixio.fs"
-local white="/etc/ssr/white.list"
-local black="/etc/ssr/black.list"
-local netflix="/etc/ssr/netflix.list"
-local oversea="/etc/ssr/oversea.list"
-local preload="/etc/ssr/preload.list"
+local white="/etc/bypass/white.list"
+local black="/etc/bypass/black.list"
+local netflix="/etc/bypass/netflix.list"
+local oversea="/etc/bypass/oversea.list"
+local preload="/etc/bypass/preload.list"
 
 f=SimpleForm("custom",translate("Domain List"))
 
@@ -52,27 +52,27 @@ function f.handle(self,state,data)
 		if data.A then
 			fs.writefile(white,data.A:gsub("\r\n","\n"))
 		else
-			luci.sys.call("> /etc/ssr/white.list")
+			luci.sys.call("> /etc/bypass/white.list")
 		end
 		if data.B then
 			fs.writefile(black,data.B:gsub("\r\n","\n"))
 		else
-			luci.sys.call("> /etc/ssr/black.list")
+			luci.sys.call("> /etc/bypass/black.list")
 		end
 		if data.C then
 			fs.writefile(netflix,data.C:gsub("\r\n","\n"))
 		else
-			luci.sys.call("> /etc/ssr/netflix.list")
+			luci.sys.call("> /etc/bypass/netflix.list")
 		end
 		if data.D then
 			fs.writefile(oversea,data.D:gsub("\r\n","\n"))
 		else
-			luci.sys.call("> /etc/ssr/oversea.list")
+			luci.sys.call("> /etc/bypass/oversea.list")
 		end
 		if data.E then
 			fs.writefile(preload,data.E:gsub("\r\n","\n"))
 		else
-			luci.sys.call("> /etc/ssr/preload.list")
+			luci.sys.call("> /etc/bypass/preload.list")
 		end
 		luci.sys.exec("/etc/init.d/bypass restart")
 	end

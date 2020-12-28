@@ -1,7 +1,7 @@
 local m,s,o
 local ssr="bypass"
 
-m=Map(ssr,translate("Bypass Settings"),translate("<h3>Support SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc.</h3>"))
+m=Map(ssr)
 m:section(SimpleSection).template="bypass/status"
 
 local server_table={}
@@ -19,7 +19,7 @@ for key in pairs(server_table) do
 end
 table.sort(key_table)
 
-s=m:section(TypedSection,"global")
+s = m:section(TypedSection, 'global')
 s.anonymous=true
 
 o=s:option(ListValue,"global_server",translate("Main Server"))
@@ -135,5 +135,5 @@ o:value("223.5.5.5,223.6.6.6","223.5.5.5,223.6.6.6 ("..translate("Ali").." DNS)"
 o:value("119.29.29.29,182.254.116.116","119.29.29.29,182.254.116.116 (Dnspod DNS)")
 o:value("114.114.114.114,114.114.115.115","114.114.114.114,114.114.115.115 (114 DNS)")
 o:depends("dns_mode_l",1)
-
+m:section(SimpleSection).template = 'bypass/status_bottom'
 return m

@@ -39,7 +39,7 @@ if [ "$1" = gfw ];then
 
 	B=$(uci -q get bypass.@global[0].pre_domain) || B=1
 	if [ $B = 1 ];then
-		A=$(cat /etc/ssr/preload.list)
+		A=$(cat /etc/bypass/preload.list)
 		for i in $A;do
 			B=1
 			while ! nslookup $i >/dev/null 2>&1;do

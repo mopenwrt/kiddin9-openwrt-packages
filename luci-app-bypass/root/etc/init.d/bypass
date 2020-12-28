@@ -712,11 +712,11 @@ gen_dns() {
 		server=127.0.0.1#$port
 	EOF
 	if [ $run_mode = oversea ]; then
-		awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#5335"'\n",$0)}' /etc/ssr/oversea.list >$DNS_DIR/oversea.conf
+		awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#5335"'\n",$0)}' /etc/bypass/oversea.list >$DNS_DIR/oversea.conf
 		[ "$dns_a" = 1 ] && echo "server=/$doh_t/127.0.0.1#5335" >>$DNS_DIR/oversea.conf
 	else
 		if [ $run_mode != all ]; then
-			cp -f /etc/ssr/black.list $DNS_DIR/tmp
+			cp -f /etc/bypass/black.list $DNS_DIR/tmp
 			awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#5335"'\n",$0)}' $DNS_DIR/tmp >$DNS_DIR/black.conf
 			if [ $run_mode = gfw ]; then
 				[ "$dns_a" = 1 ] && echo "server=/$doh_t/127.0.0.1#5335" >>$DNS_DIR/black.conf
@@ -734,7 +734,7 @@ gen_dns() {
 		fi
 
 		if [ -n "$NF" ]; then
-			cp -f /etc/ssr/netflix.list $DNS_DIR/tmp
+			cp -f /etc/bypass/netflix.list $DNS_DIR/tmp
 			D=$(cat $DNS_DIR/tmp)
 			for i in $D; do
 				sed -i -e "/\/$i\//d" -e "/\.$i\//d" $DNS_DIR/black.conf 2>/dev/null
@@ -748,8 +748,8 @@ gen_dns() {
 		fi
 
 		[ $run_mode = all -a "$dns_c" = 1 ] && echo "server=/$doh_l_t/127.0.0.1#5336" >$DNS_DIR/white.conf
-		if [ -s /etc/ssr/white.list ]; then
-			cp -f /etc/ssr/white.list $DNS_DIR/tmp
+		if [ -s /etc/bypass/white.list ]; then
+			cp -f /etc/bypass/white.list $DNS_DIR/tmp
 			D=$(cat $DNS_DIR/tmp)
 			for i in $D; do
 				sed -i -e "/\/$i\//d" -e "/\.$i\//d" $DNS_DIR/black.conf 2>/dev/null

@@ -113,7 +113,7 @@ curl_check(){
 		fi
 	fi
 	gen_port
-	J=/var/etc/ssr-socks5-check.json
+	J=/var/etc/bypass-socks5-check.json
 	gen_config_file $1
 	IP=127.0.0.1
 	param=

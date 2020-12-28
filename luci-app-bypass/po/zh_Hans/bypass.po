@@ -5,7 +5,7 @@ msgid "Bypass Settings"
 msgstr "Bypass 设置"
 
 msgid "<h3>Support SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc.</h3>"
-msgstr "<h3>支持 SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN 等协议</h3>"
+msgstr "<h3>支持 SS/SSR/V2ray/Trojan/Trojan-Go/NavieProxy/Socks5/TUN 等协议</h3>"
 
 msgid "Bypass RUNNING"
 msgstr "Bypass 客户端运行中"
@@ -651,3 +651,54 @@ msgstr "请确认你的固件支持FPU。"
 
 msgid "Make sure there is enough space to install %s"
 msgstr "确保有足够的空间安装 %s"
+
+msgid "RUNNING"
+msgstr "运行中"
+
+msgid "NOT RUNNING"
+msgstr "未运行"
+
+msgid "Working..."
+msgstr "连接正常"
+
+msgid "Problem detected!"
+msgstr "连接失败"
+
+msgid "Very Fast"
+msgstr "非常快"
+
+msgid "Fast"
+msgstr "很快"
+
+msgid "General"
+msgstr "一般般"
+
+msgid "Slow"
+msgstr "很慢"
+
+msgid "Very Slow"
+msgstr "非常慢"
+
+msgid "Touch Check"
+msgstr "点我检测"
+
+msgid "Socks5 Server"
+msgstr "Socks5服务端"
+
+msgid "Running Status"
+msgstr "运行状态"
+
+msgid "Baidu Connection"
+msgstr "百度连接"
+
+msgid "Google Connection"
+msgstr "谷歌连接"
+
+msgid "Node Check"
+msgstr "节点检测"
+
+msgid "Check..."
+msgstr "检测中..."
+
+msgid "Clear"
+msgstr "清除"
