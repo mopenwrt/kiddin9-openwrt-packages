@@ -12,7 +12,6 @@
     background: #fff;
     z-index: 5;
     box-sizing: border-box;
-	width:100%;
 }
 
 .status-bar .inner {
@@ -35,6 +34,11 @@
     text-align: right;
 }
 
+@media screen and (max-width: 700px) {
+.status-bar .icon-con {
+    height: 2.5em;
+}
+}
 </style>
 <script src="<%=media%>/js/jquery.min.js"></script>
 
