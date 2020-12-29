@@ -385,7 +385,7 @@ h5,
 h6 {
 	font-family: inherit;
 	font-weight: normal;
-	line-height: 1.1 !important;
+	line-height: 1.1rem;
 	color: inherit;
 }
 
