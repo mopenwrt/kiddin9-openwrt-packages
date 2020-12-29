@@ -4026,9 +4026,8 @@ ul.errors li {
 	min-width: 5rem !important;
 }
 
-#cbi-passwall .status .red, #cbi-passwall .status .green {
-	font-size: 0.83rem !important;
-	line-height: 2rem;
+#cbi-passwall .block h4 {
+	padding:0;
 }
 
 .waves-input-wrapper .waves-button-input {
