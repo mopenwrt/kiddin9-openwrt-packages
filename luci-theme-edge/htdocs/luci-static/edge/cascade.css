@@ -390,7 +390,6 @@ h6 {
 }
 
 html {
-	overflow-y: hidden;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 }
@@ -403,7 +402,6 @@ body {
 
 html,
 body {
-	height: 100%;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
@@ -4120,4 +4118,9 @@ table.interfaces .th{
 .cbi-value-field>div:first-child{
 	 display: inline-flex !important;
     cursor: pointer;
+}
+.cbi-page-actions.control-group.fixed {
+    position: fixed;
+    bottom: 1.3rem;
+    right: 2rem;
 }
