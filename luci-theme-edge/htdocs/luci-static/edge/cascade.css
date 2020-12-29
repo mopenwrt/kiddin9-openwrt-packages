@@ -4118,6 +4118,7 @@ div[id^="cbi-unblockmusic"] .cbi-button {
 table.interfaces .th{
 	padding:1.1em 0.5rem !important;
 }
-.cbi-value-field br{
-	display:none;
+.cbi-value-field>div:first-child{
+	 display: inline-flex !important;
+    cursor: pointer;
 }
