@@ -51,7 +51,7 @@ end
 
 function act_status()
 	local e={}
-	e.running=luci.sys.call("ps -w | grep ssr-retcp | grep -v grep >/dev/null")==0
+	e.running=luci.sys.call("ps -w | grep by-retcp | grep -v grep >/dev/null")==0
 	luci.http.prepare_content("application/json")
 	luci.http.write_json(e)
 end
@@ -96,7 +96,7 @@ function refresh_data()
 	if set=="gfw_data" then
 		sret=luci.sys.call("curl -Lfso /tmp/gfw.b64 https://cdn.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt")
 		if sret==0 then
-			luci.sys.call("/usr/share/bypass/ssr-gfw")
+			luci.sys.call("/usr/share/bypass/by-gfw")
 			icount=luci.sys.exec("cat /tmp/gfwnew.txt | wc -l")
 			if tonumber(icount)>1000 then
 				oldcount=luci.sys.exec("cat /tmp/bypass/gfw.list | wc -l")
@@ -319,12 +319,12 @@ end
 function status()
 	local e = {}
 	e.dns_mode_status = luci.sys.call("pidof smartdns >/dev/null") == 0
-	e.socks5_status = luci.sys.call("ps -w | grep ssr-socks5 | grep -v grep >/dev/null") == 0
-	e.tcp_node_status = luci.sys.call("ps -w | grep ssr-retcp | grep -v grep >/dev/null") == 0
-	e.udp_node_status = luci.sys.call("ps -w | grep ssr-reudp | grep -v grep >/dev/null") == 0
+	e.socks5_status = luci.sys.call("ps -w | grep by-socks5 | grep -v grep >/dev/null") == 0
+	e.tcp_node_status = luci.sys.call("ps -w | grep by-retcp | grep -v grep >/dev/null") == 0
+	e.udp_node_status = luci.sys.call("ps -w | grep by-reudp | grep -v grep >/dev/null") == 0
 	e.kcptun_tcp_node_status = luci.sys.call("pidof kcptun-client >/dev/null") == 0
-	e.nf_node_status = luci.sys.call("ps -w | grep ssr-nf | grep -v grep >/dev/null") == 0
-	e.server_status = luci.sys.call("ps -w | grep ssr-server | grep -v grep >/dev/null") == 0
+	e.nf_node_status = luci.sys.call("ps -w | grep by-nf | grep -v grep >/dev/null") == 0
+	e.server_status = luci.sys.call("ps -w | grep by-server | grep -v grep >/dev/null") == 0
 	e.chinadns_status = luci.sys.call("ps -w | grep chinadns-ng | grep -v grep >/dev/null") == 0
 	luci.http.prepare_content("application/json")
 	luci.http.write_json(e)

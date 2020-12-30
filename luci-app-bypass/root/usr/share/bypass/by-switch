@@ -113,7 +113,7 @@ curl_check(){
 		fi
 	fi
 	gen_port
-	J=/var/etc/ssr-socks5-check.json
+	J=/var/etc/by-socks5-check.json
 	gen_config_file $1
 	IP=127.0.0.1
 	param=
@@ -189,7 +189,7 @@ select_proxy(){
 		port=$(uci_get_by_name $d server_port)
 		ipset add ss_spec_wan_ac $ip 2>/dev/null
 		x=$?
-		/usr/share/bypass/ssr-check $ip $port $time_b && curl_check $d
+		/usr/share/bypass/by-check $ip $port $time_b && curl_check $d
 		y=$?
 		[ $x = 0 ] && ipset del ss_spec_wan_ac $ip 2>/dev/null
 		if [ $y = 0 ];then
