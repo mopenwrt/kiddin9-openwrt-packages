@@ -5,7 +5,6 @@ local kcptun = require "luci.model.cbi.bypass.kcptun"
 local xray = require "luci.model.cbi.bypass.xray"
 local v2ray = require "luci.model.cbi.bypass.v2ray"
 local trojan_go = require "luci.model.cbi.bypass.trojan_go"
-local appname = "bypass"
 function index()
 	if not nixio.fs.access("/etc/config/bypass") then
 		return
@@ -16,9 +15,8 @@ function index()
 	entry({"admin","services","bypass","base"},cbi("bypass/base"),_("Base Setting"),1).leaf=true
 	entry({"admin","services","bypass","servers"},arcombine(cbi("bypass/servers",{autoapply=true}),cbi("bypass/client-config")),_("Severs Nodes"),2).leaf=true
 	entry({"admin","services","bypass","control"},cbi("bypass/control"),_("Access Control"),3).leaf=true
-	entry({"admin","services","bypass","domain"},form("bypass/domain"),_("Domain List"),4).leaf=true
-	entry({"admin","services","bypass","advanced"},cbi("bypass/advanced"),_("Advanced Settings"),5).leaf=true
-	entry({"admin", "services", "bypass", "app_update"}, cbi("bypass/app_update"), _("App Update"), 6).leaf = true
+	entry({"admin","services","bypass","advanced"},cbi("bypass/advanced"),_("Advanced Settings"),4).leaf=true
+	entry({"admin", "services", "bypass", "app_update"}, cbi("bypass/app_update"), _("App Update"), 5).leaf = true
 	if luci.sys.call("which ssr-server >/dev/null")==0 or luci.sys.call("which ss-server >/dev/null")==0 or luci.sys.call("which microsocks >/dev/null")==0 then
 	      entry({"admin","services","bypass","server"},arcombine(cbi("bypass/server"),cbi("bypass/server-config")),_("SSR Server"),6).leaf=true
 	end
@@ -319,7 +317,6 @@ function check_ip()
 end
 
 function status()
-	-- local dns_mode = ucic:get(appname, "@global[0]", "dns_mode")
 	local e = {}
 	e.dns_mode_status = luci.sys.call("pidof smartdns >/dev/null") == 0
 	e.socks5_status = luci.sys.call("ps -w | grep ssr-socks5 | grep -v grep >/dev/null") == 0
