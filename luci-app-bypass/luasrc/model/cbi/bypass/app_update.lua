@@ -1,4 +1,3 @@
-local d = require "luci.dispatcher"
 local appname = "bypass"
 
 m = Map(appname)

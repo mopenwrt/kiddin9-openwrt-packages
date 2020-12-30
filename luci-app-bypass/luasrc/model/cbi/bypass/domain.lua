@@ -1,82 +1,114 @@
-local fs=require "nixio.fs"
-local white="/etc/bypass/white.list"
-local black="/etc/bypass/black.list"
-local netflix="/etc/bypass/netflix.list"
-local oversea="/etc/bypass/oversea.list"
-local preload="/etc/bypass/preload.list"
+local fs = require "nixio.fs"
+local appname = "bypass"
 
-f=SimpleForm("custom",translate("Domain List"))
+m = Map(appname)
+m.apply_on_parse=true
+function m.on_apply(self)
+luci.sys.call("/etc/init.d/bypass reload > /dev/null 2>&1 &")
+end
+-- [[ Rule List Settings ]]--
+s = m:section(TypedSection, "global")
+s.anonymous = true
 
-t=f:field(TextValue,"A",translate("Bypass Domain List"))
-t.rmempty=true
-t.rows=8
-t.description=translate("Bypass Domain List")
-function t.cfgvalue()
-	return fs.readfile(white) or ""
+s:tab("direct_list", translate("Direct Domain List"))
+s:tab("proxy_list", translate("Proxy Domain List"))
+s:tab("netflix_list", translate("Netflix Domain List"))
+s:tab("oversea_list", translate("Oversea Domain List"))
+s:tab("preload_list", translate("Preload domain(GFW Only)"))
+
+---- Direct Hosts
+local direct_host = string.format("/etc/%s/white.list", appname)
+o = s:taboption("direct_list", TextValue, "direct_hosts", "", "<font color='red'>" .. translate("These had been joined websites will not proxy.") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return fs.readfile(direct_host) or "" end
+o.write = function(self, section, value) fs.writefile(direct_host, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(direct_host, "") end
+o.validate = function(self, value)
+    local hosts= {}
+    string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
+    for index, host in ipairs(hosts) do
+        if not datatypes.hostname(host) then
+            return nil, host .. " " .. translate("Not valid domain name, please re-enter!")
+        end
+    end
+    return value
 end
 
-t=f:field(TextValue,"B",translate("Black Domain List"))
-t.rmempty=true
-t.rows=8
-t.description=translate("Black Domain List")
-function t.cfgvalue()
-	return fs.readfile(black) or ""
+---- Proxy Hosts
+local proxy_host = string.format("/etc/%s/black.list", appname)
+o = s:taboption("proxy_list", TextValue, "proxy_host", "", "<font color='red'>" .. translate("These had been joined websites will use proxy.") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return fs.readfile(proxy_host) or "" end
+o.write = function(self, section, value) fs.writefile(proxy_host, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(proxy_host, "") end
+o.validate = function(self, value)
+    local hosts= {}
+    string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
+    for index, host in ipairs(hosts) do
+        if not datatypes.hostname(host) then
+            return nil, host .. " " .. translate("Not valid domain name, please re-enter!")
+        end
+    end
+    return value
 end
 
-t=f:field(TextValue,"C",translate("Netflix Domain List"))
-t.rmempty=true
-t.rows=8
-t.description=translate("Netflix Domain List")
-function t.cfgvalue()
-	return fs.readfile(netflix) or ""
+---- Netflix Hosts
+local netflix_lists = string.format("/etc/%s/netflix.list", appname)
+o = s:taboption("netflix_list", TextValue, "netflix_lists", "", "<font color='red'>" .. translate("Netflix Domain List") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return fs.readfile(netflix_lists) or "" end
+o.write = function(self, section, value) fs.writefile(netflix_lists, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(netflix_lists, "") end
+o.validate = function(self, value)
+    local hosts= {}
+    string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
+    for index, host in ipairs(hosts) do
+        if not datatypes.hostname(host) then
+            return nil, host .. " " .. translate("Not valid domain name, please re-enter!")
+        end
+    end
+    return value
 end
 
-t=f:field(TextValue,"D",translate("Oversea domain"))
-t.rmempty=true
-t.rows=8
-t.description=translate("Oversea domain")
-function t.cfgvalue()
-	return fs.readfile(oversea) or ""
+---- Oversea Hosts
+local oversea_lists = string.format("/etc/%s/oversea.list", appname)
+o = s:taboption("oversea_list", TextValue, "oversea_lists", "", "<font color='red'>" .. translate("Oversea Domain List") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return fs.readfile(oversea_lists) or "" end
+o.write = function(self, section, value) fs.writefile(oversea_lists, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(oversea_lists, "") end
+o.validate = function(self, value)
+    local hosts= {}
+    string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
+    for index, host in ipairs(hosts) do
+        if not datatypes.hostname(host) then
+            return nil, host .. " " .. translate("Not valid domain name, please re-enter!")
+        end
+    end
+    return value
 end
 
-t=f:field(TextValue,"E",translate("Preload domain(GFW Only)"))
-t.rmempty=true
-t.rows=8
-t.description=translate("Preload domain(GFW Only)")
-function t.cfgvalue()
-	return fs.readfile(preload) or ""
+---- Preload Hosts
+local preload_lists = string.format("/etc/%s/preload.list", appname)
+o = s:taboption("preload_list", TextValue, "preload_lists", "", "<font color='red'>" .. translate("Preload domain(GFW Only)") .. "</font>")
+o.rows = 15
+o.wrap = "off"
+o.cfgvalue = function(self, section) return fs.readfile(preload_lists) or "" end
+o.write = function(self, section, value) fs.writefile(preload_lists, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(preload_lists, "") end
+o.validate = function(self, value)
+    local hosts= {}
+    string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
+    for index, host in ipairs(hosts) do
+        if not datatypes.hostname(host) then
+            return nil, host .. " " .. translate("Not valid domain name, please re-enter!")
+        end
+    end
+    return value
 end
 
-function f.handle(self,state,data)
-	if state==FORM_VALID then
-		if data.A then
-			fs.writefile(white,data.A:gsub("\r\n","\n"))
-		else
-			luci.sys.call("> /etc/bypass/white.list")
-		end
-		if data.B then
-			fs.writefile(black,data.B:gsub("\r\n","\n"))
-		else
-			luci.sys.call("> /etc/bypass/black.list")
-		end
-		if data.C then
-			fs.writefile(netflix,data.C:gsub("\r\n","\n"))
-		else
-			luci.sys.call("> /etc/bypass/netflix.list")
-		end
-		if data.D then
-			fs.writefile(oversea,data.D:gsub("\r\n","\n"))
-		else
-			luci.sys.call("> /etc/bypass/oversea.list")
-		end
-		if data.E then
-			fs.writefile(preload,data.E:gsub("\r\n","\n"))
-		else
-			luci.sys.call("> /etc/bypass/preload.list")
-		end
-		luci.sys.exec("/etc/init.d/bypass restart")
-	end
-	return true
-end
-
-return f
+return m

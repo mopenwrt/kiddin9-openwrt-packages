@@ -412,16 +412,25 @@ msgstr "增强游戏模式客户端LAN IP"
 msgid "Domain List"
 msgstr "域名列表"
 
-msgid "Bypass Domain List"
+msgid "Direct Domain List"
 msgstr "不走代理的域名"
 
-msgid "Black Domain List"
+msgid "Proxy Domain List"
 msgstr "强制走代理的域名"
+
+msgid "These had been joined websites will not proxy."
+msgstr "加入的域名将不走代理。"
+
+msgid "These had been joined websites will use proxy."
+msgstr "加入的域名将走代理。"
+
+msgid "Not valid domain name, please re-enter!"
+msgstr "不是有效域名，请重新输入！"
 
 msgid "Netflix Domain List"
 msgstr "Netflix 分流域名列表"
 
-msgid "Oversea domain"
+msgid "Oversea Domain List"
 msgstr "回国模式域名"
 
 msgid "Preload domain(GFW Only)"
