@@ -97,7 +97,7 @@ msgstr "预加载IP"
 msgid "Preload Google and Telegram IP segments (GFW mode only)"
 msgstr "预加载谷歌与Telegram IP段(仅GFW模式生效)"
 
-msgid "Preload Domain"
+msgid "Preload Domain List"
 msgstr "预加载域名"
 
 msgid "Preload the domain name (GFW mode only,Solve the problem that the terminal fails to access the website in the list after Bypass restart or switch node)"
@@ -428,7 +428,7 @@ msgid "Not valid domain name, please re-enter!"
 msgstr "不是有效域名，请重新输入！"
 
 msgid "Netflix Domain List"
-msgstr "Netflix 分流域名列表"
+msgstr "Netflix分流域名"
 
 msgid "Oversea Domain List"
 msgstr "回国模式域名"

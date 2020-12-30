@@ -1,3 +1,4 @@
+local fs = require "nixio.fs"
 local m,s,o
 
 m=Map("bypass",translate("IP Access Control"))
@@ -54,11 +55,11 @@ s:tab("direct_list", translate("Direct Domain List"))
 s:tab("proxy_list", translate("Proxy Domain List"))
 s:tab("netflix_list", translate("Netflix Domain List"))
 s:tab("oversea_list", translate("Oversea Domain List"))
-s:tab("preload_list", translate("Preload domain"))
+s:tab("preload_list", translate("Preload Domain List"))
 
 ---- Direct Hosts
 local direct_host = string.format("/etc/bypass/white.list")
-o = s:taboption("direct_list", TextValue, "direct_hosts", "", "<font color='red'>" .. translate("These had been joined websites will not proxy.") .. "</font>")
+o = s:taboption("direct_list", TextValue, "direct_host", "", "<font color='red'>" .. translate("These had been joined websites will not proxy.") .. "</font>")
 o.rows = 15
 o.wrap = "off"
 o.cfgvalue = function(self, section) return fs.readfile(direct_host) or "" end
@@ -95,13 +96,13 @@ o.validate = function(self, value)
 end
 
 ---- Netflix Hosts
-local netflix_lists = string.format("/etc/bypass/netflix.list")
-o = s:taboption("netflix_list", TextValue, "netflix_lists", "", "<font color='red'>" .. translate("Netflix Domain List") .. "</font>")
+local netflix_host = string.format("/etc/bypass/netflix.list")
+o = s:taboption("netflix_list", TextValue, "netflix_host", "", "<font color='red'>" .. translate("Netflix Domain List") .. "</font>")
 o.rows = 15
 o.wrap = "off"
-o.cfgvalue = function(self, section) return fs.readfile(netflix_lists) or "" end
-o.write = function(self, section, value) fs.writefile(netflix_lists, value:gsub("\r\n", "\n")) end
-o.remove = function(self, section, value) fs.writefile(netflix_lists, "") end
+o.cfgvalue = function(self, section) return fs.readfile(netflix_host) or "" end
+o.write = function(self, section, value) fs.writefile(netflix_host, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(netflix_host, "") end
 o.validate = function(self, value)
     local hosts= {}
     string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
@@ -114,13 +115,13 @@ o.validate = function(self, value)
 end
 
 ---- Oversea Hosts
-local oversea_lists = string.format("/etc/bypass/oversea.list")
-o = s:taboption("oversea_list", TextValue, "oversea_lists", "", "<font color='red'>" .. translate("Oversea Domain List") .. "</font>")
+local oversea_host = string.format("/etc/bypass/oversea.list")
+o = s:taboption("oversea_list", TextValue, "oversea_host", "", "<font color='red'>" .. translate("Oversea Domain List") .. "</font>")
 o.rows = 15
 o.wrap = "off"
-o.cfgvalue = function(self, section) return fs.readfile(oversea_lists) or "" end
-o.write = function(self, section, value) fs.writefile(oversea_lists, value:gsub("\r\n", "\n")) end
-o.remove = function(self, section, value) fs.writefile(oversea_lists, "") end
+o.cfgvalue = function(self, section) return fs.readfile(oversea_host) or "" end
+o.write = function(self, section, value) fs.writefile(oversea_host, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(oversea_host, "") end
 o.validate = function(self, value)
     local hosts= {}
     string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
@@ -133,13 +134,13 @@ o.validate = function(self, value)
 end
 
 ---- Preload Hosts
-local preload_lists = string.format("/etc/bypass/preload.list")
-o = s:taboption("preload_list", TextValue, "preload_lists", "", "<font color='red'>" .. translate("Preload domain(GFW Only)") .. "</font>")
+local preload_host = string.format("/etc/bypass/preload.list")
+o = s:taboption("preload_list", TextValue, "preload_host", "", "<font color='red'>" .. translate("Preload domain(GFW Only)") .. "</font>")
 o.rows = 15
 o.wrap = "off"
-o.cfgvalue = function(self, section) return fs.readfile(preload_lists) or "" end
-o.write = function(self, section, value) fs.writefile(preload_lists, value:gsub("\r\n", "\n")) end
-o.remove = function(self, section, value) fs.writefile(preload_lists, "") end
+o.cfgvalue = function(self, section) return fs.readfile(preload_host) or "" end
+o.write = function(self, section, value) fs.writefile(preload_host, value:gsub("\r\n", "\n")) end
+o.remove = function(self, section, value) fs.writefile(preload_host, "") end
 o.validate = function(self, value)
     local hosts= {}
     string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
