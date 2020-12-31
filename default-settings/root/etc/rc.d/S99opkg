@@ -28,6 +28,7 @@ function opkgupgrade() {
 		[ $c1 == 120 ] && return || let c1++
 		sleep 5
 	done
+			while :; do
 			opkg update >/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
 					udok=true
@@ -90,7 +91,6 @@ function opkgupgrade() {
 				[ $c3 == 10 ] && break || let c3++
 			done
 			rm -f /var/lock/opkg.lock
-	done
 }
 (
 	opkgupgrade
