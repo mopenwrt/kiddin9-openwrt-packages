@@ -1,4 +1,8 @@
 #!/bin/sh
+LOCK=/var/lock/opkgupgrade.lock
+# 防止重复启动
+[ -f $LOCK ] && exit 1
+touch $LOCK
 
 if [ "$(uci get network.wan.ipv6)" == 0 ]; then
 	sysctl -w net.ipv6.conf.all.disable_ipv6=1
@@ -26,7 +30,7 @@ function opkgupgrade() {
 	c3=0
 	rm -f /tmp/opkgupdate.log
 	while ! curl --retry 3 -m 5 https://op.supes.top >/dev/null 2>&1;do
-		echo "无法连接仓库服务器,等待重试 $c1" >>/tmp/opkgupdate.log
+		echo "无法连接仓库服务器,请检查网络. $c1" >>/tmp/opkgupdate.log
 		[ $c1 == 120 ] && return || let c1++
 		sleep 5
 	done
@@ -103,4 +107,5 @@ function opkgupgrade() {
 		sed -i 's/CoreMark 1.0/(CpuMark/g' /etc/bench.log
 		echo " Scores)" >>/etc/bench.log
 	}
+rm -f $LOCK 
 ) &
