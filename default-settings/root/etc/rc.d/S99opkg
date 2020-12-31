@@ -24,12 +24,14 @@ function opkgupgrade() {
 	c1=0
 	c2=0
 	c3=0
+	rm -f /tmp/opkgupdate.log
 	while ! curl --retry 3 -m 5 https://op.supes.top >/dev/null 2>&1;do
+		echo "无法连接仓库服务器,等待重试 $c1" >>/tmp/opkgupdate.log
 		[ $c1 == 120 ] && return || let c1++
 		sleep 5
 	done
 			while :; do
-			opkg update >/tmp/opkgupdate.log 2>&1
+			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
 					udok=true
 					source /etc/profile.d/opkginstall.sh
