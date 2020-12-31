@@ -24,10 +24,10 @@ function opkgupgrade() {
 	c1=0
 	c2=0
 	c3=0
-	while :; do
-		curl --connect-timeout 5 https://op.supes.top >/dev/null 2>&1
-		if [ "$?" == "0" ]; then
-			while :; do
+	while ! curl --retry 3 -m 5 https://op.supes.top >/dev/null 2>&1;do
+		[ $c1 == 120 ] && return || let c1++
+		sleep 5
+	done
 			opkg update >/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
 					udok=true
@@ -90,10 +90,6 @@ function opkgupgrade() {
 				[ $c3 == 10 ] && break || let c3++
 			done
 			rm -f /var/lock/opkg.lock
-			break
-		fi
-		[ $c1 == 120 ] && break || let c1++
-		sleep 5
 	done
 }
 (
