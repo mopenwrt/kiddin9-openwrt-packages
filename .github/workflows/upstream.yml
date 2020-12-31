@@ -69,6 +69,7 @@ jobs:
         git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun
         git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog
         git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater
+        git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand
 
         svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
         svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
