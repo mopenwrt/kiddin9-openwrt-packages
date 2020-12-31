@@ -55,7 +55,6 @@ s:tab("direct_list", translate("Direct Domain List"))
 s:tab("proxy_list", translate("Proxy Domain List"))
 s:tab("netflix_list", translate("Netflix Domain List"))
 s:tab("oversea_list", translate("Oversea Domain List"))
-s:tab("preload_list", translate("Preload Domain List"))
 
 ---- Direct Hosts
 local direct_host = string.format("/etc/bypass/white.list")
@@ -122,25 +121,6 @@ o.wrap = "off"
 o.cfgvalue = function(self, section) return fs.readfile(oversea_host) or "" end
 o.write = function(self, section, value) fs.writefile(oversea_host, value:gsub("\r\n", "\n")) end
 o.remove = function(self, section, value) fs.writefile(oversea_host, "") end
-o.validate = function(self, value)
-    local hosts= {}
-    string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
-    for index, host in ipairs(hosts) do
-        if not datatypes.hostname(host) then
-            return nil, host .. " " .. translate("Not valid domain name, please re-enter!")
-        end
-    end
-    return value
-end
-
----- Preload Hosts
-local preload_host = string.format("/etc/bypass/preload.list")
-o = s:taboption("preload_list", TextValue, "preload_host", "", "<font color='red'>" .. translate("Preload domain(GFW Only)") .. "</font>")
-o.rows = 15
-o.wrap = "off"
-o.cfgvalue = function(self, section) return fs.readfile(preload_host) or "" end
-o.write = function(self, section, value) fs.writefile(preload_host, value:gsub("\r\n", "\n")) end
-o.remove = function(self, section, value) fs.writefile(preload_host, "") end
 o.validate = function(self, value)
     local hosts= {}
     string.gsub(value, '[^' .. "\r\n" .. ']+', function(w) table.insert(hosts, w) end)
