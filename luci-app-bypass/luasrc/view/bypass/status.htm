@@ -98,10 +98,10 @@ margin-bottom: 0.5rem;
 		}
 	}
 
-#check_port .pure-u-1-1 .pure-u-8-24{
+#check_port.pure-u-1-1 .pure-u-8-24{
 width:10%;
 }
-#check_port .pure-u-1-1 .pure-u-16-24{
+#check_port.pure-u-1-1 .pure-u-16-24{
 width:90%;
 }
 
@@ -392,8 +392,11 @@ width:90%;
 			s.innerHTML = "<%:Touch Check%>";
 			return false;
 		}
+setTimeout(function(){
 check_connect('baidu', 'www.baidu.com')
 check_connect('google', 'https://www.google.com/generate_204')
+}, 500);
+
 //]]>
 	</script>
 </fieldset>
