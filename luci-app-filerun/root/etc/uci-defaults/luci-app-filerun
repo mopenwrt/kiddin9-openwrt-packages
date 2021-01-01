@@ -12,5 +12,4 @@ sed -i 's/service_start $PROG -y/service_start $PROG -R -y/g' /etc/init.d/php7-f
 sed -i "s/user =.*/user = root/g" /etc/php7-fpm.d/www.conf
 sed -i '/init_lan/d' /etc/init.d/nginx
 rm -f /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

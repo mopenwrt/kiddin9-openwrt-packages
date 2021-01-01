@@ -14,5 +14,4 @@ uci -q batch <<-EOF >/dev/null
 EOF
 
 rm -f /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

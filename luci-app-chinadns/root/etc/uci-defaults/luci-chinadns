@@ -5,5 +5,4 @@ uci -q batch <<-EOF >/dev/null
 	set ucitrack.@chinadns[-1].init=chinadns
 	commit ucitrack
 EOF
-killall -HUP rpcd 2>/dev/null
 exit 0

@@ -5,5 +5,4 @@ uci -q batch <<-EOF >/dev/null
 	set ucitrack.@k3screenctrl[-1].init=k3screenctrl
 	commit ucitrack
 EOF
-killall -HUP rpcd 2>/dev/null
 exit 0

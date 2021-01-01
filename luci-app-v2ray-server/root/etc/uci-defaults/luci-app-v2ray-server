@@ -18,5 +18,4 @@ EOF
 chmod a+x /usr/share/v2ray_server/* >/dev/null 2>&1
 
 rm -rf /tmp/luci-*
-killall -HUP rpcd 2>/dev/null
 exit 0

@@ -22,5 +22,4 @@ touch ${IPKG_INSTROOT}/etc/amule/ipfilter_static.dat
 touch ${IPKG_INSTROOT}/etc/amule/shareddir.dat
 
 rm -f /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

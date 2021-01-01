@@ -20,5 +20,4 @@ rm -f /etc/init.d/ipsec
 chmod a+x /usr/share/ipsecvpn/* >/dev/null 2>&1
 
 rm -rf /tmp/luci-*cache
-killall -HUP rpcd 2>/dev/null
 exit 0

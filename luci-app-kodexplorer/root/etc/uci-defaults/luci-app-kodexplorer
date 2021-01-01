@@ -9,5 +9,4 @@ EOF
 
 /etc/init.d/php7-fpm disable && /etc/init.d/php7-fpm stop
 rm -rf /tmp/luci-*cache
-killall -HUP rpcd 2>/dev/null
 exit 0

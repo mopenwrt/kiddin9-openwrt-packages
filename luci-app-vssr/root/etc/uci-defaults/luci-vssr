@@ -15,5 +15,4 @@ EOF
 
 /usr/share/vssr/gfw2ipset.sh
 rm -f /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

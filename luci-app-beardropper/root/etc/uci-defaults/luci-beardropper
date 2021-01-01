@@ -9,5 +9,4 @@ EOF
 
 touch /tmp/beardropper.bddb
 rm -rf /tmp/luci-*
-killall -HUP rpcd 2>/dev/null
 exit 0

@@ -18,5 +18,4 @@ EOF
 /etc/init.d/ipsec disable && /etc/init.d/ipsec stop
 rm -f /etc/init.d/ipsec
 rm -rf /tmp/luci-*cache
-killall -HUP rpcd 2>/dev/null
 exit 0

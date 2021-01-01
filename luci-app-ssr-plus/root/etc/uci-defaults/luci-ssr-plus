@@ -66,5 +66,4 @@ commit shadowsocksr
 EOF
 fi
 rm -rf /tmp/luci-modulecache /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

@@ -54,5 +54,4 @@ uci set openclash.config.enable=0 >/dev/null 2>&1
 uci commit openclash >/dev/null 2>&1
 
 rm -f /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

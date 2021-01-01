@@ -9,5 +9,4 @@ uci -q batch <<-EOF >/dev/null
 EOF
 # remove LuCI cache
 rm -f /tmp/luci*
-killall -HUP rpcd 2>/dev/null
 exit 0

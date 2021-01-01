@@ -18,5 +18,4 @@ EOF
 chmod a+x /usr/share/trojan_server/* >/dev/null 2>&1
 
 rm -f /tmp/luci-indexcache
-killall -HUP rpcd 2>/dev/null
 exit 0

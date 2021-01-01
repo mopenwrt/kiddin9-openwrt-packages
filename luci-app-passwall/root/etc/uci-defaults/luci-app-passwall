@@ -32,5 +32,4 @@ tmp=$(uci -q get passwall.@global_app[0].v2ray_file)
 uci commit passwall
 
 rm -rf /tmp/luci-*cache
-killall -HUP rpcd 2>/dev/null
 exit 0

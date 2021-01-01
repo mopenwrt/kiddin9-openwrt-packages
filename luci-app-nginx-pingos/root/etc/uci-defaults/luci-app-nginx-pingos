@@ -8,5 +8,4 @@ uci -q batch <<-EOF >/dev/null
 EOF
 
 rm -rf /tmp/luci-*cache
-killall -HUP rpcd 2>/dev/null
 exit 0

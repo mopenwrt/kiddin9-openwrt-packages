@@ -7,5 +7,4 @@ uci -q batch <<-EOF >/dev/null
 	commit ucitrack
 EOF
 
-killall -HUP rpcd 2>/dev/null
 exit 0

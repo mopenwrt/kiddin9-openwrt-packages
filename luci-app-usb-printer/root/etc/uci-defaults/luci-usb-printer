@@ -9,5 +9,4 @@ EOF
 
 [ -f /etc/init.d/p910nd ] && /etc/init.d/p910nd disable
 
-killall -HUP rpcd 2>/dev/null
 exit 0
