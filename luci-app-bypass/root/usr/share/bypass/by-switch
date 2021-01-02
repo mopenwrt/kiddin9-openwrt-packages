@@ -130,7 +130,7 @@ curl_check(){
 		trojan|trojan-go)
 			/usr/share/bypass/gentrojanconfig $1 client $lport $ip > $J
 			sed -i 's/\\//g' $J
-			$cmd -c $J >/dev/null 2>&1 &;;
+			$cmd --config $J >/dev/null 2>&1 &;;
 		naiveproxy)
 			$cmd $J 2>&1 &;;
 		socks5)IP=$ip
