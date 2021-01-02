@@ -128,7 +128,7 @@ jobs:
         sed -i 's/ +kmod-fs-exfat//g' automount/Makefile
         sed -i 's/ @!BUSYBOX_DEFAULT_IP:/ +/g' wrtbwmon/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
-        sed -i 's/+docker-ce/+docker \\\n\t+dockerd/g' luci-app-dockerman/Makefile
+        sed -i 's/+docker-ce/+docker/g' luci-app-dockerman/Makefile
         find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {}
         getversion() {
         	ver=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$1/releases/latest) | grep -o -E "[0-9].+")
