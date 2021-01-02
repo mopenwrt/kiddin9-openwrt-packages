@@ -707,7 +707,7 @@ gen_dns() {
 	gfw | oversea) port=5336 ;;
 	*) port=5337 ;;
 	esac
-	cat >/tmp/dnsmasq.d/dnsmasq-ssr.conf <<-EOF
+	cat >/tmp/dnsmasq.d/dnsmasq-by.conf <<-EOF
 		no-resolv
 		server=127.0.0.1#$port
 	EOF
@@ -761,7 +761,7 @@ gen_dns() {
 	fi
 	[ -s $CON_T ] && echo "conf-file $CON_T" >>$DNS_T
 	rm -f $DNS_DIR/tmp
-	[ $(find $DNS_DIR -name \* -exec cat {} \; 2>/dev/null | wc -l) = 0 ] && rm -rf $DNS_DIR || echo conf-dir=$DNS_DIR >>/tmp/dnsmasq.d/dnsmasq-ssr.conf
+	[ $(find $DNS_DIR -name \* -exec cat {} \; 2>/dev/null | wc -l) = 0 ] && rm -rf $DNS_DIR || echo conf-dir=$DNS_DIR >>/tmp/dnsmasq.d/dnsmasq-by.conf
 	[ $run_mode = router ] && chinadns_flag=1
 	if [ $STATUS = Y ]; then
 		killall -q -9 smartdns
@@ -998,7 +998,7 @@ stop() {
 	kill -9 $(ps -w | grep by-monitor | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep by-preload | grep -v grep | awk '{print$1}') 2>/dev/null
 	killall -q -9 ss-redir ssr-redir v2ray xray trojan-plus trojan-go ipt2socks naive redsocks2 kcptun-client obfs-local obfs-server v2ray-plugin ss-local ss-server ssr-local ssr-server microsocks smartdns chinadns-ng
-	rm -rf $DNS_DIR /var/etc/*ssr*.json /tmp/dnsmasq.d/dnsmasq-ssr.conf $CON_T /var/lock/bypass.lock
+	rm -rf $DNS_DIR /var/etc/*by*.json /tmp/dnsmasq.d/dnsmasq-by.conf $CON_T /var/lock/bypass.lock
 	[ $run_mode = gfw -o $gfw_mode = 1 ] || rm -f /tmp/bypass/gfw.list
 	[ $run_mode = router ] || rm -f /tmp/bypass/china_v6.txt
 	if [ -z "$GLOBAL_SERVER" ]; then
