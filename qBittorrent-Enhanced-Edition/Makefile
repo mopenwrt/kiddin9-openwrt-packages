@@ -17,7 +17,7 @@ ifeq ($(ARCH),i386)
 endif
 
 ifeq ($(ARCH),x86_64)
-	PKG_ARCH:=linux_x64
+	PKG_ARCH:=x86_64-linux-musl
 endif
 
 ifeq ($(ARCH),mipsel)
