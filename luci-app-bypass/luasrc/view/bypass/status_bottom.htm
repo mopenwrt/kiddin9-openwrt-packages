@@ -41,7 +41,11 @@
 }
 </style>
 <script src="<%=media%>/js/jquery.min.js"></script>
-
+<script>
+if(typeof jQuery == 'undefined'){
+document.write('<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"><\/script>');
+}
+</script>
 <div class="status-bar">
     <div class="inner">
         <div class="pure-g">
