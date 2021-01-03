@@ -2702,6 +2702,7 @@ input[name="nslookup"] {
 .node-main-login .main .main-right #maincontent {
 	height: 100%;
 	padding-top: 23vh;
+	padding-bottom:1rem;
 	margin-top: 0rem;
 	background-color: transparent !important;
 	text-align: center;
