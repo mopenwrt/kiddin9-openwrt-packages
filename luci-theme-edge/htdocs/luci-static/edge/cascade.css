@@ -4070,8 +4070,11 @@ div[id^="cbi-unblockmusic"] .cbi-button {
 	padding-left: 1.5rem;
 }
 
-.cbi-section-table .tr>.td:last-child,#packages .tr>.td:last-child{
+#packages .tr>.td:last-child{
 	padding-right:3%;
+}
+.cbi-section-table .tr>.td:last-child{
+	padding-right:2rem;
 }
 
 .command-output {
