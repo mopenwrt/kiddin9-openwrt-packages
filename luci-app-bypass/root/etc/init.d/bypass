@@ -310,7 +310,7 @@ start_rules() {
 	fi
 	dports=$(uci_get_by_type global dports 1)
 	if [ $dports = 2 ]; then
-		proxyport="-m multiport --dports 22,53,587,465,995,993,143,80,443"
+		proxyport="-m multiport --dports 22,53,587,465,995,993,143,80,443,853,9418"
 	fi
 	r=1
 	while
