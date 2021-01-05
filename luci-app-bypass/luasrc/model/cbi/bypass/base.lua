@@ -1,11 +1,11 @@
 local m,s,o
-local ssr="bypass"
+local bypass="bypass"
 
-m=Map(ssr)
+m=Map(bypass)
 m:section(SimpleSection).template="bypass/status"
 
 local server_table={}
-luci.model.uci.cursor():foreach(ssr,"servers",function(s)
+luci.model.uci.cursor():foreach(bypass,"servers",function(s)
 	if s.alias then
 		server_table[s[".name"]]="[%s]:%s"%{string.upper(s.type),s.alias}
 	elseif s.server and s.server_port then
