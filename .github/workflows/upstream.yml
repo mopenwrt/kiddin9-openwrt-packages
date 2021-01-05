@@ -40,6 +40,10 @@ jobs:
         rm -rf `find -maxdepth 1 -type d -name "[!.]*" ! -path "./diy"`
         git rm -r --cache *
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages
+        git clone --depth 1 https://github.com/garypang13/luci-app-bypass
+        git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter
+        git clone --depth 1 https://github.com/garypang13/openwrt-static-qb
+        git clone --depth 1 https://github.com/garypang13/openwrt-aria2-enhanced
         git clone --depth 1 https://github.com/garypang13/openwrt-smartdns && mv -f openwrt-smartdns/* ./ ; rm -Rf openwrt-smartdns
         git clone --depth 1 https://github.com/garypang13/openwrt-adguardhome AdGuardHome
         git clone --depth 1 https://github.com/garypang13/luci-app-eqos
