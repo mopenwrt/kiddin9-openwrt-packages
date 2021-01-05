@@ -9,7 +9,7 @@ L=/etc/dnsfilter
 P=/usr/share/dnsfilter
 T=/tmp/dnsfilter
 STATUS=Y
-TAG="_ADBLOCK_RULE_"
+TAG="_DNSFILTER_RULE_"
 FWI=$(uci -q get firewall.dnsfilter.path)
 enable=$(uci -q get dnsfilter.@dnsfilter[0].enable)
 flash=$(uci -q get dnsfilter.@dnsfilter[0].flash)
@@ -325,12 +325,12 @@ EOF
 gen() {
 	extract_rules() {
 		echo "*$1"
-		iptables-save -t $1 | grep ADBLOCK |\
+		iptables-save -t $1 | grep DNSFILTER |\
 			sed -e "s/^-A \(OUTPUT\|FORWARD\)/-I \1 1/"
 		echo 'COMMIT'
 	}
 	cat <<-EOF >> $FWI
-	iptables-save -c | grep -v ADBLOCK | iptables-restore -c
+	iptables-save -c | grep -v DNSFILTER | iptables-restore -c
 	iptables-restore -n <<-EOT
 	$(extract_rules filter)
 	$(extract_rules nat)
