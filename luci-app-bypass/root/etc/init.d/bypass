@@ -204,24 +204,24 @@ rules() {
 	fi
 	if ! cat $LOG 2>/dev/null | sed -n '$p' | grep -q 'Check network status...' && ! cat $LOG 2>/dev/null | sed -n '$p' | grep -q 'Download IP/GFW files...'; then
 		[ -s $LOG ] && echo '------------------------------------------------------------------------------------------------------------------------------------------------------------' >>$LOG
-		echo "$(eval $DATE)  : Check network status..." >>$LOG
+		echo "$(eval $DATE) : Check network status..." >>$LOG
 	fi
 	if ! curl -so /dev/null -m 3 www.baidu.com; then
-		echo "$(eval $DATE)  : Wait for network to connect..." >>$LOG
+		echo "$(eval $DATE) : Wait for network to connect..." >>$LOG
 		firstdown 1
 		exit 1
 	fi
 	cat $LOG 2>/dev/null | sed -n '$p' | grep -q 'Download IP/GFW files...' || (
-		echo "$(eval $DATE)  : Check network status successful!" >>$LOG
-		echo "$(eval $DATE)  : Check IP/GFW files..." >>$LOG
+		echo "$(eval $DATE) : Check network status successful!" >>$LOG
+		echo "$(eval $DATE) : Check IP/GFW files..." >>$LOG
 	)
 	mkdir -p /var/run /var/etc
 	if [ ! -s /tmp/bypass/china.txt ] || [ $run_mode = router -a ! -s /tmp/bypass/china_v6.txt ] || ([ $run_mode = gfw -o $gfw_mode = 1 ] && [ ! -s /tmp/bypass/gfw.list ]); then
-		echo "$(eval $DATE)  : Download IP/GFW files..." >>$LOG
+		echo "$(eval $DATE) : Download IP/GFW files..." >>$LOG
 		firstdown 2
 		exit 1
 	fi
-	echo "$(eval $DATE)  : Check IP/GFW files successful!" >>$LOG
+	echo "$(eval $DATE) : Check IP/GFW files successful!" >>$LOG
 	kcp_enable=$(uci_get_by_name $GLOBAL_SERVER kcp_enable 0)
 	[ $kcp_enable = 1 ] && kcp_server=$server
 	UDP_RELAY_SERVER=$(uci_get_by_type global udp_relay_server)
@@ -294,7 +294,7 @@ start_rules() {
 				done
 			fi
 			if ! A=$(nslookup $nf_ip 2>/dev/null | grep Address | awk -F' ' '{print$NF}' | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$"); then
-				echo "$(eval $DATE) NF Shunt   : Unable to get server address.Check domain name!" >>$LOG
+				echo "$(eval $DATE) NF Shunt : Unable to get server address.Check domain name!" >>$LOG
 				return 1
 			fi
 			nf_ip=$(echo "$A" | sed -n 1p)
@@ -317,11 +317,11 @@ start_rules() {
 		! $BIN_DIR/by-rules -s "$server" -l "$local_port" -a "$ac_ips" -b "$(uci_get_by_type access_control wan_bp_ips)" -w "$(uci_get_by_type access_control wan_fw_ips)" \
 		-p "$(uci_get_by_type access_control lan_fp_ips)" -G "$(uci_get_by_type access_control lan_gm_ips)" -D "$proxyport" $mode $UDP $NF
 	do
-		[ $r -ge 20 ] && echo "$(eval $DATE)  : Start iptables rules failed!" >>$LOG && return 1
+		[ $r -ge 20 ] && echo "$(eval $DATE) : Start iptables rules failed!" >>$LOG && return 1
 		let r++
 		sleep 1
 	done
-	echo "$(eval $DATE)  : Start iptables rules successful!" >>$LOG
+	echo "$(eval $DATE) : Start iptables rules successful!" >>$LOG
 }
 
 start_retcp() {
@@ -470,7 +470,7 @@ start_renf() {
 	type=$(uci_get_by_name $NF_SERVER type)
 	cmd=$(f_bin $type)
 	if [ ! -x $cmd ]; then
-		echo "$(eval $DATE) NF Shunt   : Can't find $(echo $type | tr a-z A-Z) program, start failed!" >>$LOG
+		echo "$(eval $DATE) NF Shunt : Can't find $(echo $type | tr a-z A-Z) program, start failed!" >>$LOG
 		return 1
 	fi
 	redir_nf=1
@@ -479,12 +479,12 @@ start_renf() {
 		gen_config_file $NF_SERVER $rtype
 		$cmd -c $config_file >/dev/null 2>&1 &
 		[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
-		echo "$(eval $DATE) NF Shunt   : $name Started!" >>$LOG
+		echo "$(eval $DATE) NF Shunt : $name Started!" >>$LOG
 		;;
 	vmess | vless)
 		gen_config_file $NF_SERVER $rtype 0 $nf_ip
 		$cmd -c $config_file >/dev/null 2>&1 &
-		echo "$(eval $DATE) NF Shunt   : $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >>$LOG
+		echo "$(eval $DATE) NF Shunt : $($cmd -version | head -1 | awk '{print$1,$2}') Started!" >>$LOG
 		;;
 	trojan | trojan-go)
 		gen_config_file $NF_SERVER $rtype "" $nf_ip
@@ -501,18 +501,18 @@ start_renf() {
 	naiveproxy)
 		gen_config_file $NF_SERVER $rtype
 		$cmd $config_file >/dev/null 2>&1 &
-		echo "$(eval $DATE) NF Shunt   : $($cmd --version | head -1) Started!" >>$LOG
+		echo "$(eval $DATE) NF Shunt : $($cmd --version | head -1) Started!" >>$LOG
 		;;
 	socks5)
 		$BIN_DIR/genred2config /var/etc/redsocks-by-nf.json socks5 tcp $nf_local_port $nf_ip $(uci_get_by_name $NF_SERVER server_port) \
 		$(uci_get_by_name $NF_SERVER auth_enable 0) $(uci_get_by_name $NF_SERVER username) $(uci_get_by_name $NF_SERVER password)
 		$cmd -c /var/etc/redsocks-by-nf.json >/dev/null 2>&1
-		echo "$(eval $DATE) NF Shunt   : Socks5 Started!" >>$LOG
+		echo "$(eval $DATE) NF Shunt : Socks5 Started!" >>$LOG
 		;;
 	tun)
 		$BIN_DIR/genred2config /var/etc/redsocks-by-nf.json vpn $(uci_get_by_name $NF_SERVER iface "br-lan") $nf_local_port
 		$cmd -c /var/etc/redsocks-by-nf.json >/dev/null 2>&1
-		echo "$(eval $DATE) NF Shunt   : Network Tunnel REDIRECT Started!" >>$LOG
+		echo "$(eval $DATE) NF Shunt : Network Tunnel REDIRECT Started!" >>$LOG
 		;;
 	esac
 }
