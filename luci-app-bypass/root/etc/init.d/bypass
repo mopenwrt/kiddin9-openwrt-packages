@@ -624,7 +624,7 @@ gen_dns() {
 			dns_c=1;;
 		1)
 			doh_l="https://doh.pub/dns-query"
-			dns_l="119.29.29.29 182.254.116.116"
+			dns_l="119.29.29.29 119.28.28.28"
 			dns_c=1;;
 		*)
 			doh_l=$dns_l

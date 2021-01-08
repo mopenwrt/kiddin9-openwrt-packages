@@ -127,7 +127,7 @@ o=s:option(Value,"udp_dns",translate("Domestic DNS"),
 translate("Custom DNS format is 223.5.5.5:53,223.6.6.6 ,Port optional"))
 o:value("",translate("ISP DNS"))
 o:value("223.5.5.5,223.6.6.6","223.5.5.5,223.6.6.6 ("..translate("Ali").." DNS)")
-o:value("119.29.29.29,182.254.116.116","119.29.29.29,182.254.116.116 (Dnspod DNS)")
+o:value("119.29.29.29,119.28.28.28","119.29.29.29,119.28.28.28 (Dnspod DNS)")
 o:value("114.114.114.114,114.114.115.115","114.114.114.114,114.114.115.115 (114 DNS)")
 o:depends("dns_mode_l",1)
 m:section(SimpleSection).template = 'bypass/status_bottom'
