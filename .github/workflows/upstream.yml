@@ -117,6 +117,7 @@ jobs:
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
+        sed -i 's/+docker-ce/+docker/' luci-app-dockerman/Makefile
         rm -f subconverter/patches/010-missing-header.patch
         sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' */Makefile
         cp -rf luci-app-mentohust/luasrc/luci/* luci-app-mentohust/luasrc/ && rm -Rf luci-app-mentohust/luasrc/luci
