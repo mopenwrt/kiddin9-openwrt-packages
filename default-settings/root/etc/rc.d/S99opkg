@@ -47,11 +47,8 @@ function opkgupgrade() {
 					fi
 					[ -f "/etc/backup/installed_packages.txt" ] && {
 							for ipk in $(cat /etc/backup/installed_packages.txt | grep -oE '(.*overlay|luci-app.*|luci-theme.*|default-settings)' | awk '{print $1}'); do
-							if [ -f /etc/inited ]; then
-								[[ "$(echo $(opkg list-upgradable) | grep $ipk)" && ! "$(echo $ipk | grep 'luci.*opkg.*')" ]] && {
-							else
-								[[ ! "$(echo $ipk | grep 'luci.*opkg.*')" ]] && {
-							fi
+							[ -f /etc/inited ] && opkg=$(echo $(opkg list-upgradable) | grep $ipk) || opkg=1
+								[[ $opkg && ! "$(echo $ipk | grep 'luci.*opkg.*')" ]] && {
 									while :; do
 										opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
 										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
