@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aria2
-PKG_VERSION:=2.35.0
+PKG_VERSION:=1.35.0
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -90,7 +90,7 @@ define Package/aria2/conffiles
 endef
 
 define Download/aria2.conf
-  URL:=https://github.com/P3TERX/aria2.conf/archive/master.zip
+  URL:=https://github.com/P3TERX/aria2.conf/archive
   URL_FILE:=master.zip
   FILE:=aria2.conf
   HASH:=skip
@@ -98,8 +98,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	mv -f $(DL_DIR)/aria2.conf.zip $(PKG_BUILD_DIR)/
-	unzip $(PKG_BUILD_DIR)/aria2.conf.zip $(PKG_BUILD_DIR)/aria2.conf
+	unzip $(DL_DIR)/aria2.conf -d $(PKG_BUILD_DIR)/
 endef
 
 
@@ -114,7 +113,7 @@ define Package/aria2/install
 	$(INSTALL_CONF) ./files/aria2.conf $(1)/etc/config/aria2
 	
 	$(INSTALL_DIR) $(1)/usr/share/aria2
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/aria2.conf/* $(1)/usr/share/aria2/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/aria2.conf-master/* $(1)/usr/share/aria2/
 endef
 
 $(eval $(call Download,aria2.conf))
