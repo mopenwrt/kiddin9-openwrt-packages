@@ -37,7 +37,7 @@ _zswap_factor() {
 }
 
 _zswap_pool() {
-	local pool; config_get pool zram pool_limit '210'
+	local pool; config_get pool zram pool_limit '200'
 	log_msg "pool limit for zram: $pool%"
 	local worst; config_get worst zram worst_ratio '1.040'
 	log_msg "worst case compression ratio for zram: $worst"

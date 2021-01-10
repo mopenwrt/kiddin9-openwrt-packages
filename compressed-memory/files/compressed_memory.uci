@@ -8,7 +8,7 @@ config params 'zram'
 	option pool_base	'52.05'
 	# Hard pool % which clamp the maximum size of the zram device
 	#   This value is scaled by the worst expected compression ratio
-	option pool_limit	'210'
+	option pool_limit	'200'
 	# The worst ratio that is expected by the worst compression algorithm
 	#   This value should never be less than 1.00
 	option worst_ratio	'1.040'

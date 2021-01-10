@@ -78,7 +78,7 @@ zram_getsize() {
 	local pool_base_b=$(_do_math 0 \
 	  "$ram_size * $zswap_scaled * $pool_base * 10")
 	log_msg "calculated memory pool: $pool_base_b bytes"
-	local pool_limit; config_get pool_limit zram pool_limit '210'
+	local pool_limit; config_get pool_limit zram pool_limit '200'
 	log_msg "memory pool limit for zram: $pool_limit%"
 	local worst_ratio; config_get worst_ratio zram worst_ratio '1.040'
 	log_msg "worst expected compression ratio: $worst_ratio"
@@ -235,7 +235,7 @@ start() {
 	local zram_size=$(zram_getsize)
 	local zram_pte=$(_do_math 2 "$zram_size / ($ram_size * 10)")
 	log_msg "maximum pool size for zram: $zram_size bytes ($zram_pte%)"
-	local pool_limit; config_get pool_limit zram pool_limit '210'
+	local pool_limit; config_get pool_limit zram pool_limit '200'
 	local worst_ratio; config_get worst_ratio zram worst_ratio '1.040'
 	local zswap_pool=$(_do_math 0 "$pool_limit * $worst_ratio * $ZSWAP_POOL / ($ZPOOL_RATIO * 100)")
 	log_msg "info: total memory for compression (assuming worst case): $zram_pte% +  $(printf '%.2f' $zswap_pool)%"

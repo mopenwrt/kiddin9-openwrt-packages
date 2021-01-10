@@ -98,7 +98,7 @@ return L.view.extend({
 			o = s.option(form.Value, 'pool_limit', _('Absolute memory pool limit'),
 				_('For calculating the disk\'s size (which is different from the estimated size occupied by it when filled with data, in memory); <b>never</b> size the disk bigger than this hard limit.<br>This limit is a percentage of the total system memory.'));
 			o.datatype	= 'and(ufloat,max(480.00))';
-			o.default	= '210';
+			o.default	= '200';
 			o.depends('advanced', '1');
 			o.rmempty	= false;
 		}
