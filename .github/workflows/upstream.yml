@@ -119,11 +119,11 @@ jobs:
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         sed -i 's/+docker-ce/+docker/' luci-app-dockerman/Makefile
         rm -f subconverter/patches/010-missing-header.patch
-        sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' */Makefile
+        sed -i 's?../../luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
+        sed -i 's?../../lang?$(TOPDIR)/feeds/packages/lang?g' */Makefile
         cp -rf luci-app-mentohust/luasrc/luci/* luci-app-mentohust/luasrc/ && rm -Rf luci-app-mentohust/luasrc/luci
         bash diy/create_acl_for_luci.sh -a || true
         bash diy/convert_translation.sh -a || true
-        sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' */Makefile
         rm -Rf antileech/src && git clone https://github.com/persmule/amule-dlp.antiLeech antileech/src
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/config/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
