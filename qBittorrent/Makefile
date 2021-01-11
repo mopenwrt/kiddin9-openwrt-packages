@@ -37,17 +37,12 @@ define Download/qbittorrent
   HASH:=skip
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	mv -f $(DL_DIR)/qbittorrent-nox $(PKG_BUILD_DIR)/qbittorrent-nox
-endef
-
 define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/qbittorrent-nox $(1)/usr/bin
+	$(INSTALL_BIN) $(DL_DIR)/qbittorrent-nox $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/qBittorrent
 	$(INSTALL_DATA) ./files/ipfilter.dat $(1)/etc/qBittorrent/ipfilter.dat
 endef
