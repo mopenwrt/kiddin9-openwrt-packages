@@ -57,6 +57,11 @@ function to_check()
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/nanopi-r2s/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
         download_url = "https://op.supes.top/firmware/nanopi-r2s/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
+    elseif model:match(".*R4S.*") then
+		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/nanopi-r4s/version.txt"}, nil, api.command_timeout)
+		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/nanopi-r4s/updatelogs.txt"}, nil, api.command_timeout)
+		check_update()
+        download_url = "https://op.supes.top/firmware/nanopi-r4s/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
     elseif model:match(".*HC5962.*") then
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/hiwifi-hc5962/version.txt"}, nil, api.command_timeout)
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/hiwifi-hc5962/updatelogs.txt"}, nil, api.command_timeout)
