@@ -129,7 +129,6 @@ jobs:
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
         sed -i 's/ca-certificates/ca-bundle/g' */Makefile
         sed -i 's/ +kmod-fs-exfat//g' automount/Makefile
-        sed -i 's/ @!BUSYBOX_DEFAULT_IP:/ +/g' wrtbwmon/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
         sed -i 's/+docker-ce/+docker/g' luci-app-dockerman/Makefile
         find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {}
