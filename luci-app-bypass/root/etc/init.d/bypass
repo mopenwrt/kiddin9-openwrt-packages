@@ -578,7 +578,7 @@ gen_dns() {
 	dns_mode_o=$(uci_get_by_type global dns_mode_o doh)
 	if [ $dns_mode_o = "doh" ]; then
 		doh_dns_o=$(uci_get_by_type global doh_dns_o cloudflare)
-		[ -n "$NF" ] && dns_nf=$(uci_get_by_type global dns_nf google)
+		[ -n "$NF" ] && dns_nf=$(uci_get_by_type global doh_dns_nf google)
 		if [ "$dns_nf" = $doh_dns_o ]; then
 			doh_dns_o=cloudflare
 			dns_nf=google
