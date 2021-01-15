@@ -159,14 +159,14 @@ start_dns() {
 	$(which smartdns) -c $DNS_T
 	case $dns_mode_o in
 	doh)
-		doh=$(echo $doh | sed 's/ -http-host dns.google//g')
-		echo "$(eval $DATE) SmartDNS : Use $doh to start in DoH mode (Foreign DNS)" >>$LOG
+		doh_o=$(echo $doh_o | sed 's/ -http-host dns.google//g')
+		echo "$(eval $DATE) SmartDNS : Use $doh_o to start in DoH mode (Foreign DNS)" >>$LOG
 		[ -n "$NF" ] && doh_nf=$(echo $doh_nf | sed 's/ -http-host dns.google//g') && echo "$(eval $DATE) SmartDNS : Use $doh_nf to start in DoH mode (Netflix DNS)" >>$LOG
 		;;
 	tcp)
-		dns=$(echo $dns | sed 's/ /,/g')
-		echo "$(eval $DATE) SmartDNS : Use $dns to start in TCP mode (Foreign DNS)" >>$LOG
-		[ -n "$NF" ] && dns_nf=$(echo $dns_nf | sed 's/ /,/g') && echo "$(eval $DATE) SmartDNS : Use $dns_nf to start in TCP mode (Netflix DNS)" >>$LOG
+		dns_o_l=$(echo $dns_o_l | sed 's/ /,/g')
+		echo "$(eval $DATE) SmartDNS : Use $dns_o_l to start in TCP mode (Foreign DNS)" >>$LOG
+		[ -n "$NF" ] && dns_nf_l=$(echo $dns_nf_l | sed 's/ /,/g') && echo "$(eval $DATE) SmartDNS : Use $dns_nf to start in TCP mode (Netflix DNS)" >>$LOG
 		;;
 	esac
 	case $dns_mode_d in
@@ -578,10 +578,10 @@ gen_dns() {
 	dns_mode_o=$(uci_get_by_type global dns_mode_o doh)
 	if [ $dns_mode_o = "doh" ]; then
 		doh_dns_o=$(uci_get_by_type global doh_dns_o cloudflare)
-		[ -n "$NF" ] && dns_nf=$(uci_get_by_type global doh_dns_nf google)
-		if [ "$dns_nf" = $doh_dns_o ]; then
+		[ -n "$NF" ] && doh_dns_nf=$(uci_get_by_type global doh_dns_nf google)
+		if [ "$doh_dns_nf" = $doh_dns_o ]; then
 			doh_dns_o=cloudflare
-			dns_nf=google
+			doh_dns_nf=google
 		fi
 		case $doh_dns_o in
 		cloudflare)
@@ -603,7 +603,7 @@ gen_dns() {
 		*)
 			doh_o=$doh_dns_o
 			dns_o_l=$(echo $doh_dns_o | awk -F[/:] '{print$4}')
-			dns_o_l=$(echo $doh_dns_o | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
+			dns_o_l=$(echo $dns_o_l | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
 			if [ -z "$dns_o_l" ]; then
 				dns_o_l="1.1.1.1 1.0.0.1"
 				dns_a=1
@@ -616,40 +616,40 @@ gen_dns() {
 			esac
 		done
 		if [ -n "$NF" ]; then
-			case $dns_nf in
+			case $doh_dns_nf in
 			cloudflare)
 				doh_nf="https://cloudflare-dns.com/dns-query"
-				dns_nf="1.1.1.1 1.0.0.1"
+				dns_nf_l="1.1.1.1 1.0.0.1"
 				dns_b=1;;
 			google)
 				doh_nf="https://dns.google/dns-query"
-				dns_nf="8.8.8.8 8.8.4.4"
+				dns_nf_l="8.8.8.8 8.8.4.4"
 				dns_b=1;;
 			quad9)
 				doh_nf="https://dns.quad9.net/dns-query"
-				dns_nf="9.9.9.9 149.112.112.112"
+				dns_nf_l="9.9.9.9 149.112.112.112"
 				dns_b=1;;
 			opendns)
 				doh_nf="https://doh.opendns.com/dns-query"
-				dns_nf="208.67.222.222 208.67.220.220"
+				dns_nf_l="208.67.222.222 208.67.220.220"
 				dns_b=1;;
 			*)
-				doh_nf=$dns_nf
-				dns_nf=$(echo $dns_nf | awk -F[/:] '{print$4}')
-				dns_nf=$(echo $dns_nf | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
-				if [ -z "$dns_nf" ]; then
-					dns_nf="8.8.8.8 8.8.4.4"
+				doh_nf=$doh_dns_nf
+				dns_nf_l=$(echo $doh_dns_nf | awk -F[/:] '{print$4}')
+				dns_nf_l=$(echo $dns_nf_l | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
+				if [ -z "$dns_nf_l" ]; then
+					dns_nf_l="8.8.8.8 8.8.4.4"
 					dns_b=1
 				fi;;
 			esac
-			for i in $dns_nf; do ipset add netflix $i 2>/dev/null; done
+			for i in $dns_nf_l; do ipset add netflix $i 2>/dev/null; done
 		fi
 	else
 		dns_o_l=$(uci_get_by_type global tcp_dns_o 1.1.1.1,1.0.0.1)
-		[ -n "$NF" ] && dns_nf=$(uci_get_by_type global tcp_dns_nf 8.8.8.8,8.8.4.4)
-		if [ "$dns_nf" = $dns_o_l ]; then
+		[ -n "$NF" ] && dns_nf_l=$(uci_get_by_type global tcp_dns_nf 8.8.8.8,8.8.4.4)
+		if [ "$dns_nf_l" = $dns_o_l ]; then
 			dns_o_l=1.1.1.1,1.0.0.1
-			dns_nf=8.8.8.8,8.8.4.4
+			dns_nf_l=8.8.8.8,8.8.4.4
 		fi
 		dns_o_l=$(echo $dns_o_l | sed -e 's/，/,/g' -e 's/。/./g' -e 's/：/:/g' -e 's/,/\n/g')
 		if ! dns_tmp=$(echo $dns_o_l | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | grep -v 0.0.0.0 | grep -v 127.0.0.1); then
@@ -663,8 +663,8 @@ gen_dns() {
 			esac
 		done
 		if [ -n "$NF" ]; then
-			dns_nf=$(echo $dns_nf | sed -e 's/，/,/g' -e 's/。/./g' -e 's/：/:/g' -e 's/,/\n/g')
-			if ! dns_tmp=$(echo $dns_nf | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | grep -v 0.0.0.0 | grep -v 127.0.0.1); then
+			dns_nf_l=$(echo $dns_nf_l | sed -e 's/，/,/g' -e 's/。/./g' -e 's/：/:/g' -e 's/,/\n/g')
+			if ! dns_tmp=$(echo $dns_nf_l | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | grep -v 0.0.0.0 | grep -v 127.0.0.1); then
 				echo "$(eval $DATE) SmartDNS : Get Netflix DNS failed!" >>$LOG
 				return 1
 			fi
@@ -686,7 +686,7 @@ gen_dns() {
 		*)
 			doh_d=$doh_dns_d
 			dns_d_l=$(echo $doh_dns_d | awk -F[/:] '{print$4}')
-			dns_d_l=$(echo $doh_dns_d | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
+			dns_d_l=$(echo $dns_d_l | grep -E -o "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
 			if [ -z "$dns_d_l" ]; then
 				dns_d_l="223.5.5.5 223.6.6.6 2400:3200::1 2400:3200:baba::1"
 				dns_c=1
@@ -723,7 +723,7 @@ gen_dns() {
 	if [ $dns_mode_o = "doh" ]; then
 		if [ "$dns_a" = 1 ]; then
 			echo "server-https $doh_o -group a -check-edns" >>$DNS_T
-			for i in $dns; do echo "server-tcp $i -group b -exclude-default-group" >>$DNS_T; done
+			for i in $dns_o_l; do echo "server-tcp $i -group b -exclude-default-group" >>$DNS_T; done
 			doh_t=$(echo $doh_o | awk -F[/:] '{print$4}')
 			case $run_mode in
 			router | all) echo "nameserver /$doh_t/b" >>$DNS_T ;;
@@ -735,7 +735,7 @@ gen_dns() {
 		if [ -n "$NF" ]; then
 			if [ "$dns_b" = 1 ]; then
 				echo "server-https $doh_nf -group c -exclude-default-group" >>$DNS_T
-				for i in $dns_nf; do echo "server-tcp $i -group d -exclude-default-group" >>$DNS_T; done
+				for i in $dns_nf_l; do echo "server-tcp $i -group d -exclude-default-group" >>$DNS_T; done
 				doh_nf_t=$(echo $doh_nf | awk -F[/:] '{print$4}')
 				echo "domain-rules /$doh_nf_t/ -nameserver d -ipset netflix" >>$DNS_T
 			else
@@ -743,8 +743,8 @@ gen_dns() {
 			fi
 		fi
 	else
-		for i in $dns; do echo "server-tcp $i -group a -check-edns" >>$DNS_T; done
-		[ -n "$NF" ] && for i in $dns_nf; do echo "server-tcp $i -group c -exclude-default-group" >>$DNS_T; done
+		for i in $dns_o_l; do echo "server-tcp $i -group a -check-edns" >>$DNS_T; done
+		[ -n "$NF" ] && for i in $dns_nf_l; do echo "server-tcp $i -group c -exclude-default-group" >>$DNS_T; done
 	fi
 
 	if [ $dns_mode_d = "doh" ]; then
