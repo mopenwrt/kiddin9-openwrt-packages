@@ -86,15 +86,6 @@ o:value("opendns","OpenDNS DoH")
 o.default="cloudflare"
 o:depends("dns_mode_o","doh")
 
-o=s:option(Value,"doh_dns_nf",translate("Netflix DoH"),
-translate("Do not use the same DNS server as the global server"))
-o:value("google",""..translate("Google").." DoH")
-o:value("cloudflare","Cloudflare DoH")
-o:value("quad9","Quad9 DoH")
-o:value("opendns","OpenDNS DoH")
-o.default="google"
-for _,key in pairs(key_table) do o:depends({nf_server=key,dns_mode_o="doh"}) end
-
 o=s:option(Value,"tcp_dns_o",translate("Foreign DNS"),
 translate("Custom DNS format is 1.1.1.1:53,1.0.0.1 ,Port optional"))
 o:value("1.1.1.1,1.0.0.1","1.1.1.1,1.0.0.1 (Cloudflare DNS)")
@@ -103,15 +94,6 @@ o:value("9.9.9.9,149.112.112.112","9.9.9.9,149.112.112.112 (Quad9 DNS)")
 o:value("208.67.222.222,208.67.220.220","208.67.222.222,208.67.220.220 (OpenDNS)")
 o.default="1.1.1.1,1.0.0.1"
 o:depends("dns_mode_o","tcp")
-
-o=s:option(Value,"tcp_dns_nf",translate("Netflix DNS"),
-translate("Do not use the same DNS server as the global server"))
-o:value("8.8.8.8,8.8.4.4","8.8.8.8,8.8.4.4 (Google DNS)")
-o:value("1.1.1.1,1.0.0.1","1.1.1.1,1.0.0.1 (Cloudflare DNS)")
-o:value("9.9.9.9,149.112.112.112","9.9.9.9,149.112.112.112 (Quad9 DNS)")
-o:value("208.67.222.222,208.67.220.220","208.67.222.222,208.67.220.220 (OpenDNS)")
-o.default="8.8.8.8,8.8.4.4"
-for _,key in pairs(key_table) do o:depends({nf_server=key,dns_mode_o="tcp"}) end
 
 o=s:option(ListValue,"dns_mode_d",translate("Domestic Resolve Dns Mode"),
 translate("If DoH resolution is not normal,use UDP mode and select ISP DNS"))
