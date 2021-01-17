@@ -62,11 +62,6 @@ function to_check()
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/nanopi-r4s/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
         download_url = "https://op.supes.top/firmware/nanopi-r4s/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
-    elseif model:match(".*HC5962.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/hiwifi-hc5962/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/hiwifi-hc5962/updatelogs.txt"}, nil, api.command_timeout)
-		check_update()
-        download_url = "https://op.supes.top/firmware/hiwifi-hc5962/" ..dateyr.. "-openwrt-ramips-mt7621-hiwifi_hc5962-squashfs-sysupgrade.bin"
     elseif model:match(".*D2.*") then
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/newifi-d2/version.txt"}, nil, api.command_timeout)
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/newifi-d2/updatelogs.txt"}, nil, api.command_timeout)
@@ -78,12 +73,12 @@ function to_check()
 		check_update()
 		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
         download_url = "https://op.supes.top/firmware/XY-C5/" ..dateyr.. "-openwrt-ramips-mt7621-xy-c5-squashfs-sysupgrade.bin"
-    elseif model:match(".*Pi 4 Model B.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/Rpi-4B/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/Rpi-4B/updatelogs.txt"}, nil, api.command_timeout)
+    elseif model:match(".*Mi Router 3 Pro.*") then
+		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/xiaomi-r3p/version.txt"}, nil, api.command_timeout)
+		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/xiaomi-r3p/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
 		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
-        download_url = "https://op.supes.top/firmware/Rpi-4B/" ..dateyr.. "-openwrt-bcm27xx-bcm2711-rpi-4-squashfs-sysupgrade.img.gz"
+        download_url = "https://op.supes.top/firmware/xiaomi-r3p/" ..dateyr.. "-openwrt-ramips-mt7621-xiaomi_mir3p-squashfs-sysupgrade.bin"
 	else
 		local needs_update = false
 		return {
