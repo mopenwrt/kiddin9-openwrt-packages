@@ -45,10 +45,14 @@ function opkgupgrade() {
 						\( -exec test -f /rom/{} \; -exec find {} -name "luci-app*" \; \) \
 						\) | sed -e 's?/usr/lib/opkg/info/\(.*\).control$?\1 overlay?g' >/etc/backup/installed_packages.txt
 					fi
-					[ -f "/etc/backup/installed_packages.txt" ] && {
+					if [ -f "/etc/backup/installed_packages.txt" ]; then
 							for ipk in $(cat /etc/backup/installed_packages.txt | grep -oE '(.*overlay|luci-app.*|luci-theme.*|default-settings)' | awk '{print $1}'); do
-							[ -f /etc/inited ] && opkg=$(echo $(opkg list-upgradable) | grep $ipk) || opkg=1
-								[[ $opkg && ! "$(echo $ipk | grep 'luci.*opkg.*')" ]] && {
+							if [ -f /etc/inited ]; then
+								opkg=$(echo $(opkg list-upgradable) | grep $ipk)
+							else
+								opkg=1
+							fi
+								if [[ "$opkg" && ! "$(echo $ipk | grep 'luci.*opkg.*')" ]]; then
 									while :; do
 										opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
 										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
@@ -61,11 +65,11 @@ function opkgupgrade() {
 										sleep 1
 									rm -f /var/lock/opkg.lock
 									done
-								}
+								fi
 							done
 							rm -f /etc/config/*-opkg
 							touch /etc/inited
-					}
+					fi
 					[ -f "/etc/backup/failed.txt" ] && {
 						for ipk in $(cat /etc/backup/failed.txt); do
 							opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
@@ -83,6 +87,7 @@ function opkgupgrade() {
 }
 (
 	opkgupgrade
+	rm -f /var/lock/opkgupgrade.lock
 	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
 		sleep 5
 		/bin/coremark >/tmp/coremark.log
