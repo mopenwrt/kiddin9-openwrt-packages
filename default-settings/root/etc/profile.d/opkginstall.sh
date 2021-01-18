@@ -1,7 +1,7 @@
 #!/bin/sh
 
 opkg() {
-	if [[ $(echo $@ | grep -o -E '( install | upgrade )') ]]; then
+	if [[ $(echo $@ | grep -o -E '(install |upgrade )') ]]; then
 		command opkg --force-checksum --force-overwrite $@
 		grep -q "nas" /usr/lib/lua/luci/controller/*.lua && ! grep -q '_("NAS")' /usr/lib/lua/luci/controller/*.lua &&
 			sed -i 's/local page/local page\nentry({"admin", "nas"}, firstchild(), _("NAS") , 45).dependent = false/' /usr/lib/lua/luci/controller/turboacc.lua
