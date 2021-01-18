@@ -970,6 +970,7 @@ restart() {
 		EOF
 
 		dns_d_l=$(uci_get_by_type global udp_dns_d 223.5.5.5,223.6.6.6)
+		dns_d_l=$(echo $dns_d_l | sed -e 's/，/,/g' -e 's/。/./g' -e 's/：/:/g' -e 's/,/\n/g')
 		if [ "$dns_d_l" = "isp" -o $dns_mode_d = "udp" ]; then
 			if [ "$dns_d_l" = "isp" ]; then
 				ref=/tmp/resolv.conf.d/resolv.conf.auto
@@ -980,7 +981,6 @@ restart() {
 				echo "$(eval $DATE) SmartDNS : Get Domestic DNS failed!" >>$LOG
 				exit 1
 			fi
-			dns_d_l=$(echo $dns_d_l | sed -e 's/，/,/g' -e 's/。/./g' -e 's/：/:/g' -e 's/,/\n/g')
 			for i in $dns_d_l; do echo "server $i" >>$DNS_T; done
 		else
 			for i in $dns_d_l; do echo "server-https https://$i/dns-query" >>$DNS_T; done
