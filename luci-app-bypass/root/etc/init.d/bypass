@@ -650,6 +650,11 @@ gen_dns() {
 	else
 		dns_d_l=$(uci_get_by_type global udp_dns_d 223.5.5.5,223.6.6.6)
 	fi
+	if [ "$dns_d_l" = "isp" ]; then
+		ref=/tmp/resolv.conf.d/resolv.conf.auto
+		[ -s $ref ] || ref=/tmp/resolv.conf.auto
+		dns_d_l=$(cat $ref 2>/dev/null | grep nameserver | awk '{print$2}')
+	fi
 	if [ -z "$dns_d_l" ]; then
 		echo "$(eval $DATE) SmartDNS : Get Domestic DNS failed!" >>$LOG
 		return 1
@@ -936,7 +941,7 @@ stop() {
 	kill -9 $(ps -w | grep by-monitor | grep -v grep | awk '{print$1}') 2>/dev/null
 	kill -9 $(ps -w | grep by-preload | grep -v grep | awk '{print$1}') 2>/dev/null
 	killall -q -9 ss-redir ssr-redir v2ray xray trojan-plus trojan-go ipt2socks naive redsocks2 kcptun-client obfs-local obfs-server v2ray-plugin ss-local ss-server ssr-local ssr-server microsocks smartdns chinadns-ng
-	rm -rf $DNS_DIR /var/etc/*by*.json /var/etc/*by*.log /tmp/dnsmasq.d/dnsmasq-by.conf $CON_T /var/lock/bypass.lock
+	rm -rf $DNS_DIR /var/etc/*by*.json /tmp/dnsmasq.d/dnsmasq-by.conf $CON_T /var/lock/bypass.lock
 	[ $run_mode = gfw -o $gfw_mode = 1 ] || rm -f /tmp/bypass/gfw.list
 	[ $run_mode = router ] || rm -f /tmp/bypass/china_v6.txt
 	if [ -z "$GLOBAL_SERVER" ]; then
@@ -963,13 +968,24 @@ restart() {
 			bind :5336
 			bind :5337
 		EOF
-			dns_d_l=$(uci_get_by_type global udp_dns_d 223.5.5.5,223.6.6.6)
+
+		dns_d_l=$(uci_get_by_type global udp_dns_d 223.5.5.5,223.6.6.6)
+		if [ "$dns_d_l" = "isp" -o $dns_mode_d = "udp" ]; then
+			if [ "$dns_d_l" = "isp" ]; then
+				ref=/tmp/resolv.conf.d/resolv.conf.auto
+				[ -s $ref ] || ref=/tmp/resolv.conf.auto
+				dns_d_l=$(cat $ref 2>/dev/null | grep nameserver | awk '{print$2}')
+			fi
+			if [ -z "$dns_d_l" ]; then
+				echo "$(eval $DATE) SmartDNS : Get Domestic DNS failed!" >>$LOG
+				exit 1
+			fi
 			dns_d_l=$(echo $dns_d_l | sed -e 's/，/,/g' -e 's/。/./g' -e 's/：/:/g' -e 's/,/\n/g')
-		if [ $dns_mode_d = "udp" ]; then
 			for i in $dns_d_l; do echo "server $i" >>$DNS_T; done
 		else
 			for i in $dns_d_l; do echo "server-https https://$i/dns-query" >>$DNS_T; done
 		fi
+
 		$(which smartdns) -c $DNS_T
 		r=1
 		while ! ps -w | grep smartdns | grep -v grep >/dev/null; do
