@@ -139,7 +139,6 @@ jobs:
         }
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion v2fly/v2ray-core)/g" v2ray/Makefile
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion XTLS/Xray-core)/g" xray/Makefile
-        sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion c0re100/qBittorrent-Enhanced-Edition)/g" qBittorrent-Enhanced-Edition/Makefile
         sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" */Makefile
         sed -i 's/SUBDIRS=/M=/g' */Makefile
 
