@@ -9,10 +9,10 @@
 name: Merge-upstream
 on:
   push:
-    paths:
-      - '.github/workflows/upstream.yml'
-  schedule:
-    - cron: 0 */12 * * *
+   # paths:
+     # - '.github/workflows/upstream.yml'
+ # schedule:
+   # - cron: 0 */12 * * *
   watch:
     types: started
   repository_dispatch:
