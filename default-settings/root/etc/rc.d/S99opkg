@@ -21,7 +21,12 @@ if [ ! -f /etc/inited ]; then
 		uci commit dhcp
 		service dnsmasq reload
 	}
+	
 # sh -c "cat '/usr/share/patch/adblock.patch'  | patch -d '/' -p1 --forward" >/dev/null 2>&1
+fi
+
+if [ ! -f "/etc/backup/installed_packages.txt" ]; then
+	touch /etc/inited
 fi
 
 function opkgupgrade() {
@@ -72,6 +77,7 @@ function opkgupgrade() {
 							done
 							rm -f /etc/config/*-opkg
 					fi
+					touch /etc/inited
 					[ -f "/etc/backup/failed.txt" ] && {
 						for ipk in $(cat /etc/backup/failed.txt); do
 							opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
@@ -89,7 +95,6 @@ function opkgupgrade() {
 }
 (
 	opkgupgrade
-	touch /etc/inited
 	rm -f /var/lock/opkgupgrade.lock
 	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
 		sleep 5
