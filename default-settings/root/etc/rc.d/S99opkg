@@ -21,7 +21,6 @@ if [ ! -f /etc/inited ]; then
 		uci commit dhcp
 		service dnsmasq reload
 	}
-	
 # sh -c "cat '/usr/share/patch/adblock.patch'  | patch -d '/' -p1 --forward" >/dev/null 2>&1
 fi
 
