@@ -9,13 +9,13 @@
 name: Merge-upstream
 on:
   push:
-   # paths:
-     # - '.github/workflows/upstream.yml'
- # schedule:
-   # - cron: 0 */12 * * *
+    paths:
+      - '.github/workflows/upstream.yml'
+  schedule:
+    - cron: 0 */12 * * *
   watch:
     types: started
- # repository_dispatch:
+  repository_dispatch:
 
 jobs:
   merge:
@@ -90,18 +90,18 @@ jobs:
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         
         rm -rf .svn
-        echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean ./
+        echo -e "\q" | svn co https://github.com/garypang13/project-openwrt/branches/master/package/lean ./
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean ./
         rm -rf .svn
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
-        echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw ./
+        echo -e "\q" | svn co https://github.com/garypang13/project-openwrt/branches/master/package/ctcgfw ./
         rm -rf .svn
-        svn export --force https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
+        svn export --force https://github.com/garypang13/project-openwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
         rm -rf .svn
-        echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/zxlhhyccc ./
+        echo -e "\q" | svn co https://github.com/garypang13/project-openwrt/branches/master/package/zxlhhyccc ./
         rm -rf .svn
-        echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/lienol ./
+        echo -e "\q" | svn co https://github.com/garypang13/project-openwrt/branches/master/package/lienol ./
         rm -rf .svn
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
 
