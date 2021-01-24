@@ -49,7 +49,6 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/luci-app-eqos
         git clone --depth 1 https://github.com/garypang13/luci-app-amule
         git clone --depth 1 https://github.com/garypang13/luci-app-xlnetacc
-        git clone --depth 1 https://github.com/garypang13/openwrt-filerun && mv -f openwrt-filerun/* ./ ; rm -Rf openwrt-filerun
         git clone --depth 1 https://github.com/garypang13/luci-app-baidupcs-web
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge
         git clone --depth 1 https://github.com/garypang13/autosamba
