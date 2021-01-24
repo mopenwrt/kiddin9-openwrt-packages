@@ -221,7 +221,7 @@ UCI="uci -q get $NAME."
 
 while :;do
 	if [ $SERVER_A != $SERVER_B ];then
-		echo "`eval $D` By-Switch : Current server : $($UCI$SERVER_B.alias || uci_get_by_name $SERVER_B server) is not main server : $($UCI$SERVER_A.alias || uci_get_by_name $SERVER_A server).Try to switch back." >> $L
+		echo "`eval $D` By-Switch : Current server : $($UCI$SERVER_B.alias || uci_get_by_name $SERVER_B server) is not main server, Try to switch back to $($UCI$SERVER_A.alias || uci_get_by_name $SERVER_A server)." >> $L
 		if test_proxy $SERVER_A;then
 			echo "`eval $D` By-Switch : Main server is available. Switch to main server." >> $L
 			SERVER_B=$SERVER_A
