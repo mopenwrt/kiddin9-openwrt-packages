@@ -40,12 +40,16 @@ define Package/autocore-arm/description
   Display more details info about the devices in LuCI.
 endef
 
-define Build/Compile
+define Download/armcpuinfo
+  URL:=https://raw.githubusercontent.com/project-openwrt/openwrt/master/package/lean/autocore/files/arm
+  URL_FILE:=cpuinfo
+  FILE:=cpuinfo
+  HASH:=skip
 endef
 
 define Package/autocore-arm/install
 	$(INSTALL_DIR) $(1)/sbin
-	$(INSTALL_BIN) ./files/arm/cpuinfo $(1)/sbin/cpuinfo
+	$(INSTALL_BIN) $(DL_DIR)/cpuinfo $(1)/sbin/cpuinfo
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
 	$(INSTALL_DATA) ./files/arm/* $(1)/www/luci-static/resources/view/status/include/
 endef
@@ -64,6 +68,7 @@ define Package/autocore-switch/install
 	$(INSTALL_DATA) ./files/switch/* $(1)/www/luci-static/resources/view/status/include/
 endef
 
+$(eval $(call Download,armcpuinfo))
 $(eval $(call BuildPackage,autocore-arm))
 $(eval $(call BuildPackage,autocore-x86))
 $(eval $(call BuildPackage,autocore-switch))
