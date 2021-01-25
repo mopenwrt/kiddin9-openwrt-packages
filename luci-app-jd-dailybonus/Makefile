@@ -60,6 +60,9 @@ define Package/luci-app-jd-dailybonus/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/jd-dailybonus
 	$(INSTALL_DATA) ./luasrc/view/jd-dailybonus/* $(1)/usr/lib/lua/luci/view/jd-dailybonus/
 
+	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
+	$(INSTALL_DATA) ./root/lib/upgrade/keep.d/* $(1)/lib/upgrade/keep.d/
+
 endef
 
 $(eval $(call BuildPackage,luci-app-jd-dailybonus))

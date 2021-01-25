@@ -324,12 +324,30 @@
         });
         return false
     }
-    
-    qrcode = new QRCode(document.getElementById("qrcode"),
-                {
-                    text: "sample",
-                    correctLevel: QRCode.CorrectLevel.L
-                });
+
+    //初始化二维码
+    (function(){
+        let cookieBtn = Array.prototype.slice.call(document.getElementsByClassName("cookie-button"));
+        try {
+            qrcode = new QRCode(document.getElementById("qrcode"),
+                    {
+                        text: "sample",
+                        correctLevel: QRCode.CorrectLevel.L
+                    });
+            cookieBtn.forEach(e => {
+                e.onclick = () => {
+                    ckid = e.getAttribute("data-rel");
+                    get_code();
+                    return false;
+                }
+            });
+        } catch (error) {
+            alert("网络离线状态无法使用二维码获取Cookie，请刷新后重试！")
+            cookieBtn.forEach(e => {
+                e.disabled = true;
+            });
+        }
+    }());
     
     //获取二维码
     function get_code(){
@@ -342,14 +360,6 @@
         });
         return false;
     }
-
-    Array.prototype.slice.call(document.getElementsByClassName("cookie-button")).forEach(e => {
-        e.onclick = () => {
-            ckid = e.getAttribute("data-rel");
-            get_code();
-            return false;
-        }
-    });
         
     function checkLogin(check_url){
         let cname = ckid == 1?"cookie":"cookie2"
