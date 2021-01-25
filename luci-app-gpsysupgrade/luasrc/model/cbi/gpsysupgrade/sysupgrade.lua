@@ -67,7 +67,7 @@ function to_check()
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/newifi-d2/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
         download_url = "https://op.supes.top/firmware/newifi-d2/" ..dateyr.. "-openwrt-ramips-mt7621-newifi-d2-squashfs-sysupgrade.bin"
-    elseif model:match(".*XIAOYU.*") then
+    elseif model:match(".*XY-C5.*") then
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/XY-C5/version.txt"}, nil, api.command_timeout)
 		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/XY-C5/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
