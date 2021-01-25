@@ -47,6 +47,9 @@ define Download/armcpuinfo
   HASH:=skip
 endef
 
+define Build/Compile
+endef
+
 define Package/autocore-arm/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(INSTALL_BIN) $(DL_DIR)/cpuinfo $(1)/sbin/cpuinfo
