@@ -10,9 +10,6 @@ opkg() {
 		if [[ $(echo $@ | grep -o '( passwall | https-dns-proxy )') ]]; then
 			/etc/init.d/https-dns-proxy disable 2>/dev/null
 		fi
-		if [[ $(echo $@ | grep -o 'mwan3') ]]; then
-			sed -i 's/START=19/START=99/' /etc/init.d/mwan3
-		fi
 	elif [[ $(echo $@ | grep -o ' remove ') ]]; then
 		command opkg $@
 		grep -q '"nas",' /usr/lib/lua/luci/controller/*.lua ||
