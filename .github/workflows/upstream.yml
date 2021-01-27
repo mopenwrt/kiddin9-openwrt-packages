@@ -139,7 +139,7 @@ jobs:
         }
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion v2fly/v2ray-core)/g" v2ray/Makefile
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion XTLS/Xray-core)/g" xray/Makefile
-        find ./ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {}
+        find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {}
         sed -i 's/SUBDIRS=/M=/g' */Makefile
 
     - name: Apply patches
