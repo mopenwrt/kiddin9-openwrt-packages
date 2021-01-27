@@ -13,7 +13,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/wangyu-/tinyfecVPN/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=skip
+PKG_HASH:=ab758480e3ae43e851d2285a4441dee9c0b524b1a279e38e701302aa61617a5d
 
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=Yu Wang
