@@ -100,8 +100,6 @@ jobs:
         rm -rf .svn
         svn export --force https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
         rm -rf .svn
-        echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/zxlhhyccc ./
-        rm -rf .svn
         echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/lienol ./
         rm -rf .svn
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
