@@ -76,6 +76,8 @@ jobs:
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf Rffeed-netkeeper
 
         svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
+        svn co https://github.com/openwrt/packages/trunk/utils/docker
+        svn co https://github.com/openwrt/packages/trunk/utils/dockerd
         svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
         svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools
         svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
@@ -111,7 +113,7 @@ jobs:
     - name: Modify
       run: |
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat} cups* \
-        mt-drivers coremark luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,docker,adbyby-plus,advancedsetting,softethervpn} fcgiwrap \
+        mt-drivers coremark luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn} fcgiwrap \
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
