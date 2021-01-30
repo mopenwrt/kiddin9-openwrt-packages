@@ -621,7 +621,7 @@ gen_dns() {
 				doh_nf_b="8.8.8.8 8.8.4.4"	
 				dns_b=1;;
 			esac	
-			for i in $dns_nf_l; do ipset add netflix $i 2>/dev/null; done	
+			for i in $doh_nf_b; do ipset add netflix $i 2>/dev/null; done	
 		fi
 	else
 		tcp_dns_o=$(uci_get_by_type global tcp_dns_o 1.1.1.1,1.0.0.1)
