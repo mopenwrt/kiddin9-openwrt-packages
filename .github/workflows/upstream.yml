@@ -120,6 +120,7 @@ jobs:
         sed -i "s/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/" */Makefile
         sed -i "s/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/" */Makefile
         sed -i 's/+docker-ce/+docker \\\n\t+dockerd/' luci-app-dockerman/Makefile
+        sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
         rm -f subconverter/patches/010-missing-header.patch
         sed -i 's?../../luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
         sed -i 's?../../lang?$(TOPDIR)/feeds/packages/lang?g' */Makefile
