@@ -8,6 +8,10 @@ USE_PROCD=1
 LIST_SEP="
 "
 
+service_triggers() {
+       procd_add_reload_trigger amule
+}
+
 unregex() {
    echo "$1" | sed -e 's/[]\/()$*.^|[]/\\&/g'
 }
@@ -101,11 +105,11 @@ amule() {
 	group=$(id -Gn $runasuser)
 	
 	case $(echo "$config_dir"|grep -oE "^/[^/]+") in
-	"/var"|"/tmp"|"/mnt"|"/etc"|"/home")
+	"/var"|"/tmp"|"/mnt"|"/root"|"/home")
 		true
 	;;
 	*)
-		echo "You should set config_dir to subfolders under /var, /tmp ,/mnt or /etc"
+		echo "You should set config_dir to subfolders under /var, /tmp ,/mnt or /root"
 		return 1
 	;;
 	esac
@@ -122,7 +126,6 @@ amule() {
 		mkdir -m 0755 -p "$config_dir"
 		chmod g+s "$config_dir"
 		chown $group:$runasuser "$config_dir"
-		wget -P "$config_dir" -O "$config_dir/nodes.dat" http://upd.emule-security.org/nodes.dat
 		touch "$config_file" "$config_dir/addresses.dat" "$config_dir/shareddir.dat" \
 			"$config_dir/ipfilter_static.dat"
 		[ -d "$config_dir/.aMule" ] || ln -s ./ $config_dir/.aMule
@@ -168,6 +171,9 @@ start_service() {
 	config_foreach amule 'amule'
 }
 
-service_triggers() {
-    procd_add_reload_trigger "amule"
+restart() {
+	stop
+	sleep 2
+	start
 }
+
