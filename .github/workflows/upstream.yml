@@ -74,6 +74,7 @@ jobs:
         git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf Rffeed-netkeeper
         git clone --depth 1 https://github.com/sjz123321/openwrt-neofetch
+        git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust
 
         svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
         svn co https://github.com/openwrt/packages/trunk/utils/docker
@@ -125,7 +126,6 @@ jobs:
         rm -f subconverter/patches/010-missing-header.patch
         sed -i 's?../../luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
         sed -i 's?../../lang?$(TOPDIR)/feeds/packages/lang?g' */Makefile
-        cp -rf luci-app-mentohust/luasrc/luci/* luci-app-mentohust/luasrc/ && rm -Rf luci-app-mentohust/luasrc/luci
         bash diy/create_acl_for_luci.sh -a || true
         bash diy/convert_translation.sh -a || true
         rm -Rf antileech/src && git clone https://github.com/persmule/amule-dlp.antiLeech antileech/src
