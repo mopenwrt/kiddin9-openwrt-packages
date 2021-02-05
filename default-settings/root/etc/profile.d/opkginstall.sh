@@ -6,7 +6,6 @@ opkg() {
 		grep -q "nas" /usr/lib/lua/luci/controller/*.lua && ! grep -q '_("NAS")' /usr/lib/lua/luci/controller/*.lua &&
 			sed -i 's/local page/local page\nentry({"admin", "nas"}, firstchild(), _("NAS") , 45).dependent = false/' /usr/lib/lua/luci/controller/turboacc.lua
 			rm -Rf /tmp/luci-*
-		sleep 1
 		/etc/init.d/ucitrack reload
 	elif [[ $(echo $@ | grep -o ' remove ') ]]; then
 		command opkg $@
