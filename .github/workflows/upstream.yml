@@ -80,6 +80,7 @@ jobs:
         svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
         svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools
         svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
+        svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy
         svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory
         svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory
         svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns
@@ -90,6 +91,7 @@ jobs:
         svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/project-openwrt/packages/trunk/lang/node-yarn
+        svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy
         
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean ./
@@ -141,7 +143,6 @@ jobs:
         sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion v2fly/v2ray-core)/g" v2ray/Makefile
         find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {}
         sed -i 's/SUBDIRS=/M=/g' */Makefile
-        sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
 
     - name: Apply patches
       run: find "diy/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 -E --forward --no-backup-if-mismatch"
