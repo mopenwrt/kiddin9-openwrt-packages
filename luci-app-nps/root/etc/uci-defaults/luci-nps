@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@nps[-1]
 	add ucitrack nps
+	service nps enable
 	set ucitrack.@nps[-1].init=nps
 	commit ucitrack
 EOF

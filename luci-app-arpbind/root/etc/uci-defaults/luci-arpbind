@@ -4,6 +4,7 @@ touch /etc/config/arpbind
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@arpbind[-1]
 	add ucitrack arpbind
+	service arpbind enable
 	set ucitrack.@arpbind[-1].init=arpbind
 	commit ucitrack
 EOF

@@ -4,6 +4,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@iptvhelper[-1]
 	add ucitrack iptvhelper
+	service iptvhelper enable
 	set ucitrack.@iptvhelper[-1].init="iptvhelper"
 	commit ucitrack
 EOF

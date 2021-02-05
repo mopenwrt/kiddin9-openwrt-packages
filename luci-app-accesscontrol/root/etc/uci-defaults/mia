@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@mia[-1]
 	add ucitrack mia
+	service mia enable
 	set ucitrack.@mia[-1].init=mia
 	commit ucitrack
 	delete firewall.mia

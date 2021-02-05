@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@autoreboot[-1]
 	add ucitrack autoreboot
+	service autoreboot enable
 	set ucitrack.@autoreboot[-1].init=autoreboot
 	commit ucitrack
 EOF

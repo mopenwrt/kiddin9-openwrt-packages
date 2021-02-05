@@ -11,6 +11,7 @@ EOF
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@ssr_libev_server[-1]
 	add ucitrack ssr_libev_server
+	service ssr_libev_server enable
 	set ucitrack.@ssr_libev_server[-1].init=ssr_libev_server
 	commit ucitrack
 EOF

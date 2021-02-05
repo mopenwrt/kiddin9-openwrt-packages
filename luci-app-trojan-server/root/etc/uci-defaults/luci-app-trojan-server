@@ -11,6 +11,7 @@ EOF
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@trojan_server[-1]
 	add ucitrack trojan_server
+	service trojan_server enable
 	set ucitrack.@trojan_server[-1].init=trojan_server
 	commit ucitrack
 EOF
