@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@filebrowser[-1]
 	add ucitrack filebrowser
-	service filebrowser enable
 	set ucitrack.@filebrowser[-1].init=filebrowser
 	commit ucitrack
 EOF

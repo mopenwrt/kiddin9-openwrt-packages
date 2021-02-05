@@ -2,7 +2,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@bypass[-1]
 	add ucitrack bypass
-	service bypass enable
 	set ucitrack.@bypass[-1].init=bypass
 	commit ucitrack
 	delete firewall.bypass

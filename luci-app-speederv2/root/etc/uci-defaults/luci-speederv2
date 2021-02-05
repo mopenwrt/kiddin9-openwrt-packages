@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
     delete ucitrack.@speederv2[-1]
     add ucitrack speederv2
-	service speederv2 enable
     set ucitrack.@speederv2[-1].init=speederv2
     commit ucitrack
 EOF

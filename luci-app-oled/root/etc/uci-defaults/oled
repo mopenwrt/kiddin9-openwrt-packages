@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@oled[-1]
 	add ucitrack oled
-	service oled enable
 	set ucitrack.@oled[-1].init=oled
 	commit ucitrack
 EOF

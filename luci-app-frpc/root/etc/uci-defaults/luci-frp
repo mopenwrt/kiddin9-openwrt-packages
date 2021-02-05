@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@frp[-1]
 	add ucitrack frp
-	service frp enable
 	set ucitrack.@frp[-1].init=frp
 	commit ucitrack
 EOF

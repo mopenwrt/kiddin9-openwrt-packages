@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@xlnetacc[-1]
 	add ucitrack xlnetacc
-	service xlnetacc enable
 	set ucitrack.@xlnetacc[-1].init=xlnetacc
 	commit ucitrack
 EOF

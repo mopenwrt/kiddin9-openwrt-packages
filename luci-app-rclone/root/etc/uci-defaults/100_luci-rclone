@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@rclone[-1]
 	add ucitrack rclone
-	service rclone enable
 	set ucitrack.@rclone[-1].init=rclone
 	commit ucitrack
 EOF

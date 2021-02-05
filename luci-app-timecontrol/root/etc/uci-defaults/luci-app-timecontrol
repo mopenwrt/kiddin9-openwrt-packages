@@ -11,7 +11,6 @@ EOF
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@timecontrol[-1]
 	add ucitrack timecontrol
-	service timecontrol enable
 	set ucitrack.@timecontrol[-1].init=timecontrol
 	commit ucitrack
 EOF

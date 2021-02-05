@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@zerotier[-1]
 	add ucitrack zerotier
-	service zerotier enable
 	set ucitrack.@zerotier[-1].init=zerotier
 	commit ucitrack
   delete firewall.zerotier

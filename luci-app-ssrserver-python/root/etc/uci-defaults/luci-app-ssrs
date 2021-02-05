@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@ssrs[-1]
 	add ucitrack ssrs
-	service ssrs enable
 	set ucitrack.@ssrs[-1].init=ssrs
 	commit ucitrack
 	delete firewall.ssrs

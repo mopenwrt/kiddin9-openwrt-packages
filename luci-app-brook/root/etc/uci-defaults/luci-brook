@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@brook[-1]
 	add ucitrack brook
-	service brook enable
 	set ucitrack.@brook[-1].init=brook
 	commit ucitrack
 	delete firewall.brook

@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@gowebdav[-1]
 	add ucitrack gowebdav
-	service gowebdav enable
 	set ucitrack.@gowebdav[-1].init=gowebdav
 	commit ucitrack
 	delete firewall.gowebdav

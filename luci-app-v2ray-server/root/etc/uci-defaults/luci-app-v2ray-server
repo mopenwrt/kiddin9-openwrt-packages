@@ -11,7 +11,6 @@ EOF
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@v2ray_server[-1]
 	add ucitrack v2ray_server
-	service v2ray_server enable
 	set ucitrack.@v2ray_server[-1].init=v2ray_server
 	commit ucitrack
 EOF
