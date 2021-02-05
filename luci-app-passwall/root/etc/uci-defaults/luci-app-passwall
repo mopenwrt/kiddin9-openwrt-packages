@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@passwall[-1]
 	add ucitrack passwall
+	service passwall enable
 	set ucitrack.@passwall[-1].init=passwall
 	commit ucitrack
 	delete firewall.passwall
@@ -13,6 +14,7 @@ uci -q batch <<-EOF >/dev/null
 	commit firewall
 	delete ucitrack.@passwall_server[-1]
 	add ucitrack passwall_server
+	service passwall_server enable
 	set ucitrack.@passwall_server[-1].init=passwall_server
 	commit ucitrack
 	delete firewall.passwall_server

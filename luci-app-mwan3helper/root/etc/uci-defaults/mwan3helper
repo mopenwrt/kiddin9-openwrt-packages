@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@mwan3helper[-1]
 	add ucitrack mwan3helper
+	service mwan3helper enable
 	set ucitrack.@mwan3helper[-1].init=mwan3helper
 	commit ucitrack
 EOF

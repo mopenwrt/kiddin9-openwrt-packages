@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@autoipsetadder[-1]
 	add ucitrack autoipsetadder
+	service autoipsetadder enable
 	set ucitrack.@autoipsetadder[-1].init=autoipsetadder
 	commit ucitrack
 EOF

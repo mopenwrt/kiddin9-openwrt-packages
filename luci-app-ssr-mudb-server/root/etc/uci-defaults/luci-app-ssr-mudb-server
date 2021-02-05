@@ -11,6 +11,7 @@ EOF
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@ssr_mudb_server[-1]
 	add ucitrack ssr_mudb_server
+	service ssr_mudb_server enable
 	set ucitrack.@ssr_mudb_server[-1].init=ssr_mudb_server
 	commit ucitrack
 EOF

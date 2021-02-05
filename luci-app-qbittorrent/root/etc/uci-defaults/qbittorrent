@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@qbittorrent[-1]
 	add ucitrack qbittorrent
+	service qbittorrent enable
 	set ucitrack.@qbittorrent[-1].init=qbittorrent
 	commit ucitrack
 EOF

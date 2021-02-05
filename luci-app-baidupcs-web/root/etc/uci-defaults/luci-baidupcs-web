@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@baidupcs-web[-1]
 	add ucitrack baidupcs-web
+	service baidupcs-web enable
 	set ucitrack.@baidupcs-web[-1].init=baidupcs-web
 	commit ucitrack
 EOF

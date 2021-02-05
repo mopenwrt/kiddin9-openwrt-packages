@@ -2,6 +2,7 @@
 uci -q batch <<-EOF >/dev/null
 delete ucitrack.@shadowsocksr[-1]
 add ucitrack shadowsocksr
+	service shadowsocksr enable
 set ucitrack.@shadowsocksr[-1].init=shadowsocksr
 commit ucitrack
 delete firewall.shadowsocksr

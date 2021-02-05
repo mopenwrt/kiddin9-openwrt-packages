@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@softethervpn5[-1]
 	add ucitrack softethervpn5
+	service softethervpn5 enable
 	set ucitrack.@softethervpn5[-1].init=softethervpn5
 	commit ucitrack
 EOF

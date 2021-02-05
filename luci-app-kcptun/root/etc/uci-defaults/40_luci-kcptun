@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@kcptun[-1]
 	add ucitrack kcptun
+	service kcptun enable
 	set ucitrack.@kcptun[-1].init=kcptun
 	commit ucitrack
 EOF

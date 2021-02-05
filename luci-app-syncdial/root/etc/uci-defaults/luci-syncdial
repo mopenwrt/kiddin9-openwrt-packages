@@ -4,6 +4,7 @@ touch /etc/config/syncdial
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@syncdial[-1]
 	add ucitrack syncdial
+	service syncdial enable
 	set ucitrack.@syncdial[-1].exec='/bin/genwancfg'
 	commit ucitrack
 EOF

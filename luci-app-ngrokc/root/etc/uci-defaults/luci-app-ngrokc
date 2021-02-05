@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@ngrokc[-1]
 	add ucitrack ngrokc
+	service ngrokc enable
 	set ucitrack.@ngrokc[-1].init=ngrokc
 	commit ucitrack
 EOF

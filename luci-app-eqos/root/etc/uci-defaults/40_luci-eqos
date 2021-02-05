@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@eqos[-1]
 	add ucitrack eqos
+	service eqos enable
 	set ucitrack.@eqos[-1].init=eqos
 	commit ucitrack
 EOF

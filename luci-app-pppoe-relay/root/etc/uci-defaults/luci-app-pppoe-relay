@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@pppoe-relay[-1]
 	add ucitrack pppoe-relay
+	service pppoe-relay enable
 	set ucitrack.@pppoe-relay[-1].init=pppoe-relay
 	commit ucitrack
 EOF

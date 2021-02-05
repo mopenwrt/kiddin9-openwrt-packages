@@ -3,6 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@beardropper[-1]
 	add ucitrack beardropper
+	service beardropper enable
 	set ucitrack.@beardropper[-1].init=beardropper
 	commit ucitrack
 EOF

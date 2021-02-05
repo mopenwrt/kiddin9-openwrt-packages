@@ -5,6 +5,7 @@ uci -q batch <<-EOF >/dev/null
 	commit uhttpd
 	delete ucitrack.@dockerman[-1]
 	add ucitrack dockerman
+	service dockerman enable
 	set ucitrack.@dockerman[-1].exec='/etc/init.d/dockerman start'
 	commit ucitrack
 EOF
