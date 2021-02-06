@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@serverchan[-1]
 	add ucitrack serverchan
-	service serverchan enable
 	set ucitrack.@serverchan[-1].init=serverchan
 	commit ucitrack
 EOF

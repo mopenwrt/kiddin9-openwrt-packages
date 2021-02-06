@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@dockerd[-1]
 	add ucitrack dockerd
-	service dockerd enable
 	set ucitrack.@dockerd[-1].init=dockerd
 	commit ucitrack
 EOF

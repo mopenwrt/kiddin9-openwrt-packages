@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@forked-daapd[-1]
 	add ucitrack forked-daapd
-	service forked-daapd enable
 	set ucitrack.@forked-daapd[-1].init=forked-daapd
 	commit ucitrack
 EOF

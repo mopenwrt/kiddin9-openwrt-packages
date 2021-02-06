@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@shairport-sync[-1]
 	add ucitrack shairport-sync
-	service shairport-sync enable
 	set ucitrack.@shairport-sync[-1].init=shairport-sync
 	commit ucitrack
 EOF

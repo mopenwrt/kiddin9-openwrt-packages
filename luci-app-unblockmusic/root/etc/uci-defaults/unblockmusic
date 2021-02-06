@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@unblockmusic[-1]
 	add ucitrack unblockmusic
-	service unblockmusic enable
 	set ucitrack.@unblockmusic[-1].init=unblockmusic
 	commit ucitrack
 	delete firewall.unblockmusic

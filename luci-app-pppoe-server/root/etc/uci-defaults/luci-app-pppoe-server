@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@pppoe-server[-1]
 	add ucitrack pppoe-server
-	service pppoe-server enable
 	set ucitrack.@pppoe-server[-1].init=pppoe-server
 	commit ucitrack
 EOF

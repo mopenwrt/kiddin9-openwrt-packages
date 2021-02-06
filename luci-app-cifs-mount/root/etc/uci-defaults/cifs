@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@cifs[-1]
 	add ucitrack cifs
-	service cifs enable
 	set ucitrack.@cifs[-1].init=cifs
 	commit ucitrack
 EOF

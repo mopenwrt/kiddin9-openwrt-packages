@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@familycloud[-1]
 	add ucitrack familycloud
-	service familycloud enable
 	set ucitrack.@familycloud[-1].init=familycloud
 	commit ucitrack
 EOF

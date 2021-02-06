@@ -2,7 +2,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@k3screenctrl[-1]
 	add ucitrack k3screenctrl
-	service k3screenctrl enable
 	set ucitrack.@k3screenctrl[-1].init=k3screenctrl
 	commit ucitrack
 EOF

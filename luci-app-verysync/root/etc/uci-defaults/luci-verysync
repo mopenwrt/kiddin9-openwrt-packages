@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@verysync[-1]
 	add ucitrack verysync
-	service verysync enable
 	set ucitrack.@verysync[-1].init=verysync
 	commit ucitrack
 EOF

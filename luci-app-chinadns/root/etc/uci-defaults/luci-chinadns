@@ -2,7 +2,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@chinands[-1]
 	add ucitrack chinadns
-	service chinadns enable
 	set ucitrack.@chinadns[-1].init=chinadns
 	commit ucitrack
 EOF

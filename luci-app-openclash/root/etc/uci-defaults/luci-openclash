@@ -2,7 +2,6 @@
 
 uci delete ucitrack.@openclash[-1] >/dev/null 2>&1
 uci add ucitrack openclash >/dev/null 2>&1
-	service openclash >/dev/null 2>&1 enable
 uci set ucitrack.@openclash[-1].init=openclash >/dev/null 2>&1
 uci commit ucitrack >/dev/null 2>&1
 uci delete firewall.openclash >/dev/null 2>&1

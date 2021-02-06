@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@uuplugin[-1]
 	add ucitrack uuplugin
-	service uuplugin enable
 	set ucitrack.@uuplugin[-1].init=uuplugin
 	commit ucitrack
 EOF

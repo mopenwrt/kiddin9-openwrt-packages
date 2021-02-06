@@ -2,7 +2,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@dnsfilter[-1]
 	add ucitrack dnsfilter
-	service dnsfilter enable
 	set ucitrack.@dnsfilter[-1].init=dnsfilter
 	commit ucitrack
 	delete firewall.dnsfilter

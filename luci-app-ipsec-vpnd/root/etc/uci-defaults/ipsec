@@ -46,7 +46,6 @@ EOF
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@ipsec[-1]
 	add ucitrack ipsec
-	service ipsec enable
 	set ucitrack.@ipsec[-1].init=ipsec
 	commit ucitrack
 EOF

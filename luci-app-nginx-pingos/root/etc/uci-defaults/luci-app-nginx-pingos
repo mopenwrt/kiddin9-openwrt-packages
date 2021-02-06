@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@pingos[-1]
 	add ucitrack pingos
-	service pingos enable
 	set ucitrack.@pingos[-1].init=pingos
 	commit ucitrack
 EOF

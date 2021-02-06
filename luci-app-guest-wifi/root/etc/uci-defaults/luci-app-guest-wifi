@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
           delete ucitrack.@guest-wifi[-1]
           add ucitrack guest-wifi
-	service guest-wifi enable
           set ucitrack.@guest-wifi[-1].init=guest-wifi
           commit ucitrack
 EOF

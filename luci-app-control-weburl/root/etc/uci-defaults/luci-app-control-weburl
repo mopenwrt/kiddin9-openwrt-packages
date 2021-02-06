@@ -3,7 +3,6 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@weburl[-1]
 	add ucitrack weburl
-	service weburl enable
 	set ucitrack.@weburl[-1].init=weburl
 	commit ucitrack
 EOF
