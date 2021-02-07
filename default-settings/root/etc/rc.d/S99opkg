@@ -41,7 +41,6 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					source /etc/profile.d/opkginstall.sh
 					if [ -f /etc/inited ]; then
 						[ ! -d /etc/backup ] && mkdir /etc/backup
 						find /usr/lib/opkg/info -name "*.control" \( \
