@@ -90,7 +90,7 @@ jobs:
         svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/project-openwrt/packages/trunk/lang/node-yarn
-        svn co https://github.com/openwrt/packages/trunk/utils/syncthing
+        svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/config syncthing/config syncthing/init.d
         
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean ./
