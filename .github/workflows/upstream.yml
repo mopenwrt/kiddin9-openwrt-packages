@@ -115,8 +115,8 @@ jobs:
     - name: Modify
       run: |
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat} cups* \
-        mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn} fcgiwrap \
-        ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby
+        mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns} fcgiwrap \
+        ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
