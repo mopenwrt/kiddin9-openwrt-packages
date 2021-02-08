@@ -45,7 +45,6 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/openwrt-static-qb && mv -f openwrt-static-qb/* ./ ; rm -Rf openwrt-static-qb
         git clone --depth 1 https://github.com/garypang13/aria2
         git clone --depth 1 https://github.com/garypang13/openwrt-smartdns && mv -f openwrt-smartdns/* ./ ; rm -Rf openwrt-smartdns
-        git clone --depth 1 https://github.com/garypang13/openwrt-adguardhome adguardhome
         git clone --depth 1 https://github.com/garypang13/luci-app-eqos
         git clone --depth 1 https://github.com/garypang13/luci-app-xlnetacc
         git clone --depth 1 https://github.com/garypang13/luci-app-baidupcs-web
