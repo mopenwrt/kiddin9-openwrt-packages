@@ -113,7 +113,7 @@ jobs:
 
     - name: Modify
       run: |
-        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat} cups* subweb \
+        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns} fcgiwrap \
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS
         mv mt/drivers mt/mt-drivers
