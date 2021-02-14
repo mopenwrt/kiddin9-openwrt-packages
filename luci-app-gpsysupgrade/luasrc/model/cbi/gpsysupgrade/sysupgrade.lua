@@ -13,7 +13,8 @@ end
 
 function check_update()
 		needs_update, notice = false, false
-		remote_version = luci.sys.exec("[ -f '" ..version_file.. "' ] && echo -n `cat " ..version_file.. "`")
+		remote_version = "$(curl -s 'https://op.supes.top/firmware/" ..model.. "/version.txt')"
+		updatelogs = "$(curl -s 'https://op.supes.top/firmware/" ..model.. "/updatelogs.txt')"
 		remoteformat = luci.sys.exec("date -d $(echo " ..remote_version.. " | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
 		fnotice = luci.sys.exec("echo -n " ..remote_version.. " | sed -n '/\\.$/p'")
 		dateyr = luci.sys.exec("echo -n " ..remote_version.. " | awk -F. '{printf $1\".\"$2}'")
@@ -27,15 +28,10 @@ end
 
 function to_check()
     if not model or model == "" then model = api.auto_get_model() end
-    
-	version_file = "/tmp/version.txt"
-	updatelogs = "/tmp/updatelogs.txt"
 	system_version = get_system_version()
 	sysverformat = luci.sys.exec("date -d $(echo " ..system_version.. " | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
 	currentTimeStamp = luci.sys.exec("expr $(date -d \"$(date '+%Y-%m-%d %H:%M:%S')\" +%s) - 172800")
 	if model == "x86_64" then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/x86_64/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/x86_64/updatelogs.txt"}, nil, api.command_timeout)
 		check_update()
 		if fs.access("/sys/firmware/efi") then
 			download_url = "https://op.supes.top/firmware/x86_64/" ..dateyr.. "-openwrt-x86-64-generic-squashfs-combined-efi.img.gz"
@@ -43,39 +39,32 @@ function to_check()
 			download_url = "https://op.supes.top/firmware/x86_64/" ..dateyr.. "-openwrt-x86-64-generic-squashfs-combined.img.gz"
 		end
     elseif model:match(".*K2P.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/phicomm-k2p/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/phicomm-k2p/updatelogs.txt"}, nil, api.command_timeout)
+		model = "phicomm-k2p"
 		check_update()
         download_url = "https://op.supes.top/firmware/phicomm-k2p/" ..dateyr.. "-openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin"
     elseif model:match(".*AC2100.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/redmi-ac2100/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/redmi-ac2100/updatelogs.txt"}, nil, api.command_timeout)
+		model = "redmi-ac2100"
 		check_update()
         download_url = "https://op.supes.top/firmware/redmi-ac2100/" ..dateyr.. "-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin"
     elseif model:match(".*R2S.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/nanopi-r2s/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/nanopi-r2s/updatelogs.txt"}, nil, api.command_timeout)
+		model = "nanopi-r2s"
 		check_update()
         download_url = "https://op.supes.top/firmware/nanopi-r2s/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
     elseif model:match(".*R4S.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/nanopi-r4s/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/nanopi-r4s/updatelogs.txt"}, nil, api.command_timeout)
+		model = "nanopi-r4s"
 		check_update()
         download_url = "https://op.supes.top/firmware/nanopi-r4s/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
     elseif model:match(".*D2.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/newifi-d2/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/newifi-d2/updatelogs.txt"}, nil, api.command_timeout)
+		model = "newifi-d2"
 		check_update()
         download_url = "https://op.supes.top/firmware/newifi-d2/" ..dateyr.. "-openwrt-ramips-mt7621-newifi-d2-squashfs-sysupgrade.bin"
     elseif model:match(".*XY-C5.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/XY-C5/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/XY-C5/updatelogs.txt"}, nil, api.command_timeout)
+		model = "XY-C5"
 		check_update()
 		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
         download_url = "https://op.supes.top/firmware/XY-C5/" ..dateyr.. "-openwrt-ramips-mt7621-xy-c5-squashfs-sysupgrade.bin"
     elseif model:match(".*Mi Router 3 Pro.*") then
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", version_file, "https://op.supes.top/firmware/xiaomi-r3p/version.txt"}, nil, api.command_timeout)
-		api.exec(api.curl, {api._unpack(api.curl_args), "-o", updatelogs, "https://op.supes.top/firmware/xiaomi-r3p/updatelogs.txt"}, nil, api.command_timeout)
+		model = "xiaomi-r3p"
 		check_update()
 		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
         download_url = "https://op.supes.top/firmware/xiaomi-r3p/" ..dateyr.. "-openwrt-ramips-mt7621-xiaomi_mir3p-squashfs-sysupgrade.bin"
@@ -104,7 +93,7 @@ function to_check()
 		notice = notice,
         now_version = system_version,
         version = remote_version,
-	logs = luci.sys.exec("[ -f '" ..updatelogs.. "' ] && echo `cat " ..updatelogs.. "`"),
+	logs = updatelogs,
         url = download_url
     }
 end
