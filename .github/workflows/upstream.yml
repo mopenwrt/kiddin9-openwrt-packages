@@ -117,7 +117,6 @@ jobs:
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
-        mv -f tinyportmapper tinyPortMapper
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         sed -i 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' */Makefile
         sed -i 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' */Makefile
