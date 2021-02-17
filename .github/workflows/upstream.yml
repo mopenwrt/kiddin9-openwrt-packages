@@ -65,7 +65,7 @@ jobs:
         git clone --depth 1 https://github.com/esirplayground/luci-app-poweroff
         git clone --depth 1 https://github.com/lvqier/luci-app-dnsmasq-ipset
         git clone --depth 1 https://github.com/sirpdboy/luci-app-netdata
-        git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod
+        git clone --depth 1 https://github.com/garypang13/ddns-scripts-dnspod
         git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun
         git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog
         git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater
