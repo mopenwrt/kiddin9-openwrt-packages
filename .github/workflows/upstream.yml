@@ -70,6 +70,7 @@ jobs:
         git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater
         git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf feed-netkeeper
+        git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon
 
         svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
         svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
@@ -88,6 +89,7 @@ jobs:
         svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu
         svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
         svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
+        svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
