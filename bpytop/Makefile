@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019 OpenWrt.org
+# Copyright (C) 2021 ImmortalWrt
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bpytop
-PKG_VERSION:=1.0.60
-PKG_RELEASE:=2
+PKG_VERSION:=1.0.62
+PKG_RELEASE:=1
 
 PYPI_NAME:=bpytop
 PKG_HASH:=skip
