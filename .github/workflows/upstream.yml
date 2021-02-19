@@ -51,6 +51,7 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge
         git clone --depth 1 https://github.com/garypang13/autosamba
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge
+        git clone --depth 1 https://github.com/garypang13/openwrt-openvpn
 
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon
         git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr
@@ -90,6 +91,7 @@ jobs:
         svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
         svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
+        svn co https://github.com/openwrt/packages/trunk/net/openvpn
         
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
