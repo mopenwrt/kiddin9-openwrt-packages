@@ -1,5 +1,5 @@
---- a/feeds/packages/net/openvpn/files/openvpn.init
-+++ b/feeds/packages/net/openvpn/files/openvpn.init
+--- a/openvpn/files/openvpn.init
++++ b/openvpn/files/openvpn.init
 @@ -42,8 +42,8 @@
  		config_get v "$s" "$p"
  		IFS="$LIST_SEP"
