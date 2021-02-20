@@ -1,3 +1,19 @@
+--- a/openvpn/files/etc/hotplug.d/openvpn/01-user
++++ b/openvpn/files/etc/hotplug.d/openvpn/01-user
+@@ -2,10 +2,10 @@
+ 
+ . /lib/functions/openvpn.sh
+ 
+-[ -e "/etc/openvpn.user" ] && {
++[ -e "/etc/openvpn/openvpn.user" ] && {
+ 	env -i ACTION="$ACTION" INSTANCE="$INSTANCE" \
+ 		/bin/sh \
+-		/etc/openvpn.user \
++		/etc/openvpn/openvpn.user \
+ 		$*
+ }
+ 
+
 --- a/openvpn/files/openvpn.init
 +++ b/openvpn/files/openvpn.init
 @@ -42,8 +42,8 @@
@@ -104,3 +120,66 @@
  }
  
  start_service() {
+
+--- a/openvpn/files/openvpn.options
++++ b/openvpn/files/openvpn.options
+@@ -23,6 +23,7 @@
+ connect_retry_max
+ connect_timeout
+ crl_verify
++data_ciphers
+ data_ciphers_fallback
+ dev
+ dev_node
+@@ -196,7 +197,6 @@
+ '
+ 
+ OPENVPN_LIST='
+-data_ciphers
+ ncp_ciphers
+ tls_cipher
+ tls_ciphersuites
+
+--- a/openvpn/Makefile
++++ b/openvpn/Makefile
+@@ -87,20 +87,13 @@
+ 	)
+ endef
+ 
+-define Package/openvpn-$(BUILD_VARIANT)/conffiles
+-/etc/config/openvpn
+-/etc/openvpn.user
+-endef
+-
+ define Package/openvpn-$(BUILD_VARIANT)/install
+ 	$(INSTALL_DIR) \
+ 		$(1)/usr/sbin \
+ 		$(1)/usr/share/openvpn \
+ 		$(1)/etc/init.d \
+-		$(1)/etc/config \
+ 		$(1)/etc/openvpn \
+ 		$(1)/lib/functions \
+-		$(1)/lib/upgrade/keep.d \
+ 		$(1)/usr/libexec \
+ 		$(1)/etc/hotplug.d/openvpn
+ 
+@@ -126,18 +119,11 @@
+ 
+ 	$(INSTALL_DATA) \
+ 		files/etc/openvpn.user \
+-		$(1)/etc/openvpn.user
++		$(1)/etc/openvpn/openvpn.user
+ 
+ 	$(INSTALL_DATA) \
+ 		files/openvpn.options \
+ 		$(1)/usr/share/openvpn/openvpn.options
+-
+-	$(INSTALL_CONF) files/openvpn.config \
+-		$(1)/etc/config/openvpn
+-
+-	$(INSTALL_DATA) \
+-		files/openvpn.upgrade \
+-		$(1)/lib/upgrade/keep.d/openvpn
+ endef
+ 
+ $(eval $(call BuildPackage,openvpn-openssl))
