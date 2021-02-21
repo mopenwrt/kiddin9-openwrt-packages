@@ -111,7 +111,7 @@ describe_domain(){
 	ret=0
 	dnspod_transfer 0
 	__TOKEN=`jsonfilter -s "$__TMP" -e "@.user_token"`
-	__POST="user_token=$__TOKEN&format=json&domain=$__DOMAIN&sub_domain=$__HOST&record_type=$__TYPE"
+	__POST="user_token=$__TOKEN&format=json&domain=$__DOMAIN&sub_domain=$__HOST"
 	__POST1="$__POST&value=$__IP&record_type=$__TYPE&record_line=default"
 	dnspod_transfer 1
 	__TMP=`jsonfilter -s "$__TMP" -e "@.records[@.type='$__TYPE' && @.line='Default']"`
