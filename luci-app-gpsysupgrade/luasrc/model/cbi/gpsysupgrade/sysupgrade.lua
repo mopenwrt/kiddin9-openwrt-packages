@@ -41,7 +41,7 @@ function to_check()
     elseif model:match(".*K2P.*") then
 		model = "phicomm-k2p"
 		check_update()
-        download_url = "https://op.supes.top/firmware/model/" ..dateyr.. "-openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin"
+        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin"
     elseif model:match(".*AC2100.*") then
 		model = "redmi-ac2100"
 		check_update()
