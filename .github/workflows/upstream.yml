@@ -100,6 +100,7 @@ jobs:
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean ./
         rm -rf .svn
+        git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw ./
         rm -rf .svn
