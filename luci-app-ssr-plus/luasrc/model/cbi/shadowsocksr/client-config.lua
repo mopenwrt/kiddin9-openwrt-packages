@@ -162,7 +162,7 @@ end
 if is_finded("naive") then
 	o:value("naiveproxy", translate("NaiveProxy"))
 end
-if is_finded("ipt2socks-alt") or is_finded("ipt2socks") then
+if is_finded("ipt2socks") then
 	o:value("socks5", translate("Socks5"))
 end
 if is_finded("redsocks2") then
