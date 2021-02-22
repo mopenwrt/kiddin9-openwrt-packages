@@ -74,6 +74,8 @@ jobs:
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf feed-netkeeper
         git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon
         git clone --depth 1 https://github.com/kuoruan/luci-app-frpc
+        git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
 
         svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
         svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
@@ -100,8 +102,6 @@ jobs:
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean ./
         rm -rf .svn
-        git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw ./
         rm -rf .svn
         svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
