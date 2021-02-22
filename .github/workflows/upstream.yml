@@ -96,6 +96,7 @@ jobs:
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
         
+        git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
         rm -rf .svn
@@ -108,7 +109,6 @@ jobs:
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lienol ./
         rm -rf .svn
-        git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
