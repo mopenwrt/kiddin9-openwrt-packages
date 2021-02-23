@@ -96,7 +96,6 @@ jobs:
         svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
-        svn co https://github.com/coolsnowwolf/packages/trunk/utils/docker-ce
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
@@ -126,6 +125,7 @@ jobs:
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         sed -i 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' */Makefile
         sed -i 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' */Makefile
+        sed -i 's/+docker-ce/+docker \\\n\t+dockerd/' luci-app-dockerman/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
         rm -f subconverter/patches/010-missing-header.patch
         sed -i 's?../../luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
