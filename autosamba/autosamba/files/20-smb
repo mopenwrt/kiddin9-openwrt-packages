@@ -54,7 +54,6 @@ case "$ACTION" in
 		sd*);;
 		md*);;
 		hd*);;
-		mmcblk*);;
 		*) return;;
 	esac
 
