@@ -69,7 +69,7 @@ case "$ACTION" in
 			strr=${j#* }
 			target=${strr%% *}
 			global=0
-			config_foreach smb_handle share $target
+			config_foreach smb_handle sambashare $target
 			name=${target#*/mnt/}
 			name=$(echo $name | sed -e "s/^\///")
 			if [ $global -eq 0 ] ;then
