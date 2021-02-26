@@ -13,11 +13,11 @@
 global=0
 config_file="/etc/config/ksmbd"
 
-echo '
+echo "
 config globals
 	option 'workgroup'		'WORKGROUP'
 	option 'description'	'Ksmbd on OpenWrt'
-' > $config_file
+" > $config_file
 
 wait_for_init() {
 	for i in `seq 30`
