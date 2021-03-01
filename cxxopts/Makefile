@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# (https://project-openwrt.eu.org)
+# (https://immortalwrt.org)
 #
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
@@ -17,7 +17,7 @@ PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=CN_SZTL <cnsztl@project-openwrt.eu.org>
+PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
 
 PKG_BUILD_PARALLEL:=1
 CMAKE_INSTALL:=1
