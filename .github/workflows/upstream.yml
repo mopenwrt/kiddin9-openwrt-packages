@@ -76,6 +76,7 @@ jobs:
         git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon
         git clone --depth 1 https://github.com/kuoruan/luci-app-frpc
         git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld
+        git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt
 
         svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
         svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
