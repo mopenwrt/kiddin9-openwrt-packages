@@ -1,8 +1,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=syncthing
-PKG_VERSION:=1.12.1
-PKG_RELEASE:=0
+PKG_VERSION:=1.13.1
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=syncthing-source-v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/syncthing/syncthing/releases/download/v$(PKG_VERSION)
