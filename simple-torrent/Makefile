@@ -9,8 +9,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=simple-torrent
-PKG_VERSION:=1.2.12
-PKG_RELEASE:=2
+PKG_VERSION:=1.2.14
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/boypt/simple-torrent/tar.gz/$(PKG_VERSION)?
@@ -41,7 +41,7 @@ define Package/simple-torrent
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
 	TITLE:=A self-hosted remote torrent client
-	URL:=https://github.com/ginuerzh/gost
+	URL:=https://github.com/boypt/simple-torrent
 	DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle +libstdcpp
 endef
 

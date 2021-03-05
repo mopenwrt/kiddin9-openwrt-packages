@@ -31,11 +31,11 @@ PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=v2ray.com/core
+GO_PKG:=github.com/v2fly/v2ray-core/v4
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG).version=$(PKG_VERSION) \
-	$(GO_PKG).codename=OpenWrt
+	$(GO_PKG).build=OpenWrt \
+	$(GO_PKG).version=$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
@@ -46,7 +46,7 @@ define Package/$(PKG_NAME)
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
-  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
+  DEPENDS:=@BROKEN $(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
 define Package/$(PKG_NAME)/config
