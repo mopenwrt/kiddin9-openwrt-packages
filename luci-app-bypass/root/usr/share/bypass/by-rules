@@ -23,7 +23,6 @@ flush_r(){
 	ip route del local 0.0.0.0/0 dev lo table 100 2>/dev/null
 	ipset -X ss_spec_wan_ac 2>/dev/null
 	ipset -X ss_spec_lan_ac 2>/dev/null
-	ipset -X ssr_gen_router 2>/dev/null
 	ipset -X fplan 2>/dev/null
 	ipset -X gmlan 2>/dev/null
 	ipset -X blacklist 2>/dev/null
