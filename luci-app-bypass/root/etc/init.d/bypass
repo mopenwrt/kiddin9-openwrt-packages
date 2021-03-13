@@ -307,8 +307,10 @@ start_rules() {
 		done
 			nf_ip=$(echo "$A" | sed -n 1p)
 		fi
-		let nf_local_port=local_port+1
-		[ $utype = trojan -a $nf_local_port = "$udp_local_port" ] && let nf_local_port=nf_local_port+1
+		ntype=$(uci_get_by_name $NF_SERVER type)
+		nf_local_port=$(uci_get_by_name $NF_SERVER local_port 1234)
+		[ $nf_local_port = $local_port ] && let nf_local_port=local_port+1
+		[ $utype = trojan -o $ntype = trojan ] && [ $nf_local_port = "$udp_local_port" ] && let nf_local_port=nf_local_port+1
 		NF=1
 	fi
 	[ "$NF" = 1 ] && NF="-N $nf_ip -P $nf_local_port"
@@ -474,18 +476,17 @@ start_reudp() {
 
 start_renf() {
 	rtype="nf"
-	type=$(uci_get_by_name $NF_SERVER type)
-	cmd=$(f_bin $type)
+	cmd=$(f_bin $ntype)
 	if [ ! -x $cmd ]; then
-		echolog "NF Shunt : Can't find $(echo $type | tr a-z A-Z) program, start failed!"
+		echolog "NF Shunt : Can't find $(echo $ntype | tr a-z A-Z) program, start failed!"
 		return 1
 	fi
 	redir_nf=1
-	case $type in
+	case $ntype in
 	ss | ssr)
 		gen_config_file $NF_SERVER $rtype
 		$cmd -c $config_file >$log_file 2>&1 &
-		[ $type = ss ] && name=Shadowsocks || name=ShadowsocksR
+		[ $ntype = ss ] && name=Shadowsocks || name=ShadowsocksR
 		echolog "NF Shunt : $name Started!"
 		;;
 	vmess | vless)
@@ -496,7 +497,7 @@ start_renf() {
 	trojan | trojan-go)
 		gen_config_file $NF_SERVER $rtype "" $nf_ip
 		$cmd --config $config_file >$log_file 2>&1 &
-		[ $type = trojan ] && {
+		[ $ntype = trojan ] && {
 			name="Trojan-Plus"
 			ver="$($cmd --version 2>&1 | head -1 | awk '{print$3}')"
 		} || {
