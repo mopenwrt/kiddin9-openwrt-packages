@@ -80,11 +80,11 @@ f_bin() {
 }
 
 gen_config_file() {
+	type=$(uci_get_by_name $1 type)
 	rtype=$2
 	ssport=$3
 	serv_ip=$4
 	sport=$(uci_get_by_name $1 server_port)
-	socks5_port=$(uci_get_by_type socks5_proxy local_port 1080)
 	pass=$(uci_get_by_name $1 password)
 	timeout=$(uci_get_by_name $1 timeout 60)
 	case $rtype in
@@ -98,8 +98,7 @@ gen_config_file() {
 		hostip=$socks5_ip; lport=$socks5_port; PROTO="socks"; fname="socks5";;
 	esac
 	[ $(uci_get_by_name $1 fast_open 0) = 1 ] && fast=true || fast=false;
-	type=$(uci_get_by_name $1 type);
-	config_file="$TMP_PATH/$type-by-$fname.json"
+	[ "$socks5_start" = 1 ] && config_file=$TMP_PATH/$type-by-$fname-socks5.json || config_file=$TMP_PATH/$type-by-$fname.json
 	log_file="$TMP_PATH/$type-by-$fname.log"
 	case $type in
 	ss)
@@ -150,7 +149,8 @@ gen_config_file() {
 		EOF
 		;;
 	vmess | vless)
-		[ $rtype == "udp" ] && smode="udp" || smode="tcp"
+		[ $rtype = udp ] && smode=udp || smode=tcp
+		[ $rtype = socks ] && lport=0
 		lua $BIN_DIR/genv2config $1 $smode $lport $ssport $serv_ip >$config_file
 		sed -i 's/\\//g' $config_file
 		;;
@@ -556,7 +556,8 @@ start_local() {
 		echolog "Socks5 Node: $name Started!"
 		;;
 	vmess | vless)
-		gen_config_file $SO_SERVER $rtype 0 $socks5_port $socks5_ip
+		socks5_port=$(uci_get_by_type socks5_proxy local_port 1080)
+		gen_config_file $SO_SERVER $rtype $socks5_port $socks5_ip
 		$cmd -c $config_file >$log_file 2>&1 &
 		echolog "Socks5 Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!"
 		;;
