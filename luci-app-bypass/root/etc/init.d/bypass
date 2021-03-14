@@ -548,6 +548,7 @@ start_local() {
 		return 1
 	fi
 	local_enable=1
+	socks5_port=$(uci_get_by_type socks5_proxy local_port 1080)
 	case $type in
 	ss | ssr)
 		gen_config_file $SO_SERVER $rtype
@@ -556,7 +557,6 @@ start_local() {
 		echolog "Socks5 Node: $name Started!"
 		;;
 	vmess | vless)
-		socks5_port=$(uci_get_by_type socks5_proxy local_port 1080)
 		gen_config_file $SO_SERVER $rtype $socks5_port $socks5_ip
 		$cmd -c $config_file >$log_file 2>&1 &
 		echolog "Socks5 Node: $($cmd -version | head -1 | awk '{print$1,$2}') Started!"
