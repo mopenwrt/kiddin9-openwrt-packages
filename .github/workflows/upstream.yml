@@ -120,7 +120,7 @@ jobs:
       run: |
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4} fcgiwrap \
-        ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS
+        ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
