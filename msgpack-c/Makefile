@@ -13,7 +13,7 @@ PKG_VERSION:=3.3.0
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@GHCODELOAD/msgpack/msgpack-c/tar.gz/cpp-$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/msgpack/msgpack-c/tar.gz/cpp-$(PKG_VERSION)?
 PKG_HASH:=skip
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-cpp-$(PKG_VERSION)
 

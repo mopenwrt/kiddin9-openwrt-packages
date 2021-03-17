@@ -13,7 +13,7 @@ PKG_VERSION:=1.2.14
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@GHCODELOAD/boypt/simple-torrent/tar.gz/$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/boypt/simple-torrent/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=AGPL-3.0

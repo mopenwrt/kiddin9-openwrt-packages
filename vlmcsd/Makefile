@@ -13,7 +13,7 @@ PKG_VERSION:=svn1113
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@GHCODELOAD/Wind4/vlmcsd/tar.gz/$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/Wind4/vlmcsd/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT

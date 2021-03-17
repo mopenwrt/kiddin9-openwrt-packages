@@ -12,7 +12,7 @@ PKG_VERSION:=10.32.01
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@GHCODELOAD/jpcre2/jpcre2/tar.gz/$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/jpcre2/jpcre2/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=BSD 3-Clause

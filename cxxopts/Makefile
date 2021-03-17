@@ -12,7 +12,7 @@ PKG_VERSION:=2.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@GHCODELOAD/jarro2783/cxxopts/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/jarro2783/cxxopts/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT

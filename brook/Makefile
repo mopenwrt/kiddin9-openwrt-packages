@@ -12,7 +12,7 @@ PKG_VERSION:=20210214
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@GHCODELOAD/txthinking/brook/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/txthinking/brook/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
