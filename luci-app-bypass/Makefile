@@ -99,6 +99,25 @@ define Build/Prepare
 	chmod +x root/etc/init.d/bypass root/usr/share/bypass/* >/dev/null 2>&1
 endef
 
+define Package/$(PKG_NAME)/postinst
+[ -n "${IPKG_INSTROOT}" ] || {
+	rm -f /tmp/luci-indexcache
+	rm -rf /tmp/luci-modulecache/
+	killall -HUP rpcd 2>/dev/null
+	/etc/init.d/smartdns stop 2>/dev/null;
+	/etc/init.d/bypass enable
+	exit 0
+}
+endef
+
+define Package/$(PKG_NAME)/prerm
+if [ -z "$${IPKG_INSTROOT}" ]; then
+     /etc/init.d/bypass disable
+     /etc/init.d/bypass stop
+fi
+exit 0
+endef
+
 define Build/Compile
 endef
 
