@@ -97,6 +97,7 @@ jobs:
         svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
+        svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
