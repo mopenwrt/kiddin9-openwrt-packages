@@ -84,6 +84,7 @@ jobs:
         svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools
         svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
         svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy
+        svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-kodexplorer
         svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory
         svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory
         svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns
@@ -103,14 +104,12 @@ jobs:
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
         rm -rf .svn
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean ./
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw ./
         rm -rf .svn
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
-        rm -rf .svn
-        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lienol ./
         rm -rf .svn
 
     - name: SSH connection to Actions
