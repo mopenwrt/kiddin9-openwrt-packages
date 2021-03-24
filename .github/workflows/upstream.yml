@@ -98,7 +98,7 @@ jobs:
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
-        svn co git clone --depth 1 https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
