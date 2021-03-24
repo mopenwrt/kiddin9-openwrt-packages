@@ -119,8 +119,8 @@ jobs:
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gowebdav
         svn co https://github.com/immortalwrt/packages/trunk/net/gowebdav
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol
-        svn co https://github.com/immortalwrt/openwrt-naiveproxy/trunk/luci-app-naiveproxy
-        svn co https://github.com/immortalwrt/openwrt-naiveproxy/trunk/luci-app-turboacc
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
