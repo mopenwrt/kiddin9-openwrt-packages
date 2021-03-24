@@ -124,17 +124,16 @@ jobs:
         svn co https://github.com/immortalwrt/packages/trunk/net/nps &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93 &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168 &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac &
+        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap
+        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93
+        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152
+        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168
+        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu
+        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
-        rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
         rm -rf .svn
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
