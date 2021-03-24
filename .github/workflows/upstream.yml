@@ -111,6 +111,7 @@ jobs:
         svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu &
         svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
         svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d} &
+        svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon &
         svn co https://github.com/openwrt/packages/trunk/net/openvpn &
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount &
