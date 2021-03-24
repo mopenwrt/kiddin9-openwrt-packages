@@ -52,6 +52,22 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/autosamba
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn
+        git clone --depth 1 https://github.com/KyleRicardo/luci-app-airwhu
+        git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk
+        git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder
+        git clone --depth 1 https://github.com/NateLol/luci-app-beardropper
+        git clone --depth 1 https://github.com/riverscn/openwrt-iptvhelper && mv -n openwrt-iptvhelper/{iptvhelper,luci-app*} ./ ; rm -Rf openwrt-iptvhelper
+        git clone --depth 1 https://github.com/project-lede/luci-app-godproxy
+        git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust
+        git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk
+        git clone --depth 1 https://github.com/BoringCat/luci-app-minieap
+        git clone --depth 1 https://github.com/rufengsuixing/luci-app-onliner
+        git clone --depth 1 https://github.com/tty228/luci-app-serverchan
+        git clone --depth 1 https://github.com/4IceG/luci-app-sms-tool
+        git clone --depth 1 https://github.com/immortalwrt/openwrt-ssocks && mv -n openwrt-ssocks/* ./ ; rm -Rf openwrt-ssocks
+        git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable
+        git clone --depth 1 https://github.com/silime/luci-app-xunlei
+        git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap
 
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config
@@ -99,6 +115,13 @@ jobs:
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
+        svn co https://github.com/immortalwrt/packages/trunk/net/gost
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gowebdav
+        svn co https://github.com/immortalwrt/packages/trunk/net/gowebdav
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol
+        svn co https://github.com/immortalwrt/openwrt-naiveproxy/trunk/luci-app-naiveproxy
+        svn co https://github.com/immortalwrt/openwrt-naiveproxy/trunk/luci-app-turboacc
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
