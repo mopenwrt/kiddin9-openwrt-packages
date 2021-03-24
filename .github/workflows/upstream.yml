@@ -122,8 +122,8 @@ jobs:
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol &
         svn co https://github.com/immortalwrt/packages/trunk/net/mwol &
         svn co https://github.com/immortalwrt/packages/trunk/net/nps &
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy &
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc &
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152
