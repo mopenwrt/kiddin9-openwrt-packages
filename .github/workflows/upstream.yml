@@ -53,13 +53,12 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn
         git clone --depth 1 https://github.com/KyleRicardo/luci-app-airwhu
+        git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder
         git clone --depth 1 https://github.com/NateLol/luci-app-beardropper
         git clone --depth 1 https://github.com/riverscn/openwrt-iptvhelper && mv -n openwrt-iptvhelper/{iptvhelper,luci-app*} ./ ; rm -Rf openwrt-iptvhelper
         git clone --depth 1 https://github.com/project-lede/luci-app-godproxy
-        git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust
-        git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk
         git clone --depth 1 https://github.com/BoringCat/luci-app-minieap
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-onliner
         git clone --depth 1 https://github.com/tty228/luci-app-serverchan
