@@ -79,6 +79,7 @@ define Package/UnblockNeteaseMusic-Go/install
 
 	$(INSTALL_DIR) $(1)/usr/share/UnblockNeteaseMusicGo
 	$(CP) ./files/* $(1)/usr/share/UnblockNeteaseMusicGo/
+	
 endef
 
 $(eval $(call GoBinPackage,UnblockNeteaseMusic-Go))
