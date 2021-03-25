@@ -52,7 +52,6 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/autosamba &
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge &
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
-        git clone --depth 1 https://github.com/KyleRicardo/luci-app-airwhu &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder &
@@ -67,6 +66,7 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
+        git clone --depth 1 https://github.com/immortalwrt/openwrt-cdnspeedtest
 
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config &
@@ -116,12 +116,17 @@ jobs:
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost &
+        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu &
         svn co https://github.com/immortalwrt/packages/trunk/net/gost &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gowebdav &
         svn co https://github.com/immortalwrt/packages/trunk/net/gowebdav &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol &
         svn co https://github.com/immortalwrt/packages/trunk/net/mwol &
         svn co https://github.com/immortalwrt/packages/trunk/net/nps &
+        svn co https://github.com/immortalwrt/packages/trunk/admin/bpytop &
+        svn co https://github.com/immortalwrt/packages/trunk/net/verysync &
+        svn co https://github.com/immortalwrt/packages/trunk/net/sub-web &
+        
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap
