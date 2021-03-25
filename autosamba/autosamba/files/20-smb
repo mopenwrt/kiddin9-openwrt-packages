@@ -11,7 +11,16 @@
 . /lib/functions/service.sh
 
 global=0
-config_file="/etc/config/ksmbd"
+config_file="/etc/config/samba4"
+
+[ ! -f /etc/config/samba4 ] && {
+echo "
+config samba
+	option workgroup 'WORKGROUP'
+	option charset 'UTF-8'
+	option description 'Samba on OpenWRT'
+" > $config_file
+}
 
 wait_for_init() {
 	for i in `seq 30`
@@ -35,8 +44,8 @@ chk_en() {
 	[ $autoshare -eq 0 ] && exit
 }
 
-config_load ksmbd
-config_foreach chk_en ksmbd
+config_load samba4
+config_foreach chk_en samba4
 
 device=`basename $DEVPATH`
 
@@ -47,7 +56,6 @@ case "$ACTION" in
 		sd*);;
 		md*);;
 		hd*);;
-		mmcblk*);;
 		*) return;;
 	esac
 
@@ -62,11 +70,11 @@ case "$ACTION" in
 			strr=${j#* }
 			target=${strr%% *}
 			global=0
-			config_foreach smb_handle share $target
+			config_foreach smb_handle sambashare $target
 			name=${target#*/mnt/}
 			name=$(echo $name | sed -e "s/^\///")
 			if [ $global -eq 0 ] ;then
-				echo -e "\n\nconfig share" >> $config_file
+				echo -e "\n\nconfig sambashare" >> $config_file
 				echo -e "\toption auto '1'" >> $config_file
 				echo -e "\toption name '$name'" >> $config_file
 				echo -e "\toption path '$target'" >> $config_file
@@ -75,7 +83,7 @@ case "$ACTION" in
 				echo -e "\toption create_mask '0666'" >> $config_file
 				echo -e "\toption dir_mask '0777'" >> $config_file
 				echo -e "\toption device '$device'" >> $config_file
-				/etc/init.d/ksmbd reload
+				/etc/init.d/samba4 reload
 				return
 			fi
 		fi
@@ -86,16 +94,16 @@ case "$ACTION" in
 		i=0
 		while true
 		do
-			dev=`uci get ksmbd.@share[$i].device`
+			dev=`uci get samba4.@sambashare[$i].device`
 			[ $? -ne 0 ] && break
 
 			[ "$dev" = "$device" ] && {
-				auto=`uci get ksmbd.@share[$i].auto`
+				auto=`uci get samba4.@sambashare[$i].auto`
 				[ $auto = "1" ] && {
-					mount_dir=`uci get ksmbd.@share[$i].name`
-					uci delete ksmbd.@share[$i]
+					mount_dir=`uci get samba4.@sambashare[$i].name`
+					uci delete samba4.@sambashare[$i]
 					uci commit
-					/etc/init.d/ksmbd reload
+					/etc/init.d/samba4 reload
 					return
 				}
 			}
