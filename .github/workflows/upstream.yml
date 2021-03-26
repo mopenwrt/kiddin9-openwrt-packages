@@ -94,25 +94,25 @@ jobs:
         git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld &
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
 
-        svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
-        svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
-        svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch &
-        svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools &
-        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
-        svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy &
-        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory &
-        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory &
-        svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu &
-        svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
-        svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d} &
-        svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon &
-        svn co https://github.com/openwrt/packages/trunk/net/openvpn &
+        svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman
+        svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
+        svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
+        svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools
+        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
+        svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy
+        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory
+        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory
+        svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns
+        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel
+        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync
+        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd
+        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3
+        svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu
+        svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
+        svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
+        svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
+        svn co https://github.com/openwrt/packages/trunk/net/openvpn
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
