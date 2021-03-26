@@ -121,12 +121,12 @@ jobs:
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gowebdav &
         svn co https://github.com/immortalwrt/packages/trunk/net/gowebdav &
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol &
-        svn co https://github.com/immortalwrt/packages/trunk/net/mwol &
-        svn co https://github.com/immortalwrt/packages/trunk/net/nps &
-        svn co https://github.com/immortalwrt/packages/trunk/admin/bpytop &
-        svn co https://github.com/immortalwrt/packages/trunk/net/verysync &
-        svn co https://github.com/immortalwrt/packages/trunk/net/sub-web &
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
+        svn co https://github.com/immortalwrt/packages/trunk/net/mwol
+        svn co https://github.com/immortalwrt/packages/trunk/net/nps
+        svn co https://github.com/immortalwrt/packages/trunk/admin/bpytop
+        svn co https://github.com/immortalwrt/packages/trunk/net/verysync
+        svn co https://github.com/immortalwrt/packages/trunk/net/sub-web
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
         
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
