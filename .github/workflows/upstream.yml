@@ -99,7 +99,6 @@ jobs:
         svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
         svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools
         svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
-        svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy
         svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory
         svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory
         svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns
@@ -112,6 +111,8 @@ jobs:
         svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
         svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
+        svn co https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy
+        svn co https://github.com/openwrt/packages/trunk/net/https-dns-proxy
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
         svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
