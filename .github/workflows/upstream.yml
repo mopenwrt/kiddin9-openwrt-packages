@@ -126,6 +126,7 @@ jobs:
         svn co https://github.com/immortalwrt/packages/trunk/admin/bpytop
         svn co https://github.com/immortalwrt/packages/trunk/net/verysync
         svn co https://github.com/immortalwrt/packages/trunk/net/sub-web
+        svn co https://github.com/immortalwrt/packages/trunk/net/subconverter
         svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
         
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
