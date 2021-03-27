@@ -1,4 +1,4 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI Support for docker
 LUCI_DEPENDS:=@(aarch64||arm||x86_64) \
@@ -15,6 +15,6 @@ PKG_MAINTAINER:=lisaac <lisaac.cn@gmail.com> \
 
 PKG_VERSION:=v0.5.13
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

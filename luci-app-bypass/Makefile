@@ -1,14 +1,14 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-bypass
 PKG_VERSION:=1.2
 PKG_RELEASE:=63
 
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
+define Package/$(PKG_NAME)/config
 config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks
 	bool "Include Shadowsocks-libev"
 	default y
@@ -68,11 +68,11 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server
 	default y
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
  	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
-	TITLE:=$(TOPDIR)/feeds/packagesR/Xr$(TOPDIR)/feeds/packagesoj$(TOPDIR)/feeds/packagesojan-$(TOPDIR)/feeds/packagesivePro$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesn LuCI interface
+	TITLE:=SS/SSR/Xray/Trojan/Trojan-Go/NaiveProxy/Socks5/Tun LuCI interface
 	PKGARCH:=all
 	DEPENDS:=+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +smartdns-le +coreutils +coreutils-base64 +curl +tcping +chinadns-ng +lua +luci-compat +unzip +lua-maxminddb \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Server:shadowsocks-libev-ss-server \
@@ -93,31 +93,31 @@ define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server:microsocks
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(foreach po,$(wildcard ${CURDI$(TOPDIR)/feeds/packages/zh-$(TOPDIR)/feeds/packagespo), \
-		po2lmo $(po) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagespatsubst %.po,%.lmo,$(notdir $(po)));)
-	chmod +x ro$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagespass ro$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagespa$(TOPDIR)/feeds/packages>/d$(TOPDIR)/feeds/packagesll 2>&1
+define Build/Prepare
+	$(foreach po,$(wildcard ${CURDIR}/po/zh_Hans/*.po), \
+		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
+	chmod +x root/etc/init.d/bypass root/usr/share/bypass/* >/dev/null 2>&1
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
-[ -n "$$IPKG_INSTROOT" ] || (rm -r$(TOPDIR)/feeds/packagesp/luci-modulecach$(TOPDIR)/feeds/packagesp/luci-indexcache*;killall -HUP rpcd $(TOPDIR)/feeds/packagesv/nul$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesartdns stop $(TOPDIR)/feeds/packagesv/nul$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagespass enable)
+define Package/$(PKG_NAME)/postinst
+[ -n "$$IPKG_INSTROOT" ] || (rm -rf /tmp/luci-modulecache /tmp/luci-indexcache*;killall -HUP rpcd 2>/dev/null;/etc/init.d/smartdns stop 2>/dev/null;/etc/init.d/bypass enable)
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagespass
-/e$(TOPDIR)/feeds/packagespass/
+define Package/$(PKG_NAME)/conffiles
+/etc/config/bypass
+/etc/bypass/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
-	cp -pR$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci
+	cp -pR ./luasrc/* $(1)/usr/lib/lua/luci
 	$(INSTALL_DIR) $(1)/
-	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(1)/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
-	$(INSTALL_DATA) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagespass.*.lmo $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n/
+	cp -pR ./root/* $(1)/
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/bypass.*.lmo $(1)/usr/lib/lua/luci/i18n/
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

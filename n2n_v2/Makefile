@@ -2,20 +2,20 @@
 # Copyright (C) 2020 - ntop.org and contributors
 #
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=n2n
 PKG_VERSION:=2.8
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesn/tar.$(TOPDIR)/feeds/packagesPKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/ntop/n2n/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=GPL-3.0
@@ -26,62 +26,62 @@ PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesn/template
+define Package/n2n/template
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=VPN
   TITLE:=N2N Peer-to-peer VPN
-  URL:=htt$(TOPDIR)/feeds/packagesww.ntop.o$(TOPDIR)/feeds/packagesn
+  URL:=http://www.ntop.org/n2n
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-edge
-  $(call Packa$(TOPDIR)/feeds/packagesn/template)
+define Package/n2n-edge
+  $(call Package/n2n/template)
   TITLE+= client (edge node)
   DEPENDS+=+kmod-tun +resolveip +libopenssl +libcap +libzstd
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-supernode
-  $(call Packa$(TOPDIR)/feeds/packagesn/template)
+define Package/n2n-supernode
+  $(call Package/n2n/template)
   TITLE+= server (supernode)
   DEPENDS+=+libcap
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-ed$(TOPDIR)/feeds/packagesscription
+define Package/n2n-edge/description
   The client node for the N2N infrastructure
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-superno$(TOPDIR)/feeds/packagesscription
+define Package/n2n-supernode/description
   The supernode for the N2N infrastructure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
-	( cd $(PKG_BUILD_DIR);$(TOPDIR)/feeds/packagestogen.sh )
-	$(call Bui$(TOPDIR)/feeds/packagesnfigu$(TOPDIR)/feeds/packagesfault)
+define Build/Configure
+	( cd $(PKG_BUILD_DIR); ./autogen.sh )
+	$(call Build/Configure/Default)
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-ed$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesn-edge.conf
+define Package/n2n-edge/conffiles
+/etc/config/n2n-edge.conf
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-superno$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesn-supernode.conf
+define Package/n2n-supernode/conffiles
+/etc/config/n2n-supernode.conf
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-ed$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesge $($(TOPDIR)/feeds/packagesr/bin/
+define Package/n2n-edge/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/edge $(1)/usr/bin/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn_v2.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesn_v2
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn_v2.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesn_v2
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) ./files/n2n_v2.config $(1)/etc/config/n2n_v2
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/n2n_v2.init $(1)/etc/init.d/n2n_v2
 endef
 
-define Packa$(TOPDIR)/feeds/packagesn-superno$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagespernode $($(TOPDIR)/feeds/packagesr/bin/
+define Package/n2n-supernode/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/supernode $(1)/usr/bin/
 endef
 
 $(eval $(call BuildPackage,n2n-edge))

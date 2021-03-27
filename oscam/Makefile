@@ -2,9 +2,9 @@
 # Copyright (C) 2016-2017 Tomasz Maciej Nowak <tomek_n@o2.pl>
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME := oscam
 PKG_REV := 33e2d6
@@ -13,7 +13,7 @@ PKG_RELEASE := 1
 
 PKG_SOURCE_PROTO:= git
 PKG_SOURCE_VERSION := $(PKG_REV)
-PKG_SOURCE_URL := http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packages1$(TOPDIR)/feeds/packagescam.git
+PKG_SOURCE_URL := https://github.com/nx111/oscam.git
 PKG_MIRROR_HASH := 6873d24637f14ec695e32a8a91f17bd8ef38d615a55fb76e6440f6a37da906e3
 
 PKG_LICENSE := GPL-3.0
@@ -21,29 +21,29 @@ PKG_LICENSE_FILE := COPYING
 
 PKG_MAINTAINER := Tomasz Maciej Nowak <tomek_n@o2.pl>
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesc$(TOPDIR)/feeds/packagesnfig
-	source "$(SOURC$(TOPDIR)/feeds/packagesnfig.in"
+define Package/oscam/config
+	source "$(SOURCE)/Config.in"
 endef
 
-define Packa$(TOPDIR)/feeds/packagescam
+define Package/oscam
   SECTION := net
   CATEGORY := Network
   TITLE := Open Source Conditional Access Modul
-  URL := htt$(TOPDIR)/feeds/packagesww.streamboard.$(TOPDIR)/feeds/packagescam
+  URL := http://www.streamboard.tv/oscam
   DEPENDS := +OSCAM_USE_LIBCRYPTO:libopenssl +OSCAM_USE_LIBUSB:libusb-1.0 +OSCAM_USE_PCSC:pcscd
 endef
 
-define Packa$(TOPDIR)/feeds/packagesst-smargo
+define Package/list-smargo
   SECTION := net
   CATEGORY := Network
   TITLE := List Smargo readers
-  URL := htt$(TOPDIR)/feeds/packagesww.streamboard.$(TOPDIR)/feeds/packagescam
+  URL := http://www.streamboard.tv/oscam
   DEPENDS := oscam @OSCAM_CARDREADER_SMARGO
 endef
 
-CONFIGURE_CMD =$(TOPDIR)/feeds/packagesnfig.sh
+CONFIGURE_CMD = ./config.sh
 CONFIGURE_ARGS = \
 	--restore \
 	$(if $(CONFIG_OSCAM_WEBIF),--enable,--disable) WEBIF \
@@ -120,36 +120,36 @@ ifeq ($(CONFIG_OSCAM_WITH_SSL),y)
 endif
 
 MAKE_FLAGS += \
-	CONF_DI$(TOPDIR)/feeds/packagesc/oscam \
-	OSCAM_BIN=Distributi$(TOPDIR)/feeds/packagescam \
-	LIST_SMARGO_BIN=Distributi$(TOPDIR)/feeds/packagesst-smargo
+	CONF_DIR=/etc/oscam \
+	OSCAM_BIN=Distribution/oscam \
+	LIST_SMARGO_BIN=Distribution/list-smargo
 
-define Packa$(TOPDIR)/feeds/packagesc$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagescam/
+define Package/oscam/conffiles
+/etc/oscam/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesc$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesstributi$(TOPDIR)/feeds/packagescam $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagescam
+define Package/oscam/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Distribution/oscam $(1)/usr/bin/oscam
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/oscam
-#	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesstributi$(TOPDIR)/feeds/packagesc/examp$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/oscam/
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagescam.conf $($(TOPDIR)/feeds/packagesc/osc$(TOPDIR)/feeds/packagescam.conf
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagescam.user $($(TOPDIR)/feeds/packagesc/osc$(TOPDIR)/feeds/packagescam.user
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagescam.dvbapi $($(TOPDIR)/feeds/packagesc/osc$(TOPDIR)/feeds/packagescam.dvbapi
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagescam.server $($(TOPDIR)/feeds/packagesc/osc$(TOPDIR)/feeds/packagescam.server
+	$(INSTALL_DIR) $(1)/etc/oscam
+#	$(CP) $(PKG_BUILD_DIR)/Distribution/doc/example/* $(1)/etc/oscam/
+	$(INSTALL_CONF) ./files/oscam.conf $(1)/etc/oscam/oscam.conf
+	$(INSTALL_CONF) ./files/oscam.user $(1)/etc/oscam/oscam.user
+	$(INSTALL_CONF) ./files/oscam.dvbapi $(1)/etc/oscam/oscam.dvbapi
+	$(INSTALL_CONF) ./files/oscam.server $(1)/etc/oscam/oscam.server
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagescam.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagescam
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/oscam.init $(1)/etc/init.d/oscam
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagescam
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagescam-watchdog.sh $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesc$(TOPDIR)/feeds/packagescam-watchdog.sh
+	$(INSTALL_DIR) $(1)/usr/share/oscam
+	$(INSTALL_BIN) ./files/oscam-watchdog.sh $(1)/usr/share/oscam/oscam-watchdog.sh
 
 endef
 
-define Packa$(TOPDIR)/feeds/packagesst-smar$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesstributi$(TOPDIR)/feeds/packagesst-smargo $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesst-smargo
+define Package/list-smargo/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Distribution/list-smargo $(1)/usr/bin/list-smargo
 endef
 
 $(eval $(call BuildPackage,oscam))

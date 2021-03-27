@@ -1,7 +1,7 @@
 #PO = wifidog
 #by walkingsky
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI wifidog config
 LUCI_DEPENDS:=+wifidog
@@ -10,7 +10,7 @@ PKG_NAME:=luci-app-wifidog
 PKG_VERSION:=2.0
 PKG_RELEASE:=2
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 #

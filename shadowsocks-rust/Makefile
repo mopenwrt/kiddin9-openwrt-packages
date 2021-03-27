@@ -2,13 +2,13 @@
 # Copyright (C) 2017-2020 Yousong Zhou <yszhou4tech@gmail.com>
 #
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shadowsocks-rust
 PKG_VERSION:=1.9.2
@@ -17,13 +17,13 @@ PKG_RELEASE:=2
 PKG_SOURCE_HEADER:=shadowsocks-v$(PKG_VERSION)
 PKG_SOURCE_BODY:=unknown-linux-musl
 PKG_SOURCE_FOOTER:=tar.xz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesell-scri$(TOPDIR)/feeds/packagesenwrt-shadowsocks-ru$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packages(PKG_VERSION)/
+PKG_SOURCE_URL:=https://github.com/shell-script/openwrt-shadowsocks-rust/releases/download/v$(PKG_VERSION)/
 
 ifeq ($(ARCH),aarch64)
   PKG_SOURCE:=$(PKG_SOURCE_HEADER).aarch64-$(PKG_SOURCE_BODY).$(PKG_SOURCE_FOOTER)
   PKG_HASH:=skip
 else ifeq ($(ARCH),arm)
-  # Referred to gola$(TOPDIR)/feeds/packageslang-values.mk
+  # Referred to golang/golang-values.mk
   ARM_CPU_FEATURES:=$(word 2,$(subst +,$(space),$(call qstrip,$(CONFIG_CPU_TYPE))))
   ifeq ($(ARM_CPU_FEATURES),)
     PKG_SOURCE:=$(PKG_SOURCE_HEADER).arm-$(PKG_SOURCE_BODY)eabi.$(PKG_SOURCE_FOOTER)
@@ -62,35 +62,35 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
 TAR_CMD:=$(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 
-define Packa$(TOPDIR)/feeds/packagesadowsocks-ru$(TOPDIR)/feeds/packagesfault
-  define Packa$(TOPDIR)/feeds/packagesadowsocks-rust-$(1)
+define Package/shadowsocks-rust/Default
+  define Package/shadowsocks-rust-$(1)
     SECTION:=net
     CATEGORY:=Network
-    SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+    SUBMENU:=Web Servers/Proxies
     TITLE:=shadowsocks-rust $(1)
-    URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsoc$(TOPDIR)/feeds/packagesadowsocks-rust
+    URL:=https://github.com/shadowsocks/shadowsocks-rust
     DEPENDS:=@(aarch64||arm||i386||mips||mipsel||x86_64) @USE_MUSL
   endef
 
-  define Packa$(TOPDIR)/feeds/packagesadowsocks-rust-$($(TOPDIR)/feeds/packagesstall
-	$$(INSTALL_DIR) $$($(TOPDIR)/feeds/packagesr/bin
-	$$(INSTALL_BIN) $$(PKG_BUILD_DI$(TOPDIR)/feeds/packages1) $$($(TOPDIR)/feeds/packagesr/bin
+  define Package/shadowsocks-rust-$(1)/install
+	$$(INSTALL_DIR) $$(1)/usr/bin
+	$$(INSTALL_BIN) $$(PKG_BUILD_DIR)/$(1) $$(1)/usr/bin
   endef
 endef
 
 SHADOWSOCKS_COMPONENTS:=sslocal ssmanager ssserver ssurl
-define shadowsocks-ru$(TOPDIR)/feeds/packagesmplates
+define shadowsocks-rust/templates
   $(foreach component,$(SHADOWSOCKS_COMPONENTS),
-    $(call Packa$(TOPDIR)/feeds/packagesadowsocks-ru$(TOPDIR)/feeds/packagesfault,$(component))
+    $(call Package/shadowsocks-rust/Default,$(component))
   )
 endef
-$(eval $(call shadowsocks-ru$(TOPDIR)/feeds/packagesmplates))
+$(eval $(call shadowsocks-rust/templates))
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
 $(foreach component,$(SHADOWSOCKS_COMPONENTS), \

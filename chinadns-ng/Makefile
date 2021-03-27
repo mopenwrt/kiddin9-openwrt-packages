@@ -1,11 +1,11 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=chinadns-ng
 PKG_VERSION:=1.0-beta.24
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesinadns-ng.git
+PKG_SOURCE_URL:=https://github.com/zfl9/chinadns-ng.git
 PKG_MIRROR_HASH:=4b0a159e1ecd81392a67b31528b0430afa991bfceef5dd60d2d843edfccb6b12
 PKG_SOURCE_VERSION:=df3bb7c6310df9b3c0f874b7a0c38ea5ce0996cb
 
@@ -16,26 +16,26 @@ PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=pexcn <i@pexcn.me>
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesinadns-ng
+define Package/chinadns-ng
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=ChinaDNS next generation, refactoring with epoll and ipset
-	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesinadns-ng
+	URL:=https://github.com/zfl9/chinadns-ng
 	DEPENDS:=+ipset
 endef
 
-define Packa$(TOPDIR)/feeds/packagesinadns-$(TOPDIR)/feeds/packagesscription
+define Package/chinadns-ng/description
 ChinaDNS next generation, refactoring with epoll and ipset.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesinadns-$(TOPDIR)/feeds/packagesnffiles
+define Package/chinadns-ng/conffiles
 endef
 
-define Packa$(TOPDIR)/feeds/packagesinadns-$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesinadns-ng $($(TOPDIR)/feeds/packagesr/bin
+define Package/chinadns-ng/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/chinadns-ng $(1)/usr/bin
 endef
 
 $(eval $(call BuildPackage,chinadns-ng))

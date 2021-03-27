@@ -2,14 +2,14 @@
 # Copyright (C) 2017-2020 Yousong Zhou <yszhou4tech@gmail.com>
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 # Checklist when bumping versions
 #
-# - update cipher list by checking s$(TOPDIR)/feeds/packagesypto.c:crypto_init()
+# - update cipher list by checking src/crypto.c:crypto_init()
 # - check if default mode has changed from being tcp_only
 #
 PKG_NAME:=shadowsocks-libev
@@ -17,7 +17,7 @@ PKG_VERSION:=3.3.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsoc$(TOPDIR)/feeds/packagesadowsocks-lib$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packages(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$(PKG_VERSION)
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Yousong Zhou <yszhou4tech@gmail.com>
@@ -31,21 +31,21 @@ PKG_USE_MIPS16:=0
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_DEPENDS:=c-ares pcre
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesadowsocks-lib$(TOPDIR)/feeds/packagesfault
-  define Packa$(TOPDIR)/feeds/packagesadowsocks-libev-$(1)
+define Package/shadowsocks-libev/Default
+  define Package/shadowsocks-libev-$(1)
     SECTION:=net
     CATEGORY:=Network
-    SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+    SUBMENU:=Web Servers/Proxies
     TITLE:=shadowsocks-libev $(1)
-    URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsoc$(TOPDIR)/feeds/packagesadowsocks-libev
+    URL:=https://github.com/shadowsocks/shadowsocks-libev
     DEPENDS:=+libev +libmbedtls +libpthread +libsodium $(DEPENDS_$(1))
   endef
 
-  define Packa$(TOPDIR)/feeds/packagesadowsocks-libev-$($(TOPDIR)/feeds/packagesstall
-	$$(INSTALL_DIR) $$($(TOPDIR)/feeds/packagesr/bin
-	$$(INSTALL_BIN) $$(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packages1) $$($(TOPDIR)/feeds/packagesr/bin
+  define Package/shadowsocks-libev-$(1)/install
+	$$(INSTALL_DIR) $$(1)/usr/bin
+	$$(INSTALL_BIN) $$(PKG_INSTALL_DIR)/usr/bin/$(1) $$(1)/usr/bin
   endef
 
 endef
@@ -54,43 +54,43 @@ DEPENDS_ss-local = +libpcre
 DEPENDS_ss-server = +libcares +libpcre
 
 SHADOWSOCKS_COMPONENTS:=ss-local ss-redir ss-tunnel ss-server
-define shadowsocks-lib$(TOPDIR)/feeds/packagesmplates
+define shadowsocks-libev/templates
   $(foreach component,$(SHADOWSOCKS_COMPONENTS),
-    $(call Packa$(TOPDIR)/feeds/packagesadowsocks-lib$(TOPDIR)/feeds/packagesfault,$(component))
+    $(call Package/shadowsocks-libev/Default,$(component))
   )
 endef
-$(eval $(call shadowsocks-lib$(TOPDIR)/feeds/packagesmplates))
+$(eval $(call shadowsocks-libev/templates))
 
 
-define Packa$(TOPDIR)/feeds/packagesadowsocks-libev-ss-rules
+define Package/shadowsocks-libev-ss-rules
   SECTION:=net
   CATEGORY:=Network
-  SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+  SUBMENU:=Web Servers/Proxies
   TITLE:=shadowsocks-libev ss-rules
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsoc$(TOPDIR)/feeds/packagesadowsocks-libev
+  URL:=https://github.com/shadowsocks/shadowsocks-libev
   DEPENDS:=+ip +ipset +iptables-mod-tproxy +resolveip +shadowsocks-libev-ss-redir
 endef
 
-define Packa$(TOPDIR)/feeds/packagesadowsocks-libev-ss-rul$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages-rules $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesrewall.ss-rules $($(TOPDIR)/feeds/packagesc
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages-rules.defaults $($(TOPDIR)/feeds/packagesc/uci-defaults
+define Package/shadowsocks-libev-ss-rules/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) ./files/ss-rules $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_DATA) ./files/firewall.ss-rules $(1)/etc
+	$(INSTALL_BIN) ./files/ss-rules.defaults $(1)/etc/uci-defaults
 endef
 
-define Packa$(TOPDIR)/feeds/packagesadowsocks-libev-ss-rul$(TOPDIR)/feeds/packageserm
-$(TOPDIR)/feeds/packagesn/sh
+define Package/shadowsocks-libev-ss-rules/prerm
+#!/bin/sh
 s=firewall.ss_rules
-uci get "$$s"$(TOPDIR)/feeds/packagesv/null || exit 0
+uci get "$$s" >/dev/null || exit 0
 uci batch <<-EOF
 	delete $$s
 	commit firewall
 EOF
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+define Build/Prepare
+	$(call Build/Prepare/Default)
 	$(FIND) $(PKG_BUILD_DIR) \
 			   -name '*.o' \
 			-o -name '*.lo' \

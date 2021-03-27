@@ -3,9 +3,9 @@
 # This is a free software, use it under GNU General Public License v3.0.
 #
 # Created By [CTCGFW]Project-OpenWrt
-# http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesoject-openwrt
+# https://github.com/project-openwrt
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI support for sSocks
 LUCI_DEPENDS:=+busybox +iptables +ssocksd
@@ -16,6 +16,6 @@ PKG_RELEASE:=1
 
 PKG_MAINTAINER:=[CTCGFW]Project-OpenWrt
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

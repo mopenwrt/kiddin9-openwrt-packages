@@ -16,7 +16,7 @@
 #
 ##############################################
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 # Name and release number of this package
 PKG_NAME:=cpulimit-ng
@@ -26,13 +26,13 @@ PKG_RELEASE:=1
 # This specifies the directory where we're going to build the program.
 # The root build directory, $(BUILD_DIR), is by default the build_mipsel
 # directory in your OpenWrt SDK directory
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesBUILD_VARIAN$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
 # Specify package information for this program.
 # The variables defined here should be self explanatory.
-define Packa$(TOPDIR)/feeds/packagesulimit-ng
+define Package/cpulimit-ng
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=CPU Usage Limiter for Linux
@@ -48,24 +48,24 @@ endef
 # PKG_SOURCE which is not defined here to download the source from the web.
 # In order to just build a simple program that we have just written, it is
 # much easier to do it this way.
-define Bui$(TOPDIR)/feeds/packagesepare
+define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
-	$(CP)$(TOPDIR)/feeds/packagesc/* $(PKG_BUILD_DIR)/
+	$(CP) ./src/* $(PKG_BUILD_DIR)/
 endef
 
-# We do not need to define Bui$(TOPDIR)/feeds/packagesnfigure or Bui$(TOPDIR)/feeds/packagesmpile directives
+# We do not need to define Build/Configure or Build/Compile directives
 # The defaults are appropriate for compiling a simple program such as this one
 
 # Specify where and how to install the program. Since we only have one file,
-# the cpulimit-ng executable, install it by copying it to th$(TOPDIR)/feeds/packagesn directory on
+# the cpulimit-ng executable, install it by copying it to the /bin directory on
 # the router. The $(1) variable represents the root directory on the router running
 # OpenWrt. The $(INSTALL_DIR) variable contains a command to prepare the install
 # directory if it does not already exist.  Likewise $(INSTALL_BIN) contains the
 # command to copy the binary file from its current location (in our case the build
 # directory) to the install directory.
-define Packa$(TOPDIR)/feeds/packagesulimit-$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesn
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesulimit-ng $($(TOPDIR)/feeds/packagesn/
+define Package/cpulimit-ng/install
+	$(INSTALL_DIR) $(1)/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/cpulimit-ng $(1)/bin/
 endef
 
 # This line executes the necessary commands to compile our program.

@@ -2,39 +2,39 @@
 # Copyright (C) 2018 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=open-vm-tools
 PKG_VERSION:=11.0.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-15389592.tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packageswa$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packagesable-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/vmware/open-vm-tools/releases/download/stable-$(PKG_VERSION)
 PKG_HASH:=skip
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSION)-15389592
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-15389592
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=gli$(TOPDIR)/feeds/packagesst
+PKG_BUILD_DEPENDS:=glib2/host
 
 PKG_FIXUP:=autoreconf
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=LICENSE
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesen-vm-tools
+define Package/open-vm-tools
   SECTION:=utils
   CATEGORY:=Utilities
   DEPENDS:=@TARGET_x86 +glib2 +libpthread +libtirpc
   TITLE:=open-vm-tools
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packageswa$(TOPDIR)/feeds/packagesen-vm-tools
+  URL:=https://github.com/vmware/open-vm-tools
   MAINTAINER:=Yuhei OKAWA <tochiro.srchack@gmail.com>
 endef
 
-define Packa$(TOPDIR)/feeds/packagesen-vm-tools-vm-too$(TOPDIR)/feeds/packagesscription
+define Package/open-vm-tools-vm-tools/description
 	Open Virtual Machine Tools for VMware guest OS
 endef
 
@@ -62,56 +62,56 @@ CONFIGURE_ARGS+= \
 	--enable-resolutionkms=no
 
 
-define Packa$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d/
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagestoolsd.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagestoolsd
+define Package/open-vm-tools/install
+	$(INSTALL_DIR) $(1)/etc/init.d/
+	$(INSTALL_BIN) ./files/vmtoolsd.init $(1)/etc/init.d/vmtoolsd
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/vmware-tools/
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesols.conf $($(TOPDIR)/feeds/packagesc/vmware-tools/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesc/vmware-tools $($(TOPDIR)/feeds/packagesc/
+	$(INSTALL_DIR) $(1)/etc/vmware-tools/
+	$(INSTALL_DATA) ./files/tools.conf $(1)/etc/vmware-tools/
+	$(CP) $(PKG_INSTALL_DIR)/etc/vmware-tools $(1)/etc/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagestoolsd $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesware-checkvm $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesware-hgfsclient $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesware-namespace-cmd $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesware-rpctool $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesware-toolbox-cmd $($(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesware-xferlogs $($(TOPDIR)/feeds/packagesn/
+	$(INSTALL_DIR) $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmtoolsd $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmware-checkvm $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmware-hgfsclient $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmware-namespace-cmd $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmware-rpctool $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmware-toolbox-cmd $(1)/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/vmware-xferlogs $(1)/bin/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesunt.vmhgfs $($(TOPDIR)/feeds/packagesin/
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesutdown $($(TOPDIR)/feeds/packagesin/
+	$(INSTALL_DIR) $(1)/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/mount.vmhgfs $(1)/sbin/
+	$(INSTALL_BIN) ./files/shutdown $(1)/sbin/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbguestlib.so* $($(TOPDIR)/feeds/packagesb/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbhgfs.so* $($(TOPDIR)/feeds/packagesb/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbvmtools.so* $($(TOPDIR)/feeds/packagesb/
+	$(INSTALL_DIR) $(1)/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libguestlib.so* $(1)/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libhgfs.so* $(1)/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libvmtools.so* $(1)/lib/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagesmmon/
-	$(INSTALL_DATA) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagesmm$(TOPDIR)/feeds/packagesbhgfsServer.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagesmmon/
-	$(INSTALL_DATA) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagesmm$(TOPDIR)/feeds/packagesbvix.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagesmmon/
+	$(INSTALL_DIR) $(1)/usr/lib/open-vm-tools/plugins/common/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/open-vm-tools/plugins/common/libhgfsServer.so $(1)/usr/lib/open-vm-tools/plugins/common/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/open-vm-tools/plugins/common/libvix.so $(1)/usr/lib/open-vm-tools/plugins/common/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagessvc/
-	$(INSTALL_DATA) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagess$(TOPDIR)/feeds/packagesbguestInfo.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagessvc/
-	$(INSTALL_DATA) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagess$(TOPDIR)/feeds/packagesbpowerOps.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagessvc/
-	$(INSTALL_DATA) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagess$(TOPDIR)/feeds/packagesbtimeSync.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagessvc/
-	$(INSTALL_DATA) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagess$(TOPDIR)/feeds/packagesbvmbackup.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesugi$(TOPDIR)/feeds/packagessvc/
+	$(INSTALL_DIR) $(1)/usr/lib/open-vm-tools/plugins/vmsvc/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/open-vm-tools/plugins/vmsvc/libguestInfo.so $(1)/usr/lib/open-vm-tools/plugins/vmsvc/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/open-vm-tools/plugins/vmsvc/libpowerOps.so $(1)/usr/lib/open-vm-tools/plugins/vmsvc/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/open-vm-tools/plugins/vmsvc/libtimeSync.so $(1)/usr/lib/open-vm-tools/plugins/vmsvc/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/open-vm-tools/plugins/vmsvc/libvmbackup.so $(1)/usr/lib/open-vm-tools/plugins/vmsvc/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesock/
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesware-scsi.hotplug $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packageso$(TOPDIR)/feeds/packages-vmware-scsi
+	$(INSTALL_DIR) $(1)/etc/hotplug.d/block/
+	$(INSTALL_BIN) ./files/vmware-scsi.hotplug $(1)/etc/hotplug.d/block/80-vmware-scsi
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/toolboxcmd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/vmtoolsd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/toolboxcmd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/vmtoolsd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages_CN/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages_$(TOPDIR)/feeds/packagesolboxcmd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages_CN/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/toolboxcmd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/vmtoolsd.vmsg $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesen-vm-too$(TOPDIR)/feeds/packagesssag$(TOPDIR)/feeds/packages/
+	$(INSTALL_DIR) $(1)/usr/share/open-vm-tools/messages/de/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/de/toolboxcmd.vmsg $(1)/usr/share/open-vm-tools/messages/de/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/de/vmtoolsd.vmsg $(1)/usr/share/open-vm-tools/messages/de/
+	$(INSTALL_DIR) $(1)/usr/share/open-vm-tools/messages/ko/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/ko/toolboxcmd.vmsg $(1)/usr/share/open-vm-tools/messages/ko/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/ko/vmtoolsd.vmsg $(1)/usr/share/open-vm-tools/messages/ko/
+	$(INSTALL_DIR) $(1)/usr/share/open-vm-tools/messages/zh_CN/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/zh_CN/toolboxcmd.vmsg $(1)/usr/share/open-vm-tools/messages/zh_CN/
+	$(INSTALL_DIR) $(1)/usr/share/open-vm-tools/messages/ja/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/ja/toolboxcmd.vmsg $(1)/usr/share/open-vm-tools/messages/ja/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/open-vm-tools/messages/ja/vmtoolsd.vmsg $(1)/usr/share/open-vm-tools/messages/ja/
 endef
 
 $(eval $(call BuildPackage,open-vm-tools))

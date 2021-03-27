@@ -1,6 +1,6 @@
 # Based partially on the versions of el1n and Federico Di Marco
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=softethervpn5
 PKG_VERSION:=5.01.9671
@@ -10,156 +10,156 @@ PKG_MAINTAINER:=Andy Walsh <andy.walsh44+github@gmail.com>
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
 
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesftEtherV$(TOPDIR)/feeds/packagesftEtherV$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packagesPKG_VERSION)/
+PKG_SOURCE_URL:=https://github.com/SoftEtherVPN/SoftEtherVPN/releases/download/$(PKG_VERSION)/
 PKG_SOURCE:=softether-vpn-src-$(PKG_VERSION).tar.gz
 PKG_HASH:=skip
 
-HOST_BUILD_DIR:=$(BUILD_DIR_HOS$(TOPDIR)/feeds/packagesftEtherVPN-$(PKG_VERSION)
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesftEtherVPN-$(PKG_VERSION)
+HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/SoftEtherVPN-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/SoftEtherVPN-$(PKG_VERSION)
 
-HOST_BUILD_DEPENDS:=ncurs$(TOPDIR)/feeds/packagesst readli$(TOPDIR)/feeds/packagesst
-PKG_BUILD_DEPENDS:=softethervp$(TOPDIR)/feeds/packagesst
+HOST_BUILD_DEPENDS:=ncurses/host readline/host
+PKG_BUILD_DEPENDS:=softethervpn5/host
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesst-build.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagess.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesake.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/nls.mk
+include $(INCLUDE_DIR)/cmake.mk
 
-define Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfault
+define Package/softethervpn5/Default
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=VPN
   TITLE:=softethervpn5 v$(PKG_VERSION)
-  URL:=htt$(TOPDIR)/feeds/packagesww.softether.org/
+  URL:=http://www.softether.org/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription
+define Package/softethervpn5/Default/description
   SoftEther VPN supports SSL-VPN, OpenVPN, L2TP, EtherIP, L2TPv3 and IPsec as a single VPN software.
   SoftEther VPN is not only an alternative VPN server to existing VPN products (OpenVPN, IPsec and MS-SSTP),
   but has also original strong SSL-VPN protocol to penetrate any kinds of firewalls.
-  Guide: http$(TOPDIR)/feeds/packagesordpress.tirlins.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages/setting-up-softether-vpn-on-openwrt/
+  Guide: https://wordpress.tirlins.com/2015/03/setting-up-softether-vpn-on-openwrt/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-libs
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfault)
+define Package/softethervpn5-libs
+  $(call Package/softethervpn5/Default)
   DEPENDS:=+libpthread +librt +libreadline +libopenssl +libncurses +kmod-tun +zlib $(ICONV_DEPENDS)
   TITLE+= libs
   HIDDEN:=1
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-server
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfault)
+define Package/softethervpn5-server
+  $(call Package/softethervpn5/Default)
   TITLE+= server
   DEPENDS:= +softethervpn5-libs
 endef
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-serv$(TOPDIR)/feeds/packagesscription
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription)
+define Package/softethervpn5-server/description
+  $(call Package/softethervpn5/Default/description)
 
   Provides the vpnserver (daemon).
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-bridge
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfault)
+define Package/softethervpn5-bridge
+  $(call Package/softethervpn5/Default)
   TITLE+= bridge
   DEPENDS:= +softethervpn5-libs  
 endef
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-brid$(TOPDIR)/feeds/packagesscription
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription)
+define Package/softethervpn5-bridge/description
+  $(call Package/softethervpn5/Default/description)
 
   Provides the vpnbridge (daemon).
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-client
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfault)
+define Package/softethervpn5-client
+  $(call Package/softethervpn5/Default)
   TITLE+= client
   DEPENDS:= +softethervpn5-libs  
 endef
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-clie$(TOPDIR)/feeds/packagesscription
-  $(call Packa$(TOPDIR)/feeds/packagesftethervp$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription)
+define Package/softethervpn5-client/description
+  $(call Package/softethervpn5/Default/description)
 
   Provides the vpnclient.
 endef
 
 export USE_MUSL=YES
-# BUG: outdated ho$(TOPDIR)/feeds/packagesclu$(TOPDIR)/feeds/packagesf.h
+# BUG: outdated host/include/elf.h
 HOST_CFLAGS += $(FPIC) -DAT_HWCAP2=26
 TARGET_CFLAGS += $(FPIC)
-CMAKE_OPTIONS = -DICONV_LIB_PATH="$(ICONV_PREFI$(TOPDIR)/feeds/packagesb"
+CMAKE_OPTIONS = -DICONV_LIB_PATH="$(ICONV_PREFIX)/lib"
 
-# static build for host (hamcorebuilder), avoid -fpic on ncurs$(TOPDIR)/feeds/packagesst and shared libs can't be found on host
-define Ho$(TOPDIR)/feeds/packagesepare
-	$(Ho$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
-	$(SED) 's,SHARED,STATIC,g' $(HOST_BUILD_DI$(TOPDIR)/feeds/packagesc/Mayaq$(TOPDIR)/feeds/packagesakeLists.txt
-	$(SED) 's,SHARED,STATIC,g' $(HOST_BUILD_DI$(TOPDIR)/feeds/packagesc/Ced$(TOPDIR)/feeds/packagesakeLists.txt
-	$(SED) 's,readline,libreadline.a,g' $(HOST_BUILD_DI$(TOPDIR)/feeds/packagesc/Ced$(TOPDIR)/feeds/packagesakeLists.txt
+# static build for host (hamcorebuilder), avoid -fpic on ncurses/host and shared libs can't be found on host
+define Host/Prepare
+	$(Host/Prepare/Default)
+	$(SED) 's,SHARED,STATIC,g' $(HOST_BUILD_DIR)/src/Mayaqua/CMakeLists.txt
+	$(SED) 's,SHARED,STATIC,g' $(HOST_BUILD_DIR)/src/Cedar/CMakeLists.txt
+	$(SED) 's,readline,libreadline.a,g' $(HOST_BUILD_DIR)/src/Cedar/CMakeLists.txt
 endef
 
-define Ho$(TOPDIR)/feeds/packagesmpile
-	$(call Ho$(TOPDIR)/feeds/packagesmpi$(TOPDIR)/feeds/packagesfault,hamcorebuilder)
+define Host/Compile
+	$(call Host/Compile/Default,hamcorebuilder)
 endef
 
-define Ho$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/
-	$(INSTALL_BIN) $(HOST_BUILD_DI$(TOPDIR)/feeds/packagesp/hamcorebuilder $(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/
+define Host/Install
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin/
+	$(INSTALL_BIN) $(HOST_BUILD_DIR)/tmp/hamcorebuilder $(STAGING_DIR_HOSTPKG)/bin/
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
-	$(call Bui$(TOPDIR)/feeds/packagesmpi$(TOPDIR)/feeds/packagesfault,vpnserver vpnbridge vpnclient vpncmd hamcore-archive-build)
+define Build/Compile
+	$(call Build/Compile/Default,vpnserver vpnbridge vpnclient vpncmd hamcore-archive-build)
 endef
 
-define Bui$(TOPDIR)/feeds/packagesstall
+define Build/Install
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-li$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
-	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesbcedar.so $($(TOPDIR)/feeds/packagesr/lib/
-	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesbmayaqua.so $($(TOPDIR)/feeds/packagesr/lib/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn
-	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesmcore.se2 $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn/
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesncmd $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn/
-	$(INSTALL_BIN) fil$(TOPDIR)/feeds/packagesuncher.sh $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn/
-	$(INSTALL_DATA) fil$(TOPDIR)/feeds/packagesmmy $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesng.config
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(LN) $(TOPDIR)/feeds/packages/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesuncher.sh $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesncmd
+define Package/softethervpn5-libs/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_BUILD_DIR)/build/libcedar.so $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/libmayaqua.so $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/libexec/softethervpn
+	$(CP) $(PKG_BUILD_DIR)/build/hamcore.se2 $(1)/usr/libexec/softethervpn/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build/vpncmd $(1)/usr/libexec/softethervpn/
+	$(INSTALL_BIN) files/launcher.sh $(1)/usr/libexec/softethervpn/
+	$(INSTALL_DATA) files/dummy $(1)/usr/libexec/softethervpn/lang.config
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) $(TOPDIR)/feeds/packages/usr/libexec/softethervpn/launcher.sh $(1)/usr/bin/vpncmd
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-serv$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesnserver $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn/
-	$(INSTALL_DATA) fil$(TOPDIR)/feeds/packagesmmy $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesn_server.config
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN) fil$(TOPDIR)/feeds/packagesnserver.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesftethervpnserver
+define Package/softethervpn5-server/install
+	$(INSTALL_DIR) $(1)/usr/libexec/softethervpn
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build/vpnserver $(1)/usr/libexec/softethervpn/
+	$(INSTALL_DATA) files/dummy $(1)/usr/libexec/softethervpn/vpn_server.config
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/vpnserver.init $(1)/etc/init.d/softethervpnserver
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-brid$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesnbridge $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn/
-	$(INSTALL_DATA) fil$(TOPDIR)/feeds/packagesmmy $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesn_bridge.config
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN) fil$(TOPDIR)/feeds/packagesnbridge.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesftethervpnbridge
+define Package/softethervpn5-bridge/install
+	$(INSTALL_DIR) $(1)/usr/libexec/softethervpn
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build/vpnbridge $(1)/usr/libexec/softethervpn/
+	$(INSTALL_DATA) files/dummy $(1)/usr/libexec/softethervpn/vpn_bridge.config
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/vpnbridge.init $(1)/etc/init.d/softethervpnbridge
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-clie$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesnclient $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftethervpn/
-	$(INSTALL_DATA) fil$(TOPDIR)/feeds/packagesmmy $($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesn_client.config
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN) fil$(TOPDIR)/feeds/packagesnclient.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesftethervpnclient
+define Package/softethervpn5-client/install
+	$(INSTALL_DIR) $(1)/usr/libexec/softethervpn
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build/vpnclient $(1)/usr/libexec/softethervpn/
+	$(INSTALL_DATA) files/dummy $(1)/usr/libexec/softethervpn/vpn_client.config
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/vpnclient.init $(1)/etc/init.d/softethervpnclient
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-serv$(TOPDIR)/feeds/packagesnffiles
-/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesn_server.config
-/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesng.config
+define Package/softethervpn5-server/conffiles
+/usr/libexec/softethervpn/vpn_server.config
+/usr/libexec/softethervpn/lang.config
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-brid$(TOPDIR)/feeds/packagesnffiles
-/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesn_bridge.config
-/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesng.config
+define Package/softethervpn5-bridge/conffiles
+/usr/libexec/softethervpn/vpn_bridge.config
+/usr/libexec/softethervpn/lang.config
 endef
 
-define Packa$(TOPDIR)/feeds/packagesftethervpn5-clie$(TOPDIR)/feeds/packagesnffiles
-/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesn_client.config
-/u$(TOPDIR)/feeds/packagesbex$(TOPDIR)/feeds/packagesftetherv$(TOPDIR)/feeds/packagesng.config
+define Package/softethervpn5-client/conffiles
+/usr/libexec/softethervpn/vpn_client.config
+/usr/libexec/softethervpn/lang.config
 endef
 
 $(eval $(call HostBuild))

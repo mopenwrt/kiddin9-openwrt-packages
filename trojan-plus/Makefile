@@ -2,16 +2,16 @@
 # Copyright (C) 2018-2019 wongsyrone
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=trojan-plus
 PKG_VERSION:=10.0.3
 PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagester-ta$(TOPDIR)/feeds/packagesojan-plus.git
+PKG_SOURCE_URL:=https://github.com/peter-tank/trojan-plus.git
 PKG_SOURCE_DATE:=2020-09-06
 PKG_SOURCE_VERSION:=a6394cdd718669b0c7491493a78e61f6f0f899b3
 PKG_MIRROR_HASH:=2d37d09fe6d39d7981116ad387706f58f2b30b74a34e27fc5608f267dacc9208
@@ -23,8 +23,8 @@ PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILE:=LICENSE
 PKG_MAINTAINER:=Trojan-Plus-Group
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesake.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 TARGET_CXXFLAGS += -Wall -Wextra
 TARGET_CXXFLAGS += $(FPIC)
@@ -51,19 +51,19 @@ CMAKE_OPTIONS += \
 	-DBoost_DEBUG=ON \
 	-DBoost_NO_BOOST_CMAKE=ON
 
-define Packa$(TOPDIR)/feeds/packagesojan-plus
+define Package/trojan-plus
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=An unidentifiable mechanism that helps you bypass GFW. It's compatible with original trojan with experimental features.
-	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesojan-Plus-Gro$(TOPDIR)/feeds/packagesojan-plus
+	URL:=https://github.com/Trojan-Plus-Group/trojan-plus
 	DEPENDS:= \
 		+libpthread +libstdcpp +libopenssl \
 		+boost +boost-system +boost-program_options
 endef
 
-define Packa$(TOPDIR)/feeds/packagesojan-pl$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesojan $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesojan-plus
+define Package/trojan-plus/install
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/trojan $(1)/usr/sbin/trojan-plus
 endef
 
 $(eval $(call BuildPackage,trojan-plus))

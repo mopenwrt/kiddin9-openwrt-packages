@@ -2,10 +2,10 @@
 # Copyright (C) 2021 ImmortalWrt
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bpytop
 PKG_VERSION:=1.0.62
@@ -17,29 +17,29 @@ PKG_HASH:=skip
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-include $(TOPDIR)/feeds/packages/la$(TOPDIR)/feeds/packagesth$(TOPDIR)/feeds/packagespi.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(TOPDIR)/feeds/packages/la$(TOPDIR)/feeds/packagesth$(TOPDIR)/feeds/packagesthon3-package.mk
+include $(TOPDIR)/feeds/packages/lang/python/pypi.mk
+include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
 
-define Packa$(TOPDIR)/feeds/packagesytop
+define Package/bpytop
   SECTION:=admin
   CATEGORY:=Administration
   TITLE:=Python port of bashtop
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesistocrat$(TOPDIR)/feeds/packagesytop
+  URL:=https://github.com/aristocratos/bpytop
   DEPENDS:=+python3-psutil +python3-setuptools
 endef
 
-define Packa$(TOPDIR)/feeds/packagesyt$(TOPDIR)/feeds/packagesscription
+define Package/bpytop/description
   Resource monitor that shows usage and stats for
   processor, memory, disks, network and processes.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesyt$(TOPDIR)/feeds/packagesstall
-	$(call Py3Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesstall,$(PKG_INSTALL_DIR))
+define Package/bpytop/install
+	$(call Py3Package/$(1)/install,$(PKG_INSTALL_DIR))
 	$(INSTALL_DIR) $(1)
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packages$(1)/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/share
-	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesytop-themes $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesytop
+	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
+	$(INSTALL_DIR) $(1)/usr/share
+	$(CP) $(PKG_BUILD_DIR)/bpytop-themes $(1)/usr/share/bpytop
 endef
 
 $(eval $(call Py3Package,bpytop))

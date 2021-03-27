@@ -2,12 +2,12 @@
 # Copyright (C) 2006-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-### Modified by wongsyrone to fit need of trojan-g$(TOPDIR)/feeds/packagesojan
+### Modified by wongsyrone to fit need of trojan-gfw/trojan
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openssl1.1
 
@@ -20,68 +20,68 @@ ENGINES_DIR=engines-1.1
 
 PKG_RELEASE:=1
 PKG_USE_MIPS16:=0
-PATCH_DIR$(TOPDIR)/feeds/packagestch$(TOPDIR)/feeds/packagesPKG_BASE)
+PATCH_DIR=./patches/$(PKG_BASE)
 
 PKG_BUILD_PARALLEL:=0
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSIO$(TOPDIR)/feeds/packagesenssl-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)/openssl-$(PKG_VERSION)
 
 PKG_SOURCE:=openssl-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
-	htt$(TOPDIR)/feeds/packagestp.fi.muni.$(TOPDIR)/feeds/packagesb/opens$(TOPDIR)/feeds/packagesur$(TOPDIR)/feeds/packages
-	htt$(TOPDIR)/feeds/packagestp.linux.$(TOPDIR)/feeds/packagesb/opens$(TOPDIR)/feeds/packagesur$(TOPDIR)/feeds/packages
-	ft$(TOPDIR)/feeds/packagestp.pca.dfn.$(TOPDIR)/feeds/packagesb/too$(TOPDIR)/feeds/packagest/opens$(TOPDIR)/feeds/packagesur$(TOPDIR)/feeds/packages
-	htt$(TOPDIR)/feeds/packagesww.openssl.o$(TOPDIR)/feeds/packagesur$(TOPDIR)/feeds/packages
-	htt$(TOPDIR)/feeds/packagesww.openssl.o$(TOPDIR)/feeds/packagesur$(TOPDIR)/feeds/packagesd/$(PKG_BASE)/
+	http://ftp.fi.muni.cz/pub/openssl/source/ \
+	http://ftp.linux.hr/pub/openssl/source/ \
+	ftp://ftp.pca.dfn.de/pub/tools/net/openssl/source/ \
+	http://www.openssl.org/source/ \
+	http://www.openssl.org/source/old/$(PKG_BASE)/
 
 PKG_LICENSE:=OpenSSL
 PKG_LICENSE_FILES:=LICENSE
-PKG_CPE_ID:=cp$(TOPDIR)/feeds/packagesopenssl:openssl
+PKG_CPE_ID:=cpe:/a:openssl:openssl
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
 ifneq ($(CONFIG_CCACHE),)
 HOSTCC=$(HOSTCC_NOCACHE)
 HOSTCXX=$(HOSTCXX_NOCACHE)
 endif
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesfault
+define Package/$(PKG_NAME)/Default
   TITLE:=Open source SSL toolkit
-  URL:=htt$(TOPDIR)/feeds/packagesww.openssl.org/
+  URL:=http://www.openssl.org/
   SECTION:=libs
   CATEGORY:=Libraries
 endef
 
-define Packa$(TOPDIR)/feeds/packagesenssl1$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription
+define Package/openssl1.1/Default/description
 The OpenSSL Project is a collaborative effort to develop a robust,
 commercial-grade, full-featured, and Open Source toolkit implementing the
 Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols as well
 as a full-strength general-purpose cryptography library.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesbopenssl1.1
-$(call Packa$(TOPDIR)/feeds/packagesenssl1$(TOPDIR)/feeds/packagesfault)
+define Package/libopenssl1.1
+$(call Package/openssl1.1/Default)
   SUBMENU:=SSL
   TITLE+= (libraries)
   ABI_VERSION:=$(PKG_VERSION)
   MENU:=1
 endef
 
-define Packa$(TOPDIR)/feeds/packagesbopenssl1$(TOPDIR)/feeds/packagesscription
-$(call Packa$(TOPDIR)/feeds/packagesens$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription)
+define Package/libopenssl1.1/description
+$(call Package/openssl/Default/description)
 This package contains the OpenSSL shared libraries, needed by other programs.
 endef
 
 
-define Packa$(TOPDIR)/feeds/packagesbopenssl1$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesl/openssl.cnf
+define Package/libopenssl1.1/conffiles
+/etc/ssl/openssl.cnf
 endef
 
 # do NOT interfere original openssl staging dir
-MY_PKG_STAGING_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesenssl1.1_staging_dir
+MY_PKG_STAGING_DIR:=$(BUILD_DIR)/openssl1.1_staging_dir
 
 OPENSSL_OPTIONS:= no-shared no-ssl3-method
 
-# http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesens$(TOPDIR)/feeds/packagesens$(TOPDIR)/feeds/packagessu$(TOPDIR)/feeds/packages07
+# https://github.com/openssl/openssl/issues/1607
 # it seems musl-libc doesn't support this
 OPENSSL_OPTIONS += no-async
 
@@ -104,16 +104,16 @@ OPENSSL_TARGET:=linux-$(call qstrip,$(CONFIG_ARCH))-openwrt
 
 STAMP_CONFIGURED := $(STAMP_CONFIGURED)_$(shell echo $(OPENSSL_OPTIONS) | mkhash md5)
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 	[ -f $(STAMP_CONFIGURED) ] || { \
-		rm -f $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesso.* $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesa; \
+		rm -f $(PKG_BUILD_DIR)/*.so.* $(PKG_BUILD_DIR)/*.a; \
 		find $(PKG_BUILD_DIR) -name \*.o | xargs rm -f; \
 		rm -rf $(MY_PKG_STAGING_DIR); \
 	}
 	(cd $(PKG_BUILD_DIR); \
-	$(TOPDIR)/feeds/packagesnfigure $(OPENSSL_TARGET) \
-			--prefi$(TOPDIR)/feeds/packagesr \
-			--openssldi$(TOPDIR)/feeds/packagesc/ssl \
+		./Configure $(OPENSSL_TARGET) \
+			--prefix=/usr \
+			--openssldir=/etc/ssl \
 			--libdir=lib \
 			$(TARGET_CPPFLAGS) \
 			$(TARGET_LDFLAGS) \
@@ -127,7 +127,7 @@ endef
 TARGET_CFLAGS += -ffunction-sections -fdata-sections
 TARGET_LDFLAGS += -Wl,--gc-sections
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 	+$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR) \
 		CROSS_COMPILE="$(TARGET_CROSS)" \
 		CC="$(TARGET_CC)" \
@@ -143,19 +143,19 @@ define Bui$(TOPDIR)/feeds/packagesmpile
 		install_sw install_ssldirs
 endef
 
-define Bui$(TOPDIR)/feeds/packagesstallDev
-	$(INSTALL_DIR) $(MY_PKG_STAGING_DI$(TOPDIR)/feeds/packagesr/include
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesenssl $(MY_PKG_STAGING_DI$(TOPDIR)/feeds/packagesr/include/
-	$(INSTALL_DIR) $(MY_PKG_STAGING_DI$(TOPDIR)/feeds/packagesr/lib/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesb{crypto,ssl}.a $(MY_PKG_STAGING_DI$(TOPDIR)/feeds/packagesr/lib/
+define Build/InstallDev
+	$(INSTALL_DIR) $(MY_PKG_STAGING_DIR)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/openssl $(MY_PKG_STAGING_DIR)/usr/include/
+	$(INSTALL_DIR) $(MY_PKG_STAGING_DIR)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib{crypto,ssl}.a $(MY_PKG_STAGING_DIR)/usr/lib/
 endef
 
-define Bui$(TOPDIR)/feeds/packagesean
+define Build/Clean
 	rm -rf $(MY_PKG_STAGING_DIR)
-	$(call Bui$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesfault)
+	$(call Build/Clean/Default)
 endef
 
-define Packa$(TOPDIR)/feeds/packagesbopenssl1$(TOPDIR)/feeds/packagesstall
+define Package/libopenssl1.1/install
 true
 endef
 

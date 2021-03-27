@@ -3,7 +3,7 @@
 # This is free software, licensed under the GNU General Public License v3.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=brook
 PKG_VERSION:=20210214
@@ -38,42 +38,42 @@ ifeq ($(ARCH),aarch64)
 endif
 
 PKG_FILE:=$(PKG_NAME)_$(PKG_VERSION)_$(PKG_ARCH)
-PKG_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesthinki$(TOPDIR)/feeds/packageso$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packages(PKG_VERSIO$(TOPDIR)/feeds/packagesPKG_NAME)_linux_$(PKG_ARCH)
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesPKG_VERSION)
+PKG_URL:=https://github.com/txthinking/brook/releases/download/v$(PKG_VERSION)/$(PKG_NAME)_linux_$(PKG_ARCH)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(PKG_VERSION)
 PKG_HASH:=skip
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=Brook is a cross-platform proxy software
 	DEPENDS:=
-	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesthinki$(TOPDIR)/feeds/packagesook
+	URL:=https://github.com/txthinking/brook
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
+define Package/$(PKG_NAME)/description
   Brook is a cross-platform proxy software
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	if [ ! -f $(DL_DI$(TOPDIR)/feeds/packagesPKG_FILE) ] ; then \
-		curl -f --connect-timeout 20 --retry 5 --location --insecure $(PKG_URL) -o $(DL_DI$(TOPDIR)/feeds/packagesPKG_FILE); \
+define Build/Prepare
+	if [ ! -f $(DL_DIR)/$(PKG_FILE) ] ; then \
+		curl -f --connect-timeout 20 --retry 5 --location --insecure $(PKG_URL) -o $(DL_DIR)/$(PKG_FILE); \
 	fi
 	rm -r $(PKG_BUILD_DIR)
 	mkdir -p $(PKG_BUILD_DIR)
-	cp -f $(DL_DI$(TOPDIR)/feeds/packagesPKG_FILE) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
+	cp -f $(DL_DIR)/$(PKG_FILE) $(PKG_BUILD_DIR)/$(PKG_NAME)
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME) $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesook
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/usr/bin/brook
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

@@ -4,7 +4,7 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI for Zerotier
 LUCI_DEPENDS:=+zerotier
@@ -12,7 +12,7 @@ LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
 PKG_RELEASE:=20
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

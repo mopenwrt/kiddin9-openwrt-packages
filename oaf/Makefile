@@ -1,27 +1,27 @@
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel.mk
+include $(TOPDIR)/rules.mk
+include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=oaf
 PKG_VERSION:=5.0
 PKG_RELEASE:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
 PKG_AUTOLOAD:=oaf
 RSTRIP:=:
 
-define KernelPacka$(TOPDIR)/feeds/packagesf
+define KernelPackage/oaf
   SECTION:=Derry Apps
   CATEGORY:=Derry Apps
   TITLE:=open app filter kernel module
-  FILES:=$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesf.ko 
+  FILES:=$(PKG_BUILD_DIR)/oaf.ko 
   DEPENDS:=+kmod-ipt-conntrack
   KCONFIG:=
   AUTOLOAD:=$(call AutoLoad,0,$(PKG_AUTOLOAD))
 endef
 
-define KernelPacka$(TOPDIR)/feeds/packagesf/description
+define KernelPackage/oaf/description
   open appfilter kernel module 
 endef
 
@@ -32,7 +32,7 @@ MAKE_OPTS:= \
 	EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 	$(EXTRA_KCONFIG)
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 	$(MAKE) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
 		modules

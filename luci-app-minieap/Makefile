@@ -1,14 +1,14 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-minieap
 PKG_VERSION=1.0.2
 PKG_RELEASE:=0
 
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesci-app-minieap
+define Package/luci-app-minieap
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -16,41 +16,41 @@ define Packa$(TOPDIR)/feeds/packagesci-app-minieap
 	PKGARCH:=all
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-minie$(TOPDIR)/feeds/packagesscription
+define Package/luci-app-minieap/description
 	This package contains LuCI configuration pages for 8021xclient.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-minie$(TOPDIR)/feeds/packagesnffiles
-	/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesnieap
+define Package/luci-app-minieap/conffiles
+	/etc/config/minieap
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(foreach po,$(wildcard ${CURDI$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagespo), \
-		po2lmo $(po) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagespatsubst %.po,%.lmo,$(notdir $(po)));)
+define Build/Prepare
+	$(foreach po,$(wildcard ${CURDIR}/files/luci/i18n/*.po), \
+		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-minie$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minieap
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
-	$(INSTALL_DATA) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesnieap.*.lmo $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n/
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesnieap $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesnieap
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesnieap $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesnieap
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesnieap-conver $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesnieap-conver
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesnieap-ping $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesnieap-ping
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minie$(TOPDIR)/feeds/packagesneral.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minie$(TOPDIR)/feeds/packagesneral.lua
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minie$(TOPDIR)/feeds/packagesstomfile.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minie$(TOPDIR)/feeds/packagesstomfile.lua
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minie$(TOPDIR)/feeds/packagesg.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/minie$(TOPDIR)/feeds/packagesg.lua
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packagesnieap.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packagesnieap.lua
+define Package/luci-app-minieap/install
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi/minieap
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/minieap.*.lmo $(1)/usr/lib/lua/luci/i18n/
+	$(INSTALL_CONF) ./files/root/etc/config/minieap $(1)/etc/config/minieap
+	$(INSTALL_BIN) ./files/root/etc/init.d/minieap $(1)/etc/init.d/minieap
+	$(INSTALL_BIN) ./files/root/usr/sbin/minieap-conver $(1)/usr/sbin/minieap-conver
+	$(INSTALL_BIN) ./files/root/usr/sbin/minieap-ping $(1)/usr/sbin/minieap-ping
+	$(INSTALL_DATA) ./files/luci/model/cbi/minieap/general.lua $(1)/usr/lib/lua/luci/model/cbi/minieap/general.lua
+	$(INSTALL_DATA) ./files/luci/model/cbi/minieap/customfile.lua $(1)/usr/lib/lua/luci/model/cbi/minieap/customfile.lua
+	$(INSTALL_DATA) ./files/luci/model/cbi/minieap/log.lua $(1)/usr/lib/lua/luci/model/cbi/minieap/log.lua
+	$(INSTALL_DATA) ./files/luci/controller/minieap.lua $(1)/usr/lib/lua/luci/controller/minieap.lua
 endef
 
 $(eval $(call BuildPackage,luci-app-minieap))

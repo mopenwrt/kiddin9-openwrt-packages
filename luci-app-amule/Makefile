@@ -3,13 +3,13 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI support for Amule
 LUCI_DEPENDS:=+amule +antileech
 LUCI_PKGARCH:=all
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

@@ -1,12 +1,12 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-godproxy
 PKG_VERSION:=3.8.5
 PKG_RELEASE:=3-20210325
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesci-app-godproxy
+define Package/luci-app-godproxy
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -15,47 +15,47 @@ define Packa$(TOPDIR)/feeds/packagesci-app-godproxy
 	MAINTAINER:=panda-mute <wxuzju@gmail.com>
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-godpro$(TOPDIR)/feeds/packagesnffiles
-	/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesolproxy
-	/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesles/
+define Package/luci-app-godproxy/conffiles
+	/etc/config/koolproxy
+	/usr/share/koolproxy/data/rules/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-godpro$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
-	cp -pR$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+define Package/luci-app-godproxy/install
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci
+	cp -pR ./luasrc/* $(1)/usr/lib/lua/luci
 	$(INSTALL_DIR) $(1)/
-	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(1)/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
-	po2lmo$(TOPDIR)/feeds/packages/zh-$(TOPDIR)/feeds/packagesolproxy.po $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesolproxy.zh-cn.lmo
+	cp -pR ./root/* $(1)/
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
+	po2lmo ./po/zh_Hans/koolproxy.po $(1)/usr/lib/lua/luci/i18n/koolproxy.zh-cn.lmo
 
 ifeq ($(ARCH),mipsel)
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesn/mipsel $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_BIN) ./bin/mipsel $(1)/usr/share/koolproxy/koolproxy
 endif
 ifeq ($(ARCH),mips)
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesn/mips $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_BIN) ./bin/mips $(1)/usr/share/koolproxy/koolproxy
 endif
 ifeq ($(ARCH),x86)
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesn/x86 $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_BIN) ./bin/x86 $(1)/usr/share/koolproxy/koolproxy
 endif
 ifeq ($(ARCH),x86_64)
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesn/x86_64 $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_BIN) ./bin/x86_64 $(1)/usr/share/koolproxy/koolproxy
 endif
 ifeq ($(ARCH),arm)
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesn/arm $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_BIN) ./bin/arm $(1)/usr/share/koolproxy/koolproxy
 endif
 ifeq ($(ARCH),aarch64)
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesn/aarch64 $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_BIN) ./bin/aarch64 $(1)/usr/share/koolproxy/koolproxy
 endif
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-godpro$(TOPDIR)/feeds/packagesstinst
-$(TOPDIR)/feeds/packagesn/sh
+define Package/luci-app-godproxy/postinst
+#!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-koolproxy ) && rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-koolproxy
-	rm -$(TOPDIR)/feeds/packagesp/luci-indexcache
+	( . /etc/uci-defaults/luci-koolproxy ) && rm -f /etc/uci-defaults/luci-koolproxy
+	rm -f /tmp/luci-indexcache
 fi
 exit 0
 endef

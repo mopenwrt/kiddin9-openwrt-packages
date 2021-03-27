@@ -5,7 +5,7 @@
 # This is free software, licensed under the GNU General Public License v3.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_ARCH_DDNSTO:=$(ARCH)
 
@@ -13,45 +13,45 @@ PKG_NAME:=ddnsto
 PKG_VERSION:=0.3.0
 PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-binary-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesirmware.koolshare.$(TOPDIR)/feeds/packagesna$(TOPDIR)/feeds/packagesnsto/
+PKG_SOURCE_URL:=https://firmware.koolshare.cn/binary/ddnsto/
 PKG_HASH:=skip
 
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-binary-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-binary-$(PKG_VERSION)
 
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
-	SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+	SUBMENU:=Web Servers/Proxies
 	TITLE:=DDNS.to - the reverse proxy
 	DEPENDS:=
-	URL:=http$(TOPDIR)/feeds/packagesww.ddnsto.com/
+	URL:=https://www.ddnsto.com/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
+define Package/$(PKG_NAME)/description
   DDNS.to is a reverse proxy
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesnsto
+define Package/$(PKG_NAME)/conffiles
+/etc/config/ddnsto
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin $($(TOPDIR)/feeds/packagesc/config $($(TOPDIR)/feeds/packagesc/init.d $($(TOPDIR)/feeds/packagesc/uci-defaults
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesnsto.$(PKG_ARCH_DDNSTO) $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesnsto
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesnsto.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesnsto
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesnsto.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesnsto
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesnsto.uci-default $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesnsto
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/sbin $(1)/etc/config $(1)/etc/init.d $(1)/etc/uci-defaults
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ddnsto.$(PKG_ARCH_DDNSTO) $(1)/usr/sbin/ddnsto
+	$(INSTALL_CONF) ./files/ddnsto.config $(1)/etc/config/ddnsto
+	$(INSTALL_BIN) ./files/ddnsto.init $(1)/etc/init.d/ddnsto
+	$(INSTALL_BIN) ./files/ddnsto.uci-default $(1)/etc/uci-defaults/ddnsto
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

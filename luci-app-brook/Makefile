@@ -4,10 +4,10 @@
 # Copyright (C) 2018 openwrt-brook-tproxy
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Brook LuCI interface
 LUCI_DESCRIPTION:=LuCI Support for Brook.
@@ -22,44 +22,44 @@ PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=WouldChar
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packageserm
-$(TOPDIR)/feeds/packagesn/sh
+define Package/$(PKG_NAME)/prerm
+#!/bin/sh
 # check if we are on real system
 if [ -z "$${IPKG_INSTROOT}" ]; then
 	echo "Removing rc.d symlink for brook"
-	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesook disable
-	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesook stop
+	/etc/init.d/brook disable
+	/etc/init.d/brook stop
 	echo "Removing firewall rule for brook"
-	uci -q batch <<-EOF$(TOPDIR)/feeds/packagesv/null
+	uci -q batch <<-EOF >/dev/null
 		delete firewall.brook
 		commit firewall
 EOF
-	sed -i$(TOPDIR)/feeds/packagesnf-d$(TOPDIR)/feeds/packages /e$(TOPDIR)/feeds/packagessmasq.conf
-	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagessmasq restart
+	sed -i '/conf-dir/d' /etc/dnsmasq.conf
+	/etc/init.d/dnsmasq restart
 
 fi
 exit 0
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
-$(TOPDIR)/feeds/packagesn/sh
+define Package/$(PKG_NAME)/postinst
+#!/bin/sh
 
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	uci -q batch <<-EOF$(TOPDIR)/feeds/packagesv/null
+	uci -q batch <<-EOF >/dev/null
 		delete firewall.brook
 		set firewall.brook=include
 		set firewall.brook.type=script
-		set firewall.brook.pat$(TOPDIR)/feeds/packagesr/e$(TOPDIR)/feeds/packagesook.include
+		set firewall.brook.path=/var/etc/brook.include
 		set firewall.brook.reload=1
 		commit firewall
 EOF
-	( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-brook ) && rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-brook
-	chmod 75$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesook$(TOPDIR)/feeds/packagesv/null 2>&1
-	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesook enable$(TOPDIR)/feeds/packagesv/null 2>&1
+	( . /etc/uci-defaults/luci-brook ) && rm -f /etc/uci-defaults/luci-brook
+	chmod 755 /etc/init.d/brook >/dev/null 2>&1
+	/etc/init.d/brook enable >/dev/null 2>&1
 fi
 exit 0
 endef
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

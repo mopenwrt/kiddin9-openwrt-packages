@@ -2,10 +2,10 @@
 # Copyright (C) 2018 Hao Dong <halbertdong@gmail.com>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI Support for speederv2-tunnel
 LUCI_DEPENDS:=+UDPspeeder
@@ -19,6 +19,6 @@ PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Hao Dong <halbertdong@gmail.com>
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

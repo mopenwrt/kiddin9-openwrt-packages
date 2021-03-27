@@ -4,15 +4,15 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=USB Printer Share via T$(TOPDIR)/feeds/packages
+LUCI_TITLE:=USB Printer Share via TCP/IP
 LUCI_DEPENDS:=+p910nd +kmod-usb-printer
 PKG_VERSION:=1.0
 PKG_RELEASE:=2
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
-#applicatio$(TOPDIR)/feeds/packagesci-app-usb-printer/
-#applicatio$(TOPDIR)/feeds/packagesci-app-usb-printer/
+#applications/luci-app-usb-printer/
+#applications/luci-app-usb-printer/

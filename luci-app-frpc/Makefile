@@ -3,7 +3,7 @@
 # Licensed to the public under the MIT License.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-frpc
 PKG_VERSION:=1.2.1
@@ -16,21 +16,21 @@ LUCI_TITLE:=LuCI support for Frpc
 LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagespc
+define Package/$(PKG_NAME)/conffiles
+/etc/config/frpc
 endef
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
-$(TOPDIR)/feeds/packagesn/sh
+define Package/$(PKG_NAME)/postinst
+#!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages_luci-frpc ) && rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages_luci-frpc
+	( . /etc/uci-defaults/40_luci-frpc ) && rm -f /etc/uci-defaults/40_luci-frpc
 fi
 
-chmod 755 "$${IPKG_INSTROO$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagespc"$(TOPDIR)/feeds/packagesv/null 2>&1
-ln -sf "$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagespc" \
-	"$${IPKG_INSTROO$(TOPDIR)/feeds/packagesc/rc$(TOPDIR)/feeds/packages9frpc"$(TOPDIR)/feeds/packagesv/null 2>&1
+chmod 755 "$${IPKG_INSTROOT}/etc/init.d/frpc" >/dev/null 2>&1
+ln -sf "../init.d/frpc" \
+	"$${IPKG_INSTROOT}/etc/rc.d/S99frpc" >/dev/null 2>&1
 exit 0
 endef
 

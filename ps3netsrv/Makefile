@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ps3netsrv
 PKG_VERSION:=20200610
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packagesonatha$(TOPDIR)/feeds/packages3nets$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packagesPKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/jhonathanc/ps3netsrv/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=GPLv3
@@ -22,30 +22,30 @@ PKG_MAINTAINER:=JCorrea
 
 PKG_BUILD_PARALLEL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packages3netsrv
+define Package/ps3netsrv
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=File Transfer
   TITLE:=PS3 Game Server
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesonatha$(TOPDIR)/feeds/packages3netsrv-openwrt
+  URL:=https://github.com/jhonathanc/ps3netsrv-openwrt
   DEPENDS:=+libpthread +libstdcpp
 endef
 
-define Packa$(TOPDIR)/feeds/packages3nets$(TOPDIR)/feeds/packagesscription
+define Package/ps3netsrv/description
   ps3netsrv allows you to stream games and ISOs over the network to your CFW PlayStation(R) 3 system.
   This may be useful if you have a modified PS3, and your router has storage options.
 endef
 
-define Packa$(TOPDIR)/feeds/packages3nets$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packages3netsrv $($(TOPDIR)/feeds/packagesr/bin
+define Package/ps3netsrv/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ps3netsrv $(1)/usr/bin
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages3netsrv.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packages3netsrv
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages3netsrv.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packages3netsrv
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) ./files/ps3netsrv.config $(1)/etc/config/ps3netsrv
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/ps3netsrv.init $(1)/etc/init.d/ps3netsrv
 endef
 
 $(eval $(call BuildPackage,ps3netsrv))

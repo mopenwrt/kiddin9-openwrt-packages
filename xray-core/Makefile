@@ -1,11 +1,11 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xray-core
 PKG_VERSION:=1.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesay-co$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packages(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/XTLS/xray-core/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@project-openwrt.eu.org>
@@ -16,56 +16,56 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_XRAY_CORE_COMPRESS_GOPROXY \
 	CONFIG_XRAY_CORE_COMPRESS_UPX \
 
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesay-core-$(PKG_VERSION)
-PKG_BUILD_DEPENDS:=gola$(TOPDIR)/feeds/packagesst
+PKG_BUILD_DIR:=$(BUILD_DIR)/Xray-core-$(PKG_VERSION)
+PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesay-core
-GO_PKG_BUILD_PKG:=github.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesay-co$(TOPDIR)/feeds/packagesin
+GO_PKG:=github.com/xtls/xray-core
+GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
-	$(GO_PK$(TOPDIR)/feeds/packagesre.build=OpenWrt \
-	$(GO_PK$(TOPDIR)/feeds/packagesre.version=$(PKG_VERSION)
+	$(GO_PKG)/core.build=OpenWrt \
+	$(GO_PKG)/core.version=$(PKG_VERSION)
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesckag$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesla$(TOPDIR)/feeds/packageslang-package.mk
+include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesmplate
+define Package/xray/template
   TITLE:=A platform for building proxies to bypass network restrictions
   SECTION:=net
   CATEGORY:=Network
-  URL:=http$(TOPDIR)/feeds/packagestls.github.io
+  URL:=https://xtls.github.io
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-core
-  $(call Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesmplate)
+define Package/xray-core
+  $(call Package/xray/template)
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
   PROVIDES:=v2ray-core
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-geodata
-  $(call Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesmplate)
+define Package/xray-geodata
+  $(call Package/xray/template)
   TITLE+= (geodata files)
   DEPENDS:=xray-core
 endef
 
-define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesscription
+define Package/xray/description
   Xray, Penetrates Everything. Also the best v2ray-core, with XTLS support. Fully compatible configuration.
   It secures your network connections and thus protects your privacy.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-co$(TOPDIR)/feeds/packagesscription
-  $(call Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesscription)
+define Package/xray-core/description
+  $(call Package/xray/description)
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-geoda$(TOPDIR)/feeds/packagesscription
-  $(call Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesscription)
+define Package/xray-geodata/description
+  $(call Package/xray/description)
 
   This includes GEO datas used for xray-core.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-co$(TOPDIR)/feeds/packagesnfig
+define Package/xray-core/config
 menu "Xray-core Configuration"
 	depends on PACKAGE_xray-core
 
@@ -82,8 +82,8 @@ endef
 GEOIP_VER:=202103110015
 GEOIP_FILE:=geoip.dat.$(GEOIP_VER)
 
-define Downlo$(TOPDIR)/feeds/packagesoip
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packageso$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packagesGEOIP_VER)/
+define Download/geoip
+  URL:=https://github.com/v2fly/geoip/releases/download/$(GEOIP_VER)/
   URL_FILE:=geoip.dat
   FILE:=$(GEOIP_FILE)
   HASH:=8d2e8beaafd9aa07fce4900cc079cddf873d24658d1874de53417df33ab7f4b3
@@ -92,8 +92,8 @@ endef
 GEOSITE_VER:=20210314064711
 GEOSITE_FILE:=dlc.dat.$(GEOSITE_VER)
 
-define Downlo$(TOPDIR)/feeds/packagesosite
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packagesmain-list-communi$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packagesGEOSITE_VER)/
+define Download/geosite
+  URL:=https://github.com/v2fly/domain-list-community/releases/download/$(GEOSITE_VER)/
   URL_FILE:=dlc.dat
   FILE:=$(GEOSITE_FILE)
   HASH:=8b89b59b0a826cb24d6b18a4e5e1db2b990faa8a9a8fef0eb000a692a7cbf7bb
@@ -101,35 +101,35 @@ endef
 
 ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)
 	export GO111MODULE=on
-	export GOPROXY=http$(TOPDIR)/feeds/packagesoproxy.io
+	export GOPROXY=https://goproxy.io
 endif
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+define Build/Prepare
+	$(call Build/Prepare/Default)
 ifneq ($(CONFIG_PACKAGE_xray-geodata),)
 	$(call Download,geoip)
 	$(call Download,geosite)
 endif
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
-	$(call GoPacka$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesmpile)
+define Build/Compile
+	$(call GoPackage/Build/Compile)
 ifneq ($(CONFIG_XRAY_CORE_COMPRESS_UPX),)
-	$(STAGING_DIR_HOS$(TOPDIR)/feeds/packagesn/upx --lzma --best $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesin
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/main
 endif
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-co$(TOPDIR)/feeds/packagesstall
-	$(call GoPacka$(TOPDIR)/feeds/packagescka$(TOPDIR)/feeds/packagessta$(TOPDIR)/feeds/packagesn,$(PKG_INSTALL_DIR))
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesin $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesay
-	$(LN) xray $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesray
+define Package/xray-core/install
+	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+	$(INSTALL_DIR) $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
+	$(LN) xray $(1)/usr/bin/v2ray
 endef
 
-define Packa$(TOPDIR)/feeds/packagesay-geoda$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesay/
-	$(INSTALL_DATA) $(DL_DI$(TOPDIR)/feeds/packagesGEOIP_FILE) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesoip.dat
-	$(INSTALL_DATA) $(DL_DI$(TOPDIR)/feeds/packagesGEOSITE_FILE) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesosite.dat
+define Package/xray-geodata/install
+	$(INSTALL_DIR) $(1)/usr/share/xray/
+	$(INSTALL_DATA) $(DL_DIR)/$(GEOIP_FILE) $(1)/usr/share/xray/geoip.dat
+	$(INSTALL_DATA) $(DL_DIR)/$(GEOSITE_FILE) $(1)/usr/share/xray/geosite.dat
 endef
 
 $(eval $(call BuildPackage,xray-core))

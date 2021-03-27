@@ -1,4 +1,4 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ddns-scripts-dnspod
 PKG_VERSION:=1.0.3
@@ -9,47 +9,47 @@ PKG_MAINTAINER:=Small_5
 
 PKG_BUILD_PARALLEL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=IP Addresses and Names
-	TITLE:=DDNS extension for Dnspod.c$(TOPDIR)/feeds/packagesspod.cn
+	TITLE:=DDNS extension for Dnspod.com/Dnspod.cn
 	PKGARCH:=all
 	DEPENDS:=+ddns-scripts +curl +jsonfilter
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
-	Dynamic DNS Client scripts extension for Dnspod.c$(TOPDIR)/feeds/packagesspod.cn
+define Package/$(PKG_NAME)/description
+	Dynamic DNS Client scripts extension for Dnspod.com/Dnspod.cn
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
-	$(CP)$(TOPDIR)/feeds/packagessh $(PKG_BUILD_DIR)
+define Build/Compile
+	$(CP) ./*.sh $(PKG_BUILD_DIR)
 	# remove comments, white spaces and empty lines
 	for FILE in `find $(PKG_BUILD_DIR) -type f`; do \
-		$(SED) $(TOPDIR)/feeds/packages[:space:]$(TOPDIR)/feeds/packages \
-		-e$(TOPDIR)/feeds/packages[[:space:]]\|^#$$$(TOPDIR)/feeds/packages \
-		-e $(TOPDIR)/feeds/packages:space:]]#[[:space:]].*$$$(TOPDIR)/feeds/packages \
-		-e $(TOPDIR)/feeds/packages:space:]]*$$$(TOPDIR)/feeds/packages \
-		-e$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages:space:$(TOPDIR)/feeds/packages	\
-		-e$(TOPDIR)/feeds/packages[:space:]]*$$$(TOPDIR)/feeds/packages	$$$$FILE; \
+		$(SED) 's/^[[:space:]]*//' \
+		-e '/^#[[:space:]]\|^#$$$$/d' \
+		-e 's/[[:space:]]#[[:space:]].*$$$$//' \
+		-e 's/[[:space:]]*$$$$//' \
+		-e '/^\/\/[[:space:]]/d'	\
+		-e '/^[[:space:]]*$$$$/d'	$$$$FILE; \
 	done
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesns
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagessh $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesns
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesfault
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesjson $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesfault
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/lib/ddns
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/*.sh $(1)/usr/lib/ddns
+	$(INSTALL_DIR) $(1)/usr/share/ddns/default
+	$(INSTALL_DATA) ./*.json $(1)/usr/share/ddns/default
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packageserm
-	$(TOPDIR)/feeds/packagesn/sh
-	[ -z "$${IPKG_INSTROOT}" ] &$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesns stop$(TOPDIR)/feeds/packagesv/null 2>&1
+define Package/$(PKG_NAME)/prerm
+	#!/bin/sh
+	[ -z "$${IPKG_INSTROOT}" ] && /etc/init.d/ddns stop >/dev/null 2>&1
 	exit 0 # suppress errors
 endef
 

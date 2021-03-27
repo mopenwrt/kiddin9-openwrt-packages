@@ -4,7 +4,7 @@
 # Licensed to the public under the Apache License 2.0.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_MAINTAINER:=Oever Gonzalez <notengobattery@gmail.com>
 
@@ -21,6 +21,6 @@ LUCI_DEPENDS:=+luci-base +swap-zram-writeback +swap-zswap-cache
 LUCI_PKGARCH:=all
 PKG_RELEASE:=4
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

@@ -1,58 +1,58 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libcryptopp
 PKG_VERSION:=8.3.0
 PKG_RELEASE:=2
 
 PKG_SOURCE:=cryptopp$(subst .,,$(PKG_VERSION)).zip
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesww.cryptopp.com/
+PKG_SOURCE_URL:=https://www.cryptopp.com/
 PKG_HASH:=skip
 
 PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-UNZIP_CMD:=unzip -q -d $(PKG_BUILD_DIR) $(DL_DI$(TOPDIR)/feeds/packagesPKG_SOURCE)
+UNZIP_CMD:=unzip -q -d $(PKG_BUILD_DIR) $(DL_DIR)/$(PKG_SOURCE)
 
-define Packa$(TOPDIR)/feeds/packagesbcryptopp
+define Package/libcryptopp
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Crypto++ is library for creating C++ programs which use cryptographic algorithms
-  URL:=http$(TOPDIR)/feeds/packagesackages.debian.o$(TOPDIR)/feeds/packagesd/libcrypto++-dev
+  URL:=https://packages.debian.org/sid/libcrypto++-dev
   DEPENDS:=+libpthread +libstdcpp
 endef
 
-define Packa$(TOPDIR)/feeds/packagescka$(TOPDIR)/feeds/packagesbcryptopp
+define Package/package/libcryptopp
   Crypto++ is library for creating C++ programs which use cryptographic algorithms.
   The library uses a Pipes & Filters architecture with heavy use of templates and
   abstract base classes.
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+define Build/Prepare
+	$(Build/Prepare/Default)
 	cd $(PKG_BUILD_DIR); rm -f GNUmakefile GNUmakefile-cross
 endef
 
-define Bui$(TOPDIR)/feeds/packagesstallDev
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesyptopp
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesypto$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesyptopp/
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbcryptopp.{a,so*} $($(TOPDIR)/feeds/packagesr/lib/
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/include/cryptopp
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/cryptopp/* $(1)/usr/include/cryptopp/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libcryptopp.{a,so*} $(1)/usr/lib/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesbcrypto$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbcryptopp.so* $($(TOPDIR)/feeds/packagesr/lib/
+define Package/libcryptopp/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libcryptopp.so* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libcryptopp))

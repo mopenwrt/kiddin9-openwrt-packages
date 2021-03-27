@@ -2,27 +2,27 @@
 # Copyright (C) 2018 Chion Tang <tech@chionlab.moe>
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel.mk
+include $(TOPDIR)/rules.mk
+include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=fullconenat
 PKG_RELEASE:=1
 
 PKG_SOURCE_DATE:=2020-05-09
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesc$(TOPDIR)/feeds/packagestfilter-full-cone-nat.git
+PKG_SOURCE_URL:=https://github.com/llccd/netfilter-full-cone-nat.git
 PKG_MIRROR_HASH:=bec75e2c0dc1103928861f8ea8f3f9ada63731103099a884222e15eab0a2fff8
 PKG_SOURCE_VERSION:=cc30ca6031ef5dca5bdb10cfd5ffc0c79425af9e
 
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagestables-mod-fullconenat
+define Package/iptables-mod-fullconenat
   SUBMENU:=Firewall
   SECTION:=net
   CATEGORY:=Network
@@ -31,12 +31,12 @@ define Packa$(TOPDIR)/feeds/packagestables-mod-fullconenat
   MAINTAINER:=Chion Tang <tech@chionlab.moe>
 endef
 
-define Packa$(TOPDIR)/feeds/packagestables-mod-fullconen$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagestables
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesbipt_FULLCONENAT.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagestables
+define Package/iptables-mod-fullconenat/install
+	$(INSTALL_DIR) $(1)/usr/lib/iptables
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/libipt_FULLCONENAT.so $(1)/usr/lib/iptables
 endef
 
-define Packa$(TOPDIR)/feeds/packages6tables-mod-fullconenat
+define Package/ip6tables-mod-fullconenat
   SUBMENU:=Firewall
   SECTION:=net
   CATEGORY:=Network
@@ -45,33 +45,33 @@ define Packa$(TOPDIR)/feeds/packages6tables-mod-fullconenat
   MAINTAINER:=Chion Tang <tech@chionlab.moe>
 endef
 
-define Packa$(TOPDIR)/feeds/packages6tables-mod-fullconen$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagestables
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesbip6t_FULLCONENAT.so $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagestables
+define Package/ip6tables-mod-fullconenat/install
+	$(INSTALL_DIR) $(1)/usr/lib/iptables
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/libip6t_FULLCONENAT.so $(1)/usr/lib/iptables
 endef
 
-define KernelPacka$(TOPDIR)/feeds/packagest-fullconenat
+define KernelPackage/ipt-fullconenat
   SUBMENU:=Netfilter Extensions
   TITLE:=FULLCONENAT netfilter module
   DEPENDS:=+kmod-nf-ipt +kmod-nf-nat
   MAINTAINER:=Chion Tang <tech@chionlab.moe>
   KCONFIG:=CONFIG_NF_CONNTRACK_EVENTS=y CONFIG_NF_CONNTRACK_CHAIN_EVENTS=y
-  FILES:=$(PKG_BUILD_DI$(TOPDIR)/feeds/packages_FULLCONENAT.ko
+  FILES:=$(PKG_BUILD_DIR)/xt_FULLCONENAT.ko
 endef
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel-defaults.mk
+include $(INCLUDE_DIR)/kernel-defaults.mk
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
-	$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packageskefile $(PKG_BUILD_DIR)/
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(CP) ./files/Makefile $(PKG_BUILD_DIR)/
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 	$(KERNEL_MAKE) M="$(PKG_BUILD_DIR)" \
 	EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 	$(PKG_EXTRA_KCONFIG) \
 	modules
-	$(call Bui$(TOPDIR)/feeds/packagesmpi$(TOPDIR)/feeds/packagesfault)
+	$(call Build/Compile/Default)
 endef
 
 $(eval $(call BuildPackage,iptables-mod-fullconenat))

@@ -2,38 +2,38 @@
 # Copyright (C) 2007-2009 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wxbase
 PKG_VERSION:=2.8.12
 PKG_RELEASE:=2
 
 PKG_SOURCE:=wxGTK-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=@$(TOPDIR)/feeds/packageswindows
+PKG_SOURCE_URL:=@SF/wxwindows
 PKG_HASH:=skip
 
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesGTK-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/wxGTK-$(PKG_VERSION)
 PKG_CHECK_FORMAT_SECURITY:=0
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesbwxbase
+define Package/libwxbase
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Cross-platform C++ framework
-  URL:=htt$(TOPDIR)/feeds/packagesww.wxwidgets.org/
+  URL:=http://www.wxwidgets.org/
   DEPENDS:=+libexpat +libstdcpp +zlib +libpthread
 endef
 
-define Packa$(TOPDIR)/feeds/packagesbwxba$(TOPDIR)/feeds/packagesscription
+define Package/libwxbase/description
   wxBase contains most of the non-GUI classes from the wxWindows cross-
   -platform C++ framework. There are 2 categories: generally useful portable
-  code (da$(TOPDIR)/feeds/packagesme handling, command line parsing, regular expression support)
+  code (date/time handling, command line parsing, regular expression support)
   and wrappers for the OS objects (files, directories, sockets, threads,
   etc.) allowing you to write portable programs easily.
 endef
@@ -102,24 +102,24 @@ CONFIGURE_ARGS+= \
 	--without-cppunit-prefix \
 	--disable-precomp-headers
 
-define Bui$(TOPDIR)/feeds/packagesstallDev
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packages-config $($(TOPDIR)/feeds/packagesr/bin/
-	$(SED) "s,$(PKG_BUILD_DIR),$(STAGING_DI$(TOPDIR)/feeds/packagesr,g" $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packages-config
-	$(SED) 's,-I$$$${includedi$(TOPDIR)/feeds/packages-2.8,-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packages-2.8,g' $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packages-config
-	$(SED) 's,-I$$$${libdi$(TOPDIR)/feeds/packages/include,-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packages/include,g' $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packages-config
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/wx-config $(1)/usr/bin/
+	$(SED) "s,$(PKG_BUILD_DIR),$(STAGING_DIR)/usr,g" $(1)/usr/bin/wx-config
+	$(SED) 's,-I$$$${includedir}/wx-2.8,-I$(STAGING_DIR)/usr/include/wx-2.8,g' $(1)/usr/bin/wx-config
+	$(SED) 's,-I$$$${libdir}/wx/include,-I$(STAGING_DIR)/usr/lib/wx/include,g' $(1)/usr/bin/wx-config
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/include
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packages-2.8 $($(TOPDIR)/feeds/packagesr/include/
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/wx-2.8 $(1)/usr/include/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbwx_*.so* $($(TOPDIR)/feeds/packagesr/lib/
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packages $($(TOPDIR)/feeds/packagesr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libwx_*.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/wx $(1)/usr/lib/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesbwxba$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbwx_*.so.* $($(TOPDIR)/feeds/packagesr/lib/
+define Package/libwxbase/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libwx_*.so.* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libwxbase))

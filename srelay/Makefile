@@ -2,34 +2,34 @@
 # Copyright (C) 2006-2011 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=srelay
 PKG_VERSION:=0.4.8p3
 PKG_RELEASE:=9
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=@$(TOPDIR)/feeds/packagescks-relay
+PKG_SOURCE_URL:=@SF/socks-relay
 PKG_HASH:=skip
 
 PKG_BUILD_PARALLEL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packageselay
+define Package/srelay
   SECTION:=net
   CATEGORY:=Network
-  SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
-  TITLE:=A socks$(TOPDIR)/feeds/packagesproxy server
-  URL:=htt$(TOPDIR)/feeds/packagesww.c-wind.c$(TOPDIR)/feeds/packageselay/
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=A socks 4/5 proxy server
+  URL:=http://www.c-wind.com/srelay/
   DEPENDS:=+libpthread
 endef
 
-define Packa$(TOPDIR)/feeds/packagesel$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packageselay.conf
+define Package/srelay/conffiles
+/etc/srelay.conf
 endef
 
 CONFIGURE_ARGS += \
@@ -39,9 +39,9 @@ CONFIGURE_ARGS += \
 CONFIGURE_VARS += \
 	CPPFLAGS="-DLINUX $$$$CPPFLAGS" \
 
-define Packa$(TOPDIR)/feeds/packagesel$(TOPDIR)/feeds/packagesstall	
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME) $($(TOPDIR)/feeds/packagesr/bin/
+define Package/srelay/install	
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/usr/bin/
 endef
 
 $(eval $(call BuildPackage,srelay))

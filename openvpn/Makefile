@@ -2,10 +2,10 @@
 # Copyright (C) 2010-2015 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openvpn
 
@@ -13,8 +13,8 @@ PKG_VERSION:=2.5.1
 PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=\
-	http$(TOPDIR)/feeds/packagesuild.openvpn.n$(TOPDIR)/feeds/packageswnloa$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packages
-	http$(TOPDIR)/feeds/packageswupdate.openvpn.n$(TOPDIR)/feeds/packagesmmuni$(TOPDIR)/feeds/packagesleases/
+	https://build.openvpn.net/downloads/releases/ \
+	https://swupdate.openvpn.net/community/releases/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_HASH:=skip
 
@@ -24,15 +24,15 @@ PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_LICENSE:=GPL-2.0
-PKG_CPE_ID:=cp$(TOPDIR)/feeds/packagesopenvpn:openvpn
+PKG_CPE_ID:=cpe:/a:openvpn:openvpn
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesfault
+define Package/openvpn/Default
   TITLE:=Open source VPN solution using $(2)
   SECTION:=net
   CATEGORY:=Network
-  URL:=htt$(TOPDIR)/feeds/packagespenvpn.net
+  URL:=http://openvpn.net
   SUBMENU:=VPN
   MENU:=1
   DEPENDS:=+kmod-tun +OPENVPN_$(1)_ENABLE_LZO:liblzo +OPENVPN_$(1)_ENABLE_IPROUTE2:ip $(3)
@@ -40,15 +40,15 @@ define Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesfault
   PROVIDES:=openvpn openvpn-crypto
 endef
 
-Packa$(TOPDIR)/feeds/packagesenvpn-openssl=$(call Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesfault,openssl,OpenSSL,+PACKAGE_openvpn-openssl:libopenssl)
-Packa$(TOPDIR)/feeds/packagesenvpn-mbedtls=$(call Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesfault,mbedtls,mbedTLS,+PACKAGE_openvpn-mbedtls:libmbedtls)
+Package/openvpn-openssl=$(call Package/openvpn/Default,openssl,OpenSSL,+PACKAGE_openvpn-openssl:libopenssl)
+Package/openvpn-mbedtls=$(call Package/openvpn/Default,mbedtls,mbedTLS,+PACKAGE_openvpn-mbedtls:libmbedtls)
 
-define Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesfault
-	source "$(SOURC$(TOPDIR)/feeds/packagesnfig-$(1).in"
+define Package/openvpn/config/Default
+	source "$(SOURCE)/Config-$(1).in"
 endef
 
-Packa$(TOPDIR)/feeds/packagesenvpn-opens$(TOPDIR)/feeds/packagesnfig=$(call Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesfault,openssl)
-Packa$(TOPDIR)/feeds/packagesenvpn-mbedt$(TOPDIR)/feeds/packagesnfig=$(call Packa$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesfault,mbedtls)
+Package/openvpn-openssl/config=$(call Package/openvpn/config/Default,openssl)
+Package/openvpn-mbedtls/config=$(call Package/openvpn/config/Default,mbedtls)
 
 ifeq ($(BUILD_VARIANT),mbedtls)
 CONFIG_OPENVPN_MBEDTLS:=y
@@ -58,14 +58,14 @@ CONFIG_OPENVPN_OPENSSL:=y
 endif
 
 CONFIGURE_VARS += \
-	IPROUT$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages \
-	NETSTA$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packageststat
+	IPROUTE=/sbin/ip \
+	NETSTAT=/sbin/netstat
 
 TARGET_CFLAGS += -ffunction-sections -fdata-sections
 TARGET_LDFLAGS += -Wl,--gc-sections
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
-	$(call Bui$(TOPDIR)/feeds/packagesnfigu$(TOPDIR)/feeds/packagesfault, \
+define Build/Configure
+	$(call Build/Configure/Default, \
 		$(if $(CONFIG_OPENVPN_$(BUILD_VARIANT)_ENABLE_SMALL),--enable-small) \
 		--disable-selinux \
 		--disable-systemd \
@@ -87,43 +87,43 @@ define Bui$(TOPDIR)/feeds/packagesnfigure
 	)
 endef
 
-define Packa$(TOPDIR)/feeds/packagesenvpn-$(BUILD_VARIAN$(TOPDIR)/feeds/packagesstall
+define Package/openvpn-$(BUILD_VARIANT)/install
 	$(INSTALL_DIR) \
-		$($(TOPDIR)/feeds/packagesr/sbin \
-		$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesenvpn \
-		$($(TOPDIR)/feeds/packagesc/init.d \
-		$($(TOPDIR)/feeds/packagesc/openvpn \
-		$($(TOPDIR)/feeds/packagesb/functions \
-		$($(TOPDIR)/feeds/packagesr/libexec \
-		$($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesenvpn
+		$(1)/usr/sbin \
+		$(1)/usr/share/openvpn \
+		$(1)/etc/init.d \
+		$(1)/etc/openvpn \
+		$(1)/lib/functions \
+		$(1)/usr/libexec \
+		$(1)/etc/hotplug.d/openvpn
 
 	$(INSTALL_BIN) \
-		$(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesenvpn \
-		$($(TOPDIR)/feeds/packagesr/sbin/
+		$(PKG_INSTALL_DIR)/usr/sbin/openvpn \
+		$(1)/usr/sbin/
 
 	$(INSTALL_BIN) \
-		fil$(TOPDIR)/feeds/packagesenvpn.init \
-		$($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesenvpn
+		files/openvpn.init \
+		$(1)/etc/init.d/openvpn
 
 	$(INSTALL_BIN) \
-		fil$(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesenvpn-hotplug \
-		$($(TOPDIR)/feeds/packagesr/libex$(TOPDIR)/feeds/packagesenvpn-hotplug
+		files/usr/libexec/openvpn-hotplug \
+		$(1)/usr/libexec/openvpn-hotplug
 
 	$(INSTALL_DATA) \
-		fil$(TOPDIR)/feeds/packagesb/functio$(TOPDIR)/feeds/packagesenvpn.sh \
-		$($(TOPDIR)/feeds/packagesb/functio$(TOPDIR)/feeds/packagesenvpn.sh
+		files/lib/functions/openvpn.sh \
+		$(1)/lib/functions/openvpn.sh
 
 	$(INSTALL_DATA) \
-		fil$(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packages-user \
-		$($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packages-user
+		files/etc/hotplug.d/openvpn/01-user \
+		$(1)/etc/hotplug.d/openvpn/01-user
 
 	$(INSTALL_DATA) \
-		fil$(TOPDIR)/feeds/packagesc/openvpn.user \
-		$($(TOPDIR)/feeds/packagesc/openv$(TOPDIR)/feeds/packagesenvpn.user
+		files/etc/openvpn.user \
+		$(1)/etc/openvpn/openvpn.user
 
 	$(INSTALL_DATA) \
-		fil$(TOPDIR)/feeds/packagesenvpn.options \
-		$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesenv$(TOPDIR)/feeds/packagesenvpn.options
+		files/openvpn.options \
+		$(1)/usr/share/openvpn/openvpn.options
 endef
 
 $(eval $(call BuildPackage,openvpn-openssl))

@@ -2,13 +2,13 @@
 #
 # Copyright (C) 2021 ImmortalWrt.org
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rapidjson
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesnce$(TOPDIR)/feeds/packagespidjson.git
+PKG_SOURCE_URL:=https://github.com/Tencent/rapidjson.git
 PKG_SOURCE_DATE:=2021-01-06
 PKG_SOURCE_VERSION:=585042c02ba6350e10fc43df8beee1bc097f4c5f
 PKG_MIRROR_HASH:=ef7d015b91f58355b02ce8356214ec7d6bdc3807d01b220834faa00afbcd7a7f
@@ -20,22 +20,22 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_BUILD_PARALLEL:=1
 CMAKE_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesake.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 CMAKE_OPTIONS+= -DRAPIDJSON_BUILD_DOC=OFF \
 	-DRAPIDJSON_BUILD_EXAMPLES=OFF \
 	-DRAPIDJSON_BUILD_TESTS=OFF
 
-define Packa$(TOPDIR)/feeds/packagespidjson
+define Package/rapidjson
   SECTION:=lib
   CATEGORY:=Libraries
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesnce$(TOPDIR)/feeds/packagespidjson
-  TITLE:=rapidjson JSON pars$(TOPDIR)/feeds/packagesnerator for C++
+  URL:=https://github.com/Tencent/rapidjson
+  TITLE:=rapidjson JSON parser/generator for C++
 endef
 
-define Packa$(TOPDIR)/feeds/packagespidjs$(TOPDIR)/feeds/packagesscription
-  A fast JSON pars$(TOPDIR)/feeds/packagesnerator for C++ with both S$(TOPDIR)/feeds/packagesM style API
+define Package/rapidjson/description
+  A fast JSON parser/generator for C++ with both SAX/DOM style API
 endef
 
 $(eval $(call BuildPackage,rapidjson))

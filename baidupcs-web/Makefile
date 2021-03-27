@@ -6,23 +6,23 @@
 # This is free software, licensed under the GNU General Public License v3.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=baidupcs-web
 PKG_VERSION:=3.7.1
 PKG_RELEASE:=2
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=BaiduPCS-Web is a web controller for BaiduPCS-Go
-	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packageso$(TOPDIR)/feeds/packagesidupcs-web
+	URL:=https://github.com/Erope/baidupcs-web
 endef
 
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
+define Package/$(PKG_NAME)/description
 BaiduPCS-Web is a web controller for BaiduPCS-Go
 endef
 
@@ -62,27 +62,27 @@ endif
 
 PKG_SOURCE:=BaiduPCS-Go-v$(PKG_VERSION)-linux-$(PKG_ARCH_BAIDUPCS-WEB).zip
 
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesolsnowwo$(TOPDIR)/feeds/packagesidupcs-w$(TOPDIR)/feeds/packagesw/master/
+PKG_SOURCE_URL:=https://github.com/coolsnowwolf/baidupcs-web/raw/master/
 
-UNZIP_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSIO$(TOPDIR)/feeds/packagesPKG_NAME)-unzip
+UNZIP_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)/$(PKG_NAME)-unzip
 
 PKG_HASH:=skip
 
-define Bui$(TOPDIR)/feeds/packagesepare
+define Build/Prepare
 	mkdir -vp $(UNZIP_DIR)
-	unzip -od $(UNZIP_DIR) $(DL_DI$(TOPDIR)/feeds/packagesPKG_SOURCE)
+	unzip -od $(UNZIP_DIR) $(DL_DIR)/$(PKG_SOURCE)
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(UNZIP_DI$(TOPDIR)/feeds/packagesBaiduPCS-Go $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesPKG_NAME)
-	chmod 755 $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(UNZIP_DIR)/*/BaiduPCS-Go $(1)/usr/bin/$(PKG_NAME)
+	chmod 755 $(1)/usr/bin/$(PKG_NAME)
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

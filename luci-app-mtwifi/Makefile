@@ -1,4 +1,4 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_LICENSE:=GPLv2
 PKG_MAINTAINER:=Hua Shao <nossiac@163.com>
@@ -9,10 +9,10 @@ LUCI_PKGARCH:=all
 PKG_VERSION:=1
 PKG_RELEASE:=16
 
-define Packa$(TOPDIR)/feeds/packagesci-app-mtwi$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesrele$(TOPDIR)/feeds/packages7615/
+define Package/luci-app-mtwifi/conffiles
+/etc/wireless/mt7615/
 endef
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

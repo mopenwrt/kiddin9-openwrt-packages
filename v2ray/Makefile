@@ -3,18 +3,18 @@
 # Copyright (C) 2019-2021 Mattraks
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v2ray
 PKG_VERSION:=4.36.2
 PKG_RELEASE:=1
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesray-core-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/v2ray-core-$(PKG_VERSION)
 
 PKG_SOURCE:=v2ray-core-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packagesray-co$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packages(PKG_VERSION)?
+PKG_SOURCE_URL:=https://codeload.github.com/v2fly/v2ray-core/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
@@ -27,29 +27,29 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_V2RAY_COMPRESS_GOPROXY \
 	CONFIG_V2RAY_COMPRESS_UPX
 
-PKG_BUILD_DEPENDS:=gola$(TOPDIR)/feeds/packagesst
+PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.c$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packagesray-co$(TOPDIR)/feeds/packages
+GO_PKG:=github.com/v2fly/v2ray-core/v4
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
 	$(GO_PKG).build=OpenWrt \
 	$(GO_PKG).version=$(PKG_VERSION)
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesckag$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesla$(TOPDIR)/feeds/packageslang-package.mk
+include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
   TITLE:=A platform for building proxies
-  URL:=http$(TOPDIR)/feeds/packagesww.v2fly.org
+  URL:=https://www.v2fly.org
   SECTION:=net
   CATEGORY:=Network
-  SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+  SUBMENU:=Web Servers/Proxies
   DEPENDS:=@BROKEN $(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
+define Package/$(PKG_NAME)/config
 menu "V2Ray Configuration"
 	depends on PACKAGE_v2ray
 
@@ -71,7 +71,7 @@ config V2RAY_COMPRESS_UPX
 endmenu
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
+define Package/$(PKG_NAME)/description
 Project V is a set of network tools that help you to build your own computer network.
 It secures your network connections and thus protects your privacy.
 
@@ -80,15 +80,15 @@ endef
 
 ifeq ($(CONFIG_V2RAY_COMPRESS_GOPROXY),y)
 export GO111MODULE=on
-export GOPROXY=http$(TOPDIR)/feeds/packagesoproxy.io
-#export GOPROXY=http$(TOPDIR)/feeds/packagesirrors.aliyun.c$(TOPDIR)/feeds/packagesproxy/
+export GOPROXY=https://goproxy.io
+#export GOPROXY=https://mirrors.aliyun.com/goproxy/
 endif
 
 GEOIP_VER:=latest
 GEOIP_FILE:=geoip-$(GEOIP_VER).dat
 
-define Downlo$(TOPDIR)/feeds/packagesoip.dat
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packageso$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packagesGEOIP_VE$(TOPDIR)/feeds/packageswnload
+define Download/geoip.dat
+  URL:=https://github.com/v2fly/geoip/releases/$(GEOIP_VER)/download
   URL_FILE:=geoip.dat
   FILE:=$(GEOIP_FILE)
   HASH:=skip
@@ -97,48 +97,48 @@ endef
 GEOSITE_VER:=latest
 GEOSITE_FILE:=geosite-$(GEOSITE_VER).dat
 
-define Downlo$(TOPDIR)/feeds/packagesosite.dat
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packagesmain-list-communi$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packagesGEOSITE_VE$(TOPDIR)/feeds/packageswnload
+define Download/geosite.dat
+  URL:=https://github.com/v2fly/domain-list-community/releases/$(GEOSITE_VER)/download
   URL_FILE:=dlc.dat
   FILE:=$(GEOSITE_FILE)
   HASH:=skip
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
-	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+define Build/Prepare
+	$(call Build/Prepare/Default)
 ifneq ($(CONFIG_V2RAY_EXCLUDE_ASSETS),y)
 	# move file to make sure download new file every build
-	mv -f $(DL_DI$(TOPDIR)/feeds/packagesGEOIP_FILE) $(PKG_BUILD_DI$(TOPDIR)/feeds/packageslea$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesoip.dat
-	mv -f $(DL_DI$(TOPDIR)/feeds/packagesGEOSITE_FILE) $(PKG_BUILD_DI$(TOPDIR)/feeds/packageslea$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesosite.dat
+	mv -f $(DL_DIR)/$(GEOIP_FILE) $(PKG_BUILD_DIR)/release/config/geoip.dat
+	mv -f $(DL_DIR)/$(GEOSITE_FILE) $(PKG_BUILD_DIR)/release/config/geosite.dat
 endif
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
-	$(eval GO_PKG_BUILD_PKG:=$(GO_PK$(TOPDIR)/feeds/packagesin)
-	$(call GoPacka$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesmpile)
-	mv -f $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesin $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesray
+define Build/Compile
+	$(eval GO_PKG_BUILD_PKG:=$(GO_PKG)/main)
+	$(call GoPackage/Build/Compile)
+	mv -f $(GO_PKG_BUILD_BIN_DIR)/main $(GO_PKG_BUILD_BIN_DIR)/v2ray
 ifeq ($(CONFIG_V2RAY_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOS$(TOPDIR)/feeds/packagesn/upx --lzma --best $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesray || true
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ray || true
 endif
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
-	$(eval GO_PKG_BUILD_PKG:=$(GO_PK$(TOPDIR)/feeds/packagesf$(TOPDIR)/feeds/packagesntr$(TOPDIR)/feeds/packagesin)
-	$(call GoPacka$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesmpile)
-	mv -f $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesin $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesctl
+	$(eval GO_PKG_BUILD_PKG:=$(GO_PKG)/infra/control/main)
+	$(call GoPackage/Build/Compile)
+	mv -f $(GO_PKG_BUILD_BIN_DIR)/main $(GO_PKG_BUILD_BIN_DIR)/v2ctl
 ifeq ($(CONFIG_V2RAY_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOS$(TOPDIR)/feeds/packagesn/upx --lzma --best $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesctl || true
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ctl || true
 endif
 endif
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin/
-	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesray $($(TOPDIR)/feeds/packagesr/bin
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/bin/
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
-	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesctl $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ctl $(1)/usr/bin
 endif
 ifneq ($(CONFIG_V2RAY_EXCLUDE_ASSETS),y)
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesray
-	$(INSTALL_DATA) $(PKG_BUILD_DI$(TOPDIR)/feeds/packageslea$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packageseoip,geosite}.dat $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesray
+	$(INSTALL_DIR) $(1)/usr/share/v2ray
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/release/config/{geoip,geosite}.dat $(1)/usr/share/v2ray
 endif
 endef
 

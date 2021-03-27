@@ -4,7 +4,7 @@
 # This is free software, licensed under the GNU General Public License v2.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qBittorrent-Enhanced-Edition
 PKG_VERSION:=4.3.3.10
@@ -47,35 +47,35 @@ endif
 endif
 
 PKG_SOURCE:=qbittorrent-nox_$(PKG_ARCH)_static.zip
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesre1$(TOPDIR)/feeds/packagesittorrent-Enhanced-Editi$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packageslease-$(PKG_VERSION)/
+PKG_SOURCE_URL:=https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-$(PKG_VERSION)/
 PKG_HASH:=skip
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	TITLE:=bittorrent client programmed in C+$(TOPDIR)/feeds/packagest
-	URL:=http$(TOPDIR)/feeds/packagesww.qbittorrent.org/
+	TITLE:=bittorrent client programmed in C++ / Qt
+	URL:=https://www.qbittorrent.org/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
-  qBittorrent is a bittorrent client programmed in C+$(TOPDIR)/feeds/packagest that uses
+define Package/$(PKG_NAME)/description
+  qBittorrent is a bittorrent client programmed in C++ / Qt that uses
   libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
   It aims to be a good alternative to all other bittorrent clients out
   there. qBittorrent is fast, stable and provides unicode support as
   well as many features.
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(BUILD_DI$(TOPDIR)/feeds/packagesittorrent-nox $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/qBittorrent
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesfilter.dat $($(TOPDIR)/feeds/packagesc/qBittorre$(TOPDIR)/feeds/packagesfilter.dat
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(BUILD_DIR)/qbittorrent-nox $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/qBittorrent
+	$(INSTALL_DATA) ./files/ipfilter.dat $(1)/etc/qBittorrent/ipfilter.dat
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

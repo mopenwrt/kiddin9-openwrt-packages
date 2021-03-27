@@ -1,33 +1,33 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shellsync
 PKG_VERSION:=0.2
 PKG_RELEASE:=2
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesellsync
+define Package/shellsync
   CATEGORY:=Utilities
   TITLE:=shellsync
   DEPENDS:=+libpthread +kmod-macvlan
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
+define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
-	$(CP)$(TOPDIR)/feeds/packagesc/* $(PKG_BUILD_DIR)/
+	$(CP) ./src/* $(PKG_BUILD_DIR)/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesellsy$(TOPDIR)/feeds/packagesscription
+define Package/shellsync/description
 A tool to sync different shell scripts.Based on syncppp patch by morfast.
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
-	$(TARGET_CROSS)gcc -pthread -o $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesellsync $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesellsync.c
+define Build/Compile
+	$(TARGET_CROSS)gcc -pthread -o $(PKG_BUILD_DIR)/shellsync $(PKG_BUILD_DIR)/shellsync.c
 endef
 
-define Packa$(TOPDIR)/feeds/packagesellsy$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesellsync $($(TOPDIR)/feeds/packagesr/bin
+define Package/shellsync/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/shellsync $(1)/usr/bin
 endef
 
 

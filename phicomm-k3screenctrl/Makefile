@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=phicomm-k3screenctrl
 PKG_VERSION:=1.0
 PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesz3$(TOPDIR)/feeds/packagesscreenctrl.git
+PKG_SOURCE_URL:=https://github.com/lwz322/k3screenctrl.git
 PKG_SOURCE_DATE:=2020-09-18
 PKG_SOURCE_VERSION:=d8896cfad4bdf39f58999f9420807f986300bada
 PKG_MIRROR_HASH:=9eab074f5ac366013d394be2c57905a8585439d1ca2a8b602a09a098a8aa8fb7
@@ -26,34 +26,34 @@ PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
 TARGET_CFLAGS+= -D_GNU_SOURCE
 
-define Packa$(TOPDIR)/feeds/packagesicomm-k3screenctrl
+define Package/phicomm-k3screenctrl
   SECTION:=utils
   CATEGORY:=Utilities
   DEPENDS:=@TARGET_bcm53xx_generic_DEVICE_phicomm_k3 +@KERNEL_DEVMEM +@BUSYBOX_CONFIG_ARPING +bc +bash +curl +coreutils +coreutils-od +jq
   TITLE:=LCD screen controller on PHICOMM K3
-  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesz3$(TOPDIR)/feeds/packagesscreenctrl.git
+  URL:=https://github.com/lwz322/k3screenctrl.git
 endef
 
-define Packa$(TOPDIR)/feeds/packagesicomm-k3screenct$(TOPDIR)/feeds/packagesscription
+define Package/phicomm-k3screenctrl/description
   K3 Screen Controller (k3screenctrl) is a program utilizing
   the LCD screen on PHICOMM K3 to display some stats.
 endef
 
-define Packa$(TOPDIR)/feeds/packagesicomm-k3screenct$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesscreenctrl $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesscreenctrl
+define Package/phicomm-k3screenctrl/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/k3screenctrl $(1)/usr/bin/k3screenctrl
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/k3screenctrl $($(TOPDIR)/feeds/packagesb/k3screenct$(TOPDIR)/feeds/packagesi
-	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesb/k3screenct$(TOPDIR)/feeds/packagessh $($(TOPDIR)/feeds/packagesb/k3screenctrl/
-	$(INSTALL_DATA) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesb/k3screenct$(TOPDIR)/feeds/packagesi/oui.txt $($(TOPDIR)/feeds/packagesb/k3screenct$(TOPDIR)/feeds/packagesi/
+	$(INSTALL_DIR) $(1)/lib/k3screenctrl $(1)/lib/k3screenctrl/oui
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/k3screenctrl/*.sh $(1)/lib/k3screenctrl/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lib/k3screenctrl/oui/oui.txt $(1)/lib/k3screenctrl/oui/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_CONF) $(CURDI$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesscreenctrl.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesscreenctrl
-	$(INSTALL_BIN) $(CURDI$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesscreenctrl.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesscreenctrl
+	$(INSTALL_DIR) $(1)/etc/config $(1)/etc/init.d
+	$(INSTALL_CONF) $(CURDIR)/files/k3screenctrl.config $(1)/etc/config/k3screenctrl
+	$(INSTALL_BIN) $(CURDIR)/files/k3screenctrl.init $(1)/etc/init.d/k3screenctrl
 endef
 
 $(eval $(call BuildPackage,phicomm-k3screenctrl))

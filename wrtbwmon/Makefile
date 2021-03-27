@@ -2,18 +2,18 @@
 # Copyright (C) 2006-2011 Xmlad.com
 #
 # This is free software, licensed under the GNU General Public License v2.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wrtbwmon
 PKG_VERSION:=1.2.1
 PKG_RELEASE:=3
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagestbwmon
+define Package/wrtbwmon
 	SECTION:=net
 	CATEGORY:=Network
 	DEPENDS:=+iptables +@BUSYBOX_CONFIG_IP
@@ -22,29 +22,29 @@ define Packa$(TOPDIR)/feeds/packagestbwmon
 	PKGARCH:=all
 endef
 
-define Packa$(TOPDIR)/feeds/packagestbwm$(TOPDIR)/feeds/packagesscription
+define Package/wrtbwmon/description
 An CERNET client daemon,
 Most usually used in China collages.
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
+define Build/Prepare
 endef
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagestbwm$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagestbwmon
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagest/u$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sbin/
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagest/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagestbwm$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagestbwmon/
+define Package/wrtbwmon/install
+	$(INSTALL_DIR) $(1)/usr/sbin $(1)/usr/share/wrtbwmon
+	$(INSTALL_BIN) ./net/usr/sbin/* $(1)/usr/sbin/
+	$(INSTALL_BIN) ./net/usr/share/wrtbwmon/* $(1)/usr/share/wrtbwmon/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config $($(TOPDIR)/feeds/packagesc/init.d $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesace
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagest/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagestbwmon $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagestbwmon
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagest/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagestbwmon $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagestbwmon
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagest/e$(TOPDIR)/feeds/packagestplug$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packages-wrtbwmon $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packages-wrtbwmon
+	$(INSTALL_DIR) $(1)/etc/config $(1)/etc/init.d $(1)/etc/hotplug.d/iface
+	$(INSTALL_BIN) ./net/etc/init.d/wrtbwmon $(1)/etc/init.d/wrtbwmon
+	$(INSTALL_BIN) ./net/etc/config/wrtbwmon $(1)/etc/config/wrtbwmon
+	$(INSTALL_BIN) ./net/etc/hotplug.d/iface/99-wrtbwmon $(1)/etc/hotplug.d/iface/99-wrtbwmon
 endef
 
 $(eval $(call BuildPackage,wrtbwmon))

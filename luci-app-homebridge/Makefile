@@ -1,4 +1,4 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI Support for homebridge
 LUCI_DEPENDS:=+node
@@ -9,16 +9,16 @@ PKG_DATE:=20201026
 PKG_MAINTAINER:=lanxin Shang <shanglanxin@gmail.com>
 PKG_LICENSE:=GPL-3.0-or-later
 
-define Packa$(TOPDIR)/feeds/packagesci-app-homebrid$(TOPDIR)/feeds/packagesstinst
-$(TOPDIR)/feeds/packagesn/sh
-mkdir $${IPKG_INSTROO$(TOPDIR)/feeds/packagesc/homebrid$(TOPDIR)/feeds/packages/d$(TOPDIR)/feeds/packagesll 2>&1
+define Package/luci-app-homebridge/postinst
+#!/bin/sh
+mkdir $${IPKG_INSTROOT}/etc/homebridge/ >/dev/null 2>&1
 exit 0
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-homebrid$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesmebridge
+define Package/luci-app-homebridge/conffiles
+/etc/config/homebridge
 endef
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

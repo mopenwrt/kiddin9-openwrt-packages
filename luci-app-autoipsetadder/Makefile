@@ -3,17 +3,17 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-autoipsetadder
 PKG_VERSION:=1.0
 PKG_RELEASE:=7
 
-PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadder
+define Package/luci-app-autoipsetadder
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -22,41 +22,41 @@ define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadder
 	DEPENDS:= +httping +curl
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadd$(TOPDIR)/feeds/packagesscription
+define Package/luci-app-autoipsetadder/description
 	LuCI support for autoipsetadder
 endef
 
-define Bui$(TOPDIR)/feeds/packagesepare
+define Build/Prepare
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadd$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagestoipsetadder
+define Package/luci-app-autoipsetadder/conffiles
+/etc/config/autoipsetadder
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadd$(TOPDIR)/feeds/packagesstall
-    $(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
-	cp -pR$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+define Package/luci-app-autoipsetadder/install
+    $(INSTALL_DIR) $(1)/usr/lib/lua/luci
+	cp -pR ./luasrc/* $(1)/usr/lib/lua/luci
 	$(INSTALL_DIR) $(1)/
-	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(1)/
+	cp -pR ./root/* $(1)/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadd$(TOPDIR)/feeds/packagesstinst
-$(TOPDIR)/feeds/packagesn/sh
-	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagestoipsetadder enable$(TOPDIR)/feeds/packagesv/null 2>&1
-	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagestoipsetadder start
-	rm -$(TOPDIR)/feeds/packagesp/luci-indexcache
-	rm -$(TOPDIR)/feeds/packagesp/luci-modulecache/*
+define Package/luci-app-autoipsetadder/postinst
+#!/bin/sh
+	/etc/init.d/autoipsetadder enable >/dev/null 2>&1
+	/etc/init.d/autoipsetadder start
+	rm -f /tmp/luci-indexcache
+	rm -f /tmp/luci-modulecache/*
 exit 0
 endef
 
-define Packa$(TOPDIR)/feeds/packagesci-app-autoipsetadd$(TOPDIR)/feeds/packageserm
-$(TOPDIR)/feeds/packagesn/sh
+define Package/luci-app-autoipsetadder/prerm
+#!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-   $(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagestoipsetadder disable
-   $(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagestoipsetadder stop
+     /etc/init.d/autoipsetadder disable
+     /etc/init.d/autoipsetadder stop
 fi
 exit 0
 endef

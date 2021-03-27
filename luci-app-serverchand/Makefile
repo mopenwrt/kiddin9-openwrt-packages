@@ -3,15 +3,15 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-serverchand
 PKG_VERSION:=2.00
 PKG_RELEASE:=7
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
+define Package/$(PKG_NAME)
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
@@ -20,21 +20,21 @@ define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
   PKGARCH:=all
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesrverchand
+define Package/$(PKG_NAME)/conffiles
+/etc/config/serverchand
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesrverchand $($(TOPDIR)/feeds/packagesc/config $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci $($(TOPDIR)/feeds/packagesc/uci-defaults $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d
-	$(CP)$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
-	$(INSTALL_CONF)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesrverchand $($(TOPDIR)/feeds/packagesc/config
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesrverchand $($(TOPDIR)/feeds/packagesc/init.d
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-serverchand $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-serverchand
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesrvercha$(TOPDIR)/feeds/packagesrverchand $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesrverchand
-	$(INSTALL_DATA)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesci-app-serverchand.json $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesci-app-serverchand.json
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/etc/init.d $(1)/usr/bin/serverchand $(1)/etc/config $(1)/usr/lib/lua/luci $(1)/etc/uci-defaults $(1)/usr/share/rpcd/acl.d
+	$(CP) ./luasrc/* $(1)/usr/lib/lua/luci
+	$(INSTALL_CONF) ./root/etc/config/serverchand $(1)/etc/config
+	$(INSTALL_BIN) ./root/etc/init.d/serverchand $(1)/etc/init.d
+	$(INSTALL_BIN) ./root/etc/uci-defaults/luci-serverchand $(1)/etc/uci-defaults/luci-serverchand
+	$(INSTALL_BIN) ./root/usr/bin/serverchand/serverchand $(1)/usr/bin/serverchand
+	$(INSTALL_DATA) ./root/usr/share/rpcd/acl.d/luci-app-serverchand.json $(1)/usr/share/rpcd/acl.d/luci-app-serverchand.json
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

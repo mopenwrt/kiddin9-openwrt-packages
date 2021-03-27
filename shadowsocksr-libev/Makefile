@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shadowsocksr-libev
 PKG_VERSION:=2.5.6
 PKG_RELEASE:=7
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsocks$(TOPDIR)/feeds/packagesadowsocksr-libev
+PKG_SOURCE_URL:=https://github.com/shadowsocksrr/shadowsocksr-libev
 PKG_SOURCE_DATE:=2018-03-07
 PKG_SOURCE_VERSION:=d63ff863800a5645aca4309d5dd5962bd1e95543
 PKG_MIRROR_HASH:=34308ed827a5dd4f4e35619914102d55b00604faa44fda051d1d25fb4a319325
@@ -26,31 +26,31 @@ PKG_USE_MIPS16:=0
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesadowsocksr-lib$(TOPDIR)/feeds/packagesfault
-  define Packa$(TOPDIR)/feeds/packagesadowsocksr-libev-ssr-$(1)
+define Package/shadowsocksr-libev/Default
+  define Package/shadowsocksr-libev-ssr-$(1)
     SECTION:=net
     CATEGORY:=Network
-    SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+    SUBMENU:=Web Servers/Proxies
     TITLE:=shadowsocksr-libev ssr-$(1)
-    URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsocks$(TOPDIR)/feeds/packagesadowsocksr-libev
+    URL:=https://github.com/shadowsocksrr/shadowsocksr-libev
     DEPENDS:=+libev +libsodium +libopenssl +libpthread +libpcre +libudns +zlib
   endef
 
-  define Packa$(TOPDIR)/feeds/packagesadowsocksr-libev-ssr-$($(TOPDIR)/feeds/packagesstall
-	$$(INSTALL_DIR) $$($(TOPDIR)/feeds/packagesr/bin
-	$$(INSTALL_BIN) $$(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packages-$(1) $$($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesr-$(1)
+  define Package/shadowsocksr-libev-ssr-$(1)/install
+	$$(INSTALL_DIR) $$(1)/usr/bin
+	$$(INSTALL_BIN) $$(PKG_INSTALL_DIR)/usr/bin/ss-$(1) $$(1)/usr/bin/ssr-$(1)
   endef
 endef
 
 SHADOWSOCKSR_COMPONENTS:=check local nat redir server
-define shadowsocksr-lib$(TOPDIR)/feeds/packagesmplates
+define shadowsocksr-libev/templates
   $(foreach component,$(SHADOWSOCKSR_COMPONENTS),
-    $(call Packa$(TOPDIR)/feeds/packagesadowsocksr-lib$(TOPDIR)/feeds/packagesfault,$(component))
+    $(call Package/shadowsocksr-libev/Default,$(component))
   )
 endef
-$(eval $(call shadowsocksr-lib$(TOPDIR)/feeds/packagesmplates))
+$(eval $(call shadowsocksr-libev/templates))
 
 CONFIGURE_ARGS += \
 	--disable-documentation \

@@ -3,7 +3,7 @@
 # This is a free software, use it under Apache Licene 2.0 & GNU General Public License v3.0.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=luci for haproxy and shadowsocks
 LUCI_DEPENDS:=+haproxy
@@ -13,14 +13,14 @@ PKG_VERSION=1.4
 PKG_RELEASE:=2
 PKG_MAINTAINER:=Alex Zhuo <1886090@gmail.com>
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
-$(TOPDIR)/feeds/packagesn/sh
-rm -r$(TOPDIR)/feeds/packagesp/luci*
+define Package/$(PKG_NAME)/postinst
+#!/bin/sh
+rm -rf /tmp/luci*
 echo stopping haproxy
-/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesproxy stop
-/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesproxy disable
+/etc/init.d/haproxy stop
+/etc/init.d/haproxy disable
 echo haproxy disabled
 endef
 

@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2018 chenhw2 <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesenhw2/>
+# Copyright (C) 2018 chenhw2 <https://github.com/chenhw2/>
 #
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI Support for aliddns
 LUCI_DESCRIPTION:=LuCI Support for ALiDDNS.
@@ -17,8 +17,8 @@ PKG_RELEASE:=1
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=chenhw2 <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesenhw2/>
+PKG_MAINTAINER:=chenhw2 <https://github.com/chenhw2/>
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

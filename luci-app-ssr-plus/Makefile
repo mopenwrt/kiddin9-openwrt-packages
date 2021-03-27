@@ -1,15 +1,15 @@
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-ssr-plus
 PKG_VERSION:=183
 PKG_RELEASE:=9
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
-/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesadowsocksr
-/e$(TOPDIR)/feeds/packagesrplus/
+define Package/$(PKG_NAME)/conffiles
+/etc/config/shadowsocksr
+/etc/ssrplus/
 endef
 
-define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
+define Package/$(PKG_NAME)/config
 config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks
 	bool "Include Shadowsocks"
 	default y if i386||x86_64||arm||aarch64
@@ -24,7 +24,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin
 	default n
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Xray
-	bool "Include Xray (V2R$(TOPDIR)/feeds/packagesojan-GO implemented)"
+	bool "Include Xray (V2RAY/Trojan-GO implemented)"
 	default y if i386||x86_64||arm||aarch64
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan
@@ -49,7 +49,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Server
 	default y if i386||x86_64||arm||aarch64
 endef
 
-LUCI_TITLE:=$(TOPDIR)/feeds/packagesR/V2R$(TOPDIR)/feeds/packagesoj$(TOPDIR)/feeds/packagesivePro$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesn LuCI interface
+LUCI_TITLE:=SS/SSR/V2Ray/Trojan/NaiveProxy/Socks5/Tun LuCI interface
 LUCI_PKGARCH:=all
 LUCI_DEPENDS:=+shadowsocksr-libev-ssr-redir +ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +coreutils +coreutils-base64 +pdnsd-alt +wget-ssl +lua +libuci-lua \
 	+microsocks +dns2socks +shadowsocksr-libev-ssr-local +tcping +resolveip \
@@ -67,6 +67,6 @@ LUCI_DEPENDS:=+shadowsocksr-libev-ssr-redir +ipset +ip-full +iptables-mod-tproxy
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun:kcptun-client \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Server:shadowsocksr-libev-ssr-server
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

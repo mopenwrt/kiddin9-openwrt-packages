@@ -3,9 +3,9 @@
 # This is a free software, use it under GNU General Public License v3.0.
 #
 # Created By ImmortalWrt
-# http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesoject-openwrt
+# https://github.com/project-openwrt
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-gowebdav
 PKG_VERSION:=1.0
@@ -17,6 +17,6 @@ LUCI_PKGARCH:=all
 
 PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
 
-include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

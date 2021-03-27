@@ -4,36 +4,36 @@
 # This is free software, licensed under the GNU General Public License v3.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dsmboot
 PKG_VERSION:=5.2
 PKG_RELEASE:=5967.1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DIR)/package.mk
 
-define Packa$(TOPDIR)/feeds/packagesmboot
+define Package/dsmboot
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=Synology DSM pxeboot from TFTP
 endef
 
-define Packa$(TOPDIR)/feeds/packagesmbo$(TOPDIR)/feeds/packagesscription
+define Package/dsmboot/description
 	DSM 5.2 boot from TFTP
 endef
 
-define Bui$(TOPDIR)/feeds/packagesmpile
+define Build/Compile
 	true
 endef
 
-define Packa$(TOPDIR)/feeds/packagesmbo$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesot
-	$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesm.iso $($(TOPDIR)/feeds/packagesot/
-	$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesnu.lst $($(TOPDIR)/feeds/packagesot/
-	$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packageselinux.0 $($(TOPDIR)/feeds/packagesot/
+define Package/dsmboot/install
+	$(INSTALL_DIR) $(1)/root
+	$(CP) ./files/dsm.iso $(1)/root/
+	$(CP) ./files/menu.lst $(1)/root/
+	$(CP) ./files/pxelinux.0 $(1)/root/
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
-	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesmboot $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesy-dsmboot
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_BIN) ./files/dsmboot $(1)/etc/uci-defaults/yyy-dsmboot
 endef
 
 $(eval $(call BuildPackage,dsmboot))

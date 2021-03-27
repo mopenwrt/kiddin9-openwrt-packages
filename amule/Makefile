@@ -1,18 +1,18 @@
 # Copyright (C) 2021 ImmortalWrt
-# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# Se$(TOPDIR)/feeds/packagesCENSE for more information.
+# See /LICENSE for more information.
 #
 
-include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aMule
 PKG_VERSION:=2.3.2
 PKG_RELEASE:=5
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesule-proje$(TOPDIR)/feeds/packagesule.git
+PKG_SOURCE_URL:=https://github.com/amule-project/amule.git
 PKG_SOURCE_DATE:=2021-01-30
 PKG_SOURCE_VERSION:=c3a1018329633234ac941055b64a43b9e2df7fad
 PKG_MIRROR_HASH:=f03b60e909346c4d984aeb9cf3a115b5b43fa6158ee01ed41b99e7217b436bb7
@@ -24,20 +24,20 @@ PKG_BUILD_DEPENDS:=libcryptopp libgd
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
-include $(INCLUDE_DI$(TOPDIR)/feeds/packagess.mk
+include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
-define Packa$(TOPDIR)/feeds/packagesule
+define Package/amule
   SUBMENU:=P2P
   SECTION:=net
   CATEGORY:=Network
   TITLE:=A multi-platform eMule-like ed2k client
-  URL:=htt$(TOPDIR)/feeds/packagesww.amule.org/
+  URL:=http://www.amule.org/
   DEPENDS:=+libpng +libpthread +libncurses +libreadline +libwxbase +libupnp +libbfd \
 	$(ICONV_DEPENDS) $(INTL_DEPENDS) +!AMULE_CRYPTOPP_STATIC_LINKING:libcryptopp
 endef
 
-define Packa$(TOPDIR)/feeds/packagesu$(TOPDIR)/feeds/packagesnfig
+define Package/amule/config
 	config AMULE_CRYPTOPP_STATIC_LINKING
 		bool "Link libcryptopp statically"
 		default n
@@ -67,36 +67,36 @@ CONFIGURE_ARGS+= \
 	--without-wxdebug \
 	--enable-dlp \
 	--enable-upnp \
-	--with-zlib="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
-	--with-gdlib-prefix="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
-	--with-libpng-prefix="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
-	--with-wx-prefix="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
-	--with-crypto-prefix="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
+	--with-zlib="$(STAGING_DIR)/usr" \
+	--with-gdlib-prefix="$(STAGING_DIR)/usr" \
+	--with-libpng-prefix="$(STAGING_DIR)/usr" \
+	--with-wx-prefix="$(STAGING_DIR)/usr" \
+	--with-crypto-prefix="$(STAGING_DIR)/usr" \
 	--with-libiconv-prefix="$(ICONV_PREFIX)" \
 	--with-libintl-prefix="$(INTL_PREFIX)" \
-	--with-libupnp-prefix="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
+	--with-libupnp-prefix="$(STAGING_DIR)/usr" \
 	--without-x \
 	--disable-debug 
 
 MAKE_FLAGS += HOSTCC="$(HOSTCC)"
 
-define Bui$(TOPDIR)/feeds/packagesnfigure
+define Build/Configure
 	cd $(PKG_BUILD_DIR); $(SHELL) autogen.sh
-	$(call Bui$(TOPDIR)/feeds/packagesnfigu$(TOPDIR)/feeds/packagesfault)
+	$(call Build/Configure/Default)
 ifeq ($(CONFIG_AMULE_CRYPTOPP_STATIC_LINKING),y)
-	$(SED) 's;^CRYPTOPP_LIBS.*;CRYPTOPP_LIBS \= "$(STAGING_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesbcryptopp.a";g' \
-		$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc/Makefile
+	$(SED) 's;^CRYPTOPP_LIBS.*;CRYPTOPP_LIBS \= "$(STAGING_DIR)/usr/lib/libcryptopp.a";g' \
+		$(PKG_BUILD_DIR)/src/Makefile
 endif
 endef
 
-define Packa$(TOPDIR)/feeds/packagesu$(TOPDIR)/feeds/packagesstall
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesulecmd $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesulecmd
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesuled $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesuled
-	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesuleweb $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesuleweb
+define Package/amule/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/amulecmd $(1)/usr/bin/amulecmd
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/amuled $(1)/usr/bin/amuled
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/amuleweb $(1)/usr/bin/amuleweb
 
-	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/share
-	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesule $($(TOPDIR)/feeds/packagesr/share/
+	$(INSTALL_DIR) $(1)/usr/share
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/amule $(1)/usr/share/
 endef
 
 $(eval $(call BuildPackage,amule))
