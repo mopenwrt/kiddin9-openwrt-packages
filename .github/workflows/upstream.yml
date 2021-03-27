@@ -66,7 +66,7 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
-        git clone --depth 1 https://github.com/immortalwrt/openwrt-cdnspeedtest cdnspeedtest
+        git clone --depth 1 https://github.com/immortalwrt/openwrt-cdnspeedtest cdnspeedtest &
 
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config &
@@ -114,6 +114,7 @@ jobs:
         svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu
@@ -127,8 +128,11 @@ jobs:
         svn co https://github.com/immortalwrt/packages/trunk/net/verysync
         svn co https://github.com/immortalwrt/packages/trunk/net/sub-web
         svn co https://github.com/immortalwrt/packages/trunk/net/subconverter
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
-        
+        svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2 jpcre2
+        svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson rapidjson
+        svn co https://github.com/immortalwrt/packages/trunk/libs/libcron libcron
+        svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp quickjspp
+
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap
