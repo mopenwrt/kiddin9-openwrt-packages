@@ -1,3 +1,5 @@
+--- a/shadowsocks-libev/Makefile
++++ b/shadowsocks-libev/Makefile
 @@ -33,27 +33,6 @@ PKG_BUILD_DEPENDS:=c-ares pcre
  
  include $(INCLUDE_DIR)/package.mk
