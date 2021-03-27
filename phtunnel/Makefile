@@ -2,22 +2,22 @@
 # Copyright (C) 2007-2012 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=phtunnel
 PKG_VERSION:=1.0.0
 PKG_RELEASE:=3
 FILES_PATH:=files
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)
+define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
   SECTION:=net
   CATEGORY:=Network
-  SUBMENU:=Web Servers/Proxies
+  SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
   TITLE:=phtunnel
   DEPENDS:=+librt +libpthread +libc +wget @!PACKAGE_phddns
 endef
@@ -42,16 +42,16 @@ ifeq ($(ARCH),aarch64)
 	PKG_ARCH:=arm64
 endif
 
-define Package/$(PKG_NAME)/description
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
 PHTunnel
 endef
 
-define Package/$(PKG_NAME)/conffiles
-/etc/phtunnel.json
-/etc/config/phtunnel
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagestunnel.json
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagestunnel
 endef
 
-define Package/$(PKG_NAME)/extra_provides
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagestra_provides
     echo 'libc.so.6'; \
     echo 'libm.so.6'; \
     echo 'libc.so.0'; \
@@ -59,28 +59,28 @@ define Package/$(PKG_NAME)/extra_provides
     echo 'libpthread.so.0';
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	true
 endef
 
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
-	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesace
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/upgra$(TOPDIR)/feeds/packagesep.d
 
-	$(INSTALL_BIN) $(FILES_PATH)/usr/bin/$(PKG_ARCH)/phtunnel $(1)/usr/bin
-	$(INSTALL_BIN) $(FILES_PATH)/etc/init.d/phtunnel $(1)/etc/init.d
-	$(INSTALL_BIN) $(FILES_PATH)/etc/config/phtunnel $(1)/etc/config
-	$(INSTALL_BIN) $(FILES_PATH)/etc/hotplug.d/iface/30-oray-phtunnel $(1)/etc/hotplug.d/iface
-	$(INSTALL_BIN) $(FILES_PATH)/lib/upgrade/keep.d/phtunnel $(1)/lib/upgrade/keep.d
+	$(INSTALL_BIN) $(FILES_PAT$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesPKG_ARC$(TOPDIR)/feeds/packagestunnel $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(FILES_PAT$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagestunnel $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN) $(FILES_PAT$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagestunnel $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_BIN) $(FILES_PAT$(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packages-oray-phtunnel $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesace
+	$(INSTALL_BIN) $(FILES_PAT$(TOPDIR)/feeds/packagesb/upgra$(TOPDIR)/feeds/packagesep$(TOPDIR)/feeds/packagestunnel $($(TOPDIR)/feeds/packagesb/upgra$(TOPDIR)/feeds/packagesep.d
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

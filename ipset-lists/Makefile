@@ -3,38 +3,38 @@
 # Author: Justin Liu <rssnsj@gmail.com>
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=ipset-lists
 PKG_VERSION:=20181104
 PKG_RELEASE:=2
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/ipset-lists
+define Packa$(TOPDIR)/feeds/packagesset-lists
   CATEGORY:=Network
   TITLE:=Service for IPSET address tables
   MAINTAINER:=Justin Liu <rssnsj@gmail.com>
   DEPENDS:=+ipset
 endef
 
-define Package/ipset-lists/conffiles
-/etc/gfwlist/china-banned
+define Packa$(TOPDIR)/feeds/packagesset-lis$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packageswli$(TOPDIR)/feeds/packagesina-banned
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	true
 endef
 
-define Package/ipset-lists/install
-	$(CP) files/* $(1)/
+define Packa$(TOPDIR)/feeds/packagesset-lis$(TOPDIR)/feeds/packagesstall
+	$(CP) fil$(TOPDIR)/feeds/packages$(1)/
 endef
 
-define Package/ipset-lists/postinst
-#!/bin/sh
-if [ -e /etc/openwrt_release ]; then
-	/etc/init.d/ipset.sh restart
-	/etc/init.d/ipset.sh enable || :
+define Packa$(TOPDIR)/feeds/packagesset-lis$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
+if [ -$(TOPDIR)/feeds/packagesc/openwrt_release ]; then
+	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesset.sh restart
+	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesset.sh enable || :
 fi
 endef
 

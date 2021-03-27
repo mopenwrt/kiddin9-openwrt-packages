@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://project-openwrt.eu.org>
+# <http$(TOPDIR)/feeds/packagesroject-openwrt.eu.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=xray-plugin
 PKG_VERSION:=1.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/teddysun/xray-plugin/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packagesddys$(TOPDIR)/feeds/packagesay-plug$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packages(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
@@ -25,17 +25,17 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_XRAY_PLUGIN_COMPRESS_GOPROXY \
 	CONFIG_XRAY_PLUGIN_COMPRESS_UPX
 
-PKG_BUILD_DEPENDS:=golang/host
+PKG_BUILD_DEPENDS:=gola$(TOPDIR)/feeds/packagesst
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.com/teddysun/xray-plugin
+GO_PKG:=github.c$(TOPDIR)/feeds/packagesddys$(TOPDIR)/feeds/packagesay-plugin
 GO_PKG_LDFLAGS:=-s -w
 
-include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesckag$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesla$(TOPDIR)/feeds/packageslang-package.mk
 
-define Package/xray-plugin/config
+define Packa$(TOPDIR)/feeds/packagesay-plug$(TOPDIR)/feeds/packagesnfig
 config XRAY_PLUGIN_PROVIDE_V2RAY_PLUGIN
 	bool "Provide v2ray-plugin binary using xray-plugin"
 	default n
@@ -51,32 +51,32 @@ endef
 
 ifneq ($(CONFIG_XRAY_PLUGIN_COMPRESS_GOPROXY),)
 	export GO111MODULE=on
-	export GOPROXY=https://goproxy.io
+	export GOPROXY=http$(TOPDIR)/feeds/packagesoproxy.io
 endif
 
-define Package/xray-plugin
+define Packa$(TOPDIR)/feeds/packagesay-plugin
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=SIP003 plugin for Shadowsocks, based on Xray
-	URL:=https://github.com/teddysun/xray-plugin
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesddys$(TOPDIR)/feeds/packagesay-plugin
 	DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Package/xray-plugin/description
+define Packa$(TOPDIR)/feeds/packagesay-plug$(TOPDIR)/feeds/packagesscription
 	Yet another SIP003 plugin for Shadowsocks, based on Xray.
 endef
 
-define Build/Compile
-	$(call GoPackage/Build/Compile)
+define Bui$(TOPDIR)/feeds/packagesmpile
+	$(call GoPacka$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesmpile)
 ifneq ($(CONFIG_XRAY_PLUGIN_COMPRESS_UPX),)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/xray-plugin
+	$(STAGING_DIR_HOS$(TOPDIR)/feeds/packagesn/upx --lzma --best $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesay-plugin
 endif
 endef
 
-define Package/xray-plugin/install
-	$(call GoPackage/Package/Install/Bin,$(1))
+define Packa$(TOPDIR)/feeds/packagesay-plug$(TOPDIR)/feeds/packagesstall
+	$(call GoPacka$(TOPDIR)/feeds/packagescka$(TOPDIR)/feeds/packagessta$(TOPDIR)/feeds/packagesn,$(1))
 ifneq ($(CONFIG_XRAY_PLUGIN_PROVIDE_V2RAY_PLUGIN),)
-	$(LN) xray-plugin $(1)/usr/bin/v2ray-plugin
+	$(LN) xray-plugin $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesray-plugin
 endif
 endef
 

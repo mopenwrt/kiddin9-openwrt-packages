@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=UnblockNeteaseMusic
 PKG_VERSION:=0.25.3
 PKG_RELEASE:=6
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/nondanee/UnblockNeteaseMusic.git
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesndan$(TOPDIR)/feeds/packagesblockNeteaseMusic.git
 PKG_SOURCE_DATE:=2020-12-22
 PKG_SOURCE_VERSION:=b8d5f4b4fe59cef9c021b99f3cf2606d99fa4790
 PKG_MIRROR_HASH:=bd7fa102415ae8dbcd22829fce5ad0cd358a0869547c30f10271389e6c698317
@@ -21,34 +21,34 @@ PKG_MIRROR_HASH:=bd7fa102415ae8dbcd22829fce5ad0cd358a0869547c30f10271389e6c69831
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILE:=LICENSE
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/UnblockNeteaseMusic
+define Packa$(TOPDIR)/feeds/packagesblockNeteaseMusic
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
 	TITLE:=Revive Netease Cloud Music (NodeJS)
-	URL:=https://github.com/nondanee/UnblockNeteaseMusic
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesndan$(TOPDIR)/feeds/packagesblockNeteaseMusic
 	DEPENDS:=+node +libopenssl
 	PKGARCH:=all
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 	mkdir -p $(PKG_BUILD_DIR)
-	xzcat $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+	xzcat $(DL_DI$(TOPDIR)/feeds/packagesPKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 endef
 
-define Build/Configure
-	echo -e $(PKG_VERSION) > $(PKG_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)/core_ver
-	echo -e $(PKG_SOURCE_VERSION) > $(PKG_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)/local_ver
+define Bui$(TOPDIR)/feeds/packagesnfigure
+	echo -e $(PKG_VERSION) > $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSIO$(TOPDIR)/feeds/packagesre_ver
+	echo -e $(PKG_SOURCE_VERSION) > $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSIO$(TOPDIR)/feeds/packagescal_ver
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	true
 endef
 
-define Package/UnblockNeteaseMusic/install
-	$(INSTALL_DIR) $(1)/usr/share/UnblockNeteaseMusic
-	$(CP) $(PKG_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)/* $(1)/usr/share/UnblockNeteaseMusic
+define Packa$(TOPDIR)/feeds/packagesblockNeteaseMus$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesblockNeteaseMusic
+	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSIO$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesblockNeteaseMusic
 endef
 
 $(eval $(call BuildPackage,UnblockNeteaseMusic))

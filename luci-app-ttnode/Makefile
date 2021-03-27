@@ -4,15 +4,15 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 PKG_NAME:=luci-app-ttnode
 LUCI_PKGARCH:=all
 PKG_VERSION:=0.2
 PKG_RELEASE:=20210121
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/luci-app-ttnode
+define Packa$(TOPDIR)/feeds/packagesci-app-ttnode
  	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -21,43 +21,43 @@ define Package/luci-app-ttnode
 	DEPENDS:=+luasocket +lua-md5 +lua-cjson +luasec
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/$(PKG_NAME)/conffiles
-/etc/config/ttnode
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesnode
 endef
 
-define Package/luci-app-ttnode/install
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) ./root/etc/config/ttnode $(1)/etc/config/ttnode
+define Packa$(TOPDIR)/feeds/packagesci-app-ttno$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesnode $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesnode
 
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./root/etc/init.d/* $(1)/etc/init.d/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/init.d/
 
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_BIN) ./root/etc/uci-defaults/* $(1)/etc/uci-defaults/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/uci-defaults/
 
-	$(INSTALL_DIR) $(1)/usr/share/ttnode
-	$(INSTALL_BIN) ./root/usr/share/ttnode/*.lua $(1)/usr/share/ttnode/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesnode
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesno$(TOPDIR)/feeds/packageslua $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesnode/
 
-	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
-	$(INSTALL_DATA) ./root/usr/share/rpcd/acl.d/* $(1)/usr/share/rpcd/acl.d
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d
 
-	$(INSTALL_DIR) $(1)/www/ttnode
-	$(INSTALL_DATA) ./root//www/ttnode/* $(1)/www/ttnode
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesw/ttnode
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesno$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesw/ttnode
 
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-	$(INSTALL_DATA) ./luasrc/controller/* $(1)/usr/lib/lua/luci/controller/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller/
 
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi/ttnode
-	$(INSTALL_DATA) ./luasrc/model/cbi/ttnode/* $(1)/usr/lib/lua/luci/model/cbi/ttnode/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/ttnode
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/ttno$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/ttnode/
 
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/ttnode
-	$(INSTALL_DATA) ./luasrc/view/ttnode/* $(1)/usr/lib/lua/luci/view/ttnode/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesnode
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesno$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesnode/
 endef
 
 $(eval $(call BuildPackage,luci-app-ttnode))

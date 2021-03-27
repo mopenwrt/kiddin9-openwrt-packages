@@ -3,7 +3,7 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 LUCI_TITLE:=LuCI support for wol From sundaqiang
 LUCI_DEPENDS:=+etherwake
@@ -11,6 +11,6 @@ LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
 PKG_RELEASE:=1-20201225
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

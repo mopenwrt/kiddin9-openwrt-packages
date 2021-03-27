@@ -3,18 +3,18 @@
 # This is free software, licensed under the GNU General Public License v3.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-passwall
 PKG_VERSION:=4
 PKG_RELEASE:=18
 PKG_DATE:=20210325
 
-PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_BUILD_DIR := $(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSION)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)/config
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
 menu "Configuration"
 	
 config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks
@@ -80,7 +80,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_simple-obfs
 endmenu
 endef
 
-define Package/$(PKG_NAME)
+define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
   TITLE:=LuCI support for PassWall
@@ -110,57 +110,57 @@ define Package/$(PKG_NAME)
   +PACKAGE_$(PKG_NAME)_INCLUDE_simple-obfs:simple-obfs
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
  
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
  
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/$(PKG_NAME)/conffiles
-/etc/config/passwall
-/etc/config/passwall_server
-/usr/share/passwall/rules/direct_host
-/usr/share/passwall/rules/direct_ip
-/usr/share/passwall/rules/proxy_host
-/usr/share/passwall/rules/proxy_ip
-/usr/share/passwall/rules/block_host
-/usr/share/passwall/rules/block_ip
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagessswall
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagessswall_server
+/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesrect_host
+/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesrect_ip
+/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesoxy_host
+/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesoxy_ip
+/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesock_host
+/u$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesock_ip
 endef
 
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) ./root/etc/config/passwall $(1)/etc/config/passwall
-	$(INSTALL_CONF) ./root/etc/config/passwall_server $(1)/etc/config/passwall_server
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessswall $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessswall
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessswall_server $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessswall_server
 	
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./root/etc/init.d/passwall $(1)/etc/init.d/passwall
-	$(INSTALL_BIN) ./root/etc/init.d/passwall_server $(1)/etc/init.d/passwall_server
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessswall $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessswall
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessswall_server $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessswall_server
 	
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_CONF) ./root/etc/uci-defaults/* $(1)/etc/uci-defaults
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/uci-defaults
 	
-	$(INSTALL_DIR) $(1)/usr/share/passwall
-	cp -pR ./root/usr/share/passwall/* $(1)/usr/share/passwall
-	$(INSTALL_CONF) ./root/etc/config/passwall $(1)/usr/share/passwall/config.default
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagessswall
+	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagessswall
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessswall $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packagesnfig.default
 	
-	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
-	cp -pR ./root/usr/share/rpcd/acl.d/* $(1)/usr/share/rpcd/acl.d
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d
+	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d
 	
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci
-	cp -pR ./luasrc/* $(1)/usr/lib/lua/luci/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+	cp -pR$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci/
 	
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	po2lmo ./po/zh_Hans/passwall.po $(1)/usr/lib/lua/luci/i18n/passwall.zh-cn.lmo
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
+	po2lmo$(TOPDIR)/feeds/packages/zh-$(TOPDIR)/feeds/packagessswall.po $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagessswall.zh-cn.lmo
 endef
 
-define Package/$(PKG_NAME)/postinst
-#!/bin/sh
-chmod a+x $${IPKG_INSTROOT}/usr/share/passwall/* >/dev/null 2>&1
-chmod a+x $${IPKG_INSTROOT}/usr/lib/lua/luci/model/cbi/passwall/server/api/app.lua >/dev/null 2>&1
-touch $${IPKG_INSTROOT}/etc/config/passwall_show >/dev/null 2>&1
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
+chmod a+x $${IPKG_INSTROO$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagessswa$(TOPDIR)/feeds/packages>/d$(TOPDIR)/feeds/packagesll 2>&1
+chmod a+x $${IPKG_INSTROO$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/passwa$(TOPDIR)/feeds/packagesrv$(TOPDIR)/feeds/packagesi/app.lua$(TOPDIR)/feeds/packagesv/null 2>&1
+touch $${IPKG_INSTROO$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessswall_show$(TOPDIR)/feeds/packagesv/null 2>&1
 exit 0
 endef
 

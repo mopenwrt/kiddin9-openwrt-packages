@@ -1,4 +1,4 @@
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-proto-minieap
 PKG_VERSION:=2.1
@@ -11,6 +11,6 @@ LUCI_TITLE:=LuCI support for MiniEAP
 LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

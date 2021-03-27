@@ -1,25 +1,25 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=naiveproxy
 PKG_VERSION:=89.0.4389.72-1
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/klzgrad/naiveproxy/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packageszgr$(TOPDIR)/feeds/packagesivepro$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packages(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=BSD 3-Clause
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
 
-PKG_BUILD_DEPENDS:=ncurses/host ninja/host python3/host
+PKG_BUILD_DEPENDS:=ncurs$(TOPDIR)/feeds/packagesst nin$(TOPDIR)/feeds/packagesst pytho$(TOPDIR)/feeds/packagesst
 PKG_USE_MIPS16:=0
 PKG_BUILD_PARALLEL:=1
 
@@ -34,22 +34,22 @@ else
 	CPU_SUBTYPE:=""
 endif
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/naiveproxy/config
+define Packa$(TOPDIR)/feeds/packagesivepro$(TOPDIR)/feeds/packagesnfig
 	depends on !(arc||armeb||mips||mips64||powerpc)
 endef
 
-define Package/naiveproxy
+define Packa$(TOPDIR)/feeds/packagesiveproxy
 	SECTION:=net
 	CATEGORY:=Network
-	SUBMENU:=Web Servers/Proxies
-	URL:=https://github.com/klzgrad/naiveproxy
+	SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packageszgr$(TOPDIR)/feeds/packagesiveproxy
 	TITLE:=Make a fortune quietly
 	DEPENDS:=+libatomic +libnss
 endef
 
-define Package/naiveproxy/description
+define Packa$(TOPDIR)/feeds/packagesivepro$(TOPDIR)/feeds/packagesscription
 	NaïveProxy uses Chrome's network stack to camouflage traffic with strong
 	censorship resistance and low detectability. Reusing Chrome's stack also
 	ensures best practices in performance and security.
@@ -57,16 +57,16 @@ endef
 
 ifneq ($(CONFIG_CCACHE),)
 	export CCACHE_SLOPPINESS=time_macros
-	export CCACHE_BASEDIR=$(PKG_BUILD_DIR)/src
+	export CCACHE_BASEDIR=$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc
 	export CCACHE_CPP2=yes
 	export naive_ccache_flags=cc_wrapper="ccache"
 endif
 
 AFDO_VER:=89.0.4389.65_rc-r1-merged
 AFDO_FILE:=chromeos-chrome-amd64-$(AFDO_VER).afdo.bz2
-define Download/AFDO_PROF
-	URL:=https://storage.googleapis.com.cnpmjs.org/chromeos-prebuilt/afdo-job/llvm \
-	     https://storage.googleapis.com/chromeos-prebuilt/afdo-job/llvm
+define Downlo$(TOPDIR)/feeds/packagesDO_PROF
+	URL:=http$(TOPDIR)/feeds/packagestorage.googleapis.com.cnpmjs.o$(TOPDIR)/feeds/packagesromeos-prebui$(TOPDIR)/feeds/packagesdo-j$(TOPDIR)/feeds/packagesvm \
+	     http$(TOPDIR)/feeds/packagestorage.googleapis.c$(TOPDIR)/feeds/packagesromeos-prebui$(TOPDIR)/feeds/packagesdo-j$(TOPDIR)/feeds/packagesvm
 	URL_FILE:=$(AFDO_FILE)
 	FILE:=$(AFDO_FILE)
 	HASH:=75a176d57c9b5fb12bff7e9442ddf21226df8aa25de19266f7ceb426eafd3421
@@ -74,8 +74,8 @@ endef
 
 CLANG_VER:=llvmorg-12-init-16296-g5e476061-1
 CLANG_FILE:=clang-$(CLANG_VER).tgz
-define Download/CLANG
-	URL:=https://commondatastorage.googleapis.com/chromium-browser-clang/Linux_x64
+define Downlo$(TOPDIR)/feeds/packagesANG
+	URL:=http$(TOPDIR)/feeds/packagesommondatastorage.googleapis.c$(TOPDIR)/feeds/packagesromium-browser-cla$(TOPDIR)/feeds/packagesnux_x64
 	URL_FILE:=$(CLANG_FILE)
 	FILE:=$(CLANG_FILE)
 	HASH:=78729dfab39fb9d52ede2841e408cf505959b26a5d0b086ed7cf4f784f2b393a
@@ -83,8 +83,8 @@ endef
 
 GN_VER:=595e3be7c8381d4eeefce62a63ec12bae9ce5140
 GN_FILE:=gn-git_revision-$(GN_VER).zip
-define Download/GN_TOOL
-	URL:=https://chrome-infra-packages.appspot.com/dl/gn/gn/linux-amd64/+
+define Downlo$(TOPDIR)/feeds/packages_TOOL
+	URL:=http$(TOPDIR)/feeds/packageshrome-infra-packages.appspot.c$(TOPDIR)/feeds/packages/$(TOPDIR)/feeds/packages/linux-amd64/+
 	URL_FILE:=git_revision:$(GN_VER)
 	FILE:=$(GN_FILE)
 	HASH:=9d61dcab3814868786768c9dfab71e0cd850a61dbad9a049536d2f1aae784fe4
@@ -92,45 +92,45 @@ endef
 
 PGO_VER:=4389-1614333145-3fb545b30f8abc065d64d3b5af88abd66c7abb5e
 PGO_FILE:=chrome-linux-$(PGO_VER).profdata
-define Download/PGO_PROF
-	URL:=https://storage.googleapis.com.cnpmjs.org/chromium-optimization-profiles/pgo_profiles \
-	     https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles
+define Downlo$(TOPDIR)/feeds/packagesO_PROF
+	URL:=http$(TOPDIR)/feeds/packagestorage.googleapis.com.cnpmjs.o$(TOPDIR)/feeds/packagesromium-optimization-profil$(TOPDIR)/feeds/packageso_profiles \
+	     http$(TOPDIR)/feeds/packagestorage.googleapis.c$(TOPDIR)/feeds/packagesromium-optimization-profil$(TOPDIR)/feeds/packageso_profiles
 	URL_FILE:=$(PGO_FILE)
 	FILE:=$(PGO_FILE)
 	HASH:=2dafccee5abb30bcc2dc627cfd8af203cac17b522f66e3e4a90301a70d237ce1
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
+define Bui$(TOPDIR)/feeds/packagesepare
+	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
 
 	( \
-		cd $(PKG_BUILD_DIR)/src ; \
-		bzip2 -cd > "chrome/android/profiles/afdo.prof" < "$(DL_DIR)/$(AFDO_FILE)" ; \
-		mkdir -p "chrome/build/pgo_profiles" ; \
-		$(CP) "$(DL_DIR)/$(PGO_FILE)" "chrome/build/pgo_profiles" ; \
-		mkdir -p "third_party/llvm-build/Release+Asserts" ; \
-		$(TAR) -xzf "$(DL_DIR)/$(CLANG_FILE)" -C "third_party/llvm-build/Release+Asserts" ; \
-		mkdir -p "gn/out" ; \
-		unzip -o "$(DL_DIR)/$(GN_FILE)" -d "gn/out" ; \
+		cd $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc ; \
+		bzip2 -cd > "chro$(TOPDIR)/feeds/packagesdro$(TOPDIR)/feeds/packagesofil$(TOPDIR)/feeds/packagesdo.prof" < "$(DL_DI$(TOPDIR)/feeds/packagesAFDO_FILE)" ; \
+		mkdir -p "chro$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packageso_profiles" ; \
+		$(CP) "$(DL_DI$(TOPDIR)/feeds/packagesPGO_FILE)" "chro$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packageso_profiles" ; \
+		mkdir -p "third_par$(TOPDIR)/feeds/packagesvm-bui$(TOPDIR)/feeds/packageslease+Asserts" ; \
+		$(TAR) -xzf "$(DL_DI$(TOPDIR)/feeds/packagesCLANG_FILE)" -C "third_par$(TOPDIR)/feeds/packagesvm-bui$(TOPDIR)/feeds/packageslease+Asserts" ; \
+		mkdir -p "$(TOPDIR)/feeds/packagest" ; \
+		unzip -o "$(DL_DI$(TOPDIR)/feeds/packagesGN_FILE)" -d "$(TOPDIR)/feeds/packagest" ; \
 	)
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 ( \
-	cd "$(PKG_BUILD_DIR)/src" ; \
-	. ../init_env.sh "$(ARCH)" "$(BOARD)" $(CPU_TYPE) $(CPU_SUBTYPE) "$(TOOLCHAIN_DIR)" ; \
-	export naive_flags="$$$${naive_flags} pgo_data_path=\"$(PKG_BUILD_DIR)/src/chrome/build/pgo_profiles/$(PGO_FILE)\"" ; \
+	cd "$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc" ; \
+	. $(TOPDIR)/feeds/packagesit_env.sh "$(ARCH)" "$(BOARD)" $(CPU_TYPE) $(CPU_SUBTYPE) "$(TOOLCHAIN_DIR)" ; \
+	export naive_flags="$$$${naive_flags} pgo_data_path=\"$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc/chro$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packageso_profil$(TOPDIR)/feeds/packagesPGO_FILE)\"" ; \
 	export naive_flags="$$$${naive_flags} $$$${naive_ccache_flags}" ; \
 	export OP_STAGING_DIR="$(STAGING_DIR)" ; \
 	mkdir -p "out" ; \
-	./gn/out/gn gen "out/Release" --args="$$$${naive_flags}" --script-executable="$(STAGING_DIR_HOSTPKG)/bin/python3" ; \
-	$(STAGING_DIR_HOSTPKG)/bin/ninja -C "out/Release" naive ; \
+$(TOPDIR)/feeds/packages/o$(TOPDIR)/feeds/packages gen "o$(TOPDIR)/feeds/packageslease" --args="$$$${naive_flags}" --script-executable="$(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/python3" ; \
+	$(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/ninja -C "o$(TOPDIR)/feeds/packageslease" naive ; \
 )
 endef
 
-define Package/naiveproxy/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/out/Release/naive $(1)/usr/bin/naive
+define Packa$(TOPDIR)/feeds/packagesivepro$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc/o$(TOPDIR)/feeds/packageslea$(TOPDIR)/feeds/packagesive $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesive
 endef
 
 $(eval $(call Download,AFDO_PROF))

@@ -3,7 +3,7 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-turboacc
 PKG_VERSION:=1.0
@@ -11,7 +11,7 @@ PKG_RELEASE:=2
 
 PKG_LICENSE:=GPLv3.0+
 
-LUCI_TITLE:=LuCI support for Flow Offload / Shortcut-FE
+LUCI_TITLE:=LuCI support for Flow Offloa$(TOPDIR)/feeds/packageshortcut-FE
 LUCI_DEPENDS:=+pdnsd-alt \
               +PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe:kmod-fast-classifier \
               +PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload:kmod-ipt-offload \
@@ -19,7 +19,7 @@ LUCI_DEPENDS:=+pdnsd-alt \
               +PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder:dnsforwarder
 LUCI_PKGARCH:=all
 
-define Package/$(PKG_NAME)/config
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
 config PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload
 	bool "Include Flow Offload"
 	depends on PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe=n
@@ -44,6 +44,6 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_bbr-cca \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

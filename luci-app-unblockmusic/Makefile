@@ -4,7 +4,7 @@
 #
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-unblockmusic
 PKG_VERSION:=2.3.5
@@ -14,10 +14,10 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_UnblockNeteaseMusic_Go \
 	CONFIG_UnblockNeteaseMusic_NodeJS
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)/config
-  source "$(SOURCE)/Config.in"
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
+  source "$(SOURC$(TOPDIR)/feeds/packagesnfig.in"
 endef
 
 PKG_LICENSE:=Apache-2.0
@@ -28,7 +28,7 @@ LUCI_PKGARCH:=all
 
 PKG_MAINTAINER:=lean
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

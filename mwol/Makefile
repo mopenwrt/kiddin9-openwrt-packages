@@ -3,20 +3,20 @@
 # 微信公众号【WiFi物联网】
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=mwol
 PKG_VERSION:=1.0.0
 PKG_RELEASE=2
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/Mleaf/mwol.git
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesol.git
 PKG_SOURCE_DATE:=2020-01-08
 PKG_SOURCE_VERSION:=59f9805901b4ac2916a0273ffbc29197fcd17a62
 PKG_MIRROR_HASH:=64f88b81ed88b1695f240fe4c0414bd32a5cf6e53ea008c67713ae8315ff3d0d
@@ -27,34 +27,34 @@ PKG_MAINTAINER:=mleaf <mleaf90@gmail.com>
 
 PKG_BUILD_PARALLEL:=1
 
-include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesake.mk
 
-define Package/mwol
+define Packa$(TOPDIR)/feeds/packagesol
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+libpthread +libmosquitto-ssl +luci-lib-json +libopenssl
   TITLE:=MQTT Wake On Lan
-  URL:=http://www.mleaf.org
+  URL:=htt$(TOPDIR)/feeds/packagesww.mleaf.org
 endef
 
-define Package/mwol/description
+define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesscription
 	mwol is a project that uses mqtt to implement reverse proxy and wake up the computer.
 endef
 
-define Package/mwol/install
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/mwol $(1)/usr/sbin/mwol
+define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesol $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesol
 
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) files/mwol.config $(1)/etc/config/mwol
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) files/mwol.init $(1)/etc/init.d/mwol
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_DATA) fil$(TOPDIR)/feeds/packagesol.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesol
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN) fil$(TOPDIR)/feeds/packagesol.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesol
 
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) files/mwol_config_json $(1)/usr/sbin/mwol_config_json
-	$(INSTALL_DIR) $(1)/usr/share/mwol/ssl
-	$(CP) files/ssl/* $(1)/usr/share/mwol/ssl/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_BIN) fil$(TOPDIR)/feeds/packagesol_config_json $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesol_config_json
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl
+	$(CP) fil$(TOPDIR)/feeds/packagesl/* $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl/
 endef
 
 $(eval $(call BuildPackage,mwol))

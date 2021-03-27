@@ -2,17 +2,17 @@
 # Copyright (C) 2017-2019 Jian Chang <aa65535@live.com>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=simple-obfs
 PKG_VERSION:=0.0.5
 PKG_RELEASE:=4
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/shadowsocks/simple-obfs.git
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsoc$(TOPDIR)/feeds/packagesmple-obfs.git
 PKG_MIRROR_HASH:=ea8f2b9825bbb87d5d860524e29bade265141687338db2dbf7ecd32690cf02fc
 PKG_SOURCE_VERSION:=486bebd9208539058e57e23a12f23103016e09b4
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION)
@@ -22,7 +22,7 @@ PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Jian Chang <aa65535@live.com>
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesBUILD_VARIAN$(TOPDIR)/feeds/packagesPKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION)
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -32,19 +32,19 @@ PKG_BUILD_DEPENDS:=libev
 
 PKG_CONFIG_DEPENDS:= CONFIG_SIMPLE_OBFS_STATIC_LINK
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/simple-obfs
+define Packa$(TOPDIR)/feeds/packagesmple-obfs
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=Simple-obfs
-	URL:=https://github.com/shadowsocks/simple-obfs
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesadowsoc$(TOPDIR)/feeds/packagesmple-obfs
 	DEPENDS:=+libpthread +!SIMPLE_OBFS_STATIC_LINK:libev
 endef
 
-Package/simple-obfs-server = $(Package/simple-obfs)
+Packa$(TOPDIR)/feeds/packagesmple-obfs-server = $(Packa$(TOPDIR)/feeds/packagesmple-obfs)
 
-define Package/simple-obfs-server/config
+define Packa$(TOPDIR)/feeds/packagesmple-obfs-serv$(TOPDIR)/feeds/packagesnfig
 menu "Simple-obfs Compile Configuration"
 	depends on PACKAGE_simple-obfs || PACKAGE_simple-obfs-server
 	config SIMPLE_OBFS_STATIC_LINK
@@ -53,11 +53,11 @@ menu "Simple-obfs Compile Configuration"
 endmenu
 endef
 
-define Package/simple-obfs/description
+define Packa$(TOPDIR)/feeds/packagesmple-ob$(TOPDIR)/feeds/packagesscription
 Simple-obfs is a simple obfusacting tool, designed as plugin server of shadowsocks.
 endef
 
-Package/simple-obfs-server/description = $(Package/simple-obfs/description)
+Packa$(TOPDIR)/feeds/packagesmple-obfs-serv$(TOPDIR)/feeds/packagesscription = $(Packa$(TOPDIR)/feeds/packagesmple-ob$(TOPDIR)/feeds/packagesscription)
 
 CONFIGURE_ARGS += \
 	--disable-ssp \
@@ -66,18 +66,18 @@ CONFIGURE_ARGS += \
 
 ifeq ($(CONFIG_SIMPLE_OBFS_STATIC_LINK),y)
 	CONFIGURE_ARGS += \
-		--with-ev="$(STAGING_DIR)/usr" \
+		--with-ev="$(STAGING_DI$(TOPDIR)/feeds/packagesr" \
 		LDFLAGS="-Wl,-static -static -static-libgcc"
 endif
 
-define Package/simple-obfs/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/obfs-local $(1)/usr/bin
+define Packa$(TOPDIR)/feeds/packagesmple-ob$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc/obfs-local $($(TOPDIR)/feeds/packagesr/bin
 endef
 
-define Package/simple-obfs-server/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/obfs-server $(1)/usr/bin
+define Packa$(TOPDIR)/feeds/packagesmple-obfs-serv$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesc/obfs-server $($(TOPDIR)/feeds/packagesr/bin
 endef
 
 $(eval $(call BuildPackage,simple-obfs))

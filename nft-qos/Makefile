@@ -2,10 +2,10 @@
 # Copyright (C) 2018 rosysong@rosinson.com
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=nft-qos
 PKG_VERSION:=1.0.6
@@ -14,11 +14,11 @@ PKG_LICENSE:=GPL-2.0
 
 PKG_MAINTAINER:=Rosy Song <rosysong@rosinson.com>
 
-PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR := $(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/nft-qos
+define Packa$(TOPDIR)/feeds/packagest-qos
   SECTION:=utils
   CATEGORY:=Base system
   DEPENDS:=+nftables +kmod-nft-netdev +kmod-nft-bridge
@@ -26,34 +26,34 @@ define Package/nft-qos
   PKGARCH:=all
 endef
 
-define Package/nft-qos/description
+define Packa$(TOPDIR)/feeds/packagest-q$(TOPDIR)/feeds/packagesscription
  This package provides implementation for qos over nftables.
- Currently, static/dynamic qos and traffic shaping are supported.
+ Currently, stat$(TOPDIR)/feeds/packagesnamic qos and traffic shaping are supported.
 endef
 
-define Package/nft-qos/conffiles
-/etc/config/nft-qos
+define Packa$(TOPDIR)/feeds/packagest-q$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagest-qos
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/nft-qos/install
-	$(INSTALL_DIR) $(1)/lib/nft-qos
-	$(INSTALL_DATA) ./files/lib/* $(1)/lib/nft-qos/
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) ./files/nft-qos.config $(1)/etc/config/nft-qos
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/nft-qos.init $(1)/etc/init.d/nft-qos
-	$(INSTALL_DIR) $(1)/etc/hotplug.d/dhcp
-	$(INSTALL_BIN) ./files/nft-qos-monitor.hotplug $(1)/etc/hotplug.d/dhcp/00-nft-qos-monitor
-	$(INSTALL_BIN) ./files/nft-qos-dynamic.hotplug $(1)/etc/hotplug.d/dhcp/01-nft-qos-dynamic
+define Packa$(TOPDIR)/feeds/packagest-q$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/nft-qos
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesb/* $($(TOPDIR)/feeds/packagesb/nft-qos/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagest-qos.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagest-qos
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagest-qos.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagest-qos
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagescp
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagest-qos-monitor.hotplug $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages-nft-qos-monitor
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagest-qos-dynamic.hotplug $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages-nft-qos-dynamic
 endef
 
 $(eval $(call BuildPackage,nft-qos))

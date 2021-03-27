@@ -1,5 +1,5 @@
-# Based partially on (wongsyrone/hbl0307106015) versions
-include $(TOPDIR)/rules.mk
+# Based partially on (wongsyro$(TOPDIR)/feeds/packagesl0307106015) versions
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=samba
 PKG_VERSION:=4.11.6
@@ -7,22 +7,22 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
-		https://ftp.gwdg.de/pub/samba/stable/ \
-		https://ftp.heanet.ie/mirrors/ftp.samba.org/stable/ \
-		https://ftp.riken.jp/net/samba/samba/stable/ \
-		http://www.nic.funet.fi/index/samba/pub/samba/stable/ \
-		http://samba.mirror.bit.nl/samba/ftp/stable/ \
-		https://download.samba.org/pub/samba/stable/
+		http$(TOPDIR)/feeds/packagestp.gwdg.$(TOPDIR)/feeds/packagesb/sam$(TOPDIR)/feeds/packagesab$(TOPDIR)/feeds/packages
+		http$(TOPDIR)/feeds/packagestp.heanet.$(TOPDIR)/feeds/packagesrro$(TOPDIR)/feeds/packagesp.samba.o$(TOPDIR)/feeds/packagesab$(TOPDIR)/feeds/packages
+		http$(TOPDIR)/feeds/packagestp.riken.$(TOPDIR)/feeds/packagest/sam$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesab$(TOPDIR)/feeds/packages
+		htt$(TOPDIR)/feeds/packagesww.nic.funet.$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesb/sam$(TOPDIR)/feeds/packagesab$(TOPDIR)/feeds/packages
+		htt$(TOPDIR)/feeds/packagesamba.mirror.bit.$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesp/stab$(TOPDIR)/feeds/packages
+		http$(TOPDIR)/feeds/packagesownload.samba.o$(TOPDIR)/feeds/packagesb/sam$(TOPDIR)/feeds/packagesable/
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Andy Walsh <andy.walsh44+github@gmail.com>
 PKG_LICENSE:=GPL-3.0-only
 PKG_LICENSE_FILES:=COPYING
-PKG_CPE_ID:=cpe:/a:samba:samba
+PKG_CPE_ID:=cp$(TOPDIR)/feeds/packagessamba:samba
 
 # samba4=(asn1_compile,compile_et) rpcsvc-proto=(rpcgen)
-HOST_BUILD_DEPENDS:=python3/host perl/host
-PKG_BUILD_DEPENDS:=samba4/host libtasn1/host rpcsvc-proto/host
+HOST_BUILD_DEPENDS:=pytho$(TOPDIR)/feeds/packagesst pe$(TOPDIR)/feeds/packagesst
+PKG_BUILD_DEPENDS:=samb$(TOPDIR)/feeds/packagesst libtas$(TOPDIR)/feeds/packagesst rpcsvc-pro$(TOPDIR)/feeds/packagesst
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_SAMBA4_SERVER_NETBIOS \
@@ -33,31 +33,31 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_kmod-fs-btrfs \
 	CONFIG_PACKAGE_kmod-fs-xfs
 
-include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
-include $(INCLUDE_DIR)/kernel.mk
-include $(INCLUDE_DIR)/version.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-host.mk
-#include $(TOPDIR)/feeds/packages/lang/python/python-package.mk
-include $(TOPDIR)/feeds/packages/lang/python/python3-package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesst-build.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrsion.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesckag$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesth$(TOPDIR)/feeds/packagesthon3-host.mk
+#include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesckag$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesth$(TOPDIR)/feeds/packagesthon-package.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packagesckag$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesth$(TOPDIR)/feeds/packagesthon3-package.mk
 
-define Package/samba4/Default
+define Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfault
   SECTION:=net
   CATEGORY:=Network
   TITLE:=Samba $(PKG_VERSION)
-  URL:=https://www.samba.org/
+  URL:=http$(TOPDIR)/feeds/packagesww.samba.org/
 endef
 
-define Package/samba4/Default/description
+define Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfau$(TOPDIR)/feeds/packagesscription
   The Samba software suite is a collection of programs that implements the
-  SMB/CIFS protocol for UNIX systems, allowing you to serve files and printers.
+  S$(TOPDIR)/feeds/packagesFS protocol for UNIX systems, allowing you to serve files and printers.
 
   Samba 4 implements up-to protocol version SMB v3.1.1 (Win10), supports mDNS via AVAHI and a AD-DC setup via krb5.
   NOTE: No cluster and printer support.
 endef
 
-define Package/samba4-libs
-  $(call Package/samba4/Default)
+define Packa$(TOPDIR)/feeds/packagesmba4-libs
+  $(call Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfault)
   TITLE+= libs
   DEPENDS:= +libtirpc +libreadline +libpopt +libcap +zlib +libgnutls +libtasn1 +libuuid +libopenssl +USE_GLIBC:libpthread \
 	+libpam \
@@ -67,45 +67,45 @@ define Package/samba4-libs
 	+SAMBA4_SERVER_AD_DC:python3-cryptodome +SAMBA4_SERVER_AD_DC:libopenldap +SAMBA4_SERVER_AD_DC:jansson +SAMBA4_SERVER_AD_DC:libarchive +SAMBA4_SERVER_AD_DC:acl +SAMBA4_SERVER_AD_DC:attr
 endef
 
-define Package/samba4-server
-  $(call Package/samba4/Default)
+define Packa$(TOPDIR)/feeds/packagesmba4-server
+  $(call Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfault)
   TITLE+= server
   DEPENDS:= +samba4-libs
   CONFLICTS:=samba36-server
 endef
 
-define Package/samba4-server/description
+define Packa$(TOPDIR)/feeds/packagesmba4-serv$(TOPDIR)/feeds/packagesscription
   installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smbcacls sharesec)
             (samba samba-tool ntlm_auth samba-gpupdate samba_dnsupdate samba_kcc samba_spnupdate samba_upgradedns samba_downgrade_db)
 
   This provides the basic fileserver service and is the minimum needed to serve file shares.
-  HINT: https://fitzcarraldoblog.wordpress.com/2016/10/17/a-correct-method-of-configuring-samba-for-browsing-smb-shares-in-a-home-network/
+  HINT: http$(TOPDIR)/feeds/packagesitzcarraldoblog.wordpress.c$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages/$(TOPDIR)/feeds/packagescorrect-method-of-configuring-samba-for-browsing-smb-shares-in-a-home-network/
 endef
 
-define Package/samba4-server/config
+define Packa$(TOPDIR)/feeds/packagesmba4-serv$(TOPDIR)/feeds/packagesnfig
   select PACKAGE_wsdd2
-  source "$(SOURCE)/Config.in"
+  source "$(SOURC$(TOPDIR)/feeds/packagesnfig.in"
 endef
 
-define Package/samba4-client
-  $(call Package/samba4/Default)
+define Packa$(TOPDIR)/feeds/packagesmba4-client
+  $(call Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfault)
   TITLE+= client
   DEPENDS:= +samba4-libs
 endef
 
-define Package/samba4-client/description
+define Packa$(TOPDIR)/feeds/packagesmba4-clie$(TOPDIR)/feeds/packagesscription
   installs: cifsdd smbclient smbget
 
   The smbclient program implements a simple ftp-like client for accessing SMB shares
 endef
 
-define Package/samba4-admin
-  $(call Package/samba4/Default)
+define Packa$(TOPDIR)/feeds/packagesmba4-admin
+  $(call Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfault)
   TITLE+= admin tools
   DEPENDS:= +samba4-libs
 endef
 
-define Package/samba4-admin/description
+define Packa$(TOPDIR)/feeds/packagesmba4-adm$(TOPDIR)/feeds/packagesscription
   installs: net smbcontrol profiles rpcclient dbwrap_tool eventlogadm
             ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch
             tdbbackup tdbdump tdbrestore tdbtool
@@ -113,19 +113,19 @@ define Package/samba4-admin/description
   Administration tools collection
 endef
 
-define Package/samba4-utils
-  $(call Package/samba4/Default)
+define Packa$(TOPDIR)/feeds/packagesmba4-utils
+  $(call Packa$(TOPDIR)/feeds/packagesmb$(TOPDIR)/feeds/packagesfault)
   TITLE+= utils
   DEPENDS:= +samba4-libs
 endef
 
-define Package/samba4-utils/description
+define Packa$(TOPDIR)/feeds/packagesmba4-uti$(TOPDIR)/feeds/packagesscription
   installs: smbstatus smbtree mvxattr smbtar smbcquotas
 
   Utilities collection
 endef
 
-TARGET_CFLAGS += $(FPIC) -ffunction-sections -fdata-sections -I$(STAGING_DIR)/usr/include/tirpc
+TARGET_CFLAGS += $(FPIC) -ffunction-sections -fdata-sections -I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesrpc
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 # dont mess with sambas private rpath!
 RSTRIP:=:
@@ -133,8 +133,8 @@ RSTRIP:=:
 CONFIGURE_VARS += \
 	CPP="$(TARGET_CROSS)cpp"
 
-CONFIGURE_CMD = ./buildtools/bin/waf
-HOST_CONFIGURE_CMD = ./buildtools/bin/waf
+CONFIGURE_CMD =$(TOPDIR)/feeds/packagesildtoo$(TOPDIR)/feeds/packagesn/waf
+HOST_CONFIGURE_CMD =$(TOPDIR)/feeds/packagesildtoo$(TOPDIR)/feeds/packagesn/waf
 
 # Strip options that WAF configure script does not recognize
 CONFIGURE_ARGS:=$(filter-out	\
@@ -213,7 +213,7 @@ HOST_CONFIGURE_ARGS += --disable-avahi --without-quotas --without-acl-support --
 	--without-dnsupdate --without-ads --without-ldap --without-ldb-lmdb
 HOST_CONFIGURE_VARS += python_LDFLAGS="" python_LIBDIR=""
 
-# Optional AES-NI support - https://lists.samba.org/archive/samba-technical/2017-September/122738.html
+# Optional AES-NI support - http$(TOPDIR)/feeds/packagesists.samba.o$(TOPDIR)/feeds/packageschi$(TOPDIR)/feeds/packagesmba-technic$(TOPDIR)/feeds/packages17-Septemb$(TOPDIR)/feeds/packages2738.html
 # Support for Nettle wasn't comitted
 ifdef CONFIG_TARGET_x86_64
 	CONFIGURE_ARGS += --accel-aes=intelaesni
@@ -222,10 +222,10 @@ else
 endif
 
 CONFIGURE_ARGS += \
-		--with-lockdir=/var/lock \
-		--with-logfilebase=/var/log \
-		--with-piddir=/var/run \
-		--with-privatedir=/etc/samba
+		--with-lockdi$(TOPDIR)/feeds/packagesr/lock \
+		--with-logfilebas$(TOPDIR)/feeds/packagesr/log \
+		--with-piddi$(TOPDIR)/feeds/packagesr/run \
+		--with-privatedi$(TOPDIR)/feeds/packagesc/samba
 
 # features
 ifeq ($(CONFIG_SAMBA4_SERVER_VFS),y)
@@ -245,7 +245,7 @@ ifeq ($(CONFIG_SAMBA4_SERVER_AD_DC),y)
 	CONFIGURE_ARGS += --without-winbind --without-ldb-lmdb --with-acl-support
 	CONFIGURE_VARS += \
 		PYTHON="$(HOST_PYTHON3_BIN)" \
-		PYTHON_CONFIG="$(STAGING_DIR)/host/bin/$(PYTHON3)-config"
+		PYTHON_CONFIG="$(STAGING_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesn/$(PYTHON3)-config"
 else
 	CONFIGURE_ARGS += --without-winbind --without-ads --without-ldap --without-ldb-lmdb --without-ad-dc \
 		--without-json --without-libarchive --disable-python --nopyc --nopyo --without-dnsupdate --without-acl-support
@@ -272,8 +272,8 @@ ifeq ($(CONFIG_SAMBA4_SERVER_AD_DC),y)
 	SAMBA4_AUTH_MODULES :=$(SAMBA4_AUTH_MODULES)auth_samba4,
 	SAMBA4_VFS_MODULES :=$(SAMBA4_VFS_MODULES)vfs_posixacl,
 	SAMBA4_VFS_MODULES_SHARED :=$(SAMBA4_VFS_MODULES_SHARED)vfs_audit,vfs_extd_audit,vfs_full_audit,vfs_acl_xattr,vfs_acl_tdb,
-	# vfs_zfsacl needs https://github.com/zfsonlinux/zfs/tree/master/include/sys/zfs_acl.h
-	# vfs_nfs4acl_xattr needs https://github.com/notriddle/libdrpc/blob/master/rpc/xdr.h
+	# vfs_zfsacl needs http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagessonlin$(TOPDIR)/feeds/packagess/tr$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesclu$(TOPDIR)/feeds/packagess/zfs_acl.h
+	# vfs_nfs4acl_xattr needs http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagestridd$(TOPDIR)/feeds/packagesbdr$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesc/xdr.h
 endif
 
 SAMBA4_MODULES :=${SAMBA4_VFS_MODULES}${SAMBA4_AUTH_MODULES}${SAMBA4_PDB_MODULES}
@@ -301,129 +301,129 @@ else
 endif
 CONFIGURE_ARGS += --private-libraries=$(SYSTEM_BUNDLED_LIBS)
 
-export COMPILE_ET=$(STAGING_DIR_HOSTPKG)/bin/compile_et_samba
-export ASN1_COMPILE=$(STAGING_DIR_HOSTPKG)/bin/asn1_compile_samba
+export COMPILE_ET=$(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/compile_et_samba
+export ASN1_COMPILE=$(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/asn1_compile_samba
 
 # we dont need GnuTLS for the host helpers
-define Host/Prepare
-	$(call Host/Prepare/Default)
-	$(SED) 's,mandatory=True,mandatory=False,g' $(HOST_BUILD_DIR)/wscript_configure_system_gnutls
+define Ho$(TOPDIR)/feeds/packagesepare
+	$(call Ho$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+	$(SED) 's,mandatory=True,mandatory=False,g' $(HOST_BUILD_DI$(TOPDIR)/feeds/packagescript_configure_system_gnutls
 endef
-define Host/Compile
+define Ho$(TOPDIR)/feeds/packagesmpile
 	(cd $(HOST_BUILD_DIR); \
-		./buildtools/bin/waf build \
+	$(TOPDIR)/feeds/packagesildtoo$(TOPDIR)/feeds/packagesn/waf build \
 		--targets=asn1_compile,compile_et \
 	)
 endef
 
-define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin/
+define Ho$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/
 	# add host tools suffix, prevent conflicts with krb5
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)/bin/asn1_compile $(STAGING_DIR_HOSTPKG)/bin/asn1_compile_samba
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)/bin/compile_et $(STAGING_DIR_HOSTPKG)/bin/compile_et_samba
+	$(INSTALL_BIN) $(HOST_BUILD_DI$(TOPDIR)/feeds/packagesn/asn1_compile $(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/asn1_compile_samba
+	$(INSTALL_BIN) $(HOST_BUILD_DI$(TOPDIR)/feeds/packagesn/compile_et $(STAGING_DIR_HOSTPK$(TOPDIR)/feeds/packagesn/compile_et_samba
 endef
 
-define Build/Prepare
-	$(Build/Prepare/Default)
+define Bui$(TOPDIR)/feeds/packagesepare
+	$(Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
 ifeq ($(CONFIG_SAMBA4_SERVER_AD_DC),)
 	# un-bundle dnspython
-	$(SED) '/"dns.resolver":/d' $(PKG_BUILD_DIR)/third_party/wscript
+	$(SED)$(TOPDIR)/feeds/packagesns.resolver$(TOPDIR)/feeds/packages $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesird_par$(TOPDIR)/feeds/packagescript
 	# unbundle iso8601
-	$(SED) '/"iso8601":/d' $(PKG_BUILD_DIR)/third_party/wscript
+	$(SED)$(TOPDIR)/feeds/packagesso8601$(TOPDIR)/feeds/packages $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesird_par$(TOPDIR)/feeds/packagescript
 endif
 endef
 
-define Build/Configure
-	$(CP) ./waf-cross-answers/$(ARCH).txt $(PKG_BUILD_DIR)/cross-answers.txt
-	echo 'Checking uname sysname type: "$(VERSION_DIST)"' >> $(PKG_BUILD_DIR)/cross-answers.txt
-	echo 'Checking uname machine type: "$(ARCH)"' >> $(PKG_BUILD_DIR)/cross-answers.txt
-	echo 'Checking uname release type: "$(LINUX_VERSION)"' >> $(PKG_BUILD_DIR)/cross-answers.txt
-	echo 'Checking uname version type: "$(VERSION_DIST) Linux-$(LINUX_VERSION) $(shell date +%Y-%m-%d)"' >> $(PKG_BUILD_DIR)/cross-answers.txt
-	# NOTE: special answers for freeBSD/CircleCI
-	echo 'Checking whether POSIX capabilities are available: OK' >> $(PKG_BUILD_DIR)/cross-answers.txt
-	echo 'checking for clnt_create(): OK' >> $(PKG_BUILD_DIR)/cross-answers.txt
-	$(call Build/Configure/Default)
+define Bui$(TOPDIR)/feeds/packagesnfigure
+	$(CP)$(TOPDIR)/feeds/packagesf-cross-answe$(TOPDIR)/feeds/packagesARCH).txt $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	echo 'Checking uname sysname type: "$(VERSION_DIST)"' >> $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	echo 'Checking uname machine type: "$(ARCH)"' >> $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	echo 'Checking uname release type: "$(LINUX_VERSION)"' >> $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	echo 'Checking uname version type: "$(VERSION_DIST) Linux-$(LINUX_VERSION) $(shell date +%Y-%m-%d)"' >> $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	# NOTE: special answers for freeB$(TOPDIR)/feeds/packagesrcleCI
+	echo 'Checking whether POSIX capabilities are available: OK' >> $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	echo 'checking for clnt_create(): OK' >> $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesoss-answers.txt
+	$(call Bui$(TOPDIR)/feeds/packagesnfigu$(TOPDIR)/feeds/packagesfault)
 endef
 
 # Build via "waf install", avoid the make wrapper. (Samba logic is 'waf install' = build + install)
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	(cd $(PKG_BUILD_DIR); \
-		./buildtools/bin/waf install \
+	$(TOPDIR)/feeds/packagesildtoo$(TOPDIR)/feeds/packagesn/waf install \
 		--jobs=$(shell nproc) \
 		--destdir="$(PKG_INSTALL_DIR)" \
 	)
 endef
 
 # No default install see above
-define Build/Install
+define Bui$(TOPDIR)/feeds/packagesstall
 endef
 
-define Package/samba4-libs/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.so* $(1)/usr/lib/
+define Packa$(TOPDIR)/feeds/packagesmba4-li$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
+	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesso* $($(TOPDIR)/feeds/packagesr/lib/
 	# rpath-install
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/samba $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesmba $($(TOPDIR)/feeds/packagesr/lib/
 endef
 
-define Package/samba4-client/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{cifsdd,smbclient,smbget} $(1)/usr/bin/
+define Packa$(TOPDIR)/feeds/packagesmba4-clie$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesifsdd,smbclient,smbget} $($(TOPDIR)/feeds/packagesr/bin/
 endef
 
-define Package/samba4-admin/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{net,smbcontrol,profiles,rpcclient,dbwrap_tool} $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{ldbadd,ldbdel,ldbedit,ldbmodify,ldbrename,ldbsearch} $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{tdbbackup,tdbdump,tdbrestore,tdbtool} $(1)/usr/bin/
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/eventlogadm $(1)/usr/sbin/
+define Packa$(TOPDIR)/feeds/packagesmba4-adm$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packageset,smbcontrol,profiles,rpcclient,dbwrap_tool} $($(TOPDIR)/feeds/packagesr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesdbadd,ldbdel,ldbedit,ldbmodify,ldbrename,ldbsearch} $($(TOPDIR)/feeds/packagesr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesdbbackup,tdbdump,tdbrestore,tdbtool} $($(TOPDIR)/feeds/packagesr/bin/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesentlogadm $($(TOPDIR)/feeds/packagesr/sbin/
 endef
 
-define Package/samba4-utils/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{smbstatus,smbtree,mvxattr,smbtar} $(1)/usr/bin/
+define Packa$(TOPDIR)/feeds/packagesmba4-uti$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesmbstatus,smbtree,mvxattr,smbtar} $($(TOPDIR)/feeds/packagesr/bin/
 ifeq ($(CONFIG_SAMBA4_SERVER_VFS),y)
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/smbcquotas $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesbcquotas $($(TOPDIR)/feeds/packagesr/bin/
 endif
 endef
 
-define Package/samba4-server/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{smbpasswd,pdbedit,testparm} $(1)/usr/bin/
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/smbd $(1)/usr/sbin/
+define Packa$(TOPDIR)/feeds/packagesmba4-serv$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesmbpasswd,pdbedit,testparm} $($(TOPDIR)/feeds/packagesr/bin/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesbd $($(TOPDIR)/feeds/packagesr/sbin/
 ifeq ($(CONFIG_SAMBA4_SERVER_NETBIOS),y)
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/nmbd $(1)/usr/sbin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/nmblookup $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesbd $($(TOPDIR)/feeds/packagesr/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesblookup $($(TOPDIR)/feeds/packagesr/bin/
 endif
 ifeq ($(CONFIG_SAMBA4_SERVER_AD_DC),y)
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/$(PYTHON3) $(1)/usr/lib/
-	$(INSTALL_DIR) $(1)/usr/share/
-	$(CP) $(PKG_INSTALL_DIR)/usr/share/samba $(1)/usr/share/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/lib
+	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesPYTHON3) $($(TOPDIR)/feeds/packagesr/lib/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/share/
+	$(CP) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesmba $($(TOPDIR)/feeds/packagesr/share/
 	# fix wrong hardcoded python3 location
-	$(SED) '1s,^#!/.*python3.*,#!/usr/bin/python3,' $(PKG_INSTALL_DIR)/usr/bin/samba-tool
-	$(SED) '1s,^#!/.*python3.*,#!/usr/bin/python3,' $(PKG_INSTALL_DIR)/usr/sbin/{samba-gpupdate,samba_dnsupdate,samba_kcc,samba_spnupdate,samba_upgradedns,samba_downgrade_db}
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{samba-tool,ntlm_auth,oLschema2ldif} $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{sharesec,smbcacls} $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{samba,samba-gpupdate,samba_dnsupdate,samba_kcc,samba_spnupdate,samba_upgradedns,samba_downgrade_db} $(1)/usr/sbin/
+	$(SED) '1s,^$(TOPDIR)/feeds/packagespython3.*,$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesthon3,' $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesmba-tool
+	$(SED) '1s,^$(TOPDIR)/feeds/packagespython3.*,$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesthon3,' $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesamba-gpupdate,samba_dnsupdate,samba_kcc,samba_spnupdate,samba_upgradedns,samba_downgrade_db}
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesamba-tool,ntlm_auth,oLschema2ldif} $($(TOPDIR)/feeds/packagesr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesharesec,smbcacls} $($(TOPDIR)/feeds/packagesr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesamba,samba-gpupdate,samba_dnsupdate,samba_kcc,samba_spnupdate,samba_upgradedns,samba_downgrade_db} $($(TOPDIR)/feeds/packagesr/sbin/
 endif
-	$(INSTALL_DIR) $(1)/etc/config $(1)/etc/samba $(1)/etc/init.d
-	$(INSTALL_CONF) ./files/samba.config $(1)/etc/config/samba4
-	$(INSTALL_DATA) ./files/smb.conf.template $(1)/etc/samba
-	$(INSTALL_BIN) ./files/samba.init $(1)/etc/init.d/samba4
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config $($(TOPDIR)/feeds/packagesc/samba $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesmba.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesmba4
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesb.conf.template $($(TOPDIR)/feeds/packagesc/samba
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesmba.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesmba4
 endef
 
-define Package/samba4-server/conffiles
-/etc/config/samba4
-/etc/samba/smb.conf.template
-/etc/samba/smb.conf
-/etc/samba/smbpasswd
-/etc/samba/secrets.tdb
-/etc/samba/passdb.tdb
-/etc/samba/lmhosts
-/etc/nsswitch.conf
-/etc/krb5.conf
+define Packa$(TOPDIR)/feeds/packagesmba4-serv$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesmba4
+/e$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesb.conf.template
+/e$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesb.conf
+/e$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesbpasswd
+/e$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagescrets.tdb
+/e$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packagesssdb.tdb
+/e$(TOPDIR)/feeds/packagesm$(TOPDIR)/feeds/packageshosts
+/e$(TOPDIR)/feeds/packagesswitch.conf
+/e$(TOPDIR)/feeds/packagesb5.conf
 endef
 
 $(eval $(call HostBuild))

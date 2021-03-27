@@ -1,5 +1,5 @@
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 LUCI_TITLE:=SYSU H3C 802.1X Client for LuCI
 LUCI_DEPENDS:=+sysuh3c
@@ -10,6 +10,6 @@ PKG_RELEASE:=3
 PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILES:=LICENSE
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

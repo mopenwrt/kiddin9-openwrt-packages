@@ -1,17 +1,17 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=rtl88x2bu
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=https://github.com/cilynx/rtl88x2bu.git
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesly$(TOPDIR)/feeds/packagesl88x2bu.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2021-01-21
 PKG_SOURCE_VERSION:=48e7c19c92a77554403e1347447f8e2cfd780228
@@ -23,29 +23,29 @@ PKG_MAINTAINTER:=ElonH <elonh@immortalwrt.org>
 
 PKG_BUILD_PARALLEL:=1
 
-STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backport/autoconf.h
+STAMP_CONFIGURED_DEPENDS := $(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesc80211-backpo$(TOPDIR)/feeds/packagesckpo$(TOPDIR)/feeds/packagestoconf.h
 
-include $(INCLUDE_DIR)/kernel.mk
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define KernelPackage/rtl88x2bu
+define KernelPacka$(TOPDIR)/feeds/packagesl88x2bu
   SUBMENU:=Wireless Drivers
-  TITLE:=Realtek 8812BU/8822BU support
+  TITLE:=Realtek 8812$(TOPDIR)/feeds/packages22BU support
   DEPENDS:=+kmod-cfg80211 +kmod-usb-core +@DRIVER_11N_SUPPORT +@DRIVER_11AC_SUPPORT
-  FILES:=$(PKG_BUILD_DIR)/rtl88x2bu.ko
+  FILES:=$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesl88x2bu.ko
   AUTOLOAD:=$(call AutoProbe,rtl88x2bu)
   PROVIDES:=kmod-rtl88x2bu
 endef
 
 NOSTDINC_FLAGS = \
 	-I$(PKG_BUILD_DIR) \
-	-I$(PKG_BUILD_DIR)/include \
-	-I$(STAGING_DIR)/usr/include/mac80211-backport \
-	-I$(STAGING_DIR)/usr/include/mac80211-backport/uapi \
-	-I$(STAGING_DIR)/usr/include/mac80211 \
-	-I$(STAGING_DIR)/usr/include/mac80211/uapi \
-	-include backport/autoconf.h \
-	-include backport/backport.h
+	-I$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesclude \
+	-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesc80211-backport \
+	-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesc80211-backpo$(TOPDIR)/feeds/packagespi \
+	-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesc80211 \
+	-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesc802$(TOPDIR)/feeds/packagespi \
+	-include backpo$(TOPDIR)/feeds/packagestoconf.h \
+	-include backpo$(TOPDIR)/feeds/packagesckport.h
 
 EXTRA_CFLAGS:= \
 	-DRTW_SINGLE_WIPHY \
@@ -68,7 +68,7 @@ MAKE_OPTS:= \
 	USER_EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 	$(EXTRA_KCONFIG)
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	+$(MAKE) $(PKG_JOBS) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
 		modules

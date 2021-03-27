@@ -2,10 +2,10 @@
 # Copyright (C) 2010-2011 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 LUCI_TITLE:=LuCI Support for QoSv4.
 LUCI_DESCRIPTION:=An agent script that makes qosv4 configuration simple.
@@ -18,6 +18,6 @@ PKG_RELEASE:=2
 
 PKG_MAINTAINER:=qq 3341249
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

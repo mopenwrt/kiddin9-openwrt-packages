@@ -4,17 +4,17 @@
 # Licensed to the public under the Apache License 2.0.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=compressed-memory
 PKG_VERSION:=1.0
 PKG_RELEASE:=6
 
-PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR := $(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/compressed-memory
+define Packa$(TOPDIR)/feeds/packagesmpressed-memory
   SECTION:=utils
   CATEGORY:=Base system
   DEPENDS:= \
@@ -34,12 +34,12 @@ define Package/compressed-memory
   PKGARCH:=all
 endef
 
-define Package/compressed-memory/description
+define Packa$(TOPDIR)/feeds/packagesmpressed-memo$(TOPDIR)/feeds/packagesscription
  Installs a UCI file which contains pre-computed values for packages that belong
  to compressed-memory.
 endef
 
-define Package/swap-zram-writeback
+define Packa$(TOPDIR)/feeds/packagesap-zram-writeback
   SECTION:=utils
   CATEGORY:=Base system
   DEPENDS:= +compressed-memory \
@@ -51,7 +51,7 @@ define Package/swap-zram-writeback
   PKGARCH:=all
 endef
 
-define Package/swap-zram-writeback/description
+define Packa$(TOPDIR)/feeds/packagesap-zram-writeba$(TOPDIR)/feeds/packagesscription
  A script to activate compressed memory for a swap device. This can increase
  the total available memory by compressing the memory that is not accessed
  often (by using an algorith called LRU).
@@ -61,7 +61,7 @@ define Package/swap-zram-writeback/description
  trade-off for CPU cycles.
 endef
 
-define Package/swap-zswap-cache
+define Packa$(TOPDIR)/feeds/packagesap-zswap-cache
   SECTION:=utils
   CATEGORY:=Base system
   DEPENDS:= +compressed-memory \
@@ -71,47 +71,47 @@ define Package/swap-zswap-cache
   PKGARCH:=all
 endef
 
-define Package/swap-zswap-cache/description
+define Packa$(TOPDIR)/feeds/packagesap-zswap-cac$(TOPDIR)/feeds/packagesscription
  A script to activate compressed memory cache. This compressed cache will be
  depleted before it begins to evict memory pages to a slow (real) swap device.
 
- This can save good amounts of I/O to the swap device at the cost of CPU cycles
+ This can save good amounts of$(TOPDIR)/feeds/packagesto the swap device at the cost of CPU cycles
  and a percentage of the memory. As compressing memory may be cheaper than
- performing I/O, the system may run smoother under memory pressure.
+ performing$(TOPDIR)/feeds/packages the system may run smoother under memory pressure.
 
  If the pool is depleted and the system begins to starve, it will freeze as it
  does when swapping normally. The point of this package is to delay the point
  where it happens.
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/compressed-memory/install
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) ./files/compressed_memory.uci $(1)/etc/config/compressed_memory
+define Packa$(TOPDIR)/feeds/packagesmpressed-memo$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesmpressed_memory.uci $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesmpressed_memory
 endef
 
-define Package/swap-zram-writeback/install
-	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
-	$(INSTALL_BIN) ./files/hotplug.script $(1)/etc/hotplug.d/iface/99-zram
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/zram.init $(1)/etc/init.d/zram
-	$(INSTALL_DIR) $(1)/bin
-	$(INSTALL_BIN) ./files/zram.script $(1)/bin/zram
+define Packa$(TOPDIR)/feeds/packagesap-zram-writeba$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesace
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagestplug.script $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packages-zram
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesam.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesam
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesn
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesam.script $($(TOPDIR)/feeds/packagesn/zram
 endef
 
-define Package/swap-zswap-cache/install
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/zswap.init $(1)/etc/init.d/zswap
-	$(INSTALL_DIR) $(1)/bin
-	$(INSTALL_BIN) ./files/zswap.script $(1)/bin/zswap
+define Packa$(TOPDIR)/feeds/packagesap-zswap-cac$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packageswap.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packageswap
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesn
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packageswap.script $($(TOPDIR)/feeds/packagesn/zswap
 endef
 
 $(eval $(call BuildPackage,compressed-memory))

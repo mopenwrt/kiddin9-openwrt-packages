@@ -1,17 +1,17 @@
-include $(TOPDIR)/rules.mk
-include $(INCLUDE_DIR)/kernel.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel.mk
 
 PKG_NAME:=fast-classifier
 PKG_RELEASE:=1
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define KernelPackage/fast-classifier
+define KernelPacka$(TOPDIR)/feeds/packagesst-classifier
   SECTION:=kernel
   CATEGORY:=Kernel modules
   SUBMENU:=Network Support
   TITLE:=Kernel driver for FAST Classifier
-  FILES:=$(PKG_BUILD_DIR)/fast-classifier.ko
+  FILES:=$(PKG_BUILD_DI$(TOPDIR)/feeds/packagesst-classifier.ko
   KCONFIG:= \
 	CONFIG_NF_CONNTRACK_CHAIN_EVENTS=y \
 	CONFIG_NF_CONNTRACK_MARK=y
@@ -19,25 +19,25 @@ define KernelPackage/fast-classifier
   PROVIDES:=fast-classifier
 endef
 
-define KernelPackage/fast-classifier/description
+define KernelPacka$(TOPDIR)/feeds/packagesst-classifi$(TOPDIR)/feeds/packagesscription
   FAST Classifier talks to SFE to make decisions about offloading connections
 endef
 
-define Package/fast-classifier-example
+define Packa$(TOPDIR)/feeds/packagesst-classifier-example
   SECTION:=net
   CATEGORY:=Network
   TITLE:=Example user space program for fast-classifier
   DEPENDS:=+kmod-fast-classifier +libnl
 endef
 
-define Package/fast-classifier-example/description
+define Packa$(TOPDIR)/feeds/packagesst-classifier-examp$(TOPDIR)/feeds/packagesscription
   Example user space program that communicates with fast
   classifier kernel module.
 endef
 
 SFE_MAKE_OPTS:=SFE_SUPPORT_IPV6=y
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	+$(MAKE) $(PKG_JOBS) -C "$(LINUX_DIR)" $(strip $(SFE_MAKE_OPTS)) \
 		$(KERNEL_MAKE_FLAGS) \
 		$(PKG_MAKE_FLAGS) \
@@ -47,23 +47,23 @@ define Build/Compile
 		modules
 
 ifneq ($(CONFIG_PACKAGE_fast-classifier-example),)
-	$(TARGET_CC) -o $(PKG_BUILD_DIR)/userspace_fast_classifier \
+	$(TARGET_CC) -o $(PKG_BUILD_DI$(TOPDIR)/feeds/packageserspace_fast_classifier \
 		-I $(PKG_BUILD_DIR) \
-		-I$(STAGING_DIR)/usr/include/libnl \
-		-I$(STAGING_DIR)/usr/include/libnl3 \
+		-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesbnl \
+		-I$(STAGING_DI$(TOPDIR)/feeds/packagesr/inclu$(TOPDIR)/feeds/packagesbnl3 \
 		-lnl-genl-3 -lnl-3 \
-		$(PKG_BUILD_DIR)/nl_classifier_test.c
+		$(PKG_BUILD_DI$(TOPDIR)/feeds/packages_classifier_test.c
 endif
 endef
 
-define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include
-	$(CP) $(PKG_BUILD_DIR)/fast-classifier.h $(1)/usr/include/
+define Bui$(TOPDIR)/feeds/packagesstallDev
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/include
+	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesst-classifier.h $($(TOPDIR)/feeds/packagesr/include/
 endef
 
-define Package/fast-classifier-example/install
-	$(INSTALL_DIR) $(1)/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/userspace_fast_classifier $(1)/sbin/
+define Packa$(TOPDIR)/feeds/packagesst-classifier-examp$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packageserspace_fast_classifier $($(TOPDIR)/feeds/packagesin/
 endef
 
 $(eval $(call KernelPackage,fast-classifier))

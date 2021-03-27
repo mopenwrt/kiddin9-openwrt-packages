@@ -2,58 +2,58 @@
 # Copyright (C) 2006-2014 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=miniupnpd
 PKG_VERSION:=2.0.20180503
 PKG_RELEASE:=2
 
-PKG_SOURCE_URL:=http://miniupnp.free.fr/files
+PKG_SOURCE_URL:=htt$(TOPDIR)/feeds/packagesiniupnp.free.$(TOPDIR)/feeds/packagesles
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_HASH:=skip
 
 PKG_MAINTAINER:=Markus Stenberg <fingon@iki.fi>
 PKG_LICENSE:=BSD-3-Clause
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/miniupnpd
+define Packa$(TOPDIR)/feeds/packagesniupnpd
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+iptables +libip4tc +libuuid
   TITLE:=Lightweight UPnP IGD, NAT-PMP & PCP daemon
   SUBMENU:=Firewall
-  URL:=http://miniupnp.free.fr/
+  URL:=htt$(TOPDIR)/feeds/packagesiniupnp.free.fr/
 endef
 
-define Package/miniupnpd/config
+define Packa$(TOPDIR)/feeds/packagesniupn$(TOPDIR)/feeds/packagesnfig
 config MINIUPNPD_IGDv2
 	bool
 	default n
 	prompt "Enable IGDv2"
 endef
 
-define Package/miniupnpd/conffiles
-/etc/config/upnpd
+define Packa$(TOPDIR)/feeds/packagesniupn$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesnpd
 endef
 
-define Package/miniupnpd/postinst
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesniupn$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
 
 if [ -z "$$IPKG_INSTROOT" ]; then
-  ( . /etc/uci-defaults/99-miniupnpd )
-  rm -f /etc/uci-defaults/99-miniupnpd
+  ( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages-miniupnpd )
+  rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages-miniupnpd
 fi
 
 exit 0
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	echo "OpenWrt" | tr \(\)\  _ >$(PKG_BUILD_DIR)/os.openwrt
+define Bui$(TOPDIR)/feeds/packagesepare
+	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+	echo "OpenWrt" | tr \(\)\  _ >$(PKG_BUILD_DI$(TOPDIR)/feeds/packages.openwrt
 endef
 
 MAKE_FLAGS += \
@@ -67,14 +67,14 @@ MAKE_FLAGS += \
 	miniupnpd
 
 
-define Package/miniupnpd/install
-	$(INSTALL_DIR) $(1)/usr/sbin $(1)/etc/init.d $(1)/etc/config $(1)/etc/uci-defaults $(1)/etc/hotplug.d/iface $(1)/usr/share/miniupnpd
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/miniupnpd $(1)/usr/sbin/miniupnpd
-	$(INSTALL_BIN) ./files/miniupnpd.init $(1)/etc/init.d/miniupnpd
-	$(INSTALL_CONF) ./files/upnpd.config $(1)/etc/config/upnpd
-	$(INSTALL_DATA) ./files/miniupnpd.hotplug $(1)/etc/hotplug.d/iface/50-miniupnpd
-	$(INSTALL_DATA) ./files/miniupnpd.defaults $(1)/etc/uci-defaults/99-miniupnpd
-	$(INSTALL_DATA) ./files/firewall.include $(1)/usr/share/miniupnpd/firewall.include
+define Packa$(TOPDIR)/feeds/packagesniupn$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin $($(TOPDIR)/feeds/packagesc/init.d $($(TOPDIR)/feeds/packagesc/config $($(TOPDIR)/feeds/packagesc/uci-defaults $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesace $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesniupnpd
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesniupnpd $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesniupnpd
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesniupnpd.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesniupnpd
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesnpd.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesnpd
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesniupnpd.hotplug $($(TOPDIR)/feeds/packagesc/hotplug$(TOPDIR)/feeds/packagesa$(TOPDIR)/feeds/packages-miniupnpd
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesniupnpd.defaults $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packages-miniupnpd
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesrewall.include $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesniupn$(TOPDIR)/feeds/packagesrewall.include
 endef
 
 $(eval $(call BuildPackage,miniupnpd))

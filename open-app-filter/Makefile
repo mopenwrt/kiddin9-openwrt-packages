@@ -1,30 +1,30 @@
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=appfilter
 PKG_VERSION:=5.0
 PKG_RELEASE:=1
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
 
 
-include $(INCLUDE_DIR)/package.mk
-#include $(INCLUDE_DIR)/kernel.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+#include $(INCLUDE_DI$(TOPDIR)/feeds/packagesrnel.mk
 
-define Package/appfilter
+define Packa$(TOPDIR)/feeds/packagespfilter
   SECTION:=Derry Apps
   CATEGORY:=Derry Apps
   DEPENDS:=+libubox +libubus  +libuci +libpthread +libjson-c +libblobmsg-json
   TITLE:=App filter userspace module
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 	mkdir -p $(PKG_BUILD_DIR)
-	cp -rf ./src/* $(PKG_BUILD_DIR)
+	cp -rf$(TOPDIR)/feeds/packagesc/* $(PKG_BUILD_DIR)
 endef
 
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)/ \
+define Bui$(TOPDIR)/feeds/packagesmpile
+	$(MAKE) -C $(PKG_BUILD_DI$(TOPDIR)/feeds/packages
 	CC="$(TARGET_CROSS)gcc" \
 	CFLAGS="$(TARGET_CFLAGS)" \
 	LIBS="$(TARGET_LDFLAGS) -lm -lpthread -lubox -luci -lubus -ljson-c -lblobmsg_json" \
@@ -32,27 +32,27 @@ define Build/Compile
 endef	
 
 
-define Build/Compile/Default
+define Bui$(TOPDIR)/feeds/packagesmpi$(TOPDIR)/feeds/packagesfault
 
 endef
 
-define Package/appfilter/description
+define Packa$(TOPDIR)/feeds/packagespfilt$(TOPDIR)/feeds/packagesscription
   open appfilter app
 endef
 
 
-define Package/appfilter/install
+define Packa$(TOPDIR)/feeds/packagespfilt$(TOPDIR)/feeds/packagesstall
 	echo "install"
-	$(INSTALL_DIR) $(1)/usr/bin $(1)/etc/init.d
-	$(INSTALL_DIR) $(1)/etc/appfilter
-	$(INSTALL_DIR) $(1)/etc/config
-	$(CP) ./files/feature.cfg $(1)/etc/appfilter/ 
-	$(CP) ./files/app_class.txt $(1)/etc/appfilter/
-	$(INSTALL_BIN) ./files/appfilter.init $(1)/etc/init.d/appfilter
-	$(INSTALL_BIN) ./files/oaf_rule $(1)/usr/bin
-	$(INSTALL_BIN) ./files/gen_class.sh $(1)/usr/bin
-	$(INSTALL_BIN) ./files/appfilter.config $(1)/etc/config/appfilter
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/oafd $(1)/usr/bin
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/appfilter
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesature.cfg $($(TOPDIR)/feeds/packagesc/appfilter/ 
+	$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesp_class.txt $($(TOPDIR)/feeds/packagesc/appfilter/
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagespfilter.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagespfilter
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesf_rule $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn_class.sh $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagespfilter.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagespfilter
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesfd $($(TOPDIR)/feeds/packagesr/bin
 endef
 
 

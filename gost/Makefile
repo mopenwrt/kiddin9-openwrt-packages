@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=gost
 PKG_VERSION:=2.11.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/ginuerzh/gost/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packagesnuer$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packages(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
@@ -24,30 +24,30 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_GOST_COMPRESS_GOPROXY \
 	CONFIG_GOST_COMPRESS_UPX
 
-PKG_BUILD_DEPENDS:=golang/host
+PKG_BUILD_DEPENDS:=gola$(TOPDIR)/feeds/packagesst
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.com/ginuerzh/gost
-GO_PKG_BUILD_PKG:=github.com/ginuerzh/gost/cmd/gost
+GO_PKG:=github.c$(TOPDIR)/feeds/packagesnuer$(TOPDIR)/feeds/packagesst
+GO_PKG_BUILD_PKG:=github.c$(TOPDIR)/feeds/packagesnuer$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesd/gost
 GO_PKG_LDFLAGS:=-s -w
 
-include $(INCLUDE_DIR)/package.mk
-include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(TOPDIR)/feeds/packages/la$(TOPDIR)/feeds/packagesla$(TOPDIR)/feeds/packageslang-package.mk
 
-define Package/gost
+define Packa$(TOPDIR)/feeds/packagesst
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=GO Simple Tunnel
-	URL:=https://github.com/ginuerzh/gost
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesnuer$(TOPDIR)/feeds/packagesst
 	DEPENDS:=$(GO_ARCH_DEPENDS)
 endef
 
-define Package/gost/description
+define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesscription
 	A simple security tunnel written in Golang
 endef
 
-define Package/gost/config
+define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesnfig
 config GOST_COMPRESS_GOPROXY
 	bool "Compiling with GOPROXY proxy"
 	default n
@@ -59,26 +59,26 @@ endef
 
 ifeq ($(CONFIG_GOST_COMPRESS_GOPROXY),y)
 	export GO111MODULE=on
-	export GOPROXY=https://goproxy.io
+	export GOPROXY=http$(TOPDIR)/feeds/packagesoproxy.io
 endif
 
-define Build/Compile
-	$(call GoPackage/Build/Compile)
+define Bui$(TOPDIR)/feeds/packagesmpile
+	$(call GoPacka$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesmpile)
 ifeq ($(CONFIG_GOST_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/gost
+	$(STAGING_DIR_HOS$(TOPDIR)/feeds/packagesn/upx --lzma --best $(GO_PKG_BUILD_BIN_DI$(TOPDIR)/feeds/packagesst
 endif
 endef
 
-define Package/gost/install
-	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
+define Packa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesstall
+	$(call GoPacka$(TOPDIR)/feeds/packagescka$(TOPDIR)/feeds/packagessta$(TOPDIR)/feeds/packagesn,$(PKG_INSTALL_DIR))
 
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/gost $(1)/usr/bin/gost
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesst $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesst
 
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) $(CURDIR)/files/gost.config $(1)/etc/config/gost
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) $(CURDIR)/files/gost.init $(1)/etc/init.d/gost
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_CONF) $(CURDI$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesst.config $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesst
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN) $(CURDI$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesst.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesst
 endef
 
 $(eval $(call GoBinPackage,gost))

@@ -2,23 +2,23 @@
 # Copyright (C) 2006-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-eqos
 PKG_RELEASE:=1
-PKG_MAINTAINER:=Jianhui Zhao <jianhuizhao329@gmail.com> GaryPang <https://github.com/garypang13/luci-app-eqos>
+PKG_MAINTAINER:=Jianhui Zhao <jianhuizhao329@gmail.com> GaryPang <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesrypang$(TOPDIR)/feeds/packagesci-app-eqos>
 
 LUCI_TITLE:=EQOS - LuCI interface
 LUCI_DEPENDS:=+luci-base +tc +kmod-sched-core +kmod-ifb
 LUCI_PKGARCH:=all
 
-define Package/luci-app-eqos/conffiles
-/etc/config/eqos
+define Packa$(TOPDIR)/feeds/packagesci-app-eq$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesos
 endef
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

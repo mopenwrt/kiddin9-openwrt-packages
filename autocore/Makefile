@@ -2,18 +2,18 @@
 # Copyright (C) 2010-2011 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=autocore
 PKG_VERSION:=1
 PKG_RELEASE:=29
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/autocore-arm
+define Packa$(TOPDIR)/feeds/packagestocore-arm
   TITLE:=ARM auto core script.
   MAINTAINER:=CN_SZTL
   DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_mvebu||TARGET_ipq40xx||TARGET_ipq806x||TARGET_rockchip) \
@@ -23,52 +23,52 @@ define Package/autocore-arm
   VARIANT:=arm
 endef
 
-define Package/autocore-x86
-  TITLE:=x86/x64 auto core loadbalance script.
-  MAINTAINER:=Lean / CN_SZTL
+define Packa$(TOPDIR)/feeds/packagestocore-x86
+  TITLE:=x$(TOPDIR)/feeds/packages4 auto core loadbalance script.
+  MAINTAINER:=Lea$(TOPDIR)/feeds/packagesN_SZTL
   DEPENDS:=@TARGET_x86 +bc +lm-sensors +ethtool
   VARIANT:=x86
 endef
 
-define Package/autocore-switch
+define Packa$(TOPDIR)/feeds/packagestocore-switch
   TITLE:=wireless auto core loadbalance script.
   MAINTAINER:=GaryPang
   DEPENDS:=@swconfig
 endef
 
-define Package/autocore-arm/description
+define Packa$(TOPDIR)/feeds/packagestocore-a$(TOPDIR)/feeds/packagesscription
   Display more details info about the devices in LuCI.
 endef
 
-define Download/armcpuinfo
-  URL:=https://raw.githubusercontent.com/project-openwrt/openwrt/master/package/lean/autocore/files/arm
+define Downlo$(TOPDIR)/feeds/packagesmcpuinfo
+  URL:=http$(TOPDIR)/feeds/packagesaw.githubusercontent.c$(TOPDIR)/feeds/packagesoject-openw$(TOPDIR)/feeds/packagesenw$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagescka$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagestoco$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesm
   URL_FILE:=cpuinfo
   FILE:=cpuinfo
   HASH:=skip
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/autocore-arm/install
-	$(INSTALL_DIR) $(1)/sbin
-	$(INSTALL_BIN) $(DL_DIR)/cpuinfo $(1)/sbin/cpuinfo
-	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
-	$(INSTALL_DATA) ./files/arm/* $(1)/www/luci-static/resources/view/status/include/
+define Packa$(TOPDIR)/feeds/packagestocore-a$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesin
+	$(INSTALL_BIN) $(DL_DI$(TOPDIR)/feeds/packagesuinfo $($(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesuinfo
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesat$(TOPDIR)/feeds/packagesclude
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesm/* $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesat$(TOPDIR)/feeds/packagesclude/
 endef
 
-define Package/autocore-x86/install
-	$(INSTALL_DIR) $(1)/sbin
-	$(INSTALL_BIN) ./files/x86/cpuinfo $(1)/sbin/cpuinfo
-	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
-	$(INSTALL_DATA) ./files/x86/29_eth.js $(1)/www/luci-static/resources/view/status/include/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/admin_status/index/
-	$(INSTALL_DATA) ./files/x86/nvme_status.htm $(1)/usr/lib/lua/luci/view/admin_status/index/
+define Packa$(TOPDIR)/feeds/packagestocore-x$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesin
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages6/cpuinfo $($(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesuinfo
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesat$(TOPDIR)/feeds/packagesclude
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages6/29_eth.js $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesat$(TOPDIR)/feeds/packagesclude/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesmin_stat$(TOPDIR)/feeds/packagesdex/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages6/nvme_status.htm $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesmin_stat$(TOPDIR)/feeds/packagesdex/
 endef
 
-define Package/autocore-switch/install
-	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
-	$(INSTALL_DATA) ./files/switch/* $(1)/www/luci-static/resources/view/status/include/
+define Packa$(TOPDIR)/feeds/packagestocore-swit$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesat$(TOPDIR)/feeds/packagesclude
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesat$(TOPDIR)/feeds/packagesclude/
 endef
 
 $(eval $(call Download,armcpuinfo))

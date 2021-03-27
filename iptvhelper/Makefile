@@ -1,7 +1,7 @@
 # Copyright 2019 Shun Li <riverscn@gmail.com>
 # Licensed to the public under the GNU General Public License v3.
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=iptvhelper
 PKG_VERSION:=0.1.1
@@ -9,9 +9,9 @@ PKG_RELEASE:=1
 PKG_MAINTAINER:=Shun Li <riverscn@gmail.com>
 PKG_LICENSE:=GPL-3.0
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/iptvhelper
+define Packa$(TOPDIR)/feeds/packagestvhelper
    SECTION:=net
    CATEGORY:=Network
    SUBMENU:=Routing and Redirection
@@ -23,28 +23,28 @@ define Package/iptvhelper
    PKGARCH:=all
 endef
 
-define Package/iptvhelper/description
+define Packa$(TOPDIR)/feeds/packagestvhelp$(TOPDIR)/feeds/packagesscription
 Scripts for configure IPTV easily
 endef
 
-define Package/iptvhelper/conffiles
-/etc/config/iptvhelper
-/etc/firewall.iptvhelper
+define Packa$(TOPDIR)/feeds/packagestvhelp$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagestvhelper
+/e$(TOPDIR)/feeds/packagesrewall.iptvhelper
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/iptvhelper/postinst
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagestvhelp$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
 endef
 
-define Package/iptvhelper/postrm
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagestvhelp$(TOPDIR)/feeds/packagesstrm
+$(TOPDIR)/feeds/packagesn/sh
 endef
 
-define Package/iptvhelper/install
-$(CP) ./files/* $(1)
+define Packa$(TOPDIR)/feeds/packagestvhelp$(TOPDIR)/feeds/packagesstall
+$(CP)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(1)
 endef
 
 $(eval $(call BuildPackage,iptvhelper))

@@ -1,4 +1,4 @@
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-koolproxyR
 PKG_VERSION:=3.8.4
@@ -12,9 +12,9 @@ PKG_BUILD_PARALLEL:=1
 
 RSTRIP:=true
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/luci-app-koolproxyR
+define Packa$(TOPDIR)/feeds/packagesci-app-koolproxyR
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -23,72 +23,72 @@ define Package/luci-app-koolproxyR
 	MAINTAINER:=panda-mute
 endef
 
-define Package/luci-app-koolproxyR/description
+define Packa$(TOPDIR)/feeds/packagesci-app-koolprox$(TOPDIR)/feeds/packagesscription
 	This package contains LuCI configuration pages for koolproxy.
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/luci-app-koolproxyR/postinst
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesci-app-koolprox$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	( . /etc/uci-defaults/luci-koolproxy ) && rm -f /etc/uci-defaults/luci-koolproxy
-	rm -f /tmp/luci-indexcache
+	( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-koolproxy ) && rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-koolproxy
+	rm -$(TOPDIR)/feeds/packagesp/luci-indexcache
 fi
 exit 0
 endef
 
-define Package/luci-app-koolproxyR/install
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DIR) $(1)/etc/adblocklist
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi/koolproxy
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/koolproxy
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_DIR) $(1)/usr/share/koolproxy
-	$(INSTALL_DIR) $(1)/usr/share/koolproxy/data
-	$(INSTALL_DIR) $(1)/usr/share/koolproxy/data/rules/
+define Packa$(TOPDIR)/feeds/packagesci-app-koolprox$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/adblocklist
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/upgra$(TOPDIR)/feeds/packagesep.d
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/koolproxy
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesew
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolproxy
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesta
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesles/
 
-	$(INSTALL_BIN) ./files/etc/uci-defaults/luci-koolproxy $(1)/etc/uci-defaults/luci-koolproxy
-	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d/
-	$(INSTALL_DATA) ./files/etc/config/* $(1)/etc/config/
-	$(INSTALL_DATA) ./files/etc/adblocklist/* $(1)/etc/adblocklist/
-	$(INSTALL_DATA) ./files/lib/upgrade/keep.d/koolproxy $(1)/lib/upgrade/keep.d/
-	$(INSTALL_DATA) ./files/usr/lib/lua/luci/model/cbi/koolproxy/global.lua $(1)/usr/lib/lua/luci/model/cbi/koolproxy/global.lua
-	$(INSTALL_DATA) ./files/usr/lib/lua/luci/model/cbi/koolproxy/rss_rule.lua $(1)/usr/lib/lua/luci/model/cbi/koolproxy/rss_rule.lua
-	$(INSTALL_DATA) ./files/usr/lib/lua/luci/controller/koolproxy.lua $(1)/usr/lib/lua/luci/controller/koolproxy.lua
-	$(INSTALL_DATA) ./files/usr/lib/lua/luci/view/koolproxy/* $(1)/usr/lib/lua/luci/view/koolproxy/
-	$(INSTALL_DATA) ./files/usr/lib/lua/luci/i18n/koolproxy.zh-cn.lmo $(1)/usr/lib/lua/luci/i18n/koolproxy.zh-cn.lmo
-	$(INSTALL_BIN) ./files/usr/sbin/* $(1)/usr/sbin/
-	$(INSTALL_BIN) ./files/usr/share/koolproxy/data/gen_ca.sh $(1)/usr/share/koolproxy/data/
-	$(INSTALL_DATA) ./files/usr/share/koolproxy/data/openssl.cnf $(1)/usr/share/koolproxy/data/
-	$(INSTALL_DATA) ./files/usr/share/koolproxy/data/user.txt $(1)/usr/share/koolproxy/data/
-	$(INSTALL_DATA) ./files/usr/share/koolproxy/data/source.list $(1)/usr/share/koolproxy/data/
-	$(INSTALL_DATA) ./files/usr/share/koolproxy/data/rules/* $(1)/usr/share/koolproxy/data/rules/
-	$(INSTALL_BIN) ./files/usr/share/koolproxy/camanagement $(1)/usr/share/koolproxy/camanagement
-	$(INSTALL_BIN) ./files/usr/share/koolproxy/kpupdate $(1)/usr/share/koolproxy/kpupdate
-	$(INSTALL_DATA) ./files/usr/share/koolproxy/koolproxy_ipset.conf $(1)/usr/share/koolproxy/koolproxy_ipset.conf
-	$(INSTALL_DATA) ./files/usr/share/koolproxy/dnsmasq.adblock $(1)/usr/share/koolproxy/dnsmasq.adblock
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-koolproxy $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-koolproxy
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/init.d/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/config/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesc/adblockli$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/adblocklist/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesb/upgra$(TOPDIR)/feeds/packagesep$(TOPDIR)/feeds/packagesolproxy $($(TOPDIR)/feeds/packagesb/upgra$(TOPDIR)/feeds/packagesep.d/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/koolpro$(TOPDIR)/feeds/packagesobal.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/koolpro$(TOPDIR)/feeds/packagesobal.lua
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/koolpro$(TOPDIR)/feeds/packagess_rule.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/koolpro$(TOPDIR)/feeds/packagess_rule.lua
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packagesolproxy.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packagesolproxy.lua
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesolproxy/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesolproxy.zh-cn.lmo $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesolproxy.zh-cn.lmo
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sbin/
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesn_ca.sh $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesta/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesenssl.cnf $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesta/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packageser.txt $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesta/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesurce.list $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesta/
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesles/
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesmanagement $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesmanagement
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesupdate $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesupdate
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy_ipset.conf $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy_ipset.conf
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagessmasq.adblock $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagessmasq.adblock
 ifeq ($(ARCH),mipsel)
-	$(INSTALL_BIN) ./files/bin/mipsel $(1)/usr/share/koolproxy/koolproxy
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn/mipsel $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
 endif
 ifeq ($(ARCH),mips)
-	$(INSTALL_BIN) ./files/bin/mips $(1)/usr/share/koolproxy/koolproxy
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn/mips $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
 endif
 ifeq ($(ARCH),i386)
-	$(INSTALL_BIN) ./files/bin/i386 $(1)/usr/share/koolproxy/koolproxy
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn/i386 $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
 endif
 ifeq ($(ARCH),x86_64)
-	$(INSTALL_BIN) ./files/bin/x86_64 $(1)/usr/share/koolproxy/koolproxy
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn/x86_64 $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
 endif
 ifeq ($(ARCH),arm)
-	$(INSTALL_BIN) ./files/bin/arm $(1)/usr/share/koolproxy/koolproxy
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesn/arm $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesolpro$(TOPDIR)/feeds/packagesolproxy
 endif
 endef
 

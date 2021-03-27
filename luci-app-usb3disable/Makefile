@@ -3,7 +3,7 @@
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 LUCI_TITLE:=LuCI support disable usb3
 LUCI_DEPENDS:= 
@@ -12,20 +12,20 @@ PKG_NAME:=luci-app-usb3disable
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
 
-define Package/luci-app-usb3disable/install
-    $(INSTALL_DIR) $(1)/usr/lib/lua/luci
-	cp -pR ./luasrc/* $(1)/usr/lib/lua/luci
+define Packa$(TOPDIR)/feeds/packagesci-app-usb3disab$(TOPDIR)/feeds/packagesstall
+    $(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+	cp -pR$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
 	$(INSTALL_DIR) $(1)/
-	cp -pR ./root/* $(1)/
+	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(1)/
 endef
 
-define Package/luci-app-usb3disable/postinst
-#!/bin/sh
-	rm -f /tmp/luci-indexcache
-	rm -f /tmp/luci-modulecache/*
+define Packa$(TOPDIR)/feeds/packagesci-app-usb3disab$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
+	rm -$(TOPDIR)/feeds/packagesp/luci-indexcache
+	rm -$(TOPDIR)/feeds/packagesp/luci-modulecache/*
 exit 0
 endef
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

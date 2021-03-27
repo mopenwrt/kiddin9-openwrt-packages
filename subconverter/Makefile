@@ -2,17 +2,17 @@
 #
 # Copyright (C) 2021 ImmortalWrt.org
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=subconverter
 PKG_BASE_VERSION:=0.6.4
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/tindy2013/subconverter.git
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesndy20$(TOPDIR)/feeds/packagesbconverter.git
 PKG_SOURCE_DATE:=2021-03-27
-PKG_SOURCE_VERSION:=aac10ddffa58eb92654d4b634e5c719d4c63aadb
-PKG_MIRROR_HASH:=ba6775ff295c656267b07ea8da7821f58faacfa1515ef2558f54fb08fc651ea2
+PKG_SOURCE_VERSION:=d6cb49fab3314f839ee9fc29dcf7541d9bc9fdc6
+PKG_MIRROR_HASH:=80a93249dcae571404b040d36bde52f1dae56acf86241159600bd2459452e359
 
 PKG_VERSION:=$(PKG_BASE_VERSION)-$(PKG_SOURCE_DATE)-$(call version_abbrev,$(PKG_SOURCE_VERSION))
 
@@ -23,18 +23,18 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_BUILD_DEPENDS:=jpcre2 libcron quickjspp rapidjson
 PKG_BUILD_PARALLEL:=1
 
-include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesake.mk
 
-define Package/subconverter
+define Packa$(TOPDIR)/feeds/packagesbconverter
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Utility to convert between various subscription format
-  URL:=https://github.com/tindy2013/subconverter
+  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesndy20$(TOPDIR)/feeds/packagesbconverter
   DEPENDS:=+libpthread +libstdcpp +libevent2 +libyaml-cpp +libpcre2 +libcurl +zlib
 endef
 
-define Package/subconverter/description
+define Packa$(TOPDIR)/feeds/packagesbconvert$(TOPDIR)/feeds/packagesscription
   Utility to convert between various proxy subscription formats.
 endef
 
@@ -44,13 +44,13 @@ TARGET_LDFLAGS += -Wl,--gc-sections -flto
 
 CMAKE_OPTIONS += -DCMAKE_BUILD_TYPE=Release
 
-define Package/subconverter/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/subconverter $(1)/usr/bin/subconverter
-	$(INSTALL_DIR) $(1)/etc/subconverter
-	$(CP) $(PKG_BUILD_DIR)/base/* $(1)/etc/subconverter/
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/subconverter.init $(1)/etc/init.d/subconverter
+define Packa$(TOPDIR)/feeds/packagesbconvert$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesbconverter $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesbconverter
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/subconverter
+	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesc/subconverter/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesbconverter.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesbconverter
 endef
 
 $(eval $(call BuildPackage,subconverter))

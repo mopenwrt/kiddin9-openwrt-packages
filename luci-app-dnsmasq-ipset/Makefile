@@ -1,4 +1,4 @@
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-dnsmasq-ipset
 PKG_VERSION:=0.1.4
@@ -8,11 +8,11 @@ PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Qier LU <lvqier@gmail.com>
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/luci-app-dnsmasq-ipset
+define Packa$(TOPDIR)/feeds/packagesci-app-dnsmasq-ipset
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -21,49 +21,49 @@ define Package/luci-app-dnsmasq-ipset
 	DEPENDS:=+dnsmasq-full
 endef
 
-define Package/luci-app-dnsmasq-ipset/description
+define Packa$(TOPDIR)/feeds/packagesci-app-dnsmasq-ips$(TOPDIR)/feeds/packagesscription
 	LuCI Support for ipset feature of dnsmasq-full.
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/luci-app-dnsmasq-ipset/postinst
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesci-app-dnsmasq-ips$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	if [ -f /etc/uci-defaults/luci-dnsmasq-ipset ]; then
-		( . /etc/uci-defaults/luci-dnsmasq-ipset ) && \
-		rm -f /etc/uci-defaults/luci-dnsmasq-ipset
+	if [ -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-dnsmasq-ipset ]; then
+		( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-dnsmasq-ipset ) && \
+		rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-dnsmasq-ipset
 	fi
-	rm -rf /tmp/luci-indexcache /tmp/luci-modulecache
+	rm -r$(TOPDIR)/feeds/packagesp/luci-indexcach$(TOPDIR)/feeds/packagesp/luci-modulecache
 fi
 exit 0
 endef
 
-define Package/luci-app-dnsmasq-ipset/conffiles
-/etc/config/dnsmasq-ipset
+define Packa$(TOPDIR)/feeds/packagesci-app-dnsmasq-ips$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagessmasq-ipset
 endef
 
 
-define Package/luci-app-dnsmasq-ipset/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-	$(INSTALL_DATA) ./files/luasrc/controller/*.lua $(1)/usr/lib/lua/luci/controller/
-	$(INSTALL_DIR) $(1)/www/luci-static/resources/view
-	$(INSTALL_DATA) ./files/htdocs/luci-static/resources/view/*.js $(1)/www/luci-static/resources/view/
-	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
-	$(INSTALL_DATA) ./files/root/usr/share/rpcd/acl.d/*.json $(1)/usr/share/rpcd/acl.d/
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) ./files/root/etc/config/dnsmasq-ipset $(1)/etc/config/dnsmasq-ipset
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/root/etc/init.d/dnsmasq-ipset $(1)/etc/init.d/dnsmasq-ipset
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_BIN) ./files/root/etc/uci-defaults/luci-dnsmasq-ipset $(1)/etc/uci-defaults/luci-dnsmasq-ipset
+define Packa$(TOPDIR)/feeds/packagesci-app-dnsmasq-ips$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packageslua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packagesew
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesdo$(TOPDIR)/feeds/packagesci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesjs $($(TOPDIR)/feeds/packagesw/luci-stat$(TOPDIR)/feeds/packagessourc$(TOPDIR)/feeds/packagesew/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesjson $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesl.d/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessmasq-ipset $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagessmasq-ipset
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessmasq-ipset $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessmasq-ipset
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-dnsmasq-ipset $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-dnsmasq-ipset
 endef
 
 $(eval $(call BuildPackage,luci-app-dnsmasq-ipset))

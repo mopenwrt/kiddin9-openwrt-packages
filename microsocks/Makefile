@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=microsocks
 PKG_VERSION=1.0.2
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/rofl0r/microsocks/tar.gz/v$(PKG_VERSION)?
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packagesfl$(TOPDIR)/feeds/packagescrosoc$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packages(PKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
@@ -23,25 +23,25 @@ PKG_MAINTAINER:=lean
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/microsocks
+define Packa$(TOPDIR)/feeds/packagescrosocks
 	SECTION:=net
 	CATEGORY:=Network
-	SUBMENU:=Web Servers/Proxies
+	SUBMENU:=Web Serve$(TOPDIR)/feeds/packagesoxies
 	TITLE:=tiny, portable SOCKS5 server with very moderate resource usage
-	URL:=https://github.com/rofl0r/microsocks
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesfl$(TOPDIR)/feeds/packagescrosocks
 	DEPENDS:=+libpthread
 endef
 
-define Package/microsocks/description
+define Packa$(TOPDIR)/feeds/packagescrosoc$(TOPDIR)/feeds/packagesscription
 	A SOCKS5 service that you can run on your remote boxes to tunnel connections
 	through them, if for some reason SSH doesn't cut it for you.
 endef
 
-define Package/microsocks/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/local/bin/microsocks $(1)/usr/bin/microsocks
+define Packa$(TOPDIR)/feeds/packagescrosoc$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/loc$(TOPDIR)/feeds/packagesn/microsocks $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagescrosocks
 endef
 
 $(eval $(call BuildPackage,microsocks))

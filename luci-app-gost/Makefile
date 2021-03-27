@@ -3,9 +3,9 @@
 # This is a free software, use it under GNU General Public License v3.0.
 #
 # Created By ImmortalWrt
-# https://github.com/project-openwrt
+# http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesoject-openwrt
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-gost
 PKG_VERSION:=1.0
@@ -16,6 +16,6 @@ LUCI_PKGARCH:=all
 
 PKG_MAINTAINER:=ImmortalWrt
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDI$(TOPDIR)/feeds/packagese$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

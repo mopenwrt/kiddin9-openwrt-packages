@@ -1,19 +1,19 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=vlmcsd
 PKG_VERSION:=svn1113
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/Wind4/vlmcsd/tar.gz/$(PKG_VERSION)?
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesodeload.github.c$(TOPDIR)/feeds/packagesn$(TOPDIR)/feeds/packagesmc$(TOPDIR)/feeds/packagesr.$(TOPDIR)/feeds/packagesPKG_VERSION)?
 PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
@@ -22,30 +22,30 @@ PKG_MAINTAINER:=fuyumi <280604399@qq.com>
 
 PKG_BUILD_PARALLEL:=1
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/vlmcsd
+define Packa$(TOPDIR)/feeds/packagesmcsd
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=A KMS Emulator in C
-	URL:=https://github.com/Wind4/vlmcsd
+	URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesn$(TOPDIR)/feeds/packagesmcsd
 	DEPENDS:=+libpthread
 endef
 
-define Package/vlmcsd/description
+define Packa$(TOPDIR)/feeds/packagesmc$(TOPDIR)/feeds/packagesscription
 	KMS Emulator in C (currently runs on Linux including Android, FreeBSD,
 	Solaris, Minix, Mac OS, iOS, Windows with or without Cygwin)
 endef
 
-define Package/vlmcsd/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/vlmcs $(1)/usr/bin/vlmcs
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/vlmcsd $(1)/usr/bin/vlmcsd
+define Packa$(TOPDIR)/feeds/packagesmc$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	#$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesn/vlmcs $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesmcs
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesn/vlmcsd $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesmcsd
 
-	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_BIN) ./files/vlmcsd.ini $(1)/etc/vlmcsd.ini
-	#$(INSTALL_DIR) $(1)/etc/init.d
-	#$(INSTALL_BIN) ./files/vlmcsd.init $(1)/etc/init.d/vlmcsd
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesmcsd.ini $($(TOPDIR)/feeds/packagesc/vlmcsd.ini
+	#$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	#$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesmcsd.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesmcsd
 endef
 
 $(eval $(call BuildPackage,vlmcsd))

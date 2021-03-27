@@ -2,10 +2,10 @@
 # Copyright (C) 2014-2015 KyleRicardo
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=mentohust
 PKG_VERSION:=0.3.1
@@ -16,47 +16,47 @@ PKG_FIXUP:=autoreconf
 
 PKG_INSTALL:=1
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/mentohust
+define Packa$(TOPDIR)/feeds/packagesntohust
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+libpcap
   TITLE:=A Ruijie Client Daemon
-  URL:=https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git
+  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesleRicar$(TOPDIR)/feeds/packagesntoHUST-OpenWrt-ipk.git
   SUBMENU:=Ruijie
 endef
 
-define Package/mentohust/description
+define Packa$(TOPDIR)/feeds/packagesntohu$(TOPDIR)/feeds/packagesscription
 A Ruijie Client Daemon,
 Most usually used in China collages.
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 	mkdir -p $(PKG_BUILD_DIR)
-	$(CP) ./src/* $(PKG_BUILD_DIR)/
-	$(SED) 's/dhclient/udhcpc -i/g' $(PKG_BUILD_DIR)/myconfig.c
+	$(CP)$(TOPDIR)/feeds/packagesc/* $(PKG_BUILD_DIR)/
+	$(SED) $(TOPDIR)/feeds/packagesclie$(TOPDIR)/feeds/packageshcpc $(TOPDIR)/feeds/packages $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesconfig.c
 endef
 
 
-define Package/mentohust/conffiles
-/etc/mentohust.conf
+define Packa$(TOPDIR)/feeds/packagesntohu$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesntohust.conf
 endef
 
-define Build/Compile
-	#$(Build/Compile/$(PKG_NAME))
-	$(MAKE) -C $(PKG_BUILD_DIR)/ \
+define Bui$(TOPDIR)/feeds/packagesmpile
+	#$(Bui$(TOPDIR)/feeds/packagesmpi$(TOPDIR)/feeds/packagesPKG_NAME))
+	$(MAKE) -C $(PKG_BUILD_DI$(TOPDIR)/feeds/packages
 		$(TARGET_CONFIGURE_OPTS) \
 		CFLAGS="$(TARGET_CFLAGS)" \
 		CPPFLAGS="$(TARGET_CPPFLAGS)"  \
 		LDFLAGS="$(TARGET_LDFLAGS) -ldl"
 endef
 
-define Package/mentohust/install
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mentohust $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/mentohust.conf $(1)/etc/mentohust.conf
+define Packa$(TOPDIR)/feeds/packagesntohu$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesntohust $($(TOPDIR)/feeds/packagesr/sbin/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc
+	$(INSTALL_CONF) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesntohust.conf $($(TOPDIR)/feeds/packagesc/mentohust.conf
 
 endef
 

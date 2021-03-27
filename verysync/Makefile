@@ -1,12 +1,12 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+# <http$(TOPDIR)/feeds/packagesmmortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 ifeq ($(ARCH),x86_64)
 	PKG_ARCH_VERYSYNC:=amd64
@@ -35,31 +35,31 @@ PKG_VERSION:=v2.4.3
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-linux-$(PKG_ARCH_VERYSYNC)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://dl.verysync.com/releases/$(PKG_VERSION)/
+PKG_SOURCE_URL:=htt$(TOPDIR)/feeds/packagesl.verysync.c$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packagesPKG_VERSION)/
 PKG_HASH:=skip
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
 TAR_CMD:=$(HOST_TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 
-define Package/verysync
+define Packa$(TOPDIR)/feeds/packagesrysync
 	SECTION:=net
 	CATEGORY:=Network
 	TITLE:=A efficient data transmission tool
-	URL:=http://www.verysync.com
+	URL:=htt$(TOPDIR)/feeds/packagesww.verysync.com
 endef
 
-define Package/verysync/description
+define Packa$(TOPDIR)/feeds/packagesrysy$(TOPDIR)/feeds/packagesscription
 	Verysync is a efficient data transmission tool.
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 	true
 endef
 
-define Package/verysync/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/verysync-linux-$(PKG_ARCH_VERYSYNC)-$(PKG_VERSION)/verysync $(1)/usr/bin/verysync
+define Packa$(TOPDIR)/feeds/packagesrysy$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesrysync-linux-$(PKG_ARCH_VERYSYNC)-$(PKG_VERSIO$(TOPDIR)/feeds/packagesrysync $($(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesrysync
 endef
 
 $(eval $(call BuildPackage,verysync))

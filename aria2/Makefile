@@ -2,16 +2,16 @@
 # Copyright (C) 2012-2018 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=aria2
 PKG_VERSION:=1.35.0
 PKG_RELEASE:=9
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://github.com/aria2/aria2/releases/download/release-$(PKG_VERSION)/
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesleas$(TOPDIR)/feeds/packageswnlo$(TOPDIR)/feeds/packageslease-$(PKG_VERSION)/
 PKG_HASH:=skip
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
@@ -20,7 +20,7 @@ PKG_MAINTAINER:=Imre Kaloz <kaloz@openwrt.org>, \
 	Hsing-Wang Liao <kuoruan@gmail.com>
 PKG_LICENSE:=GPLv2
 PKG_LICENSE_FILES:=COPYING
-PKG_CPE_ID:=cpe:/a:tatsuhiro_tsujikawa:aria2
+PKG_CPE_ID:=cp$(TOPDIR)/feeds/packagestatsuhiro_tsujikawa:aria2
 
 PKG_CONFIG_DEPENDS := \
 	CONFIG_ARIA2_NOSSL \
@@ -39,18 +39,18 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_ARIA2_COOKIE \
 	CONFIG_ARIA2_WEBSOCKET
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/aria2/config
-  source "$(SOURCE)/Config.in"
+define Packa$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesnfig
+  source "$(SOURC$(TOPDIR)/feeds/packagesnfig.in"
 endef
 
-define Package/aria2
+define Packa$(TOPDIR)/feeds/packagesia2
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=File Transfer
   TITLE:=lightweight download utility
-  URL:=https://aria2.github.io/
+  URL:=http$(TOPDIR)/feeds/packagesria2.github.io/
   DEPENDS:=+zlib +libstdcpp +ARIA2_OPENSSL:libopenssl +ARIA2_GNUTLS:libgnutls \
 	+ARIA2_NETTLE:libnettle +ARIA2_LIBGCRYPT:libgcrypt +ARIA2_GMP:libgmp \
 	+ARIA2_LIBXML2:libxml2 +ARIA2_EXPAT:libexpat +ARIA2_SFTP:libssh2 \
@@ -58,7 +58,7 @@ define Package/aria2
   USERID:=aria2=6800:aria2=6800
 endef
 
-define Package/aria2/description
+define Packa$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesscription
   aria2 is a lightweight multi-protocol & multi-source command-line download
   utility
 endef
@@ -85,35 +85,35 @@ CONFIGURE_ARGS += \
 TARGET_CXXFLAGS += -ffunction-sections -fdata-sections -flto
 TARGET_LDFLAGS += -Wl,--gc-sections -flto
 
-define Package/aria2/conffiles
-/etc/config/aria2
+define Packa$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesia2
 endef
 
-define Download/aria2.conf
-  URL:=https://github.com/P3TERX/aria2.conf/archive
+define Downlo$(TOPDIR)/feeds/packagesia2.conf
+  URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesTE$(TOPDIR)/feeds/packagesia2.co$(TOPDIR)/feeds/packageschive
   URL_FILE:=master.zip
   FILE:=aria2.conf
   HASH:=skip
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	unzip $(DL_DIR)/aria2.conf -d $(PKG_BUILD_DIR)/
+define Bui$(TOPDIR)/feeds/packagesepare
+	$(call Bui$(TOPDIR)/feeds/packagesepa$(TOPDIR)/feeds/packagesfault)
+	unzip $(DL_DI$(TOPDIR)/feeds/packagesia2.conf -d $(PKG_BUILD_DIR)/
 endef
 
 
-define Package/aria2/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/aria2c $(1)/usr/bin
+define Packa$(TOPDIR)/feeds/packagesi$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DI$(TOPDIR)/feeds/packagesr/b$(TOPDIR)/feeds/packagesia2c $($(TOPDIR)/feeds/packagesr/bin
 
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/aria2.init $(1)/etc/init.d/aria2
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesia2.init $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesia2
 
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) ./files/aria2.conf $(1)/etc/config/aria2
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_CONF)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesia2.conf $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesia2
 	
-	$(INSTALL_DIR) $(1)/usr/share/aria2
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/aria2.conf-master/* $(1)/usr/share/aria2/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesia2
+	$(INSTALL_BIN) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesia2.conf-mast$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesia2/
 endef
 
 $(eval $(call Download,aria2.conf))

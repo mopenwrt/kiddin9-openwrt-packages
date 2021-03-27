@@ -1,22 +1,22 @@
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-lib-docker
 PKG_VERSION:=v0.3.0
 PKG_RELEASE:=beta
-PKG_MAINTAINER:=lisaac <https://github.com/lisaac/luci-lib-docker>
+PKG_MAINTAINER:=lisaac <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagessa$(TOPDIR)/feeds/packagesci-lib-docker>
 PKG_LICENSE:=AGPL-3.0
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/lisaac/luci-lib-docker.git
+PKG_SOURCE_URL:=http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagessa$(TOPDIR)/feeds/packagesci-lib-docker.git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR)-$(PKG_VERSION).tar.gz
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
+PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_SOURCE_SUBDIR)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)
+define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=6. Libraries
@@ -25,25 +25,25 @@ define Package/$(PKG_NAME)
 	DEPENDS:=+luci-lib-json
 endef
 
-define Package/$(PKG_NAME)/description
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
 	Docker Engine API for LuCI
 endef
 
-define Build/Prepare
-	tar -xzvf $(DL_DIR)/$(PKG_SOURCE) -C $(BUILD_DIR)
+define Bui$(TOPDIR)/feeds/packagesepare
+	tar -xzvf $(DL_DI$(TOPDIR)/feeds/packagesPKG_SOURCE) -C $(BUILD_DIR)
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/$(PKG_NAME)/postinst
-#!/bin/sh
-rm -fr /tmp/luci-indexcache /tmp/luci-modulecache
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
+rm -f$(TOPDIR)/feeds/packagesp/luci-indexcach$(TOPDIR)/feeds/packagesp/luci-modulecache
 endef
 
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci
-	cp -pR $(PKG_BUILD_DIR)/luasrc/* $(1)/usr/lib/lua/luci/
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+	cp -pR $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci/
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

@@ -1,19 +1,19 @@
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-openclash
 PKG_VERSION:=0.42.03
 PKG_RELEASE:=beta
-PKG_MAINTAINER:=vernesong <https://github.com/vernesong/OpenClash>
+PKG_MAINTAINER:=vernesong <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesrneso$(TOPDIR)/feeds/packagesenClash>
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)/config
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
 	select PACKAGE_libcap-bin
 endef
 
-define Package/$(PKG_NAME)
+define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
 	TITLE:=LuCI support for clash
@@ -22,83 +22,83 @@ define Package/$(PKG_NAME)
 	MAINTAINER:=vernesong
 endef
 
-define Package/$(PKG_NAME)/description
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
     A LuCI support for clash
 endef
 
-define Build/Prepare
-	$(CP) $(CURDIR)/root $(PKG_BUILD_DIR)
-	$(CP) $(CURDIR)/luasrc $(PKG_BUILD_DIR)
-	$(foreach po,$(wildcard ${CURDIR}/po/zh_Hans/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
-	chmod 0755 $(PKG_BUILD_DIR)/root/etc/init.d/openclash
-	chmod -R 0755 $(PKG_BUILD_DIR)/root/usr/share/openclash/
-	mkdir -p $(PKG_BUILD_DIR)/root/etc/openclash/config
-	mkdir -p $(PKG_BUILD_DIR)/root/etc/openclash/rule_provider
-	mkdir -p $(PKG_BUILD_DIR)/root/etc/openclash/backup
-	mkdir -p $(PKG_BUILD_DIR)/root/etc/openclash/core
-	mkdir -p $(PKG_BUILD_DIR)/root/usr/share/openclash/backup
-	cp -f "$(PKG_BUILD_DIR)/root/etc/config/openclash" "$(PKG_BUILD_DIR)/root/usr/share/openclash/backup/openclash" >/dev/null 2>&1
-	cp -f "$(PKG_BUILD_DIR)/root/etc/openclash/custom/openclash_custom_rules.list" "$(PKG_BUILD_DIR)/root/usr/share/openclash/backup/openclash_custom_rules.list" >/dev/null 2>&1
-	cp -f "$(PKG_BUILD_DIR)/root/etc/openclash/custom/openclash_custom_rules_2.list" "$(PKG_BUILD_DIR)/root/usr/share/openclash/backup/openclash_custom_rules_2.list" >/dev/null 2>&1
-	cp -f "$(PKG_BUILD_DIR)/root/etc/openclash/custom/openclash_custom_hosts.list" "$(PKG_BUILD_DIR)/root/usr/share/openclash/backup/openclash_custom_hosts.list" >/dev/null 2>&1
-	cp -f "$(PKG_BUILD_DIR)/root/etc/openclash/custom/openclash_custom_fake_filter.list" "$(PKG_BUILD_DIR)/root/usr/share/openclash/backup/openclash_custom_fake_filter.list" >/dev/null 2>&1
-	cp -f "$(PKG_BUILD_DIR)/root/etc/openclash/custom/openclash_custom_domain_dns.list" "$(PKG_BUILD_DIR)/root/usr/share/openclash/backup/openclash_custom_domain_dns.list" >/dev/null 2>&1
+define Bui$(TOPDIR)/feeds/packagesepare
+	$(CP) $(CURDI$(TOPDIR)/feeds/packagesot $(PKG_BUILD_DIR)
+	$(CP) $(CURDI$(TOPDIR)/feeds/packagesasrc $(PKG_BUILD_DIR)
+	$(foreach po,$(wildcard ${CURDI$(TOPDIR)/feeds/packages/zh-$(TOPDIR)/feeds/packagespo), \
+		po2lmo $(po) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagespatsubst %.po,%.lmo,$(notdir $(po)));)
+	chmod 0755 $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesenclash
+	chmod -R 0755 $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesenclash/
+	mkdir -p $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesnfig
+	mkdir -p $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesle_provider
+	mkdir -p $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesckup
+	mkdir -p $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesre
+	mkdir -p $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesckup
+	cp -f "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesenclash" "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesenclash"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -f "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesenclash_custom_rules.list" "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesenclash_custom_rules.list"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -f "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesenclash_custom_rules_2.list" "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesenclash_custom_rules_2.list"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -f "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesenclash_custom_hosts.list" "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesenclash_custom_hosts.list"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -f "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesenclash_custom_fake_filter.list" "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesenclash_custom_fake_filter.list"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -f "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/opencla$(TOPDIR)/feeds/packagesst$(TOPDIR)/feeds/packagesenclash_custom_domain_dns.list" "$(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesck$(TOPDIR)/feeds/packagesenclash_custom_domain_dns.list"$(TOPDIR)/feeds/packagesv/null 2>&1
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/$(PKG_NAME)/conffiles
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnffiles
 endef
 
-define Package/$(PKG_NAME)/preinst
-#!/bin/sh
-if [ -f "/etc/config/openclash" ]; then
-	cp -f "/etc/config/openclash" "/tmp/openclash.bak" >/dev/null 2>&1
-	cp -rf "/etc/openclash" "/tmp/openclash" >/dev/null 2>&1
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packageseinst
+$(TOPDIR)/feeds/packagesn/sh
+if [ -f$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesenclash" ]; then
+	cp -f$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesenclash"$(TOPDIR)/feeds/packagesp/openclash.bak"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -rf$(TOPDIR)/feeds/packagesc/openclash"$(TOPDIR)/feeds/packagesp/openclash"$(TOPDIR)/feeds/packagesv/null 2>&1
 fi
 endef
 
-define Package/$(PKG_NAME)/postinst
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstinst
 endef
 
-define Package/$(PKG_NAME)/prerm
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packageserm
+$(TOPDIR)/feeds/packagesn/sh
 	uci -q set openclash.config.enable=0
 	uci -q commit openclash
-	cp -f "/etc/config/openclash" "/tmp/openclash.bak" >/dev/null 2>&1
-	cp -rf "/etc/openclash" "/tmp/openclash" >/dev/null 2>&1
+	cp -f$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesenclash"$(TOPDIR)/feeds/packagesp/openclash.bak"$(TOPDIR)/feeds/packagesv/null 2>&1
+	cp -rf$(TOPDIR)/feeds/packagesc/openclash"$(TOPDIR)/feeds/packagesp/openclash"$(TOPDIR)/feeds/packagesv/null 2>&1
 endef
 
-define Package/$(PKG_NAME)/postrm
-#!/bin/sh
-	rm -rf /etc/openclash
-	rm -rf /tmp/openclash.log
-	rm -rf /tmp/openclash_start.log
-	rm -rf /tmp/openclash_last_version
-	rm -rf /tmp/Proxy_Group
-	rm -rf /tmp/rules_name
-	rm -rf /tmp/rule_providers_name
-	rm -rf /tmp/clash_last_version
-	rm -rf /usr/share/openclash/backup
-	rm -rf /tmp/openclash_fake_filter.list
-	rm -rf /tmp/openclash_servers_fake_filter.conf
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstrm
+$(TOPDIR)/feeds/packagesn/sh
+	rm -r$(TOPDIR)/feeds/packagesc/openclash
+	rm -r$(TOPDIR)/feeds/packagesp/openclash.log
+	rm -r$(TOPDIR)/feeds/packagesp/openclash_start.log
+	rm -r$(TOPDIR)/feeds/packagesp/openclash_last_version
+	rm -r$(TOPDIR)/feeds/packagesp/Proxy_Group
+	rm -r$(TOPDIR)/feeds/packagesp/rules_name
+	rm -r$(TOPDIR)/feeds/packagesp/rule_providers_name
+	rm -r$(TOPDIR)/feeds/packagesp/clash_last_version
+	rm -r$(TOPDIR)/feeds/packagesr/sha$(TOPDIR)/feeds/packagesencla$(TOPDIR)/feeds/packagesckup
+	rm -r$(TOPDIR)/feeds/packagesp/openclash_fake_filter.list
+	rm -r$(TOPDIR)/feeds/packagesp/openclash_servers_fake_filter.conf
 	uci -q delete firewall.openclash
 	uci -q commit firewall
 	uci -q delete ucitrack.@openclash[-1]
 	uci -q commit ucitrack
-	rm -rf /tmp/luci-*
+	rm -r$(TOPDIR)/feeds/packagesp/luci-*
 endef
 
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.*.lmo $(1)/usr/lib/lua/luci/i18n/
-	$(CP) $(PKG_BUILD_DIR)/root/* $(1)/
-	$(CP) $(PKG_BUILD_DIR)/luasrc/* $(1)/usr/lib/lua/luci/
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
+	$(INSTALL_DATA) $(PKG_BUILD_DI$(TOPDIR)/feeds/packages*.lmo $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n/
+	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(1)/
+	$(CP) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci/
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2020 tencentcloud <https://github.com/Tencent-Cloud-Plugins>
+# Copyright (C) 2020 tencentcloud <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesncent-Cloud-Plugins>
 #
-# See /LICENSE for more information.
+# Se$(TOPDIR)/feeds/packagesCENSE for more information.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-tencentddns
 PKG_VERSION:=0.1.0
@@ -12,13 +12,13 @@ PKG_RELEASE:=1
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=tencentcloud <https://github.com/Tencent-Cloud-Plugins>
+PKG_MAINTAINER:=tencentcloud <http$(TOPDIR)/feeds/packagesithub.c$(TOPDIR)/feeds/packagesncent-Cloud-Plugins>
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DI$(TOPDIR)/feeds/packagesPKG_NAME)
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/luci-app-tencentddns
+define Packa$(TOPDIR)/feeds/packagesci-app-tencentddns
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -27,60 +27,60 @@ define Package/luci-app-tencentddns
 	DEPENDS:=+openssl-util +curl
 endef
 
-define Package/luci-app-tencentddns/description
+define Packa$(TOPDIR)/feeds/packagesci-app-tencentdd$(TOPDIR)/feeds/packagesscription
 	LuCI Support for TencentDDNS.
 endef
 
-define Build/Prepare
-	$(foreach po,$(wildcard ${CURDIR}/files/luci/i18n/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
+define Bui$(TOPDIR)/feeds/packagesepare
+	$(foreach po,$(wildcard ${CURDI$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagespo), \
+		po2lmo $(po) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagespatsubst %.po,%.lmo,$(notdir $(po)));)
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/luci-app-tencentddns/postinst
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesci-app-tencentdd$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	if [ -f /etc/uci-defaults/luci-tencentddns ]; then
-		( . /etc/uci-defaults/luci-tencentddns ) && \
-		rm -f /etc/uci-defaults/luci-tencentddns
+	if [ -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-tencentddns ]; then
+		( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-tencentddns ) && \
+		rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-tencentddns
 	fi
-	rm -rf /tmp/luci-indexcache /tmp/luci-modulecache
+	rm -r$(TOPDIR)/feeds/packagesp/luci-indexcach$(TOPDIR)/feeds/packagesp/luci-modulecache
 fi
 exit 0
 endef
 
-define Package/luci-app-tencentddns/prerm
-#!/bin/sh
-/etc/init.d/tencentddns stop
+define Packa$(TOPDIR)/feeds/packagesci-app-tencentdd$(TOPDIR)/feeds/packageserm
+$(TOPDIR)/feeds/packagesn/sh
+/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagesncentddns stop
 exit 0
 endef
 
-define Package/luci-app-tencentddns/conffiles
-/etc/config/tencentddns
+define Packa$(TOPDIR)/feeds/packagesci-app-tencentdd$(TOPDIR)/feeds/packagesnffiles
+/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagesncentddns
 endef
 
-define Package/luci-app-tencentddns/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/tencentddns.*.lmo $(1)/usr/lib/lua/luci/i18n/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-	$(INSTALL_DATA) ./files/luci/controller/*.lua $(1)/usr/lib/lua/luci/controller/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi/tencentddns
-	$(INSTALL_DATA) ./files/luci/model/cbi/*.lua $(1)/usr/lib/lua/luci/model/cbi/
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) ./files/root/etc/config/tencentddns $(1)/etc/config/tencentddns
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/root/etc/init.d/tencentddns $(1)/etc/init.d/tencentddns
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_BIN) ./files/root/etc/uci-defaults/luci-tencentddns $(1)/etc/uci-defaults/luci-tencentddns
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) ./files/root/usr/sbin/tencentddns $(1)/usr/sbin/tencentddns
-	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_BIN) ./files/root/etc/tencentddnsupload $(1)/etc/tencentddnsupload
+define Packa$(TOPDIR)/feeds/packagesci-app-tencentdd$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
+	$(INSTALL_DATA) $(PKG_BUILD_DI$(TOPDIR)/feeds/packagesncentddns.*.lmo $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesntroll$(TOPDIR)/feeds/packageslua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesntroller/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/tencentddns
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/*.lua $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packagesd$(TOPDIR)/feeds/packagesi/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/config
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesncentddns $($(TOPDIR)/feeds/packagesc/conf$(TOPDIR)/feeds/packagesncentddns
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/init.d
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesncentddns $($(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagesncentddns
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc/uci-defaults
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-tencentddns $($(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-tencentddns
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/sbin
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesncentddns $($(TOPDIR)/feeds/packagesr/sb$(TOPDIR)/feeds/packagesncentddns
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesc
+	$(INSTALL_BIN)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagesc/tencentddnsupload $($(TOPDIR)/feeds/packagesc/tencentddnsupload
 endef
 
 $(eval $(call BuildPackage,luci-app-tencentddns))

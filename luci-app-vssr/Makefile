@@ -1,12 +1,12 @@
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=luci-app-vssr
 PKG_VERSION:=1.22-1
 PKG_RELEASE:=20210322
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)/config
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesnfig
 config PACKAGE_$(PKG_NAME)_INCLUDE_Xray
 	bool "Include Xray"
 	default y if i386||x86_64||arm||aarch64
@@ -35,11 +35,11 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray_plugin \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Server
 
-define Package/luci-app-vssr
+define Packa$(TOPDIR)/feeds/packagesci-app-vssr
  	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
-	TITLE:=A New SS/SSR/Xray/Trojan LuCI interface
+	TITLE:=A New $(TOPDIR)/feeds/packagesR/Xr$(TOPDIR)/feeds/packagesojan LuCI interface
 	PKGARCH:=all
 	DEPENDS:=+shadowsocksr-libev-ssr-redir +ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +coreutils +coreutils-base64 +bash +pdnsd-alt +wget-ssl +lua +luasocket +lua-maxminddb \
 			+shadowsocks-libev-ss-local +shadowsocksr-libev-ssr-local +shadowsocks-libev-ss-redir +simple-obfs \
@@ -51,43 +51,43 @@ define Package/luci-app-vssr
 			+PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Server:shadowsocksr-libev-ssr-server
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
-define Package/luci-app-vssr/conffiles
-	/etc/vssr/
-	/etc/config/vssr
+define Packa$(TOPDIR)/feeds/packagesci-app-vs$(TOPDIR)/feeds/packagesnffiles
+	/e$(TOPDIR)/feeds/packagessr/
+	/e$(TOPDIR)/feeds/packagesnf$(TOPDIR)/feeds/packagessr
 endef
 
-define Package/luci-app-vssr/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci
-	cp -pR ./luasrc/* $(1)/usr/lib/lua/luci
+define Packa$(TOPDIR)/feeds/packagesci-app-vs$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
+	cp -pR$(TOPDIR)/feeds/packagesas$(TOPDIR)/feeds/packages$($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/luci
 	$(INSTALL_DIR) $(1)/
-	cp -pR ./root/* $(1)/
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	po2lmo ./po/zh_Hans/vssr.po $(1)/usr/lib/lua/luci/i18n/vssr.zh-cn.lmo
+	cp -pR$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packages$(1)/
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages8n
+	po2lmo$(TOPDIR)/feeds/packages/zh-$(TOPDIR)/feeds/packagessr.po $($(TOPDIR)/feeds/packagesr/l$(TOPDIR)/feeds/packagesa/lu$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagessr.zh-cn.lmo
 endef
 
-define Package/luci-app-vssr/postinst
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesci-app-vs$(TOPDIR)/feeds/packagesstinst
+$(TOPDIR)/feeds/packagesn/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	( . /etc/uci-defaults/luci-vssr ) && rm -f /etc/uci-defaults/luci-vssr
-	rm -rf /tmp/luci-indexcache
-	rm -rf /tmp/luci-modulecache/*
-	chmod 755 /etc/init.d/vssr >/dev/null 2>&1
-	/etc/init.d/vssr enable >/dev/null 2>&1
+	( $(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-vssr ) && rm -$(TOPDIR)/feeds/packagesc/uci-defaul$(TOPDIR)/feeds/packagesci-vssr
+	rm -r$(TOPDIR)/feeds/packagesp/luci-indexcache
+	rm -r$(TOPDIR)/feeds/packagesp/luci-modulecache/*
+	chmod 75$(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessr$(TOPDIR)/feeds/packagesv/null 2>&1
+	/e$(TOPDIR)/feeds/packagesit$(TOPDIR)/feeds/packagessr enable$(TOPDIR)/feeds/packagesv/null 2>&1
 fi
 exit 0
 endef
 
-define Package/luci-app-vssr/prerm
-#!/bin/sh
+define Packa$(TOPDIR)/feeds/packagesci-app-vs$(TOPDIR)/feeds/packageserm
+$(TOPDIR)/feeds/packagesn/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-     /etc/init.d/vssr disable
-     /etc/init.d/vssr stop
+   $(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessr disable
+   $(TOPDIR)/feeds/packagesc/init$(TOPDIR)/feeds/packagessr stop
 fi
 exit 0
 endef

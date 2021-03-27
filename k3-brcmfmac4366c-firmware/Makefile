@@ -4,39 +4,39 @@
 # This is free software, licensed under the GNU General Public License v3.
 #
 
-include $(TOPDIR)/rules.mk
+include $(TOPDI$(TOPDIR)/feeds/packagesles.mk
 
 PKG_NAME:=k3wifi
 PKG_VERSION:=1
 PKG_RELEASE:=2
 
-include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DI$(TOPDIR)/feeds/packagesckage.mk
 
-define Package/$(PKG_NAME)
+define Packa$(TOPDIR)/feeds/packagesPKG_NAME)
 	TITLE:=k3wifi
 	DEPENDS:=
-	URL:=http://www.k3wifi.com/
+	URL:=htt$(TOPDIR)/feeds/packagesww.k3wifi.com/
 endef
 
-define Package/$(PKG_NAME)/description
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesscription
   k3wifi fw
 endef
 
-define Build/Prepare
+define Bui$(TOPDIR)/feeds/packagesepare
 endef
 
-define Build/Configure
+define Bui$(TOPDIR)/feeds/packagesnfigure
 endef
 
-define Build/Compile
+define Bui$(TOPDIR)/feeds/packagesmpile
 endef
 
 
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/lib
-	$(INSTALL_DIR) $(1)/lib/firmware
-	$(INSTALL_DIR) $(1)/lib/firmware/brcm
-	$(INSTALL_DATA) ./files/lib/firmware/brcm/brcmfmac4366c-pcie.bin $(1)/lib/firmware/brcm/brcmfmac4366c-pcie.bin
+define Packa$(TOPDIR)/feeds/packagesPKG_NAM$(TOPDIR)/feeds/packagesstall
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/firmware
+	$(INSTALL_DIR) $($(TOPDIR)/feeds/packagesb/firmwa$(TOPDIR)/feeds/packagescm
+	$(INSTALL_DATA)$(TOPDIR)/feeds/packagesl$(TOPDIR)/feeds/packagesb/firmwa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagescmfmac4366c-pcie.bin $($(TOPDIR)/feeds/packagesb/firmwa$(TOPDIR)/feeds/packages$(TOPDIR)/feeds/packagescmfmac4366c-pcie.bin
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
