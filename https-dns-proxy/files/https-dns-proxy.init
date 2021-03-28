@@ -96,7 +96,9 @@ is_force_dns_active() { iptables-save | grep -q -w -- '--dport 53'; }
 start_service() {
 	local p=5053 c
 	config_load 'https-dns-proxy'
-	config_get dnsmasqConfig	'config' 'update_dnsmasq_config' '-'
+	config_get enabled 'config' 'enabled' '1'
+	[ "$enabled" = 0 ] && return
+	config_get dnsmasqConfig	'config' 'update_dnsmasq_config' '*'
 	config_get_bool forceDNS	'config' 'force_dns' '1'
 	config_get forceDNSPorts	'config' 'force_dns_port' '53 853'
 	dhcp_backup 'create'
@@ -143,7 +145,7 @@ start_service() {
 
 stop_service() {
 	config_load 'https-dns-proxy'
-	config_get dnsmasqConfig 'config' 'update_dnsmasq_config' '-'
+	config_get dnsmasqConfig 'config' 'update_dnsmasq_config' '*'
 	dhcp_backup 'restore'
 	if [ -n "$(uci -q changes dhcp)" ]; then
 		uci -q commit dhcp
