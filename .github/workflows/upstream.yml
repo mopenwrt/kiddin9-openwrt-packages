@@ -67,6 +67,7 @@ jobs:
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-cdnspeedtest cdnspeedtest &
+        git clone --depth 1 https://github.com/immortalwrt/openwrt-gowebdav && mv -n openwrt-gowebdav/* ./ ; rm -Rf openwrt-gowebdav &
 
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config &
@@ -120,8 +121,6 @@ jobs:
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu
         svn co https://github.com/immortalwrt/packages/trunk/net/gost
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gowebdav
-        svn co https://github.com/immortalwrt/packages/trunk/net/gowebdav
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol
         svn co https://github.com/immortalwrt/packages/trunk/net/mwol
         svn co https://github.com/immortalwrt/packages/trunk/net/nps
