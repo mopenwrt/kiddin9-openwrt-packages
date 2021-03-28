@@ -1,58 +1,29 @@
 --- a/luci-app-https-dns-proxy/luasrc/model/cbi/https-dns-proxy.lua
 +++ b/luci-app-https-dns-proxy/luasrc/model/cbi/https-dns-proxy.lua
-@@ -118,10 +118,13 @@ else
- 			ss.template = packageName .. "/status-textarea"
- 		end
- 	ss.value = packageStatus
--	buttons = h:option(DummyValue, "_dummy")
+@@ -109,12 +109,10 @@ h.template = "cbi/nullsection"
+ ss = h:option(DummyValue, "_dummy", translate("Service Status"))
+ ss.template = packageName .. "/status"
+ ss.value = packageStatus
+-if packageStatusCode ~= -1 then
+-	buttons = h:option(DummyValue, "_dummy", translate("Service Control"))
 -	buttons.template = packageName .. "/buttons"
- end
+-end
  
-+s = m:section(TypedSection, "main", "config")
-+s.anonymous=true
-+o = s:option(Flag, "enabled", translate("Enable"))
+ c = m:section(NamedSection, "config", "https-dns-proxy", translate("Configuration"))
++o = c:option(Flag, "enabled", translate("Enable"))
 +o.default = 1
-+
- createHelperText()
- s3 = m:section(TypedSection, "https-dns-proxy", translate("Instances"), 
- 	translatef("When you add/remove any instances below, they will be used to override the 'DNS forwardings' section of %sDHCP and DNS%s.", "<a href=\"" .. dispatcher.build_url("admin/network/dhcp") .. "\">", "</a>") .. helperText)
-
---- a/luci-app-https-dns-proxy/luasrc/view/https-dns-proxy/status-textarea.htm
-+++ b/luci-app-https-dns-proxy/luasrc/view/https-dns-proxy/status-textarea.htm
-@@ -6,7 +6,7 @@
- <%+cbi/valueheader%>
- 
- <textarea rows="<%=select(2, self:cfgvalue(section):gsub('\n', ''))%>"
--	style="border:none;box-shadow:none;background:transparent;font-weight:bold;line-height:20px;width:50em;padding:none;margin:6px;resize:none;overflow:hidden;"
-+	style="border:none;box-shadow:none;background:transparent;font-weight:bold;line-height:20px;width:50em;padding:none;padding:0;resize:none;overflow:hidden;"
- 	disabled="disabled"><%=self:cfgvalue(section)%>
- </textarea>
- 
+ d1 = c:option(ListValue, "update_dnsmasq_config", translate("Update DNSMASQ Config on Start/Stop"), translatef("If update option is selected, the 'DNS forwardings' section of %sDHCP and DNS%s will be automatically updated to use selected DoH providers (%smore information%s).", "<a href=\"" .. dispatcher.build_url("admin/network/dhcp") .. "\">", "</a>", "<a href=\"" .. readmeURL .. "#default-settings" .. "\" target=\"_blank\">", "</a>"))
+ d1:value('*', translate("Update all configs"))
+ local dnsmasq_num = 0
 
 --- a/https-dns-proxy/files/https-dns-proxy.init
 +++ b/https-dns-proxy/files/https-dns-proxy.init
-@@ -85,7 +85,9 @@ service_triggers() {
- 
+@@ -96,6 +96,8 @@ is_force_dns_active() { iptables-save | grep -q -w -- '--dport 53'; }
  start_service() {
- 	local p=5053
--	config_load 'https-dns-proxy'
-+	stop_service
-+	config_get "enabled" "config" "enabled" "1"
+ 	local p=5053 c
+ 	config_load 'https-dns-proxy'
++	config_get enabled 'config' 'enabled' '1'
 +	[ "$enabled" = 0 ] && return
  	config_get dnsmasqConfig	'config' 'update_dnsmasq_config' '*'
- 	dhcp_backup 'create'
- 	config_load 'https-dns-proxy'
-@@ -155,13 +157,11 @@ dnsmasq_restore_server_backup() {
- 		fi
- 		uci -q del "dhcp.${cfg}.doh_backup_noresolv"
- 	fi
--	if uci -q get "dhcp.${cfg}.doh_backup_server" >/dev/null; then
- 		uci -q del "dhcp.${cfg}.server"
- 		for i in $(uci -q get "dhcp.${cfg}.doh_backup_server"); do
- 			uci -q add_list "dhcp.${cfg}.server=$i"
- 		done
- 	uci -q del "dhcp.${cfg}.doh_backup_server"
--	fi
- }
- 
- dhcp_backup() {
+ 	config_get_bool forceDNS	'config' 'force_dns' '1'
+ 	config_get forceDNSPorts	'config' 'force_dns_port' '53 853'
