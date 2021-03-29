@@ -116,7 +116,6 @@ jobs:
         svn co https://github.com/openwrt/packages/trunk/net/https-dns-proxy
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
         svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
-        svn co https://github.com/openwrt/packages/trunk/devel/ninja
         svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
