@@ -120,7 +120,7 @@ define Package/softethervpn5-libs/install
 	$(INSTALL_BIN) files/launcher.sh $(1)/usr/libexec/softethervpn/
 	$(INSTALL_DATA) files/dummy $(1)/usr/libexec/softethervpn/lang.config
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) $(TOPDIR)/feeds/packages/usr/libexec/softethervpn/launcher.sh $(1)/usr/bin/vpncmd
+	$(LN) ../../usr/libexec/softethervpn/launcher.sh $(1)/usr/bin/vpncmd
 endef
 
 define Package/softethervpn5-server/install
