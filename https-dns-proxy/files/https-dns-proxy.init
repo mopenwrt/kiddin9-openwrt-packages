@@ -205,12 +205,12 @@ dnsmasq_restore_server_backup() {
 		fi
 		uci -q del "dhcp.${cfg}.doh_backup_noresolv"
 	fi
+	uci -q del "dhcp.${cfg}.server"
 	if uci -q get "dhcp.${cfg}.doh_backup_server" >/dev/null; then
-		uci -q del "dhcp.${cfg}.server"
 		for i in $(uci -q get "dhcp.${cfg}.doh_backup_server"); do
 			uci -q add_list "dhcp.${cfg}.server=$i"
 		done
-	uci -q del "dhcp.${cfg}.doh_backup_server"
+		uci -q del "dhcp.${cfg}.doh_backup_server"
 	fi
 }
 
