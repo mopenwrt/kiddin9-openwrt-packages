@@ -1,6 +1,6 @@
 # To execute ninja from you package's Makefile:
 #
-# include ../devel/ninja/ninja.mk
+# include $(TOPDIR)/feeds/packages/devel/ninja/ninja.mk
 #
 # define Build/Compile
 #   $(call Ninja,-C $(MY_NINJA_BUILD_DIR),$(MY_NINJA_ENV_VARS))

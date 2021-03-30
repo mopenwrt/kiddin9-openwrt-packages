@@ -32,7 +32,7 @@ GO_PKG_BUILD_PKG:=ehang.io/nps/cmd/...
 GO_PKG_LDFLAGS:=-s -w
 
 include $(INCLUDE_DIR)/package.mk
-include ../lang/golang/golang-package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/nps/template
   SECTION:=net
