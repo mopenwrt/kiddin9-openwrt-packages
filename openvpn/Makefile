@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openvpn
 
-PKG_VERSION:=2.5.0
+PKG_VERSION:=2.5.1
 PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=\
@@ -18,7 +18,7 @@ PKG_SOURCE_URL:=\
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_HASH:=skip
 
-PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
+PKG_MAINTAINER:=Magnus Kroken <mkroken@gmail.com>
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf

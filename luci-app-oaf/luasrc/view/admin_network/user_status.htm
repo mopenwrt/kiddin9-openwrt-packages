@@ -1,4 +1,8 @@
 <style type="text/css">
+<%
+local dsp = require "luci.dispatcher"
+-%>
+
 table.imagetable {
     font-family: verdana,arial,sans-serif;
     font-size:11px;
@@ -24,60 +28,64 @@ table.imagetable td {
 }-->
 </style>
 <script type="text/javascript">//<![CDATA[
-
-	XHR.poll(10, '<%=url('admin/network/user_status')%>', null,
+	XHR.poll(5, '<%=url('admin/network/dev_app_status')%>', null,
 		function(x, st)
 		{
 			var tb = document.getElementById('user_status_table');
-			var str=JSON.stringify(st);
+			var dev_list_str=JSON.stringify(st);
 			if (st && tb)
 			{
-				/* clear all rows */
 				while(tb.rows.length > 1)
 					tb.deleteRow(1);
-				for(var i = 0; i < st.length; i++ )
+				var devlist = st.devlist
+				for(var i = 0; i < devlist.length; i++ )
 				{
-					var action_status=""
-					if(st[i].latest_action == 1)
-						action_status="已过滤"
-					else
-						action_status="未过滤"
 					var hostname=""
-					if(st[i].hostname == "" || st[i].hostname == "*"){
+					if(devlist[i].hostname == "" || devlist[i].hostname == "*"){
 						hostname="?";
 					}
 					else{
-						hostname=st[i].hostname;
+						hostname=devlist[i].hostname;
 					}
 					var tr = tb.insertRow(-1);
 					//tr.className = 'cbi-section-table-row cbi-rowstyle-' + ((i % 2) + 1);
+					tr.insertCell(-1).innerHTML = i + 1;
 					tr.insertCell(-1).innerHTML = hostname;
-					tr.insertCell(-1).innerHTML = st[i].mac;
-					tr.insertCell(-1).innerHTML = st[i].ip;
-					tr.insertCell(-1).innerHTML = st[i].appname;
-					tr.insertCell(-1).innerHTML = st[i].drop_num;
-					tr.insertCell(-1).innerHTML = st[i].total_num;
-					tr.insertCell(-1).innerHTML = st[i].latest_time;
-					tr.insertCell(-1).innerHTML = action_status;
+					tr.insertCell(-1).innerHTML = "<a href='<%=url('admin/network/appfilter/')%>"+devlist[i].mac+"'>"+devlist[i].mac+"</a>";
+					tr.insertCell(-1).innerHTML = devlist[i].ip;
+					var app_list_str="";
+					for (var j = 0; j < devlist[i].applist.length; j++){
+						console.log(devlist[i].applist[j].name);
+						app_list_str+=devlist[i].applist[j].name;
+						if (j != devlist[i].applist.length - 1)
+						app_list_str+=","
+					}
+					if(app_list_str == ""){
+						app_list_str="--"
+					}
+					tr.insertCell(-1).innerHTML = app_list_str;
+					if (devlist[i].online == 1)
+						tr.insertCell(-1).innerHTML = "在线";
+					else
+						tr.insertCell(-1).innerHTML = "离线";
 				}
 			}
 		}
 	);
+
 //]]></script>
 
 
 <fieldset class="cbi-section">
-	<legend><%:访问记录%></legend>
+	<legend><%:终端列表%></legend>
 	<table class="imagetable" id="user_status_table">
 		<tr>
+			<th ><%:编号%></th>
 			<th ><%:主机名%></th>
 			<th ><%:mac地址%></th>
 			<th ><%:ip地址%></th>
-			<th ><%:App名称%></th>
-			<th><%:丢包次数%></th>
-			<th ><%:访问次数%></th>
-			<th><%:最后访问时间%></th>
-			<th><%:过滤状态%></th>
+			<th><%:常用APP(TOP5)%></th>
+			<th><%:在线状态%></th>
 		</tr>
 		<tr>
 			<td colspan="8"><em><br /><%:Collecting data...%></em></td>

@@ -7,7 +7,7 @@ uci:foreach(bypass,"servers",function(s)
 	server_count=server_count+1
 end)
 
-m=Map(bypass,translate("Servers subscription and manage"),translate("Support SS/SSR/V2RAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc."))
+m=Map(bypass,translate("Servers subscription and manage"),translate("Support SS/SSR/XRAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc."))
 s=m:section(TypedSection,"server_subscribe")
 s.anonymous=true
 
@@ -24,6 +24,10 @@ o.rmempty=false
 
 o=s:option(DynamicList,"subscribe_url",translate("Subscribe URL"))
 o.rmempty=true
+
+o=s:option(ListValue,"filter_mode",translate("Filter Words Mode"))
+o:value("",translate("Discard Mode"))
+o:value(1,translate("Keep Mode"))
 
 o=s:option(Value,"filter_words",translate("Subscribe Filter Words"))
 o.rmempty=true
@@ -74,6 +78,7 @@ s.extedit=luci.dispatcher.build_url("admin","services",bypass,"servers","%s")
 function s.create(...)
 	local sid=TypedSection.create(...)
 	if sid then
+		uci:set(bypass,sid,'switch_enable',1)
 		luci.http.redirect(s.extedit%sid)
 		return
 	end

@@ -3,7 +3,6 @@ local http = require "luci.http"
 local api = require "luci.model.cbi.bypass.api"
 local kcptun = require "luci.model.cbi.bypass.kcptun"
 local xray = require "luci.model.cbi.bypass.xray"
-local v2ray = require "luci.model.cbi.bypass.v2ray"
 local trojan_go = require "luci.model.cbi.bypass.trojan_go"
 function index()
 	if not nixio.fs.access("/etc/config/bypass") then
@@ -226,25 +225,6 @@ function xray_update()
 	http_write_json(json)
 end
 
-function v2ray_check()
-	local json = v2ray.to_check("")
-	http_write_json(json)
-end
-
-function v2ray_update()
-	local json = nil
-	local task = http.formvalue("task")
-	if task == "extract" then
-		json = v2ray.to_extract(http.formvalue("file"), http.formvalue("subfix"))
-	elseif task == "move" then
-		json = v2ray.to_move(http.formvalue("file"))
-	else
-		json = v2ray.to_download(http.formvalue("url"))
-	end
-
-	http_write_json(json)
-end
-
 function trojan_go_check()
 	local json = trojan_go.to_check("")
 	http_write_json(json)
@@ -319,7 +299,7 @@ end
 function status()
 	local e = {}
 	e.dns_mode_status = luci.sys.call("pidof smartdns >/dev/null") == 0
-	e.socks5_status = luci.sys.call("ps -w | grep by-socks5 | grep -v grep >/dev/null") == 0
+	e.socks5_status = luci.sys.call("ps -w | grep by- | grep socks5 | grep -v grep >/dev/null") == 0
 	e.tcp_node_status = luci.sys.call("ps -w | grep by-retcp | grep -v grep >/dev/null") == 0
 	e.udp_node_status = luci.sys.call("ps -w | grep by-reudp | grep -v grep >/dev/null") == 0
 	e.kcptun_tcp_node_status = luci.sys.call("pidof kcptun-client >/dev/null") == 0

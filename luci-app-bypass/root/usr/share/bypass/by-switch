@@ -1,8 +1,6 @@
 #!/bin/sh
-
 NAME=bypass
-D="date +'%Y-%m-%d %H:%M:%S'"
-L=/tmp/log/bypass.log
+S=/usr/share/$NAME
 
 uci_get_by_name(){
 	w=$(uci -q get $NAME.$1.$2)
@@ -14,27 +12,28 @@ uci_get_by_type(){
 	echo ${w:=$3}
 }
 
+log(){
+	echo "$(date +'%Y-%m-%d %H:%M:%S') By-Switch : $*" >> /tmp/log/$NAME.log
+}
+
 get_ip(){
-	if ! echo $server | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$">/dev/null;then
+	if ! echo $ip | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$">/dev/null;then
 		r=1
-		while ! ip=$(nslookup $server 127.0.0.1#5336 2>/dev/null | grep Address | awk -F' ' '{print$NF}' | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$");do
-		if ! ip=$(nslookup $server 223.5.5.5 2>/dev/null | grep Address | awk -F' ' '{print$NF}' | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$"); then
-			[ $r -ge 10 ] && echo "$(eval $DATE) By-Switch: Unable to get $server address Check domain name!" >>$L; return 1 || let r++
+		while ! nslookup $ip 127.0.0.1#5336 >/dev/null 2>&1;do
+			[ $r -ge 10 ] && return 1 || let r++
 			sleep 1
-		else
-			break
-		fi
 		done
+		ip=$(nslookup $ip 127.0.0.1#5336 2>/dev/null | grep Address | awk -F' ' '{print$NF}' | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$");i=$?
 		ip=$(echo "$ip" | sed -n 1p)
-		return 0
 	fi
+	return $i
 }
 
 f_bin(){
 	case $1 in
 		ss)w=$(which ss-local);;
 		ssr)w=$(which ssr-local);;
-		vmess|vless)w=$(which xray) || w=$(which v2ray);;
+		vmess|vless)w=$(which xray);;
 		trojan)w=$(which trojan-plus);;
 		trojan-go)w=$(which trojan-go);;
 		naiveproxy)w=$(which naive);;
@@ -43,7 +42,7 @@ f_bin(){
 }
 
 gen_port(){
-	lport=1234
+	lport=1090
 	while [ $(netstat -tln | grep -c :$lport) != 0 ];do let lport++;done
 }
 
@@ -67,7 +66,7 @@ gen_config_file(){
 }
 EOF
 			plugin=$(uci_get_by_name $1 plugin 0)
-			if [ $plugin != 0 -a -x $(which $plugin) ];then
+			if [ $plugin != 0 -a -x "$(which $plugin)" ];then
 				sed -i "s@$ip\",@$ip\",\n\"plugin\":\"$plugin\",\n\"plugin_opts\":\"$(uci_get_by_name $1 plugin_opts)\",@" $J
 			fi;;
 		ssr)
@@ -103,21 +102,21 @@ EOF
 
 curl_check(){
 	if [ $(uci_get_by_name $1 kcp_enable 0) = 1 ];then
-		echo "`eval $D` By-Switch : Skip KCPTUN Node!" >> $L;return 1
+		log "Skip KCPTUN Node!";return 1
 	fi
 	type=$(uci_get_by_name $1 type)
 	if [ $type = tun ];then
-		curl --interface $(uci_get_by_name $1 iface br-lan) -so /dev/null --connect-timeout $time_b https://www.google.com;return $?
+		curl --interface $(uci_get_by_name $1 iface br-lan) --resolve dns.google:443:8.8.8.8 -so /dev/null --connect-timeout 20 https://dns.google;return $?
 	elif [ $type != socks5 ];then
 		cmd=$(f_bin $type)
 		if [ ! -x $cmd ];then
 			[ $type = ss -o $type = ssr ] && type=$type-local
-			echo "`eval $D` By-Switch : Can't find $(echo $type) program, Skip this Node($($UCI$1.alias || uci_get_by_name $1 server))." >> $L
+			log "Can't find $(echo $type) program, Skip this Node($($UCI$1.alias || uci_get_by_name $1 server))."
 			return 1
 		fi
 	fi
 	gen_port
-	J=/var/etc/bypass/by-socks5-check.json
+	J=/var/etc/$NAME/by-socks5-check.json
 	gen_config_file $1
 	IP=127.0.0.1
 	param=
@@ -125,11 +124,11 @@ curl_check(){
 		ss|ssr)
 			$cmd -c $J >/dev/null 2>&1 &;;
 		vmess|vless)
-			/usr/share/bypass/genv2config $1 tcp 0 $lport $ip > $J
+			$S/genv2config $1 tcp 0 $lport $ip > $J
 			sed -i 's/\\//g' $J
 			$cmd -c $J >/dev/null 2>&1 &;;
 		trojan|trojan-go)
-			/usr/share/bypass/gentrojanconfig $1 client $lport $ip > $J
+			$S/gentrojanconfig $1 client $lport $ip > $J
 			sed -i 's/\\//g' $J
 			$cmd --config $J >/dev/null 2>&1 &;;
 		naiveproxy)
@@ -145,20 +144,19 @@ curl_check(){
 			fi;;
 	esac
 	r=1
-	while ! ps -w | grep $J | grep -v grep >/dev/null;do
+	while [ $(netstat -tlnp | grep ${cmd##*/} | grep -c :$lport) = 0 ];do
 		[ $r -ge 10 ] && return 1 || let r++
 		sleep 1
 	done
-	/usr/share/bypass/by-rules -f 2>/dev/null
-	sleep 1
-	curl -x socks5h://$IP:$lport $param -so /dev/null --connect-timeout $time_b https://www.google.com;i=$?
+	curl -x socks5://$IP:$lport $param --resolve dns.google:443:8.8.8.8 -so /dev/null --connect-timeout 20 https://dns.google;i=$?
 	kill -9 $(ps -w | grep $J | grep -v grep | awk '{print$1}') 2>/dev/null
-	[ $i = 0 ] || echo "`eval $D` By-Switch : Server : $($UCI$1.alias || uci_get_by_name $1 server) cURL check error, Try to switch another server." >> $L
+	rm -f $J
+	[ $i = 0 ] || log "Server : $($UCI$1.alias || uci_get_by_name $1 server) cURL check error, Try to switch another server."
 	return $i
 }
 
 test_proxy(){
-	server=$(uci_get_by_name $1 server)
+	ip=$(uci_get_by_name $1 server)
 	get_ip || return 1
 	port=$(uci_get_by_name $1 server_port)
 	ipset add ss_spec_wan_ac $ip 2>/dev/null
@@ -190,12 +188,12 @@ select_proxy(){
 	for i in $(seq $c $b);do
 		d=$(echo "$a" | sed 's/.*\.\(.*\)=.*/\1/' | sed -n ${i}p)
 		([ $d = $SERVER_B ] || [ $(uci_get_by_name $d switch_enable 0) != 1 ]) && continue
-		server=$(uci_get_by_name $d server)
+		ip=$(uci_get_by_name $d server)
 		get_ip || continue
 		port=$(uci_get_by_name $d server_port)
 		ipset add ss_spec_wan_ac $ip 2>/dev/null
 		x=$?
-		/usr/share/bypass/by-check $ip $port $time_b && curl_check $d
+		$S/by-check $ip $port $time_b && curl_check $d
 		y=$?
 		[ $x = 0 ] && ipset del ss_spec_wan_ac $ip 2>/dev/null
 		if [ $y = 0 ];then
@@ -207,7 +205,7 @@ select_proxy(){
 }
 
 switch_proxy(){
-	/etc/init.d/bypass restart $SERVER_B
+	/etc/init.d/$NAME restart $SERVER_B
 }
 
 [ "$1" = start ] || exit 1
@@ -218,36 +216,34 @@ c=1
 time_a=$(uci_get_by_type global switch_time 300)
 time_b=$(uci_get_by_type global switch_timeout 5)
 UCI="uci -q get $NAME."
-
+sleep 10
 while :;do
 	if [ $SERVER_A != $SERVER_B ];then
-		echo "`eval $D` By-Switch : Current server : $($UCI$SERVER_B.alias || uci_get_by_name $SERVER_B server) is not main server, Try to switch back to $($UCI$SERVER_A.alias || uci_get_by_name $SERVER_A server)." >> $L
+		log "Current server : $($UCI$SERVER_B.alias || uci_get_by_name $SERVER_B server) is not main server, Try to switch back to $($UCI$SERVER_A.alias || uci_get_by_name $SERVER_A server)."
 		if test_proxy $SERVER_A;then
-			echo "`eval $D` By-Switch : Main server is available. Switch to main server." >> $L
+			log "Main server is available. Switch to main server."
 			SERVER_B=$SERVER_A
 			switch_proxy
 			continue
 		else
-			echo "`eval $D` By-Switch : Main server is not available. Continue using current server." >> $L
+			log "Main server is not available. Continue using current server."
 		fi
 	fi
 	check_proxy
 	a=$?
-	if [ $a = 0 ];then
-		echo "`eval $D` By-Switch : Bypass No Problem." >> $L
-	elif [ $a = 1 ];then
-		echo "`eval $D` By-Switch : Current server : $($UCI$SERVER_B.alias || uci_get_by_name $SERVER_B server) error.Try to switch another server." >> $L
+	if [ $a = 1 ];then
+		log "Current server : $($UCI$SERVER_B.alias || uci_get_by_name $SERVER_B server) error.Try to switch another server."
 		select_proxy
 		if [ $SERVER_C != 0 ];then
-			echo "`eval $D` By-Switch : Another server : $($UCI$SERVER_C.alias || uci_get_by_name $SERVER_C server) is available.Now switching server." >> $L
+			log "Another server : $($UCI$SERVER_C.alias || uci_get_by_name $SERVER_C server) is available.Now switching server."
 			SERVER_B=$SERVER_C
 			switch_proxy
 		else
-			echo "`eval $D` By-Switch : No server available.Try restart current server." >> $L
+			log "No server available. Try restart current server."
 			switch_proxy
 		fi
-	else
-		echo "`eval $D` By-Switch : Network Problem.Do nothing." >> $L
+	elif [ $a = 2 ];then
+		log "Network Problem. Do nothing."
 	fi
 	sleep $time_a
 done

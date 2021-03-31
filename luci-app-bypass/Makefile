@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-bypass
 PKG_VERSION:=1.2
-PKG_RELEASE:=50
+PKG_RELEASE:=63
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
@@ -38,10 +38,6 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin
 	bool "Include Shadowsocks V2ray Plugin"
 	default n
 
-config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray
-	bool "Include V2ray"
-	default n
-
 config PACKAGE_$(PKG_NAME)_INCLUDE_Xray
 	bool "Include Xray"
 	default y
@@ -72,30 +68,13 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server
 	default y
 endef
 
-PKG_CONFIG_DEPENDS:= \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Server \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Server \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs_server \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server
-
 define Package/$(PKG_NAME)
  	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
-	TITLE:=SS/SSR/V2Ray/Xray/Trojan/Trojan-Go/NaiveProxy/Socks5/Tun LuCI interface
+	TITLE:=SS/SSR/Xray/Trojan/Trojan-Go/NaiveProxy/Socks5/Tun LuCI interface
 	PKGARCH:=all
-	DEPENDS:=+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +smartdns +coreutils +coreutils-base64 +curl +tcping +chinadns-ng +lua +luci-compat +unzip +lua-maxminddb \
+	DEPENDS:=+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +smartdns-le +coreutils +coreutils-base64 +curl +tcping +chinadns-ng +lua +luci-compat +unzip +lua-maxminddb \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Server:shadowsocks-libev-ss-server \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks:shadowsocks-libev-ss-local \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks:shadowsocks-libev-ss-redir \
@@ -105,7 +84,6 @@ define Package/$(PKG_NAME)
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs:simple-obfs \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs_server:simple-obfs-server \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin:v2ray-plugin \
-	+PACKAGE_$(PKG_NAME)_INCLUDE_V2ray:v2ray \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Xray:xray-core \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan:trojan-plus \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go:trojan-go \
@@ -115,9 +93,8 @@ define Package/$(PKG_NAME)
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server:microsocks
 endef
 
-define Build/Prepare
-	$(foreach po,$(wildcard ${CURDIR}/po/zh_Hans/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
+define Package/$(PKG_NAME)/postinst
+[ -n "$$IPKG_INSTROOT" ] || (rm -rf /tmp/luci-modulecache /tmp/luci-indexcache*;killall -HUP rpcd 2>/dev/null;/etc/init.d/smartdns stop 2>/dev/null;/etc/init.d/bypass enable)
 endef
 
 define Build/Compile
@@ -134,16 +111,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/
 	cp -pR ./root/* $(1)/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/bypass.*.lmo $(1)/usr/lib/lua/luci/i18n/
-endef
-
-define Package/$(PKG_NAME)/prerm
-#!/bin/sh
-if [ -z "$${IPKG_INSTROOT}" ];then
-	/etc/init.d/bypass disable
-	/etc/init.d/bypass stop
-fi
-exit 0
+	po2lmo ./po/zh_Hans/bypass.po $(1)/usr/lib/lua/luci/i18n/bypass.zh-cn.lmo
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))

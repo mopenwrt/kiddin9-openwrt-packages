@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xray-core
-PKG_VERSION:=1.3.0
+PKG_VERSION:=1.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -13,7 +13,6 @@ PKG_LICENSE:=MPL-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_CONFIG_DEPENDS:= \
-	CONFIG_XRAY_CORE_PROVIDE_V2RAY_CORE \
 	CONFIG_XRAY_CORE_COMPRESS_GOPROXY \
 	CONFIG_XRAY_CORE_COMPRESS_UPX \
 
@@ -70,10 +69,6 @@ define Package/xray-core/config
 menu "Xray-core Configuration"
 	depends on PACKAGE_xray-core
 
-config XRAY_CORE_PROVIDE_V2RAY_CORE
-	bool "Provide V2Ray binary using XRay"
-	default y
-
 config XRAY_CORE_COMPRESS_GOPROXY
 	bool "Compiling with GOPROXY proxy"
 	default n
@@ -84,24 +79,24 @@ config XRAY_CORE_COMPRESS_UPX
 endmenu
 endef
 
-GEOIP_VER:=202102110014
+GEOIP_VER:=202103110015
 GEOIP_FILE:=geoip.dat.$(GEOIP_VER)
 
 define Download/geoip
   URL:=https://github.com/v2fly/geoip/releases/download/$(GEOIP_VER)/
   URL_FILE:=geoip.dat
   FILE:=$(GEOIP_FILE)
-  HASH:=c80e61b251fd76b09df5624b12cc84d7e1d9a0492b9acb43e21f0a244b1f9fc3
+  HASH:=8d2e8beaafd9aa07fce4900cc079cddf873d24658d1874de53417df33ab7f4b3
 endef
 
-GEOSITE_VER:=20210211141342
+GEOSITE_VER:=20210314064711
 GEOSITE_FILE:=dlc.dat.$(GEOSITE_VER)
 
 define Download/geosite
   URL:=https://github.com/v2fly/domain-list-community/releases/download/$(GEOSITE_VER)/
   URL_FILE:=dlc.dat
   FILE:=$(GEOSITE_FILE)
-  HASH:=e71b4acf2918851dd56e7cda714abb4758deb57b91d716911f33c453b909e796
+  HASH:=8b89b59b0a826cb24d6b18a4e5e1db2b990faa8a9a8fef0eb000a692a7cbf7bb
 endef
 
 ifneq ($(CONFIG_XRAY_CORE_COMPRESS_GOPROXY),)
@@ -126,12 +121,9 @@ endef
 
 define Package/xray-core/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/main $(1)/usr/bin/xray
-ifneq ($(CONFIG_XRAY_CORE_PROVIDE_V2RAY_CORE),)
 	$(LN) xray $(1)/usr/bin/v2ray
-endif
 endef
 
 define Package/xray-geodata/install

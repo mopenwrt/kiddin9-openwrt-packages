@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v2ray-plugin
-PKG_VERSION:=1.8.0
+PKG_VERSION:=4.36.0
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
@@ -26,6 +26,8 @@ PKG_USE_MIPS16:=0
 
 GO_PKG:=github.com/shadowsocks/v2ray-plugin
 GO_PKG_LDFLAGS:=-s -w
+GO_PKG_LDFLAGS_X:=main.VERSION=v$(PKG_VERSION)
+
 PKG_CONFIG_DEPENDS := CONFIG_$(PKG_NAME)_INCLUDE_GOPROXY
 
 include $(INCLUDE_DIR)/package.mk
@@ -34,13 +36,14 @@ include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 define Package/$(PKG_NAME)/config
 config $(PKG_NAME)_INCLUDE_GOPROXY
 	bool "Compiling with GOPROXY proxy"
-	default y
+	default n
 
 endef
 
 ifeq ($(CONFIG_$(PKG_NAME)_INCLUDE_GOPROXY),y)
 export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
+export GOPROXY=https://goproxy.io
+#export GOPROXY=https://mirrors.aliyun.com/goproxy/
 endif
 
 define Package/$(PKG_NAME)
@@ -48,7 +51,7 @@ define Package/$(PKG_NAME)
 	CATEGORY:=Network
 	SUBMENU:=Project V
 	TITLE:=SIP003 plugin for shadowsocks, based on v2ray
-	URL:=https://github.com/shadowsocks/v2ray-plugin
+	URL:=https://github.com/teddysun/v2ray-plugin
 	DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
@@ -56,19 +59,14 @@ define Package/$(PKG_NAME)/description
 	Yet another SIP003 plugin for shadowsocks, based on v2ray
 endef
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-endef
-
 define Build/Compile
 	$(call GoPackage/Build/Compile)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ray-plugin || true
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/v2ray-plugin
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray-plugin $(1)/usr/bin/v2ray-plugin
 endef
-
 $(eval $(call GoBinPackage,$(PKG_NAME)))
 $(eval $(call BuildPackage,$(PKG_NAME)))

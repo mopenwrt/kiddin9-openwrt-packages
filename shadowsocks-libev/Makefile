@@ -61,6 +61,34 @@ define shadowsocks-libev/templates
 endef
 $(eval $(call shadowsocks-libev/templates))
 
+
+define Package/shadowsocks-libev-ss-rules
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=shadowsocks-libev ss-rules
+  URL:=https://github.com/shadowsocks/shadowsocks-libev
+  DEPENDS:=+ip +ipset +iptables-mod-tproxy +resolveip +shadowsocks-libev-ss-redir
+endef
+
+define Package/shadowsocks-libev-ss-rules/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) ./files/ss-rules $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_DATA) ./files/firewall.ss-rules $(1)/etc
+	$(INSTALL_BIN) ./files/ss-rules.defaults $(1)/etc/uci-defaults
+endef
+
+define Package/shadowsocks-libev-ss-rules/prerm
+#!/bin/sh
+s=firewall.ss_rules
+uci get "$$s" >/dev/null || exit 0
+uci batch <<-EOF
+	delete $$s
+	commit firewall
+EOF
+endef
+
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(FIND) $(PKG_BUILD_DIR) \
@@ -80,6 +108,7 @@ CONFIGURE_ARGS += \
 TARGET_CFLAGS += -flto
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 
+$(eval $(call BuildPackage,shadowsocks-libev-ss-rules))
 $(foreach component,$(SHADOWSOCKS_COMPONENTS), \
   $(eval $(call BuildPackage,shadowsocks-libev-$(component))) \
 )

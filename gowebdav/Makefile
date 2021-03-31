@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2021 ImmortalWrt
-# <https://project-openwrt.eu.org>
+# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
@@ -9,14 +9,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gowebdav
-PKG_VERSION:=0.0.1
+PKG_VERSION:=0.0.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/1715173329/gowebdav/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=skip
+PKG_HASH:=0a6a2af4f24905ffea247b6044d01129d938af4b3a256bf19b42c52bb452f947
 
-PKG_MAINTAINER:=CN_SZTL <cnsztl@project-openwrt.eu.org>
+PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_GOWEBDAV_COMPRESS_GOPROXY \
@@ -26,7 +26,7 @@ PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=gowebdav
+GO_PKG:=github.com/1715173329/gowebdav
 GO_PKG_LDFLAGS:=-s -w
 
 include $(INCLUDE_DIR)/package.mk
