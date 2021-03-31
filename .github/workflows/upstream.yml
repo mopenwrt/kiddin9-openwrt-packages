@@ -96,6 +96,8 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
         git clone --depth 1 https://github.com/scutclient/scutclient &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
+        
+        svn co https://github.com/immortalwrt/luci/tree/master/applications &
 
         svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman
         svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
@@ -150,16 +152,18 @@ jobs:
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu
-        
+
+        for ipk in $(ls applications); do
+        	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
+        		rm -rf applications/$ipk
+        	fi
+        done
+         mv -n applications/* ./ ; rm -Rf applications
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
         rm -rf .svn
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean ./
-        rm -rf .svn
-        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw ./
-        rm -rf .svn
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
         rm -rf .svn
 
     - name: SSH connection to Actions
