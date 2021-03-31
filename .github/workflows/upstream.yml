@@ -133,6 +133,7 @@ jobs:
         svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson rapidjson
         svn co https://github.com/immortalwrt/packages/trunk/libs/libcron libcron
         svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp quickjspp
+        svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit
 
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
