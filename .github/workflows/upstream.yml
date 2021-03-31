@@ -97,7 +97,7 @@ jobs:
         git clone --depth 1 https://github.com/scutclient/scutclient &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         
-        svn co https://github.com/immortalwrt/luci/tree/master/applications &
+        svn co https://github.com/immortalwrt/luci/trunk/applications &
 
         svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman
         svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
