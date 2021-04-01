@@ -11,7 +11,7 @@ on:
   push:
     paths:
       - '.github/workflows/upstream.yml'
-      - 'diy'
+      - 'diy/**'
   schedule:
     - cron: 0 */12 * * *
   watch:
