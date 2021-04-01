@@ -96,6 +96,7 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
         git clone --depth 1 https://github.com/scutclient/scutclient &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
+        git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
         
         svn co https://github.com/immortalwrt/luci/trunk/applications &
 
@@ -141,6 +142,8 @@ jobs:
         svn co https://github.com/immortalwrt/packages/trunk/net/ngrokc
         svn co https://github.com/immortalwrt/packages/trunk/net/oscam
         svn co https://github.com/immortalwrt/packages/trunk/net/njitclient
+        svn co https://github.com/immortalwrt/packages/trunk/utils/filebrowser
+        svn co https://github.com/immortalwrt/packages/trunk/net/scutclient
 
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
