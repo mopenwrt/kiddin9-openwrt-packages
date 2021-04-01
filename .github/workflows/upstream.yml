@@ -52,6 +52,7 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/autosamba &
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge &
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
+        git clone --depth 1 https://github.com/garypang13/openwrt-natflow natflow &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder &
