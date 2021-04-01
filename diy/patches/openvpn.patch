@@ -1,10 +1,9 @@
 --- a/openvpn/files/etc/hotplug.d/openvpn/01-user
 +++ b/openvpn/files/etc/hotplug.d/openvpn/01-user
-@@ -2,10 +2,10 @@
+@@ -1,9 +1,10 @@
+ #!/bin/sh
  
- . /lib/functions/openvpn.sh
- 
--[ -e "/etc/openvpn.user" ] && {
+ [ -e "/etc/openvpn.user" ] && {
 +[ -e "/etc/openvpn/openvpn.user" ] && {
  	env -i ACTION="$ACTION" INSTANCE="$INSTANCE" \
  		/bin/sh \
