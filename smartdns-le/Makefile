@@ -35,7 +35,7 @@ endef
 
 define Package/smartdns-le/install
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/smartdns $(1)/usr/sbin/smartdns
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/smartdns $(1)/usr/sbin/smartdns-le
 endef
 
 $(eval $(call BuildPackage,smartdns-le))
