@@ -1,36 +1,23 @@
 --- a/openvpn/files/etc/hotplug.d/openvpn/01-user
 +++ b/openvpn/files/etc/hotplug.d/openvpn/01-user
-@@ -1,9 +1,10 @@
- #!/bin/sh
- 
- [ -e "/etc/openvpn.user" ] && {
-+[ -e "/etc/openvpn/openvpn.user" ] && {
- 	env -i ACTION="$ACTION" INSTANCE="$INSTANCE" \
- 		/bin/sh \
--		/etc/openvpn.user \
-+		/etc/openvpn/openvpn.user \
- 		$*
- }
- 
-
---- a/openvpn/files/openvpn.init
-+++ b/openvpn/files/openvpn.init
-@@ -140,9 +140,8 @@ openvpn_add_instance() {
+@@ -140,9 +140,6 @@ openvpn_add_instance() {
  	local name="$1"
  	local dir="$2"
  	local conf="$3"
 -	local security="$4"
 -	local up="$5"
 -	local down="$6"
-+	local up="$4"
-+	local down="$5"
  
  	procd_open_instance "$name"
  	procd_set_param command "$PROG"	\
-@@ -154,9 +153,8 @@ openvpn_add_instance() {
- 		--down "/usr/libexec/openvpn-hotplug down $name" \
- 		${up:+--setenv user_up "$up"} \
- 		${down:+--setenv user_down "$down"} \
+@@ -150,13 +147,8 @@ openvpn_add_instance() {
+ 		--status "/var/run/openvpn.$name.status" \
+ 		--cd "$dir" \
+ 		--config "$conf" \
+-		--up "/usr/libexec/openvpn-hotplug up $name" \
+-		--down "/usr/libexec/openvpn-hotplug down $name" \
+-		${up:+--setenv user_up "$up"} \
+-		${down:+--setenv user_down "$down"} \
 -		--script-security "${security:-2}" \
 -		$(openvpn_get_dev "$name" "$conf") \
 -		$(openvpn_get_credentials "$name" "$conf")
@@ -39,10 +26,21 @@
  	procd_set_param file "$dir/$conf"
  	procd_set_param term_timeout 15
  	procd_set_param respawn
-@@ -188,17 +186,18 @@ start_instance() {
+@@ -177,28 +169,22 @@ start_instance() {
+ 		return 1
+ 	}
+ 
+-	local up down script_security
+-	config_get up "$s" up
+-	config_get down "$s" down
+-	config_get script_security "$s" script_security
+-
+ 	[ ! -d "/var/run" ] && mkdir -p "/var/run"
+ 
+ 	if [ ! -z "$config" ]; then
  		append UCI_STARTED "$config" "$LIST_SEP"
- 		[ -n "$up" ] || get_openvpn_option "$config" up up
- 		[ -n "$down" ] || get_openvpn_option "$config" down down
+-		[ -n "$up" ] || get_openvpn_option "$config" up up
+-		[ -n "$down" ] || get_openvpn_option "$config" down down
 -		openvpn_add_instance "$s" "${config%/*}" "$config" "$script_security" "$up" "$down"
 +		openvpn_add_instance "$s" "${config%/*}" "$config"
  		return
@@ -61,66 +59,14 @@
  }
  
  start_service() {
-
---- a/openvpn/files/openvpn.options
-+++ b/openvpn/files/openvpn.options
-@@ -23,6 +23,7 @@
- connect_retry_max
- connect_timeout
- crl_verify
-+data_ciphers
- data_ciphers_fallback
- dev
- dev_node
-@@ -196,7 +197,6 @@
- '
+@@ -240,9 +226,7 @@ start_service() {
+ 					continue
+ 				fi
  
- OPENVPN_LIST='
--data_ciphers
- ncp_ciphers
- tls_cipher
- tls_ciphersuites
-
---- a/openvpn/Makefile
-+++ b/openvpn/Makefile
-@@ -87,20 +87,13 @@
- 	)
- endef
- 
--define Package/openvpn-$(BUILD_VARIANT)/conffiles
--/etc/config/openvpn
--/etc/openvpn.user
--endef
--
- define Package/openvpn-$(BUILD_VARIANT)/install
- 	$(INSTALL_DIR) \
- 		$(1)/usr/sbin \
- 		$(1)/usr/share/openvpn \
- 		$(1)/etc/init.d \
--		$(1)/etc/config \
- 		$(1)/etc/openvpn \
- 		$(1)/lib/functions \
--		$(1)/lib/upgrade/keep.d \
- 		$(1)/usr/libexec \
- 		$(1)/etc/hotplug.d/openvpn
- 
-@@ -126,18 +119,11 @@
- 
- 	$(INSTALL_DATA) \
- 		files/etc/openvpn.user \
--		$(1)/etc/openvpn.user
-+		$(1)/etc/openvpn/openvpn.user
- 
- 	$(INSTALL_DATA) \
- 		files/openvpn.options \
- 		$(1)/usr/share/openvpn/openvpn.options
--
--	$(INSTALL_CONF) files/openvpn.config \
--		$(1)/etc/config/openvpn
--
--	$(INSTALL_DATA) \
--		files/openvpn.upgrade \
--		$(1)/lib/upgrade/keep.d/openvpn
- endef
- 
- $(eval $(call BuildPackage,openvpn-openssl))
+-				get_openvpn_option "$path" up up || up=""
+-				get_openvpn_option "$path" down down || down=""
+-				openvpn_add_instance "$name" "${path%/*}" "$path" "" "$up" "$down"
++				openvpn_add_instance "$name" "${path%/*}" "$path" ""
+ 			fi
+ 		done
+ 	fi
