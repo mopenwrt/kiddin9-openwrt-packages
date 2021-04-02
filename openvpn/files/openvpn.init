@@ -186,7 +186,7 @@ start_instance() {
 		append UCI_STARTED "$config" "$LIST_SEP"
 		[ -n "$up" ] || get_openvpn_option "$config" up up
 		[ -n "$down" ] || get_openvpn_option "$config" down down
-		openvpn_add_instance "$s" "${config%/*}" "$config" "$up" "$down"
+		openvpn_add_instance "$s" "${config%/*}" "$config"
 		return
 	fi
 
@@ -197,7 +197,7 @@ start_instance() {
 	append_params "$s" $OPENVPN_PARAMS
 	append_list "$s" $OPENVPN_LIST
 
-	openvpn_add_instance "$s" "/var/etc" "openvpn-$s.conf" "$up" "$down"
+	openvpn_add_instance "$s" "/var/etc" "openvpn-$s.conf"
 }
 
 start_service() {
