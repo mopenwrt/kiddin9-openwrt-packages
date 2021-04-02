@@ -9,14 +9,15 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=natflow
-PKG_VERSION:=20210314
-PKG_RELEASE:=cbee7a0cf9ec9a161c52599162ea06b2101e4257
+PKG_VERSION:=1.0.2
+PKG_RELEASE:=20210314
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE).tar.xz
 PKG_SOURCE_URL:=https://github.com/ptpt52/natflow.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_RELEASE)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_MIRROR_HASH:=f4b4ead106b1960b5f9eb7fab85a988328a9560bf244051c9917860013925f9e
 PKG_MAINTAINER:=Chen Minqiang <ptpt52@gmail.com>
 PKG_LICENSE:=GPL-2.0
 
@@ -53,7 +54,7 @@ endef
 define Package/natflow-boot
   CATEGORY:=X
   SUBMENU:=Fast Forward Stacks
-  TITLE:=natflow boot init scripts
+  TITLE:=natflow boot init script
   DEPENDS:= +kmod-natflow
 endef
 
