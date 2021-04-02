@@ -124,6 +124,9 @@ jobs:
         svn co https://github.com/openwrt/packages/trunk/devel/ninja
         svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
         svn co https://github.com/x-wrt/com.x-wrt/trunk/natflow
+        svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard
+        svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan
+
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu
