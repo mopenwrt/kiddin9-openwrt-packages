@@ -44,7 +44,7 @@
  		[ -n "$up" ] || get_openvpn_option "$config" up up
  		[ -n "$down" ] || get_openvpn_option "$config" down down
 -		openvpn_add_instance "$s" "${config%/*}" "$config" "$script_security" "$up" "$down"
-+		openvpn_add_instance "$s" "${config%/*}" "$config" "$up" "$down"
++		openvpn_add_instance "$s" "${config%/*}" "$config"
  		return
  	fi
  
@@ -57,7 +57,7 @@
  	append_list "$s" $OPENVPN_LIST
  
 -	openvpn_add_instance "$s" "/var/etc" "openvpn-$s.conf" "$script_security" "$up" "$down"
-+	openvpn_add_instance "$s" "/var/etc" "openvpn-$s.conf" "$up" "$down"
++	openvpn_add_instance "$s" "/var/etc" "openvpn-$s.conf"
  }
  
  start_service() {
