@@ -952,6 +952,11 @@ start_monitor(){
 }
 
 start(){
+	if [[ "$(uci get smartdns.@smartdns[0].enabled 2>/dev/null)" == "1" ]]; then
+		uci del smartdns.@smartdns[0].enabled 2>/dev/null
+		uci commit smartdns
+		/etc/init.d/smartdns stop 2>/dev/null
+	fi
 	touch $LOC
 	if [ -n "$switch_server" ];then
 		GLOBAL_SERVER=$switch_server
