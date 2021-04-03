@@ -126,6 +126,7 @@ jobs:
         svn co https://github.com/x-wrt/com.x-wrt/trunk/natflow
         svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard
         svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan
+        svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-simplenetwork
 
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
         svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
