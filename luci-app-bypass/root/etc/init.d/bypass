@@ -716,7 +716,6 @@ gen_dns(){
 	cat >$DNS_T <<-EOF
 		force-AAAA-SOA yes
 		speed-check-mode none
-		cache-size 1560
 		dualstack-ip-selection yes
 		cache-persist no
 		log-level fatal
