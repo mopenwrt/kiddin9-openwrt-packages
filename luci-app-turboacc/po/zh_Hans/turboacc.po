@@ -11,16 +11,16 @@ msgid "Opensource Flow Offloading driver (Fast Path or Hardware NAT)"
 msgstr "开源流量分载驱动 (支持 Fast Path 或者 硬件 NAT)"
 
 msgid "Software flow offloading"
-msgstr "启用转发加速(natflow)"
+msgstr "软件流量分载"
 
 msgid "Software based offloading for routing/NAT"
-msgstr ""
+msgstr "基于软件的 Routing/NAT 分载"
 
 msgid "Hardware flow offloading"
-msgstr "启用硬件转发加速"
+msgstr "硬件流量分载"
 
 msgid "Requires hardware NAT support. Implemented at least for mt76xx"
-msgstr ""
+msgstr "需要硬件 NAT 支持。目前 mt76xx 已实现"
 
 msgid "Shortcut-FE flow offloading"
 msgstr "Shortcut-FE 流量分载"
