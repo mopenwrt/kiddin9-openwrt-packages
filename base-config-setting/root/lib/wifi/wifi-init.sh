@@ -40,21 +40,21 @@ wifi_setup_radio()
 			uci set wireless.$obj.network='lan'
 			uci set wireless.$obj.mode='ap'
 			uci set wireless.$obj.ssid="${SSID}"
-			uci set wireless.$obj.encryption='psk2'
+		#	uci set wireless.$obj.encryption='psk2'
 			uci set wireless.$obj.skip_inactivity_poll='1'
 			uci set wireless.$obj.wpa_group_rekey='0'
 			uci set wireless.$obj.wpa_pair_rekey='0'
 			uci set wireless.$obj.wpa_master_rekey='0'
 			uci set wireless.$obj.disassoc_low_ack='0'
-			uci set wireless.$obj.key="${SSID_PASSWD}"
+		#	uci set wireless.$obj.key="${SSID_PASSWD}"
 		}
 	}
 }
 
 wifi_first_init()
 {
-	SSID="OpenWrt"
-	SSID_PASSWD="88888888"
+	SSID="${SSID-$(uci get base_config.@status[0].SSID 2>/dev/null || echo OpenWrt)}"
+	SSID_PASSWD="${SSID_PASSWD-$(uci get base_config.@status[0].SSID_PASSWD 2>/dev/null || echo 88888888)}"
 
 	while uci delete wireless.@wifi-iface[0] >/dev/null 2>&1; do :; done
 	for radio in radio0 radio1 radio2 radio3 wifi0 wifi1 wifi2 wifi3; do
@@ -75,5 +75,3 @@ wifi_first_init()
 	done
 	[ "x$change" = "x0" ] && uci revert wireless
 }
-
-wifi_first_init
