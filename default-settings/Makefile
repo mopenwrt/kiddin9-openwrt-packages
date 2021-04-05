@@ -31,7 +31,7 @@ endef
 
 define Package/default-settings/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DATA) ./files/uci.defaults $(1)/etc/uci-defaults/99-default-settings
+	$(INSTALL_DATA) ./files/uci.defaults $(1)/etc/uci-defaults/95-default-settings
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_DATA) ./files/base_config.conf $(1)/etc/config/base_config
 	$(INSTALL_DIR) $(1)/lib/wifi
