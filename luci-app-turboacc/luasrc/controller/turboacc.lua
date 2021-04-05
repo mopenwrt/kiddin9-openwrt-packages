@@ -14,7 +14,7 @@ function index()
 end
 
 local function fastpath_status()
-	return luci.sys.call("{ [ -e /sys/module/xt_FLOWOFFLOAD/refcnt ] && [ x$(cat /sys/module/xt_FLOWOFFLOAD/refcnt 2>/dev/null) != x0 ]; } || lsmod | grep -q fast_classifier") == 0
+	return luci.sys.call("lsmod | grep -q natflow || lsmod | grep -q fast_classifier") == 0
 end
 
 local function bbr_status()
