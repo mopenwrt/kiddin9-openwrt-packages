@@ -11,16 +11,17 @@ PKG_RELEASE:=2
 
 PKG_LICENSE:=GPLv3.0+
 
-LUCI_TITLE:=LuCI support for Natflow / Shortcut-FE
-LUCI_DEPENDS:=+PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe:kmod-fast-classifier \
-              +PACKAGE_$(PKG_NAME)_INCLUDE_natflow:kmod-natflow \
+LUCI_TITLE:=LuCI support for Flow Offload / Shortcut-FE
+LUCI_DEPENDS:=+pdnsd-alt \
+              +PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe:kmod-fast-classifier \
+              +PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload:kmod-ipt-offload \
               +PACKAGE_$(PKG_NAME)_INCLUDE_bbr-cca:kmod-tcp-bbr \
               +PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder:dnsforwarder
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/config
-config PACKAGE_$(PKG_NAME)_INCLUDE_natflow
-	bool "Include Natflow"
+config PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload
+	bool "Include Flow Offload"
 	depends on PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe=n
 	default y
 
@@ -39,7 +40,7 @@ endef
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_shortcut-fe \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_natflow \
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_flow-offload \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_bbr-cca \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder
 
