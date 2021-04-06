@@ -21,7 +21,7 @@ inital_conf(){
 	config_get "dns_caching_v4_dns" "config" "dns_caching_v4_dns"
 	config_get "dns_caching_v6_dns" "config" "dns_caching_v6_dns"
 
-	# [ ! -e "/lib/modules/$(uname -r)/xt_FLOWOFFLOAD.ko" ] && { sw_flow="0"; hw_flow="0"; }
+	[ ! -e "/lib/modules/$(uname -r)/xt_FLOWOFFLOAD.ko" ] && { sw_flow="0"; hw_flow="0"; }
 	[ ! -e "/lib/modules/$(uname -r)/fast-classifier.ko" ] && { sfe_flow="0"; sfe_bridge="0"; sfe_ipv6="0"; }
 	[ ! -e "/lib/modules/$(uname -r)/tcp_bbr.ko" ] && bbr_cca="0"
 	[ ! -e "/lib/modules/$(uname -r)/xt_FULLCONENAT.ko" ] && fullcone_nat="0"
@@ -213,24 +213,10 @@ revert_dns() {
 start(){
 	inital_conf
 
+	uci set firewall.@defaults[0].flow_offloading="${sw_flow}"
+	uci set firewall.@defaults[0].flow_offloading_hw="${hw_flow}"
 	uci set firewall.@defaults[0].fullcone="${fullcone_nat}"
 	uci commit firewall
-
-	test -c /dev/natflow_ctl && {
-	enable_natflow="${sw_flow}"
-	enable_natflow_hw="${hw_flow}"
-	if [ "x${enable_natflow}" = "x1" ]; then
-		if [ "x`uci get firewall.@defaults[0].flow_offloading 2>/dev/null`" = "x1" ]; then
-			uci set firewall.@defaults[0].flow_offloading=0
-			uci set firewall.@defaults[0].flow_offloading_hw=0
-			uci commit firewall
-			/etc/init.d/firewall reload
-		fi
-	fi
-	echo debug=3 >/dev/natflow_ctl
-	echo disabled=$((!enable_natflow)) >/dev/natflow_ctl
-	echo hwnat=$((enable_natflow_hw)) >/dev/natflow_ctl
-	}
 
 	[ "${sw_flow}" -ne "1" ] && [ "${sfe_flow}" -eq "1" ] && {
 		lsmod | grep -q fast_classifier || modprobe fast_classifier 2>"/dev/null"
@@ -246,6 +232,27 @@ start(){
 		sysctl -w net.ipv4.tcp_congestion_control="bbr"
 	else
 		sysctl -w net.ipv4.tcp_congestion_control="cubic"
+	fi	
+
+	[ "${dns_acc}" -eq "1" ] && {
+	mkdir -p "/tmp/dnsmasq.d"
+	wget-ssl -q -t "20" -T "5" "https://cdn.jsdelivr.net/gh/googlehosts/hosts@master/hosts-files/dnsmasq.conf" -O "/tmp/dnsmasq.d/dnsmasq-googlehosts.conf" &
+}
+
+	if [ "${dns_caching}" -eq "1" ];  then
+		stop_dnscache
+		sleep 1
+		rm -f "/var/log/dnscache.file"
+		if [ "${dns_caching_mode}" = "1" ];  then
+			start_pdnsd
+		elif [ "${dns_caching_mode}" = "2" ];  then
+			start_dnsforwarder
+		fi
+		change_dns
+		nohup "/usr/share/dnscache/dnscache-while.sh" > "/var/log/dnscache.file" 2>&1 &
+	else
+		stop_dnscache
+		revert_dns
 	fi
 
 	if [ "${restart_utils}" = "true" ]; then
@@ -257,21 +264,21 @@ start(){
 stop(){
 	inital_conf
 
+	uci set firewall.@defaults[0].flow_offloading="${sw_flow}"
+	uci set firewall.@defaults[0].flow_offloading_hw="${hw_flow}"
 	uci set firewall.@defaults[0].fullcone="${fullcone_nat}"
 	uci commit firewall
-
-	test -c /dev/natflow_ctl && {
-	enable_natflow="${sw_flow}"
-	enable_natflow_hw="${hw_flow}"
-	echo disabled=$((!enable_natflow)) >/dev/natflow_ctl
-	echo hwnat=$((enable_natflow_hw)) >/dev/natflow_ctl
-	}
 
 	[ "${sfe_flow}" -ne "1" ] && {
 		echo "0" > "/sys/fast_classifier/skip_to_bridge_ingress" 2>"/dev/null"
 		rm -f "/dev/sfe_ipv6"
 		rmmod "fast_classifier" 2>"/dev/null"
 }
+
+	[ "${dns_acc}" -eq "0" ] && rm -f "/tmp/dnsmasq.d/dnsmasq-googlehosts.conf"
+
+	stop_dnscache
+	revert_dns
 
 	if [ "${restart_utils}" = "true" ]; then
 		/etc/init.d/dnsmasq restart >/dev/null 2>&1 && echo "DNSMASQ revert"
