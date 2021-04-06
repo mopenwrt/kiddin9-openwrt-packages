@@ -7,7 +7,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=Default Settings
+PKG_NAME:=default-settings
 PKG_VERSION:=1
 PKG_RELEASE:=1
 
