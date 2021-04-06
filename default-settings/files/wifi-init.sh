@@ -39,7 +39,7 @@ wifi_setup_radio()
 			uci set wireless.$obj.device="${radio}"
 			uci set wireless.$obj.network='lan'
 			uci set wireless.$obj.mode='ap'
-			test $obj == wifinet0 && uci set wireless.$obj.ssid="${SSID}_5G" || uci set wireless.$obj.ssid="${SSID}_2.4G"
+			test $radio == radio0 && uci set wireless.$obj.ssid="${SSID}_2.4G" || uci set wireless.$obj.ssid="${SSID}_5G"
 		#	uci set wireless.$obj.encryption='psk2'
 			uci set wireless.$obj.skip_inactivity_poll='1'
 			uci set wireless.$obj.wpa_group_rekey='0'
