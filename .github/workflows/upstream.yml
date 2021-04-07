@@ -155,16 +155,14 @@ jobs:
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan
         
-        for ipk in $(ls applications); do
+        for ipk in $(ls | grep "luci-app" | grep -v https-dns-proxy); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
         		rm -rf applications/$ipk
         	fi
         done
 
-        mv -n applications/* ./ ; rm -Rf applications
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
-        mv -n immlean/* ./; rm -Rf immlean
         mv -n lean/* ./ ; rm -Rf lean
 
     - name: SSH connection to Actions
