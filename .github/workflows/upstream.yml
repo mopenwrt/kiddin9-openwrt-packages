@@ -99,73 +99,73 @@ jobs:
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
 
-        svn co https://github.com/immortalwrt/luci/trunk/applications &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications &
 
-        svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
-        svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
-        svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch &
-        svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools &
-        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
-        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory &
-        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory &
-        svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu &
-        svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
-        svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d} &
-        svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon &
-        svn co https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
-        svn co https://github.com/openwrt/packages/trunk/net/https-dns-proxy &
-        svn co https://github.com/openwrt/packages/trunk/net/openvpn &
-        svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount &
-        svn co https://github.com/openwrt/packages/trunk/devel/ninja &
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
-        svn co https://github.com/x-wrt/com.x-wrt/trunk/natflow &
-        svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard &
-        svn co https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan &
+        svn export --force https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
+        svn export --force https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
+        svn export --force https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch &
+        svn export --force https://github.com/srchack/custom-packages/trunk/open-vm-tools &
+        svn export --force https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
+        svn export --force https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory &
+        svn export --force https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory &
+        svn export --force https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
+        svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
+        svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
+        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
+        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
+        svn export --force https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu &
+        svn export --force https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
+        svn export --force https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d} &
+        svn export --force https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon &
+        svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
+        svn export --force https://github.com/openwrt/packages/trunk/net/https-dns-proxy &
+        svn export --force https://github.com/openwrt/packages/trunk/net/openvpn &
+        svn export --force https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount &
+        svn export --force https://github.com/openwrt/packages/trunk/devel/ninja &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
+        svn export --force https://github.com/x-wrt/com.x-wrt/trunk/natflow &
+        svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard &
+        svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan &
 
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome &
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost &
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu &
-        svn co https://github.com/immortalwrt/packages/trunk/net/gost &
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol &
-        svn co https://github.com/immortalwrt/packages/trunk/net/mwol &
-        svn co https://github.com/immortalwrt/packages/trunk/net/nps &
-        svn co https://github.com/immortalwrt/packages/trunk/admin/bpytop &
-        svn co https://github.com/immortalwrt/packages/trunk/net/verysync &
-        svn co https://github.com/immortalwrt/packages/trunk/net/sub-web &
-        svn co https://github.com/immortalwrt/packages/trunk/net/subconverter &
-        svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2 jpcre2 &
-        svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson rapidjson &
-        svn co https://github.com/immortalwrt/packages/trunk/libs/libcron libcron &
-        svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp quickjspp &
-        svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit &
-        svn co https://github.com/immortalwrt/packages/trunk/net/ngrokc &
-        svn co https://github.com/immortalwrt/packages/trunk/net/oscam &
-        svn co https://github.com/immortalwrt/packages/trunk/net/njitclient &
-        svn co https://github.com/immortalwrt/packages/trunk/utils/filebrowser &
-        svn co https://github.com/immortalwrt/packages/trunk/net/scutclient &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/gost &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/mwol &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/nps &
+        svn export --force https://github.com/immortalwrt/packages/trunk/admin/bpytop &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/verysync &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/sub-web &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/subconverter &
+        svn export --force https://github.com/immortalwrt/packages/trunk/libs/jpcre2 jpcre2 &
+        svn export --force https://github.com/immortalwrt/packages/trunk/libs/rapidjson rapidjson &
+        svn export --force https://github.com/immortalwrt/packages/trunk/libs/libcron libcron &
+        svn export --force https://github.com/immortalwrt/packages/trunk/libs/quickjspp quickjspp &
+        svn export --force https://github.com/immortalwrt/packages/trunk/utils/cpulimit &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/ngrokc &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/oscam &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/njitclient &
+        svn export --force https://github.com/immortalwrt/packages/trunk/utils/filebrowser &
+        svn export --force https://github.com/immortalwrt/packages/trunk/net/scutclient &
 
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy &
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93 &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168 &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu &
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93 &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168 &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu &
 
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
-        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean
+        echo -e "\q" | svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean
         rm -rf .svn
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall
-        echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean
+        echo -e "\q" | svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean
         rm -rf .svn
         
         for ipk in $(ls applications); do
