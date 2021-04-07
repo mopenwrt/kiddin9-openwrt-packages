@@ -62,19 +62,14 @@ jobs:
 
         svn export --force https://github.com/immortalwrt/luci/trunk/applications &
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean &
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean &
         
         git_sparse_clone "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost admin/bpytop libs/jpcre2 libs/rapidjson libs/libcron \
         libs/quickjspp utils/cpulimit utils/filebrowser &
-        
-        git_sparse_clone "https://github.com/immortalwrt/luci" "immluci" applications/luci-app-adguardhome applications/luci-app-adguardhome \
-        applications/luci-app-gost applications/luci-app-airwhu applications/luci-app-mwol applications/luci-app-naiveproxy \
-        applications/luci-app-turboacc &
 
-        git_sparse_clone "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
+        git_sparse_clone "https://github.com/immortalwrt/immortalwrt" "immwrt" /package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu &
         
@@ -148,14 +143,14 @@ jobs:
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
-        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd
-        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3
-        svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy
-        svn export --force https://github.com/openwrt/packages/trunk/net/https-dns-proxy
+        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
+        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
+        svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
+        svn export --force https://github.com/openwrt/packages/trunk/net/https-dns-proxy &
         svn export --force https://github.com/openwrt/packages/trunk/net/openvpn
         svn export --force https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
         svn export --force https://github.com/openwrt/packages/trunk/devel/ninja
-        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/natflow
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan
