@@ -39,7 +39,11 @@ wifi_setup_radio()
 			uci set wireless.$obj.device="${radio}"
 			uci set wireless.$obj.network='lan'
 			uci set wireless.$obj.mode='ap'
-			uci get wireless.${radio}.htmode 2>/dev/null == "VHT80" && uci set wireless.$obj.ssid="${SSID}_5G" || uci set wireless.$obj.ssid="${SSID}_2.4G"
+			if [ x`uci get wireless.${radio}.hwmode 2>/dev/null` = "x11a" ]; then
+				uci set wireless.$obj.ssid="${SSID}_5G"
+			else
+				uci set wireless.$obj.ssid="${SSID}_2.4G"
+			fi
 		#	uci set wireless.$obj.encryption='psk2'
 			uci set wireless.$obj.skip_inactivity_poll='1'
 			uci set wireless.$obj.wpa_group_rekey='0'
