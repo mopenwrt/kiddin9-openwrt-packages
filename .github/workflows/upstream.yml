@@ -54,7 +54,7 @@ jobs:
           done
           git pull origin master
           for i; do
-            mv -n $i/* ../
+            mv -n $i ../
           done
           cd ..
           rm -rf $localdir
@@ -63,7 +63,7 @@ jobs:
         svn export --force https://github.com/immortalwrt/luci/trunk/applications &
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
-        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
         
         git_sparse_clone "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost admin/bpytop libs/jpcre2 libs/rapidjson libs/libcron \
@@ -165,6 +165,7 @@ jobs:
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         mv -n lean/* ./ ; rm -Rf lean
+        mv -n ledelean/* ./ ; rm -Rf ledelean
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
