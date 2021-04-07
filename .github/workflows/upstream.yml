@@ -42,20 +42,12 @@ jobs:
         git rm -r --cache *
         
         function git_sparse_clone() (
-          rurl="$1" localdir="$2" && shift 2
-          mkdir -p "$localdir"
-          cd "$localdir"
-          git init
-          git remote add -f origin "$rurl"
-          git config core.sparseCheckout true
-          # Loops over remaining args
-          for i; do
-            echo "$i" >> .git/info/sparse-checkout
-          done
-          git pull origin master --depth=1
-          for i; do
-            mv -n $i ../
-          done
+          branch="$1" rurl="$2" localdir="$3" && shift 3
+          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          cd localdir
+          git sparse-checkout init --cone
+          git sparse-checkout set $@
+          mv -n $@ ../
           cd ..
           rm -rf $localdir
           )
@@ -65,7 +57,7 @@ jobs:
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
         
-        git_sparse_clone "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
+        git_sparse_clone master "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost admin/bpytop libs/jpcre2 libs/rapidjson libs/libcron \
         libs/quickjspp utils/cpulimit utils/filebrowser &
         
@@ -149,7 +141,7 @@ jobs:
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard &
         svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan &
         
-        git_sparse_clone "https://github.com/immortalwrt/immortalwrt" "immwrt" package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
+        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu
         
