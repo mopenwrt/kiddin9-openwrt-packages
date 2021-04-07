@@ -150,22 +150,22 @@ jobs:
         svn export --force https://github.com/immortalwrt/packages/trunk/utils/filebrowser &
         svn export --force https://github.com/immortalwrt/packages/trunk/net/scutclient &
 
-        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy &
-        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93 &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168 &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu &
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu &
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu
 
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
         echo -e "\q" | svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean
         rm -rf .svn
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall
-        echo -e "\q" | svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
+        echo -e "\q" | svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean &
         rm -rf .svn
         
         for ipk in $(ls applications); do
