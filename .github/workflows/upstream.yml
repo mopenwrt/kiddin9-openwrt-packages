@@ -136,9 +136,9 @@ jobs:
         git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
         git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon1 && mv -n wrtbwmon1/* ./ ; rm -rf wrtbwmon1 &
 
-        svn export --force https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
-        svn export --force https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
-        svn export --force https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch &
+        svn export --force https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman
+        svn export --force https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
+        svn export --force https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
         svn export --force https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel
