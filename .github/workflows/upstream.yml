@@ -98,26 +98,24 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
-
+        git clone --depth 1 https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns && mv -n tencentcloud-openwrt-plugin-ddns/tencentcloud_ddns ./ ; rm -Rf tencentcloud-openwrt-plugin-ddns &
+        git clone --depth 1 https://github.com/doushang/luci-app-shortcutmenu && mv -n luci-app-shortcutmenu/luci-app-shortcutmenu ./ ; rm -Rf luci-app-shortcutmenu &
+        git clone --depth 1 https://github.com/sundaqiang/openwrt-packages && mv -n openwrt-packages/luci-app-services-wolplus ./ ; rm -Rf openwrt-packages &
+        git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
+        git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon1 && mv -n wrtbwmon1/* ./ ; rm -rf wrtbwmon1 &
+        
+        
         svn export --force https://github.com/immortalwrt/luci/trunk/applications &
 
         svn export --force https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
         svn export --force https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
         svn export --force https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch &
-        svn export --force https://github.com/srchack/custom-packages/trunk/open-vm-tools &
         svn export --force https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
-        svn export --force https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory &
-        svn export --force https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory &
-        svn export --force https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn export --force https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu &
-        svn export --force https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
-        svn export --force https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d} &
-        svn export --force https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon &
         svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
         svn export --force https://github.com/openwrt/packages/trunk/net/https-dns-proxy &
         svn export --force https://github.com/openwrt/packages/trunk/net/openvpn &
