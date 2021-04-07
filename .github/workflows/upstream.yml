@@ -41,6 +41,8 @@ jobs:
         rm -rf `find -maxdepth 1 -type d -name "[!.]*" ! -path "./diy"`
         git rm -r --cache *
         
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications &
+        
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
@@ -103,9 +105,6 @@ jobs:
         git clone --depth 1 https://github.com/sundaqiang/openwrt-packages && mv -n openwrt-packages/luci-app-services-wolplus ./ ; rm -Rf openwrt-packages &
         git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
         git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon1 && mv -n wrtbwmon1/* ./ ; rm -rf wrtbwmon1 &
-        
-        
-        svn export --force https://github.com/immortalwrt/luci/trunk/applications &
 
         svn export --force https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
         svn export --force https://github.com/openwrt/packages/trunk/net/shadowsocks-libev &
