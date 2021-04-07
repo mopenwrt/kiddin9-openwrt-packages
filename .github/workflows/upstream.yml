@@ -153,11 +153,11 @@ jobs:
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu
         
-        for ipk in $(ls applications); do
+        ( for ipk in $(ls applications); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
         		rm -rf applications/$ipk
         	fi
-        done
+        done ) &
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
