@@ -123,9 +123,9 @@ jobs:
         git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog &
         git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater &
         git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand &
-        git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf feed-netkeeper &
-        git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon &
-        git clone --depth 1 https://github.com/kuoruan/luci-app-frpc &
+        git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf feed-netkeeper
+        git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon
+        git clone --depth 1 https://github.com/kuoruan/luci-app-frpc
         git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw
