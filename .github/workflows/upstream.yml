@@ -164,12 +164,12 @@ jobs:
         mv -n applications/* ./ ; rm -Rf applications
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
-        mv -n lean/* ./ ; rm -Rf lean
+        # mv -n lean/* ./ ; rm -Rf lean
         mv -n ledelean/* ./ ; rm -Rf ledelean
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
-      if: 1 == 0
+      if: 1 == 1
 
     - name: Delete duplicated packages
       run: |
