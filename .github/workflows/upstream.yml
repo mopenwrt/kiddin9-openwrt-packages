@@ -119,7 +119,7 @@ jobs:
         git clone --depth 1 https://github.com/lvqier/luci-app-dnsmasq-ipset &
         git clone --depth 1 https://github.com/sirpdboy/luci-app-netdata &
         git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod &
-        git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun &
+        git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun
         git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog
         git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater
         git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand
@@ -160,12 +160,6 @@ jobs:
         		rm -rf applications/$ipk
         	fi
         done
-        
-        mv -n applications/* ./ ; rm -Rf applications
-        mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
-        mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
-        mv -n lean/* ./ ; rm -Rf lean
-        mv -n ledelean/* ./ ; rm -Rf ledelean
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
@@ -173,6 +167,11 @@ jobs:
 
     - name: Delete duplicated packages
       run: |
+        mv -n applications/* ./ ; rm -Rf applications
+        mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
+        mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
+        mv -n lean/* ./ ; rm -Rf lean
+        mv -n ledelean/* ./ ; rm -Rf ledelean
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4} fcgiwrap \
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear
