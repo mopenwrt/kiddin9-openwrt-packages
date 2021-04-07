@@ -42,6 +42,10 @@ jobs:
         git rm -r --cache *
         
         svn export --force https://github.com/immortalwrt/luci/trunk/applications &
+        git clone --depth 1 https://github.com/Lienol/openwrt-package &
+        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean &
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean &
         
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
@@ -157,13 +161,6 @@ jobs:
         svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac
         svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu
         svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu
-
-        git clone --depth 1 https://github.com/Lienol/openwrt-package &
-        echo -e "\q" | svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean
-        rm -rf .svn
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
-        echo -e "\q" | svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean &
-        rm -rf .svn
         
         for ipk in $(ls applications); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
