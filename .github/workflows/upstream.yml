@@ -70,7 +70,7 @@ jobs:
         libs/quickjspp utils/cpulimit utils/filebrowser &
         
         git_sparse_clone "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
-        utils/cgroupfs-mount devel/ninja
+        utils/cgroupfs-mount devel/ninja &
         
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
