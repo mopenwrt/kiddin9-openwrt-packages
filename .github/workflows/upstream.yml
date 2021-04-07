@@ -52,7 +52,7 @@ jobs:
           for i; do
             echo "$i" >> .git/info/sparse-checkout
           done
-          git pull origin master --depth 1
+          git pull origin master --depth=1
           for i; do
             mv -n $i ../
           done
