@@ -162,7 +162,7 @@ jobs:
         svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu &
 
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
-        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean &
+        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./immlean
         rm -rf .svn
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall
         echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean
