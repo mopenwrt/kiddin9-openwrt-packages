@@ -145,9 +145,9 @@ jobs:
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
         svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy
-        svn export --force https://github.com/openwrt/packages/trunk/net/https-dns-proxy &
+        svn export --force https://github.com/openwrt/packages/trunk/net/https-dns-proxy
         svn export --force https://github.com/openwrt/packages/trunk/net/openvpn
         svn export --force https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
         svn export --force https://github.com/openwrt/packages/trunk/devel/ninja
