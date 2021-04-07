@@ -120,9 +120,9 @@ jobs:
         git clone --depth 1 https://github.com/sirpdboy/luci-app-netdata &
         git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod &
         git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun &
-        git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog &
-        git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater &
-        git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand &
+        git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog
+        git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater
+        git clone --depth 1 https://github.com/zzsj0928/luci-app-serverchand
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf feed-netkeeper
         git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon
         git clone --depth 1 https://github.com/kuoruan/luci-app-frpc
