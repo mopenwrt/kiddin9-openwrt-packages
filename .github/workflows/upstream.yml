@@ -54,8 +54,9 @@ jobs:
           done
           git pull origin master
           for i; do
-            mv -n $localdir/$i ./
+            mv -n $i ../
           done
+          cd ..
           rm -rf $localdir
           )
 
