@@ -143,7 +143,7 @@ jobs:
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
         svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
         
-        ( for ipk in $(ls applications | grep -v dockerman); do
+        ( for ipk in $(ls applications); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
         		rm -rf applications/$ipk
         	fi
