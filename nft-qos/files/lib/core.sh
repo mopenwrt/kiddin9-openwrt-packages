@@ -3,9 +3,6 @@
 # Copyright (C) 2018 rosysong@rosinson.com
 #
 
-# for uci_validate_section()
-. /lib/functions/procd.sh
-
 NFT_QOS_HAS_BRIDGE=
 NFT_QOS_INET_FAMILY=ip
 NFT_QOS_SCRIPT_TEXT=
@@ -32,6 +29,17 @@ qosdef_append_rule_ip_limit() { # <ipaddr> <operator> <unit> <rate>
 
 	qosdef_appendx \
 	    "\t\tip $operator $ipaddr limit rate over $rate $unit/second drop\n"
+}
+
+# qosdef_append_rule_{MATCH}_{STATEMENT}
+qosdef_append_rule_mac_limit() { # <macaddr> <operator> <unit> <rate>
+	local macaddr=$1
+	local operator=$2
+	local unit=$3
+	local rate=$4
+
+	qosdef_appendx \
+	    "\t\tether $operator $macaddr limit rate over $rate $unit/second drop\n"
 }
 
 # qosdef_append_rule_{MATCH}_{POLICY}
