@@ -2,10 +2,10 @@
 	"luci-app-dockerman": {
 		"description": "Grant UCI access for luci-app-dockerman",
 		"read": {
-			"uci": [ "dockerd" ]
-			},
+			"uci": [ "dockerman" ]
+		},
 		"write": {
-			"uci": [ "dockerd" ]
+			"uci": [ "dockerman" ]
 		}
 	}
 }
