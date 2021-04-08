@@ -64,6 +64,12 @@ jobs:
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
         utils/cgroupfs-mount devel/ninja &
         
+        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
+        
+        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
+        package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
+        package/kernel/rtl8821cu package/kernel/rtl88x2bu
+        
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
@@ -127,23 +133,14 @@ jobs:
         git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
         git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon1 && mv -n wrtbwmon1/* ./ ; rm -rf wrtbwmon1 &
 
-        svn export --force https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman &
-        svn export --force https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch &
         svn export --force https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
         svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
         svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
-        svn export --force https://github.com/x-wrt/com.x-wrt/trunk/natflow &
-        svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-wizard &
-        svn export --force https://github.com/x-wrt/com.x-wrt/trunk/luci-app-macvlan &
-        
-        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
-        package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
-        package/kernel/rtl8821cu package/kernel/rtl88x2bu
         
         ( for ipk in $(ls applications); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
@@ -162,7 +159,7 @@ jobs:
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         mv -n lean/* ./ ; rm -Rf lean
         mv -n ledelean/* ./ ; rm -Rf ledelean
-        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
+        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} cups* subweb \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4} fcgiwrap \
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear
         mv mt/drivers mt/mt-drivers
@@ -178,7 +175,7 @@ jobs:
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         sed -i 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' */Makefile
         sed -i 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' */Makefile
-        sed -i 's/+dockerd/+dockerd \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
+        sed -i 's/+docker/+cgroupfs-mount/' luci-app-dockerman/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
         rm -f subconverter/patches/010-missing-header.patch
         sed -i 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
