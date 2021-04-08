@@ -109,7 +109,6 @@ jobs:
         git clone --depth 1 https://github.com/peter-tank/luci-app-dnscrypt-proxy2 &
         git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus &
-        git clone --depth 1 https://github.com/vernesong/OpenClash && mv -f OpenClash/luci-app-openclash ./ ; rm -Rf OpenClash &
         git clone --depth 1 https://github.com/NateLol/luci-app-oled &
         git clone --depth 1 https://github.com/destan19/OpenAppFilter && mv -n OpenAppFilter/* ./ ; rm -Rf OpenAppFilter &
         git clone --depth 1 https://github.com/esirplayground/luci-app-poweroff &
@@ -127,11 +126,13 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
-        git clone --depth 1 https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns && mv -n tencentcloud-openwrt-plugin-ddns/tencentcloud_ddns ./ ; rm -Rf tencentcloud-openwrt-plugin-ddns &
-        git clone --depth 1 https://github.com/doushang/luci-app-shortcutmenu && mv -n luci-app-shortcutmenu/luci-app-shortcutmenu ./ ; rm -Rf luci-app-shortcutmenu &
-        git clone --depth 1 https://github.com/sundaqiang/openwrt-packages && mv -n openwrt-packages/luci-app-services-wolplus ./ ; rm -Rf openwrt-packages &
         git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
-        git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon1 && mv -n wrtbwmon1/* ./ ; rm -rf wrtbwmon1 &
+        git_sparse_clone master https://github.com/vernesong/OpenClash OpenClash luci-app-openclash &
+        git_sparse_clone master https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns tendns tencentcloud_ddns &
+        git_sparse_clone master https://github.com/doushang/luci-app-shortcutmenu shortcutmenu luci-app-shortcutmenu &
+        git_sparse_clone master https://github.com/sundaqiang/openwrt-packages luci-wolplus luci-app-services-wolplus &
+        git_sparse_clone master https://github.com/brvphoenix/wrtbwmon wrtbwmon1 wrtbwmon &
+        git_sparse_clone master https://github.com/lisaac/luci-app-dockerman luci-app-dockerman1 applications/luci-app-dockerman &
 
         svn export --force https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
         svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
@@ -175,7 +176,7 @@ jobs:
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         sed -i 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' */Makefile
         sed -i 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' */Makefile
-        sed -i 's,+docker \,+cgroupfs-mount \,' luci-app-dockerman/Makefile
+        sed -i 's/+docker-ce/+dockerd \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
         rm -f subconverter/patches/010-missing-header.patch
         sed -i 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
