@@ -5,16 +5,10 @@
 # Convert translation files zh-cn to zh_Hans
 # The script is still in testing, welcome to report bugs.
 
-po_file="$({ find |grep -E "[a-z0-9]+\.zh\-cn.+po"; } 2>"/dev/null")"
+po_file="$({ find -name "*.po"; } 2>"/dev/null")"
 for a in ${po_file}
 do
 	[ -n "$(grep "Language: zh_CN" "$a")" ] && sed -i "s/Language: zh_CN/Language: zh_Hans/g" "$a"
-done
-
-po_file2="$({ find |grep "/zh-cn/" |grep "\.po"; } 2>"/dev/null")"
-for b in ${po_file2}
-do
-	[ -n "$(grep "Language: zh_CN" "$b")" ] && sed -i "s/Language: zh_CN/Language: zh_Hans/g" "$b"
 done
 
 lmo_file="$({ find |grep -E "[a-z0-9]+\.zh_Hans.+lmo"; } 2>"/dev/null")"
