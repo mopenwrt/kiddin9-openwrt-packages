@@ -134,14 +134,14 @@ jobs:
         git_sparse_clone master https://github.com/brvphoenix/wrtbwmon wrtbwmon1 wrtbwmon &
         git_sparse_clone master https://github.com/lisaac/luci-app-dockerman luci-app-dockerman1 applications/luci-app-dockerman &
 
-        svn export --force https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
-        svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
-        svn export --force https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
-        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
-        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
-        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
-        svn export --force https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn export --force https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
+        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
+        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
+        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
+        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
+        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
+        svn co https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
         svn co https://github.com/x-wrt/packages/trunk/net/nft-qos &
         svn co https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
         
