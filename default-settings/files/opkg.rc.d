@@ -92,7 +92,7 @@ function opkgupgrade() {
 			rm -f /var/lock/opkg.lock
 }
 (
-	opkgupgrade
+	test `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' && opkgupgrade
 	rm -f /var/lock/opkgupgrade.lock
 	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
 		sleep 5
