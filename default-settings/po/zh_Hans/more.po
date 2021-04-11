@@ -1046,3 +1046,12 @@ msgstr "警告：当前系统没有包括两个分区!"
 
 msgid "Warning: This system does not support powering off!"
 msgstr "警告：本系统不支持软关机!"
+
+msgid "Firmware Settings"
+msgstr "固件设置"
+
+msgid "Packages Auto Upgrade"
+msgstr "软件包自动更新"
+
+msgid "固件更新提醒"
+msgstr "Firmware Upgrade Notice"
