@@ -3,7 +3,7 @@ local fs = require "nixio.fs"
 local uci = require 'luci.model.uci'.cursor()
 
 if fs.access('/etc/config/system') then
-	autoupgrade_fm = uci:get_first('system', 'system', 'autoupgrade_fm')
+	autoupgrade_fm = uci:get_first('system', 'system', 'autoupgrade_fm', '1')
 end
 if autoupgrade_fm ~= '0' then
 -%>
