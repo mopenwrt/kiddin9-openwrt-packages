@@ -44,7 +44,6 @@ define Package/default-settings/install
 	$(INSTALL_BIN) ./files/sysinfo.sh $(1)/etc/profile.d/sysinfo.sh
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
 	po2lmo ./po/zh_Hans/default.po $(1)/usr/lib/lua/luci/i18n/default.zh-cn.lmo
-	po2lmo ./po/zh_Hans/more.po $(1)/usr/lib/lua/luci/i18n/more.zh-cn.lmo
 
 endef
 
