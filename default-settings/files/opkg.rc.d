@@ -45,7 +45,7 @@ function opkgupgrade() {
 						[ ! -d /etc/backup ] && mkdir /etc/backup
 						find /usr/lib/opkg/info -name "*.control" \( \
 						\( -exec test -f /overlay/upper/{} \; -exec echo {} \; \) -o \
-						\( -exec test -f /rom/{} \; -exec find {} -name "luci-app*" -o -name "luci-theme*" -o -name "default-settings*" \; \) \
+						\( -exec test -f /rom/{} \; -exec find {} -name "luci-app*" -o -name "luci-theme*" -o -name "default-settings" -o -name "xray-core" \; \) \
 						\) | sed -e 's?/usr/lib/opkg/info/\(.*\).control$?\1?g' >/etc/backup/installed_packages.txt
 					fi
 					if [ -f "/etc/backup/installed_packages.txt" ]; then
