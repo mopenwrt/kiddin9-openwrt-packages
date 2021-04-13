@@ -53,6 +53,6 @@ config PACKAGE_luci-app-rclone_INCLUDE_fuse-utils
 	default y
 endef
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include ../../luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
