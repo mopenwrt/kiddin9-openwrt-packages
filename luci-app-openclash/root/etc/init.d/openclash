@@ -1232,11 +1232,25 @@ firewall_rule_exclude()
 firewall_redirect_exclude()
 {
    local section="$1"
-   local src_dport
+   local src_dport dest_port dest_ip proto enabled
    config_get "src_dport" "$section" "src_dport" ""
-   
-   if [ -z "$src_dport" ]; then
+   config_get "dest_port" "$section" "dest_port" ""
+   config_get "dest_ip" "$section" "dest_ip" ""
+   config_get "proto" "$section" "proto" ""
+   config_get "enabled" "$section" "enabled" ""
+
+   if [ -z "$src_dport" ] || [ a"$enabled" == a0 ]; then
       return
+   fi
+   local e_udp=false
+   local e_tcp=false
+   for p in $proto; do
+       if [ $p == tcp ]; then e_tcp=true; fi
+       if [ $p == udp ]; then e_udp=true; fi
+   done
+
+   if ! $e_udp && ! $e_tcp ; then
+       return
    fi
 
    if [ -z "$en_mode_tun" ] || [ "$en_mode_tun" -eq 3 ]; then
@@ -1248,6 +1262,12 @@ firewall_redirect_exclude()
    	  iptables -t mangle -I openclash_output -p udp --sport "$src_dport" -j RETURN >/dev/null 2>&1
       iptables -t mangle -I openclash -p tcp --dport "$src_dport" -j RETURN >/dev/null 2>&1
       iptables -t mangle -I openclash -p udp --dport "$src_dport" -j RETURN >/dev/null 2>&1
+      if $e_tcp ; then
+         iptables -t mangle -I openclash -p tcp -s "$dest_ip" --sport "$dest_port" -j RETURN >/dev/null 2>&1
+      fi
+      if $e_udp ; then
+         iptables -t mangle -I openclash -p udp -s "$dest_ip" --sport "$dest_port" -j RETURN >/dev/null 2>&1
+      fi
    fi
 
 }
@@ -1341,6 +1361,7 @@ fi
    ipset add localnetwork 224.0.0.0/4
    ipset add localnetwork 240.0.0.0/4
    ipset add localnetwork 172.16.0.0/12
+   ipset add localnetwork 100.64.0.0/10
 
    if [ -n "$wan_ip4" ]; then
       for wan_ip4s in $wan_ip4; do
@@ -1393,6 +1414,10 @@ if [ -z "$en_mode_tun" ] || [ "$en_mode_tun" -eq 3 ]; then
          if [ "$en_mode" = "redir-host" ]; then
             iptables -t mangle -A openclash -m set ! --match-set common_ports dst -j RETURN >/dev/null 2>&1
             iptables -t mangle -A openclash -m set --match-set china_ip_route dst -j RETURN >/dev/null 2>&1
+         fi
+      #quic
+         if [ "$disable_udp_quic" -eq 1 ]; then
+            iptables -I INPUT -p udp --dport 443 -j REJECT
          fi
          iptables -t mangle -A openclash -p udp --dport 53 -j RETURN >/dev/null 2>&1
          iptables -t mangle -A openclash -p udp -j TPROXY --on-port "$proxy_port" --tproxy-mark "$PROXY_FWMARK"
@@ -1529,6 +1554,10 @@ if [ -n "$en_mode_tun" ]; then
       iptables -t nat -A openclash_post -m owner ! --uid-owner 65534 -i lo -d 127.0.0.1 -j SNAT --to-source "$lan_ip"
       iptables -t nat -A POSTROUTING -j openclash_post
    fi
+   #quic
+   if [ "$disable_udp_quic" -eq 1 ]; then
+      iptables -I FORWARD -p udp --dport 443 -j REJECT 
+   fi
 fi
 
 #端口转发
@@ -1547,6 +1576,9 @@ revert_firewall()
    ip route del local 0.0.0.0/0 dev lo table "$PROXY_ROUTE_TABLE" >/dev/null 2>&1
 
    iptables -t nat -D PREROUTING -p tcp --dport 53 -j ACCEPT >/dev/null 2>&1
+   
+   iptables -D FORWARD -p udp --dport 443 -j REJECT >/dev/null 2>&1
+   iptables -D INPUT -p udp --dport 443 -j REJECT >/dev/null 2>&1
 
    out_lines=$(iptables -nvL OUTPUT -t nat |sed 1,2d |sed -n '/openclash/=' 2>/dev/null |sort -rn)
    for out_line in $out_lines; do
@@ -1650,6 +1682,7 @@ get_config()
    log_level=$(uci -q get openclash.config.log_level)
    intranet_allowed=$(uci -q get openclash.config.intranet_allowed)
    enable_udp_proxy=$(uci -q get openclash.config.enable_udp_proxy)
+   disable_udp_quic=$(uci -q get openclash.config.disable_udp_quic)
    operation_mode=$(uci -q get openclash.config.operation_mode)
    lan_ac_mode=$(uci -q get openclash.config.lan_ac_mode)
    enable_rule_proxy=$(uci -q get openclash.config.enable_rule_proxy)
