@@ -5,27 +5,20 @@
 # Convert translation files zh-cn to zh_Hans
 # The script is still in testing, welcome to report bugs.
 
-po_file="$({ find -name "*.po"; } 2>"/dev/null")"
+po_file="$({ find luci-app* -type f -maxdepth 3 -name "*.po"; } 2>"/dev/null")"
 for a in ${po_file}
 do
 	[ -n "$(grep "Language: zh_CN" "$a")" ] && sed -i "s/Language: zh_CN/Language: zh_Hans/g" "$a"
 done
 
-lmo_file="$({ find |grep -E "[a-z0-9]+\.zh_Hans.+lmo"; } 2>"/dev/null")"
-for c in ${lmo_file}
-do
-	lmo_new_file="$(echo -e "$c"|sed "s/zh_Hans/zh-cn/g")"
-	mv "$c" "${lmo_new_file}" 2>"/dev/null"
-done
-
-po_dir="$({ find -type d -name "zh-cn"; } 2>"/dev/null")"
+po_dir="$({ find luci-app* -type d -maxdepth 2 -name "zh-cn"; } 2>"/dev/null")"
 for e in ${po_dir}
 do
 	po_new_dir="$(echo -e "$e"|sed "s/zh-cn/zh_Hans/g")"
 	mv "$e" "${po_new_dir}" 2>"/dev/null"
 done
 
-makefile_file="$({ find|grep Makefile |sed "/Makefile./d"; } 2>"/dev/null")"
+makefile_file="$({ find luci-app* -type f -maxdepth 1 -name Makefile; } 2>"/dev/null")"
 for f in ${makefile_file}
 do
 	[ -n "$(grep "zh-cn/" "$f")" ] && sed -i "s/zh-cn\//zh_Hans\//g" "$f"
