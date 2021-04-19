@@ -355,7 +355,7 @@ function serverchand_cron(){
 		return
 	fi
 	
-# 重置流量
+	# 重置流量
 	if [ ! -z "$reset_regularly" ] && [ "$reset_regularly" -eq "1" ]; then
 		crontab -l > conf && echo -e "0 0 * * * rm /tmp/serverchand/usage.db >/dev/null 2>&1" >> conf && crontab conf && rm -f conf >/dev/null 2>&1
 		crontab -l > conf && echo -e "0 0 * * * rm /tmp/serverchand/usage6.db >/dev/null 2>&1" >> conf && crontab conf && rm -f conf >/dev/null 2>&1
@@ -364,13 +364,9 @@ function serverchand_cron(){
 	[ ! -z "$regular_time_3" ] && local regular_time_3=",${regular_time_3}"
 	# 定时发送
 	if [ ! -z "$regular_time" ] || [ ! -z "$regular_time_2" ] || [ ! -z "$regular_time_3" ]; then
-		( echo `crontab -l`|grep "serverchand"|grep -q " $regular_time$regular_time_2$regular_time_3 " ) && return
-		del_cron
 		crontab -l > conf && echo -e "0 $regular_time$regular_time_2$regular_time_3 * * * /usr/bin/serverchand/serverchand send &" >> conf && crontab conf && rm -f conf >/dev/null 2>&1
 	# 间隔发送
 	elif [ ! -z "$interval_time" ]; then
-		( echo `crontab -l`|grep "serverchand"|grep -q " */$interval_time " ) && return
-		del_cron
 		crontab -l > conf && echo -e "0 */$interval_time * * * /usr/bin/serverchand/serverchand send &" >> conf && crontab conf && rm -f conf >/dev/null 2>&1
 	fi
 	re_cron
@@ -882,7 +878,7 @@ function send(){
 		local send_content="${send_content}${markdown_linefeed}${markdown_tab}${systemstatustime}"
 	fi
 
-	[ ! -z "$router_temp" ] && [ "$router_temp" -eq "1" ] && local cputemp=`soc_temp` && local send_content="${send_content}${markdown_splitline}#### 设备温度${markdown_linefeed}${markdown_tab}CPU：${cputemp}℃"	#%e2%84%83="℃"
+	[ ! -z "$router_temp" ] && [ "$router_temp" -eq "1" ] && local cputemp=`soc_temp` && local send_content="${send_content}${markdown_splitline}#### **<font color=#76CCFF>设备温度</font>**${markdown_linefeed}${markdown_tab}CPU：${cputemp}℃"	#%e2%84%83="℃"
 
 	if [ ! -z "$router_wan" ] && [ "$router_wan" -eq "1" ]; then
 		local send_wanIP=`getip wanipv4`;local send_hostIP=`getip hostipv4`
