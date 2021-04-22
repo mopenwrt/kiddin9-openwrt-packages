@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-bypass
 PKG_VERSION:=1.2
-PKG_RELEASE:=63
+PKG_RELEASE:=64
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
@@ -32,7 +32,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs
 config PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs_server
 	bool "Include Shadowsocks Simple-obfs-server Plugin"
 	depends on PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Server
-	default y
+	default n
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin
 	bool "Include Shadowsocks V2ray Plugin"
@@ -91,6 +91,10 @@ define Package/$(PKG_NAME)
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun:kcptun-client \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy:redsocks2 \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server:microsocks
+endef
+
+define Build/Prepare
+	chmod +x root/etc/init.d/bypass root/usr/share/bypass/* >/dev/null 2>&1
 endef
 
 define Package/$(PKG_NAME)/postinst

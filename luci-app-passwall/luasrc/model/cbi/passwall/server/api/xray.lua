@@ -72,6 +72,12 @@ function gen_config(user)
                 }
             }
         }
+    elseif user.protocol == "dokodemo-door" then
+        settings = {
+            network = user.d_protocol,
+            address = user.d_address,
+            port = tonumber(user.d_port)
+        }
     end
 
     if user.fallback and user.fallback == "1" then
@@ -209,6 +215,9 @@ function gen_config(user)
                         security = user.quic_security,
                         key = user.quic_key,
                         header = {type = user.quic_guise}
+                    } or nil,
+                    grpcSettings = (user.transport == "grpc") and {
+                        serviceName = user.grpc_serviceName
                     } or nil
                 }
             }

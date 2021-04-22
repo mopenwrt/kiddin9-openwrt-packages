@@ -9,8 +9,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openvpn
 
-PKG_VERSION:=2.5.1
-PKG_RELEASE:=2
+PKG_VERSION:=2.5.2
+PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=\
 	https://build.openvpn.net/downloads/releases/ \
@@ -87,13 +87,20 @@ define Build/Configure
 	)
 endef
 
+define Package/openvpn-$(BUILD_VARIANT)/conffiles
+/etc/config/openvpn
+/etc/openvpn.user
+endef
+
 define Package/openvpn-$(BUILD_VARIANT)/install
 	$(INSTALL_DIR) \
 		$(1)/usr/sbin \
 		$(1)/usr/share/openvpn \
 		$(1)/etc/init.d \
+		$(1)/etc/config \
 		$(1)/etc/openvpn \
 		$(1)/lib/functions \
+		$(1)/lib/upgrade/keep.d \
 		$(1)/usr/libexec \
 		$(1)/etc/hotplug.d/openvpn
 
@@ -119,11 +126,18 @@ define Package/openvpn-$(BUILD_VARIANT)/install
 
 	$(INSTALL_DATA) \
 		files/etc/openvpn.user \
-		$(1)/etc/openvpn/openvpn.user
+		$(1)/etc/openvpn.user
 
 	$(INSTALL_DATA) \
 		files/openvpn.options \
 		$(1)/usr/share/openvpn/openvpn.options
+
+	$(INSTALL_CONF) files/openvpn.config \
+		$(1)/etc/config/openvpn
+
+	$(INSTALL_DATA) \
+		files/openvpn.upgrade \
+		$(1)/lib/upgrade/keep.d/openvpn
 endef
 
 $(eval $(call BuildPackage,openvpn-openssl))

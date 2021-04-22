@@ -23,7 +23,6 @@ connect_retry
 connect_retry_max
 connect_timeout
 crl_verify
-data_ciphers
 data_ciphers_fallback
 dev
 dev_node
@@ -198,6 +197,7 @@ vlan_tagging
 '
 
 OPENVPN_LIST='
+data_ciphers
 ncp_ciphers
 tls_cipher
 tls_ciphersuites

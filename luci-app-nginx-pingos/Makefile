@@ -23,7 +23,6 @@ define Package/$(PKG_NAME)
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
   TITLE:=PingOS server
-  PKGARCH:=all
   URL:=https://pingos.io/
   DEPENDS:=+libpcre +libopenssl +zlib +libpthread
 endef
@@ -76,7 +75,7 @@ define Package/$(PKG_NAME)/install
 	
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_CONF) ./root/etc/uci-defaults/* $(1)/etc/uci-defaults
-	
+
 	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
 	cp -pR ./root/usr/share/rpcd/acl.d/* $(1)/usr/share/rpcd/acl.d
 

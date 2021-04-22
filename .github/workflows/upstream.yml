@@ -11,6 +11,7 @@ on:
   push:
     paths:
       - '.github/workflows/upstream.yml'
+      - 'diy/**'
   schedule:
     - cron: 0 */12 * * *
   watch:
@@ -39,6 +40,36 @@ jobs:
       run: |
         rm -rf `find -maxdepth 1 -type d -name "[!.]*" ! -path "./diy"`
         git rm -r --cache *
+        
+        function git_sparse_clone() (
+          branch="$1" rurl="$2" localdir="$3" && shift 3
+          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          cd $localdir
+          git sparse-checkout init --cone
+          git sparse-checkout set $@
+          mv -n $@ ../
+          cd ..
+          rm -rf $localdir
+          )
+
+        svn export --force https://github.com/immortalwrt/luci/trunk/applications &
+        git clone --depth 1 https://github.com/Lienol/openwrt-package &
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
+        svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
+        
+        git_sparse_clone master "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
+        net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost admin/bpytop libs/jpcre2 libs/rapidjson libs/libcron \
+        libs/quickjspp utils/cpulimit utils/filebrowser &
+        
+        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
+        utils/cgroupfs-mount devel/ninja &
+        
+        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
+        
+        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
+        package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
+        package/kernel/rtl8821cu package/kernel/rtl88x2bu
+        
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
@@ -46,13 +77,13 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/aria2 &
         git clone --depth 1 https://github.com/garypang13/smartdns-le &
         git clone --depth 1 https://github.com/garypang13/luci-app-eqos &
-        git clone --depth 1 https://github.com/garypang13/luci-app-xlnetacc &
         git clone --depth 1 https://github.com/garypang13/luci-app-baidupcs-web &
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge &
         git clone --depth 1 https://github.com/garypang13/autosamba &
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge &
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
+        git clone --depth 1 https://github.com/small-5/luci-app-xlnetacc &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder &
         git clone --depth 1 https://github.com/NateLol/luci-app-beardropper &
@@ -78,7 +109,6 @@ jobs:
         git clone --depth 1 https://github.com/peter-tank/luci-app-dnscrypt-proxy2 &
         git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus &
-        git clone --depth 1 https://github.com/vernesong/OpenClash && mv -f OpenClash/luci-app-openclash ./ ; rm -Rf OpenClash &
         git clone --depth 1 https://github.com/NateLol/luci-app-oled &
         git clone --depth 1 https://github.com/destan19/OpenAppFilter && mv -n OpenAppFilter/* ./ ; rm -Rf OpenAppFilter &
         git clone --depth 1 https://github.com/esirplayground/luci-app-poweroff &
@@ -94,73 +124,32 @@ jobs:
         git clone --depth 1 https://github.com/kuoruan/luci-app-frpc &
         git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld &
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
-        git clone --depth 1 https://github.com/scutclient/scutclient &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
+        git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
+        git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
+        git_sparse_clone master https://github.com/vernesong/OpenClash OpenClash luci-app-openclash &
+        git_sparse_clone master https://github.com/doushang/luci-app-shortcutmenu shortcutmenu luci-app-shortcutmenu &
+        git_sparse_clone master https://github.com/sundaqiang/openwrt-packages luci-wolplus luci-app-services-wolplus &
+        git_sparse_clone master https://github.com/brvphoenix/wrtbwmon wrtbwmon1 wrtbwmon &
+        git_sparse_clone master https://github.com/lisaac/luci-app-dockerman luci-app-dockerman1 applications/luci-app-dockerman &
 
-        svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-dockerman
-        svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
-        svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat && rm -f fullconenat/patches/000-printk.patch
-        svn co https://github.com/srchack/custom-packages/trunk/open-vm-tools
-        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
-        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/feeds/luci/applications/luci-app-compressed-memory
-        svn co https://github.com/NoTengoBattery/openwrt-mt7621/trunk/package/system/compressed-memory
-        svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3
-        svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu
-        svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
-        svn co https://github.com/openwrt/packages/trunk/utils/syncthing && rm -rf syncthing/files/etc/{config,init.d}
-        svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
-        svn co https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy
-        svn co https://github.com/openwrt/packages/trunk/net/https-dns-proxy
-        svn co https://github.com/openwrt/packages/trunk/net/openvpn
-        svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount
-        svn co https://github.com/openwrt/packages/trunk/devel/ninja
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-adguardhome
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-gost
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-airwhu
-        svn co https://github.com/immortalwrt/packages/trunk/net/gost
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-mwol
-        svn co https://github.com/immortalwrt/packages/trunk/net/mwol
-        svn co https://github.com/immortalwrt/packages/trunk/net/nps
-        svn co https://github.com/immortalwrt/packages/trunk/admin/bpytop
-        svn co https://github.com/immortalwrt/packages/trunk/net/verysync
-        svn co https://github.com/immortalwrt/packages/trunk/net/sub-web
-        svn co https://github.com/immortalwrt/packages/trunk/net/subconverter
-        svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2 jpcre2
-        svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson rapidjson
-        svn co https://github.com/immortalwrt/packages/trunk/libs/libcron libcron
-        svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp quickjspp
-        svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit
-        svn co https://github.com/immortalwrt/packages/trunk/net/ngrokc
-        svn co https://github.com/immortalwrt/packages/trunk/net/oscam
-        svn co https://github.com/immortalwrt/packages/trunk/net/njitclient
-
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-naiveproxy
-        svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-turboacc
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mt7601u-ap
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/mtk-eip93
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8168
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8188eu
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8812au-ac
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl8821cu
-        svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/rtl88x2bu
+        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
+        svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
+        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
+        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
+        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
+        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
+        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
+        svn co https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
+        svn co https://github.com/x-wrt/packages/trunk/net/nft-qos &
+        svn co https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
         
-        git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
-        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean ./
-        rm -rf .svn
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
-        echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean ./
-        rm -rf .svn
-        echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw ./
-        rm -rf .svn
-        svn export --force https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t && mv -n ntlf9t/* ./ ; rm -rf ntlf9t
-        rm -rf .svn
+        ( for ipk in $(ls applications); do
+        	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
+        		rm -rf applications/$ipk
+        	fi
+        done ) &
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
@@ -168,7 +157,12 @@ jobs:
 
     - name: Delete duplicated packages
       run: |
-        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
+        mv -n applications/* ./ ; rm -Rf applications
+        mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
+        mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
+        mv -n lean/* ./ ; rm -Rf lean
+        mv -n ledelean/* ./ ; rm -Rf ledelean
+        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} cups* subweb \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4} fcgiwrap \
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear
         mv mt/drivers mt/mt-drivers
@@ -179,30 +173,34 @@ jobs:
 
     - name: Modify
       run: |
-        sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
-        sed -i 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' */Makefile
-        sed -i 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' */Makefile
-        sed -i 's/+dockerd/+dockerd \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
-        sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
-        rm -f subconverter/patches/010-missing-header.patch
-        sed -i 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' */Makefile
-        sed -i 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?g' */{Makefile,*.mk}
-        bash diy/create_acl_for_luci.sh -a || true
-        bash diy/convert_translation.sh -a || true
-        rm -Rf antileech/src && git clone https://github.com/persmule/amule-dlp.antiLeech antileech/src
-        sed -i '/\/etc\/config\/AdGuardHome/a /etc/config/AdGuardHome.yaml' luci-app-adguardhome/Makefile
-        sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
-        sed -i 's/ca-certificates/ca-bundle/g' */Makefile
-        sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
-        sed -i 's/@GHCODELOAD/https:\/\/codeload.github.com/' */Makefile
-        find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {}
         getversion() {
         	ver=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$1/releases/latest) | grep -o -E "[0-9].+")
         	[ $ver ] && echo $ver || git ls-remote --tags git://github.com/$1 | cut -d/ -f3- | sort -t. -nk1,2 -k3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+"
         }
-        sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion v2fly/v2ray-core)/g" v2ray/Makefile
-        find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" ! -path "*gowebdav*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {}
-        sed -i 's/SUBDIRS=/M=/g' */Makefile
+        # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion XTLS/Xray-core)/g" xray-core/Makefile &
+        
+        bash diy/create_acl_for_luci.sh -a || true &
+        bash diy/convert_translation.sh -a || true &
+        
+        sed -i \
+        	-e 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' \
+        	-e 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' \
+        	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
+        	-e 's?\.\./\.\./devel/ninja?\.\./ninja?g' \
+        	-e 's/ca-certificates/ca-bundle/g' \
+        	-e 's/@GHCODELOAD/https:\/\/codeload.github.com/' \
+        */Makefile &
+        
+        sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
+        sed -i 's/+docker-ce/+dockerd \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
+        sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
+        rm -f subconverter/patches/010-missing-header.patch
+        sed -i 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?g' */{Makefile,*.mk} &
+        sed -i '/\/etc\/config\/AdGuardHome/a /etc/config/AdGuardHome.yaml' luci-app-adguardhome/Makefile
+        sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
+        sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
+        find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {} &
+        find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" ! -path "*gowebdav*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {} &
         # sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
 
     - name: Apply

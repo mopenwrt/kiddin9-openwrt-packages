@@ -1,3 +1,7 @@
+## 更新：2021年4月21日：
+感谢 [Beginner-Go](https://github.com/Beginner-Go) 大佬前面几次的升级。
+修复每日规则和静态规无效问题。
+
 ## 更新：2021年3月23日：
 感谢 [maple's sky](https://github.com/maplesky) 大佬提供技术支持，修复状态栏不动态问题。
 
