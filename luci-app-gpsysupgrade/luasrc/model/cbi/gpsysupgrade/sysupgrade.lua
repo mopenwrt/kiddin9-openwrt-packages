@@ -21,7 +21,7 @@ function check_update()
 		if remoteformat > sysverformat then
 			needs_update = true
 			if currentTimeStamp > remoteformat or fnotice ~= "" then
-				notice = fnotice
+				notice = true
 			end
 		end
 end
