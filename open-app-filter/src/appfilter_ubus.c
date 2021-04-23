@@ -512,7 +512,7 @@ static void appfilter_add_object(struct ubus_object *obj)
 
 int appfilter_ubus_init(void)
 {
-    ubus_ctx = ubus_connect("/var/run/ubus.sock");
+    ubus_ctx = ubus_connect("/var/run/ubus/ubus.sock");
     if (!ubus_ctx)
         return -EIO;
 

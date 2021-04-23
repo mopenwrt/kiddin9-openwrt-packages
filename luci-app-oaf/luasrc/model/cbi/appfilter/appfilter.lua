@@ -183,6 +183,7 @@ while true do
 end
 fd:close()
 
+--[[
 local config_users=m.uci:get_all("appfilter.user.users")
 if config_users~=nil then
 local r=utl.split(config_users, "%s+", nil, true)
@@ -191,6 +192,7 @@ for i=1,max,1 do
 	users:value(r[i], r[i]);
 end
 end
+--]]
 m:section(SimpleSection).template = "admin_network/user_status"
 local dir, fd
 dir = "/tmp/upload/"
