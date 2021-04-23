@@ -210,9 +210,4 @@ jobs:
         git add .
         git commit -m "update" || true
         git push
-        
-    - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@main
-      with:
-        retain_days: 1
-        keep_minimum_runs: 3
+
