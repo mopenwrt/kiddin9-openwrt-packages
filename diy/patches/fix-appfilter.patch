@@ -1,0 +1,57 @@
+From f4255817a69c8b8b415f4aeb1a29aa87b13d6db6 Mon Sep 17 00:00:00 2001
+From: Shing Lau <icodex@msn.com>
+Date: Thu, 22 Apr 2021 11:53:16 +0800
+Subject: [PATCH 1/2] Update appfilter.lua
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+缺少split函数，因此注释掉
+---
+ luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua b/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua
+index 990dd8485..cd8ec46f6 100755
+--- a/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua
++++ b/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua
+@@ -183,6 +183,7 @@ while true do
+ end
+ fd:close()
+ 
++--[[
+ local config_users=m.uci:get_all("appfilter.user.users")
+ if config_users~=nil then
+ local r=utl.split(config_users, "%s+", nil, true)
+@@ -191,6 +192,7 @@ for i=1,max,1 do
+ 	users:value(r[i], r[i]);
+ end
+ end
++--]]
+ m:section(SimpleSection).template = "admin_network/user_status"
+ local dir, fd
+ dir = "/tmp/upload/"
+
+From 206543e97e47cc9cd7b0a276dddee947716c6662 Mon Sep 17 00:00:00 2001
+From: Shing Lau <icodex@msn.com>
+Date: Thu, 22 Apr 2021 11:56:12 +0800
+Subject: [PATCH 2/2] Update appfilter_ubus.c
+
+fixed ubus.sock path
+---
+ open-app-filter/src/appfilter_ubus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/open-app-filter/src/appfilter_ubus.c b/open-app-filter/src/appfilter_ubus.c
+index 971fab3a6..a3b066b2b 100755
+--- a/open-app-filter/src/appfilter_ubus.c
++++ b/open-app-filter/src/appfilter_ubus.c
+@@ -512,7 +512,7 @@ static void appfilter_add_object(struct ubus_object *obj)
+ 
+ int appfilter_ubus_init(void)
+ {
+-    ubus_ctx = ubus_connect("/var/run/ubus.sock");
++    ubus_ctx = ubus_connect("/var/run/ubus/ubus.sock");
+     if (!ubus_ctx)
+         return -EIO;
+ 
