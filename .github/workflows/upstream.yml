@@ -122,7 +122,7 @@ jobs:
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mv -n feed-netkeeper/* ./ ; rm -Rf feed-netkeeper &
         git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon &
         git clone --depth 1 https://github.com/kuoruan/luci-app-frpc &
-        git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/* ./ ; rm -Rf helloworld &
+        git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/luci-app-ssr-plus ./ ; rm -Rf helloworld &
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
@@ -153,7 +153,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
-      if: 1 == 1
+      if: 1 == 0
 
     - name: Delete duplicated packages
       run: |
