@@ -25,11 +25,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: master
-        fetch-depth: 0
-        lfs: true
+      uses: actions/checkout@main
 
     - name: Set git identity
       run : |
