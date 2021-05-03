@@ -132,8 +132,6 @@ jobs:
 
         svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
         svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/luci-app-phtunnel &
-        svn co https://github.com/teasiu/dragino2/trunk/devices/common/diy/package/teasiu/phtunnel &
         svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
         svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
         svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
