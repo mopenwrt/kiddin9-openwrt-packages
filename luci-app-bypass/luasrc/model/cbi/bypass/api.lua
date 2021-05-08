@@ -65,7 +65,7 @@ function get_xray_version(file)
         if file == get_xray_path() then
             local md5 = sys.exec("echo -n $(md5sum " .. file .. " | awk '{print $1}')")
             if fs.access("/tmp/psw_" .. md5) then
-                return sys.exec("cat /tmp/psw_" .. md5)
+                return sys.exec("echo -n $(cat /tmp/psw_%s)" % md5)
             else
                 local version = sys.exec("echo -n $(%s -version | awk '{print $2}' | sed -n 1P)" % file)
                 sys.call("echo '" .. version .. "' > " .. "/tmp/psw_" .. md5)
@@ -90,7 +90,7 @@ function get_trojan_go_version(file)
         if file == get_trojan_go_path() then
             local md5 = sys.exec("echo -n $(md5sum " .. file .. " | awk '{print $1}')")
             if fs.access("/tmp/psw_" .. md5) then
-                return sys.exec("cat /tmp/psw_" .. md5)
+                return sys.exec("echo -n $(cat /tmp/psw_%s)" % md5)
             else
                 local version = sys.exec("echo -n $(%s -version | awk '{print $2}' | sed -n 1P)" % file)
                 sys.call("echo '" .. version .. "' > " .. "/tmp/psw_" .. md5)
@@ -98,31 +98,6 @@ function get_trojan_go_version(file)
             end
         else
             return sys.exec("echo -n $(%s -version | awk '{print $2}' | sed -n 1P)" % file)
-        end
-    end
-    return ""
-end
-
-function get_kcptun_path()
-    local path = "/usr/bin/kcptun-client"
-    return path
-end
-
-function get_kcptun_version(file)
-    if file == nil then file = get_kcptun_path() end
-    chmod_755(file)
-    if fs.access(file) then
-        if file == get_kcptun_path() then
-            local md5 = sys.exec("echo -n $(md5sum " .. file .. " | awk '{print $1}')")
-            if fs.access("/tmp/psw_" .. md5) then
-                return sys.exec("cat /tmp/psw_" .. md5)
-            else
-                local version = sys.exec("echo -n $(%s -v | awk '{print $3}')" % file)
-                sys.call("echo '" .. version .. "' > " .. "/tmp/psw_" .. md5)
-                return version
-            end
-        else
-            return sys.exec("echo -n $(%s -v | awk '{print $3}')" % file)
         end
     end
     return ""
