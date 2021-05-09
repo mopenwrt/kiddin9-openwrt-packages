@@ -75,7 +75,7 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/luci-app-eqos &
         git clone --depth 1 https://github.com/garypang13/luci-app-baidupcs-web &
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge &
-        git clone --depth 1 https://github.com/garypang13/automount && mv -f my-automount/* ./ ; rm -Rf my-automount &
+        git clone --depth 1 https://github.com/garypang13/automount && mv -f automount/* ./ ; rm -Rf automount &
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge &
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
