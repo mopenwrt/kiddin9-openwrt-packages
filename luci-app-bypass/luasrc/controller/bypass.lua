@@ -1,6 +1,7 @@
 module("luci.controller.bypass",package.seeall)
 local http = require "luci.http"
 local api = require "luci.model.cbi.bypass.api"
+local kcptun = require "luci.model.cbi.bypass.kcptun"
 local xray = require "luci.model.cbi.bypass.xray"
 local trojan_go = require "luci.model.cbi.bypass.trojan_go"
 function index()
