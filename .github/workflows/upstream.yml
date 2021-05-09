@@ -88,7 +88,7 @@ jobs:
         git clone --depth 1 https://github.com/BoringCat/luci-app-minieap &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-onliner &
         git clone --depth 1 https://github.com/tty228/luci-app-serverchan &
-        git clone --depth 1 https://github.com/4IceG/luci-app-sms-tool &
+        git clone --depth 1 https://github.com/4IceG/luci-app-sms-tool smstool && mv -f smstool/* ./ ; rm -Rf smstool &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-ssocks && mv -n openwrt-ssocks/* ./ ; rm -Rf openwrt-ssocks &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
@@ -159,7 +159,7 @@ jobs:
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         mv -n lean/* ./ ; rm -Rf lean
         mv -n ledelean/* ./ ; rm -Rf ledelean
-        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} cups* subweb wget autosamba \
+        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder,smstool} cups* subweb wget autosamba \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4} fcgiwrap \
         ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear
         mv mt/drivers mt/mt-drivers
