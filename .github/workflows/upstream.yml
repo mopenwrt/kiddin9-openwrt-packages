@@ -140,6 +140,7 @@ jobs:
         svn co https://github.com/x-wrt/packages/trunk/net/nft-qos &
         svn co https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
         svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
+        svn co https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng/trunk/luci-app-homeconnect &
         
         ( for ipk in $(ls applications); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
