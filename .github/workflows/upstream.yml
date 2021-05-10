@@ -161,8 +161,8 @@ jobs:
         mv -n ledelean/* ./ ; rm -Rf ledelean
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} cups* subweb wget autosamba \
         mt-drivers coremark npc luci-app-{flowoffload,yggdrasil,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4,smstool,cifs-mount} \
-        fcgiwrap ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear
-        mv mt/drivers mt/mt-drivers csstidy
+        fcgiwrap ddns-scripts_{aliyun,dnspod} UnblockNeteaseMusicGo ipv6-helper adbyby ChinaDNS luci-theme-netgear csstidy
+        mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
 
     - name: Apply patches
