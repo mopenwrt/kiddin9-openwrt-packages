@@ -27,7 +27,16 @@
  	config_get dnsmasqConfig	'config' 'update_dnsmasq_config' '*'
  	config_get_bool forceDNS	'config' 'force_dns' '1'
  	config_get forceDNSPorts	'config' 'force_dns_port' '53 853'
-@@ -203,12 +205,12 @@ dnsmasq_restore_server_backup() {
+@@ -152,7 +154,7 @@ stop_service() {
+ }
+ 
+ service_triggers() {
+-	procd_add_config_trigger "config.change" "https-dns-proxy" /etc/init.d/https-dns-proxy reload
++	procd_add_config_trigger "config.change" "https-dns-proxy" /etc/init.d/https-dns-proxy restart
+ }
+ 
+ service_started() { procd_set_config_changed firewall; }
+@@ -203,8 +205,8 @@ dnsmasq_restore_server_backup() {
  		fi
  		uci -q del "dhcp.${cfg}.doh_backup_noresolv"
  	fi
@@ -37,11 +46,6 @@
  		for i in $(uci -q get "dhcp.${cfg}.doh_backup_server"); do
  			uci -q add_list "dhcp.${cfg}.server=$i"
  		done
--	uci -q del "dhcp.${cfg}.doh_backup_server"
-+		uci -q del "dhcp.${cfg}.doh_backup_server"
- 	fi
- }
- 
 
 --- a/luci-app-https-dns-proxy/root/etc/uci-defaults/40_luci-https-dns-proxy
 +++ b/luci-app-https-dns-proxy/root/etc/uci-defaults/40_luci-https-dns-proxy
