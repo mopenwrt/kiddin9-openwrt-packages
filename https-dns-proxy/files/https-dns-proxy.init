@@ -154,7 +154,7 @@ stop_service() {
 }
 
 service_triggers() {
-	procd_add_config_trigger "config.change" "https-dns-proxy" /etc/init.d/https-dns-proxy reload
+	procd_add_config_trigger "config.change" "https-dns-proxy" /etc/init.d/https-dns-proxy restart
 }
 
 service_started() { procd_set_config_changed firewall; }
@@ -210,7 +210,7 @@ dnsmasq_restore_server_backup() {
 		for i in $(uci -q get "dhcp.${cfg}.doh_backup_server"); do
 			uci -q add_list "dhcp.${cfg}.server=$i"
 		done
-		uci -q del "dhcp.${cfg}.doh_backup_server"
+	uci -q del "dhcp.${cfg}.doh_backup_server"
 	fi
 }
 
