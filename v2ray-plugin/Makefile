@@ -52,7 +52,7 @@ define Package/$(PKG_NAME)
 	SUBMENU:=Project V
 	TITLE:=SIP003 plugin for shadowsocks, based on v2ray
 	URL:=https://github.com/teddysun/v2ray-plugin
-	DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
+	DEPENDS:=$(GO_ARCH_DEPENDS) +ca-certificates
 endef
 
 define Package/$(PKG_NAME)/description
