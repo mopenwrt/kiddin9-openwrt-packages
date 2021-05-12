@@ -122,9 +122,9 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mv -n ddnsto-openwrt/* ./ ; rm -Rf ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mv -n openwrt-sysuh3c/* ./ ; rm -Rf openwrt-sysuh3c &
-        git clone --depth 1 https://github.com/srchack/custom-packages && mv -n custom-packages/* ./ ; rm -rf custom-packages &
+        git clone --depth 1 https://github.com/srchack/custom-packages 
         git clone --depth 1 https://github.com/yichya/luci-app-xray &
-        git clone --depth 1 https://github.com/gdck/luci-app-cupsd &
+        git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/* ./ ; rm -rf cupsd1 &
         git_sparse_clone master https://github.com/vernesong/OpenClash OpenClash luci-app-openclash &
         git_sparse_clone master https://github.com/doushang/luci-app-shortcutmenu shortcutmenu luci-app-shortcutmenu &
         git_sparse_clone master https://github.com/sundaqiang/openwrt-packages luci-wolplus luci-app-services-wolplus &
