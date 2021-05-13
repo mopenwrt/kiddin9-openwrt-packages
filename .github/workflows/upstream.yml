@@ -183,8 +183,6 @@ jobs:
         bash diy/convert_translation.sh -a || true &
         
         sed -i \
-        	-e 's/shadowsocksr-libev-alt/shadowsocksr-libev-ssr-redir/g' \
-        	-e 's/shadowsocksr-libev-server/shadowsocksr-libev-ssr-server/g' \
         	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
         	-e 's?\.\./\.\./devel/ninja?\.\./ninja?g' \
         	-e 's/ca-certificates/ca-bundle/g' \
