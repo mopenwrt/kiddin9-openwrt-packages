@@ -86,6 +86,7 @@ jobs:
 
     - name: Load && Update feeds
       run: |
+        mkdir openwrt
         tar -xJf sdk.tar.xz -C openwrt
         rm -Rf sdk.tar.xz
         cd openwrt
