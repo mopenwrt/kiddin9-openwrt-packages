@@ -138,7 +138,7 @@ jobs:
         svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
         svn co https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng/trunk/luci-app-homeconnect &
 
-        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/lean package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
+        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu
 
