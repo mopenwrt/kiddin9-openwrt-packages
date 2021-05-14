@@ -186,10 +186,10 @@ jobs:
         	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
         	-e 's?\.\./\.\./devel/ninja?\.\./ninja?g' \
         	-e 's/ca-certificates/ca-bundle/g' \
-        	-e 's/@GHCODELOAD/https:\/\/codeload.github.com/' \
         */Makefile &
         
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
+        sed -i 's/PKG_NAME:=UnblockNeteaseMusicGo/PKG_NAME:=UnblockNeteaseMusic-Go/' UnblockNeteaseMusicGo/Makefile
         sed -i 's/+docker-ce/+dockerd \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
         rm -f subconverter/patches/010-missing-header.patch
