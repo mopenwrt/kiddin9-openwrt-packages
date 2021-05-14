@@ -171,19 +171,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
       with:
         files: "${{ env.FIRMWARE }}/*"
-        name: ${{ env.date2 }} ${{ env.MTARGET }} ${{ env.EMOJI }}
-        tag_name: ${{ env.date }}_${{ env.MTARGET }}
-        body_path: release.txt
-
-    - name: Upload error for release
-      uses: softprops/action-gh-release@v1
-      continue-on-error: true
-      if: env.REPO_TOKEN && ! env.DEPLOY
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-      with:
-        files: "${{ env.FIRMWARE }}/error_*"
-        name: ❌ ${{ env.date2 }} ${{ env.MTARGET }} ❌
+        name: Bypass for ${{ env.MTARGET }} ${{ env.EMOJI }} ${{ env.date2 }}
         tag_name: ${{ env.date }}_${{ env.MTARGET }}
         body_path: release.txt
 
