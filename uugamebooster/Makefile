@@ -69,13 +69,9 @@ endef
 define Build/Compile
 endef
 
-define Package/$(PKG_NAME)/conffiles
-/usr/share/$(PKG_NAME)/uu.conf
-endef
-
 define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/uugamebooster.init $(1)/etc/init.d/uugamebooster
+	# $(INSTALL_DIR) $(1)/etc/init.d
+	# $(INSTALL_BIN) ./files/uugamebooster.init $(1)/etc/init.d/uuplugin
 
 	$(INSTALL_DIR) $(1)/usr/share/$(PKG_NAME)
 	$(INSTALL_BIN) $(UNTAR_DIR)/uuplugin $(1)/usr/share/$(PKG_NAME)/uuplugin
