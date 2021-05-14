@@ -82,11 +82,12 @@ jobs:
         else
             wget -cO sdk.tar.xz https://downloads.openwrt.org/releases/21.02-SNAPSHOT/targets/rockchip/armv8/openwrt-sdk-21.02-SNAPSHOT-rockchip-armv8_gcc-8.4.0_musl.Linux-x86_64.tar.xz
         fi
-        svn co https://github.com/garypang13/Actions-OpenWrt/trunk/devices devices
+        mkdir openwrt
+        svn co https://github.com/garypang13/Actions-OpenWrt/trunk/devices openwrt/devices
 
     - name: Load && Update feeds
       run: |
-        mkdir openwrt
+        
         tar -xJf sdk.tar.xz -C openwrt
         rm -Rf sdk.tar.xz
         cd openwrt
@@ -98,9 +99,6 @@ jobs:
           ln -sf /usr/bin/python3 staging_dir/host/bin/python
         fi
         ln -sf /usr/bin/python3 staging_dir/host/bin/python3
-        mv -f ../devices ./
-        cp -rf devices/common/. ./
-        cp -rf devices/${{matrix.target}}/. ./
         ./scripts/feeds update -a
 
     - name: Load custom configuration
