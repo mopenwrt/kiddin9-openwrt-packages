@@ -64,7 +64,6 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
-        git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge &
         git clone --depth 1 https://github.com/garypang13/openwrt-static-qb && mv -f openwrt-static-qb/* ./ ; rm -Rf openwrt-static-qb &
         git clone --depth 1 https://github.com/garypang13/aria2 &
         git clone --depth 1 https://github.com/garypang13/smartdns-le &
@@ -88,6 +87,7 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
+        git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-cdnspeedtest cdnspeedtest &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-gowebdav && mv -n openwrt-gowebdav/* ./ ; rm -Rf openwrt-gowebdav &
 
