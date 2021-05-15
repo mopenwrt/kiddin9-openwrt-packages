@@ -57,7 +57,7 @@ jobs:
         libs/quickjspp utils/cpulimit utils/filebrowser &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
-        utils/cgroupfs-mount devel/ninja &
+        utils/cgroupfs-mount devel/ninja libs/libcups &
         
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
         
