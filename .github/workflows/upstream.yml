@@ -64,6 +64,7 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
+        git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge &
         git clone --depth 1 https://github.com/garypang13/openwrt-static-qb && mv -f openwrt-static-qb/* ./ ; rm -Rf openwrt-static-qb &
         git clone --depth 1 https://github.com/garypang13/aria2 &
         git clone --depth 1 https://github.com/garypang13/smartdns-le &
