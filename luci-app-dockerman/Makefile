@@ -14,7 +14,12 @@ PKG_LICENSE:=AGPL-3.0
 PKG_MAINTAINER:=lisaac <lisaac.cn@gmail.com> \
 		Florian Eckert <fe@dev.tdt.de>
 
-PKG_VERSION:=v0.5.13
+PKG_VERSION:=v0.5.14
+
+define Package/luci-app-dockerman/conffiles
+/etc/config/dockerman
+/etc/docker/
+endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
