@@ -42,6 +42,9 @@ define Package/default-settings/install
 	$(INSTALL_BIN) ./files/opkg.rc.d $(1)/etc/rc.d/S99opkg
 	$(INSTALL_DIR) $(1)/etc/profile.d
 	$(INSTALL_BIN) ./files/sysinfo.sh $(1)/etc/profile.d/sysinfo.sh
+	$(INSTALL_DIR) $(1)/sbin
+	$(INSTALL_BIN) ./files/memclean $(1)/sbin/memclean
+	$(INSTALL_BIN) ./files/reboot $(1)/sbin/reboot
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
 	po2lmo ./po/zh_Hans/default.po $(1)/usr/lib/lua/luci/i18n/default.zh-cn.lmo
 

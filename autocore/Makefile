@@ -60,6 +60,7 @@ endef
 define Package/autocore-x86/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(INSTALL_BIN) ./files/x86/cpuinfo $(1)/sbin/cpuinfo
+	$(INSTALL_BIN) ./files/x86/ethinfo $(1)/sbin/ethinfo
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
 	$(INSTALL_DATA) ./files/x86/29_eth.js $(1)/www/luci-static/resources/view/status/include/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/admin_status/index/
