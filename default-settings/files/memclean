@@ -8,7 +8,7 @@ echo "===========================" > /var/log/mem.log
 date >> /var/log/mem.log
 echo "Memory usage | [Use：${used}KB][Free：${free}KB]" >> /var/log/mem.log
 
-if [ $free -le $(expr $memtotal / 3.5) ] ; then
+if [ $free -le $(echo "scale=0; $memtotal / 3.5" | bc) ] ; then
 sync && echo 1 > /proc/sys/vm/drop_caches
 sync && echo 2 > /proc/sys/vm/drop_caches
 sync && echo 3 > /proc/sys/vm/drop_caches
