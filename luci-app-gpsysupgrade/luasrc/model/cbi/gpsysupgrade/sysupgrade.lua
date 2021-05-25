@@ -68,6 +68,11 @@ function to_check()
 		check_update()
 		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
         download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-xiaomi_mir3p-squashfs-sysupgrade.bin"
+    elseif model:match(".*Pi 4 Model B.*") then
+		model = "Rpi-4B"
+		check_update()
+		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
+        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-bcm27xx-bcm2711-rpi-4-squashfs-sysupgrade.img.gz"
 	else
 		local needs_update = false
 		return {
