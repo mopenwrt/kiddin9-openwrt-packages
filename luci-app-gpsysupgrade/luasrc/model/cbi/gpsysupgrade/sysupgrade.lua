@@ -119,7 +119,7 @@ function to_download(url,md5)
 
 	local md5local = sys.exec("echo -n $(md5sum " .. tmp_file .. " | awk '{print $1}')")
 	
-	if url:match(".*combined.img.*") == nil and md5local ~= md5 then
+	if url:match(".*combined.img.*") == nil and md5 ~= "" and md5local ~= md5 then
 		api.exec("/bin/rm", {"-f", tmp_file})
 		return {
             code = 1,
