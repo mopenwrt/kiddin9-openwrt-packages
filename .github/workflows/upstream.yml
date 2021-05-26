@@ -88,6 +88,7 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
+        git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot &
         git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-cdnspeedtest cdnspeedtest &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-gowebdav && mv -n openwrt-gowebdav/* ./ ; rm -Rf openwrt-gowebdav &
