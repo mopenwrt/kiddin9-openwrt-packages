@@ -60,16 +60,6 @@ function to_check()
 		model = "newifi-d2"
 		check_update()
         download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-newifi-d2-squashfs-sysupgrade.bin"
-    elseif model:match(".*XY-C5.*") then
-		model = "XY-C5"
-		check_update()
-		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-xy-c5-squashfs-sysupgrade.bin"
-    elseif model:match(".*Mi Router 3 Pro.*") then
-		model = "xiaomi-r3p"
-		check_update()
-		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-xiaomi_mir3p-squashfs-sysupgrade.bin"
     elseif model:match(".*Pi 4 Model B.*") then
 		model = "Rpi-4B"
 		check_update()
