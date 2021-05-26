@@ -12,12 +12,14 @@ function get_system_version()
 end
 
 function check_update()
-		needs_update, notice = false, false
+		needs_update, notice,md5 = false, false, false
 		remote_version = luci.sys.exec("echo -n $(curl -s https://op.supes.top/firmware/" ..model.. "/version.txt)")
 		updatelogs = luci.sys.exec("curl -s https://op.supes.top/firmware/" ..model.. "/updatelogs.txt")
-		remoteformat = luci.sys.exec("date -d $(echo " ..remote_version.. " | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
-		fnotice = luci.sys.exec("echo -n " ..remote_version.. " | sed -n '/\\.$/p'")
+		remoteformat = luci.sys.exec("date -d $(echo " ..remote_version.. " | awk '{printf $1}' | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
+		fnotice = luci.sys.exec("echo -n " ..remote_version.. " | sed -n '/\\. /p'")
 		dateyr = luci.sys.exec("echo -n " ..remote_version.. " | awk -F. '{printf $1\".\"$2}'")
+		md5 = luci.sys.exec("echo -n " ..remote_version.. " | awk '{printf $2}'")
+		remote_version = luci.sys.exec("echo -n " ..remote_version.. " | awk '{printf $1}' | awk -F. '{printf $1\".\"$2\".\"$3}'")
 		if remoteformat > sysverformat then
 			needs_update = true
 			if currentTimeStamp > remoteformat or fnotice ~= "" then
@@ -98,12 +100,13 @@ function to_check()
 		notice = notice,
         now_version = system_version,
         version = remote_version,
+		md5 = md5,
 	logs = updatelogs,
         url = download_url
     }
 end
 
-function to_download(url)
+function to_download(url,md5)
     if not url or url == "" then
         return {code = 1, error = i18n.translate("Download url is required.")}
     end
@@ -113,6 +116,16 @@ function to_download(url)
     local tmp_file = util.trim(util.exec("mktemp -u -t firmware_download.XXXXXX"))
 
     local result = api.exec(api.curl, {api._unpack(api.curl_args), "-o", tmp_file, url}, nil, api.command_timeout) == 0
+
+	local md5local = sys.exec("echo -n $(md5sum " .. tmp_file .. " | awk '{print $1}')")
+	
+	if url:match(".*combined.img.*") == nil and md5local ~= md5 then
+		api.exec("/bin/rm", {"-f", tmp_file})
+		return {
+            code = 1,
+            error = i18n.translatef("Md5 check failed: %s", url)
+        }
+	end
 
     if not result then
         api.exec("/bin/rm", {"-f", tmp_file})
