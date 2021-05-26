@@ -54,7 +54,7 @@ jobs:
         
         git_sparse_clone master "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron \
-        libs/quickjspp utils/cpulimit utils/filebrowser &
+        libs/quickjspp utils/cpulimit utils/filebrowser multimedia/gmediarender &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
         utils/cgroupfs-mount devel/ninja libs/libcups &
