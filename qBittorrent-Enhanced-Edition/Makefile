@@ -56,6 +56,7 @@ define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
+	DEPENDS:=@(TARGET_x86||TARGET_rockchip)
 	TITLE:=bittorrent client programmed in C++ / Qt
 	URL:=https://www.qbittorrent.org/
 endef
