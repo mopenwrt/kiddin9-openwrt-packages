@@ -7,8 +7,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-passwall
 PKG_VERSION:=4
-PKG_RELEASE:=22
-PKG_DATE:=20210505
+PKG_RELEASE:=24
+PKG_DATE:=20210525
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -150,11 +150,11 @@ define Package/luci-app-passwall/postinst
 #!/bin/sh
 
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	(. /etc/uci-defaults/luci-passwall) && rm -f /etc/uci-defaults/luci-passwall)
+	(. /etc/uci-defaults/luci-passwall && rm -f /etc/uci-defaults/luci-passwall)
 	touch $${IPKG_INSTROOT}/etc/config/passwall_show >/dev/null 2>&1
-        rm -f /tmp/luci-indexcache
-        rm -rf /tmp/luci-modulecache/
-        killall -HUP rpcd 2>/dev/null
+	rm -f /tmp/luci-indexcache
+	rm -rf /tmp/luci-modulecache/
+	killall -HUP rpcd 2>/dev/null
 fi
 exit 0
 endef
