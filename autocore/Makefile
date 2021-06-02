@@ -53,16 +53,17 @@ endef
 define Package/autocore-arm/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(INSTALL_BIN) $(DL_DIR)/cpuinfo $(1)/sbin/cpuinfo
+	$(INSTALL_BIN) ./files/common/ethinfo $(1)/sbin/ethinfo
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
-	$(INSTALL_DATA) ./files/arm/* $(1)/www/luci-static/resources/view/status/include/
+	$(INSTALL_DATA) ./files/common/29_eth.js $(1)/www/luci-static/resources/view/status/include/
 endef
 
 define Package/autocore-x86/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(INSTALL_BIN) ./files/x86/cpuinfo $(1)/sbin/cpuinfo
-	$(INSTALL_BIN) ./files/x86/ethinfo $(1)/sbin/ethinfo
+	$(INSTALL_BIN) ./files/common/ethinfo $(1)/sbin/ethinfo
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
-	$(INSTALL_DATA) ./files/x86/29_eth.js $(1)/www/luci-static/resources/view/status/include/
+	$(INSTALL_DATA) ./files/common/29_eth.js $(1)/www/luci-static/resources/view/status/include/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/admin_status/index/
 	$(INSTALL_DATA) ./files/x86/nvme_status.htm $(1)/usr/lib/lua/luci/view/admin_status/index/
 endef
