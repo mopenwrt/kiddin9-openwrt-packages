@@ -212,7 +212,7 @@ export PUSH_PLUS_USER=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyFruit1=""
 MyFruit2=""
-MyFruitA=""
+MyFruitA="c06d4e7817504aff8320fbfd9ea3e693"
 MyFruitB=""
 
 ForOtherFruit1=""${MyFruitA}@${MyFruitB}""
@@ -223,7 +223,7 @@ ForOtherFruit2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyPet1=""
 MyPet2=""
-MyPetA=""
+MyPetA="MTEyNTEyNTE1MDAwMDAwMDA0OTE2ODQ3MQ"
 MyPetB=""
 
 ForOtherPet1="${MyPetA}@${MyPetB}"
@@ -234,7 +234,7 @@ ForOtherPet2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyBean1=""
 MyBean2=""
-MyBeanA=""
+MyBeanA="323auftuy2dbnuoi6jiojwxqykkdul4nn5mb47y"
 MyBeanB=""
 
 ForOtherBean1="${MyBeanA}@${MyBeanB}"
@@ -245,7 +245,7 @@ ForOtherBean2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyJdFactory1=""
 MyJdFactory2=""
-MyJdFactoryA=""
+MyJdFactoryA="T023v_hzQxob8VHKJB71lPACcS4CjVWnYaS5kRrbA"
 MyJdFactoryB=""
 
 ForOtherJdFactory1="${MyJdFactoryA}@${MyJdFactoryB}"
@@ -256,7 +256,7 @@ ForOtherJdFactory2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyDreamFactory1=""
 MyDreamFactory2=""
-MyDreamFactoryA=""
+MyDreamFactoryA="oFdU0lPvrBCeRtLB0au1jV6oPv5fc1BhUaLxeCxUA5s"
 MyDreamFactoryB=""
 
 ForOtherDreamFactory1="${MyDreamFactoryA}@${MyDreamFactoryB}"
@@ -267,7 +267,7 @@ ForOtherDreamFactory2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyJdzz1=""
 MyJdzz2=""
-MyJdzzA=""
+MyJdzzA="Sv_hzQxob8VHKJB71lPACcS4"
 MyJdzzB=""
 
 ForOtherJdzz1="${MyJdzzA}@${MyJdzzB}"
@@ -278,7 +278,7 @@ ForOtherJdzz2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyJoy1=""
 MyJoy2=""
-MyJoyA=""
+MyJoyA="dHRNZqPoI-zltBljRSmhLDvMqLmzFwaT"
 MyJoyB=""
 
 ForOtherJoy1="${MyJoyA}@${MyJoyB}"
@@ -289,7 +289,7 @@ ForOtherJoy2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyBookShop1=""
 MyBookShop2=""
-MyBookShopA=""
+MyBookShopA="b0c04df25e93468d84b92da823b60731"
 MyBookShopB=""
 
 ForOtherBookShop1="${MyBookShopA}@${MyBookShopB}"
@@ -300,7 +300,7 @@ ForOtherBookShop2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyCash1=""
 MyCash2=""
-MyCashA=""
+MyCashA="Ih43b-iwYvk79WrUy3Qb0zg"
 MyCashB=""
 
 ForOtherCash1="${MyCashA}@${MyCashB}"
@@ -311,7 +311,7 @@ ForOtherCash2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MySgmh1=""
 MySgmh2=""
-MySgmhA=""
+MySgmhA="T023v_hzQxob8VHKJB71lPACcS4CjVQmoaT5kRrbA"
 MySgmhB=""
 
 ForOtherSgmh1="${MySgmhA}@${MySgmhB}"
@@ -322,7 +322,7 @@ ForOtherSgmh2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyCfd1=""
 MyCfd2=""
-MyCfdA=""
+MyCfdA="D904BBABF9D5066C254D3F617B5388402A8E008AF197A20721CD00F566937B9B"
 MyCfdB=""
 
 ForOtherCfd1="${MyCfdA}@${MyCfdB}"
@@ -333,12 +333,16 @@ ForOtherCfd2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyHealth1=""
 MyHealth2=""
-MyHealthA=""
+MyHealthA="T023v_hzQxob8VHKJB71lPACcS4CjVfnoaW5kRrbA"
 MyHealthB=""
 
 ForOtherHealth1="${MyHealthA}@${MyHealthB}"
 ForOtherHealth2=""
 
+################################## 12. 城城分现金 ##################################
+MyCity1=""
+MyCityA="HYDly-imRQ--eoebF9M703YbxTfg3s5PAmnIrDsOpYCJ9ZU7v34"
+ForOtherMyCity1="${MyCityA}@${MyCityB}"
 
 ##################################################################################################
 
