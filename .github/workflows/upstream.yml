@@ -74,7 +74,7 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/autoshare && mv -f autoshare/* ./ ; rm -Rf autoshare &
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
-        git clone --depth 1 https://github.com/small-5/luci-app-xlnetacc &
+        git clone --depth 1 https://github.com/garypang13/luci-app-xlnetac &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder &
         git clone --depth 1 https://github.com/NateLol/luci-app-beardropper &
