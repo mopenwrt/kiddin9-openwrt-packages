@@ -9,7 +9,7 @@ ql repo https://github.com/chinnkarahoi/jd_scripts.git "jd_|jx_|getJDCookie" "ac
 ql repo https://gitee.com/mjf521/dust "i-chenzhe|normal|member|car" "backup"
 
 #龙猪猪仓库
-ql repo https://github.com/nianyuguai/longzhuzhu.git "qx"
+ql repo https://github.com/longzhuzhu/nianyu "qx"
 
 #混沌仓库
 ql repo https://github.com/whyour/hundun.git "quanx" "tokens|caiyun|didi|donate|fold|Env"
