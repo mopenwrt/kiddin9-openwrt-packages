@@ -90,7 +90,7 @@ jobs:
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
         git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot &
         git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge &
-        git clone --depth 1 https://github.com/lisaac/luci-app-dockerman dockerman  && mv -n dockerman/* ./ ; rm -Rf dockerman &
+        git clone --depth 1 https://github.com/lisaac/luci-app-dockerman dockerman  && mv -n dockerman/applications/* ./ ; rm -Rf dockerman &
 
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config &
