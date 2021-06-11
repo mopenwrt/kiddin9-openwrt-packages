@@ -148,15 +148,14 @@ local system_version = require "luci.model.cbi.gpsysupgrade.sysupgrade".get_syst
 		if (!kconfig.checked && kopkg.checked){
 			opts = "-n -k";
 			}
-				removePageNotice_sysup();
-				check();
 						XHR.get(sysUpgradeUrl, {
 							token: tokenStr,
 							task: 'flash',
 							file: json.file,
 							retain: opts
 						}, function(x,json) {
-							
+							removePageNotice_sysup();
+							check();
 						},300)
 			}
 		},300)
@@ -199,7 +198,7 @@ local system_version = require "luci.model.cbi.gpsysupgrade.sysupgrade".get_syst
 	}
 
 	function check() {
-		window.setTimeout(ping, 5000);
+		window.setTimeout(ping, 3000);
 	}
 
 	function ping() {
