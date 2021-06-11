@@ -238,7 +238,7 @@ ForOtherFruit2=""
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyPet1=""
 MyPet2=""
-MyPetA="MTEyNTEyNTE1MDAwMDAwMDA0OTE2ODQ3MQ"
+MyPetA="MTEyNTEyNTE1MDAwMDAwMDA0OTE2ODQ3MQ=="
 MyPetB=""
 
 ForOtherPet1="${MyPetA}@${MyPetB}"
