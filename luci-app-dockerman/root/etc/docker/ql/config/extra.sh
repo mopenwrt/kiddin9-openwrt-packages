@@ -21,7 +21,7 @@ ql repo https://github.com/maimengmeng/zoo.git "zoo"
 ql repo https://github.com/hyzaw/scripts.git "ddo_"
 
 #JDDJ仓库
-ql repo https://github.com/passerby-b/JDDJ.git "jd_" "scf_test_event" "jddj_cookie"
+ql repo https://github.com/passerby-b/JDDJ.git "jd_" "scf_test_event"
 
 #Wenmoux仓库
 ql repo https://github.com/Wenmoux/scripts.git "jd" "" "" "wen"
