@@ -15,19 +15,25 @@ ql repo https://github.com/longzhuzhu/nianyu "qx"
 ql repo https://github.com/whyour/hundun.git "quanx" "tokens|caiyun|didi|donate|fold|Env"
 
 #zoo仓库
-ql repo https://github.com/zooPanda/zoo.git "zoo"
+ql repo https://github.com/maimengmeng/zoo.git "zoo"
 
 #hyzaw仓库
 ql repo https://github.com/hyzaw/scripts.git "ddo_"
 
 #JDDJ仓库
-ql repo https://github.com/passerby-b/JDDJ.git "jddj_" "scf_test_event" "jddj_cookie"
+ql repo https://github.com/passerby-b/JDDJ.git "jd_" "scf_test_event" "jddj_cookie"
 
 #Wenmoux仓库
-ql repo https://github.com/Wenmoux/scripts.git "jd"
+ql repo https://github.com/Wenmoux/scripts.git "jd" "" "" "wen"
 
 #panghu仓库
 ql repo https://github.com/panghu999/panghu.git "jd_"
 
 #platypus仓库
 ql repo https://github.com/jiulan/platypus.git "scripts"
+
+#Ariszy（Zhiyi-N)
+ql repo https://github.com/Ariszy/Private-Script.git "JD"
+
+#star261
+ql repo https://github.com/star261/jd.git "scripts" "code"
