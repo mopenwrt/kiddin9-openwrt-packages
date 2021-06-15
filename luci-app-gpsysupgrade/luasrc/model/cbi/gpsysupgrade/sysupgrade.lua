@@ -39,6 +39,7 @@ function to_check()
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-x86-64-generic-squashfs-combined-efi.img.gz"
 		else
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-x86-64-generic-squashfs-combined.img.gz"
+			md5 = ""
 		end
     elseif model:match(".*R2S.*") then
 		model = "nanopi-r2s"
@@ -47,6 +48,7 @@ function to_check()
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
 		else
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-ext4-sysupgrade.img.gz"
+			md5 = ""
 		end
     elseif model:match(".*R4S.*") then
 		model = "nanopi-r4s"
@@ -55,6 +57,7 @@ function to_check()
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
 		else
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-ext4-sysupgrade.img.gz"
+			md5 = ""
 		end
     elseif model:match(".*Pi 4 Model B.*") then
 		model = "Rpi-4B"
