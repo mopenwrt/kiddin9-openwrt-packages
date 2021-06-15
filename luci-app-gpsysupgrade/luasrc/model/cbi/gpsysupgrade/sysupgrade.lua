@@ -51,11 +51,11 @@ function to_check()
     elseif model:match(".*R2S.*") then
 		model = "nanopi-r2s"
 		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
+        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-ext4-sysupgrade.img.gz"
     elseif model:match(".*R4S.*") then
 		model = "nanopi-r4s"
 		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
+        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-ext4-sysupgrade.img.gz"
     elseif model:match(".*D2.*") then
 		model = "newifi-d2"
 		check_update()
