@@ -50,6 +50,7 @@ function opkgupgrade() {
 					fi
 					if [ -f "/etc/backup/installed_packages.txt" ]; then
 						sed -i '/luci-app-opkg/d' /etc/backup/installed_packages.txt
+						sed -i '/luci-app-firewall/d' /etc/backup/installed_packages.txt
 						sed -i '/	rom$/d' /etc/backup/installed_packages.txt
 						sed -i 's/	overlay$//g' /etc/backup/installed_packages.txt
 							for ipk in $(cat /etc/backup/installed_packages.txt); do
