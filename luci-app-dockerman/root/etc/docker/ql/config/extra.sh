@@ -15,7 +15,7 @@ ql repo https://github.com/longzhuzhu/nianyu "qx"
 ql repo https://github.com/whyour/hundun.git "quanx" "tokens|caiyun|didi|donate|fold|Env"
 
 #zoo仓库
-ql repo https://github.com/maimengmeng/zoo.git "zoo"
+ql repo https://github.com/zooPanda/zoo.git "zoo"
 
 #hyzaw仓库
 ql repo https://github.com/hyzaw/scripts.git "ddo_"
