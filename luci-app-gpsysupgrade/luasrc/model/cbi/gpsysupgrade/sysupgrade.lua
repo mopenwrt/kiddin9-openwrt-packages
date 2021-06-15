@@ -40,26 +40,22 @@ function to_check()
 		else
 			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-x86-64-generic-squashfs-combined.img.gz"
 		end
-    elseif model:match(".*K2P.*") then
-		model = "phicomm-k2p"
-		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin"
-    elseif model:match(".*AC2100.*") then
-		model = "redmi-ac2100"
-		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-redmi-ac2100-squashfs-sysupgrade.bin"
     elseif model:match(".*R2S.*") then
 		model = "nanopi-r2s"
 		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-ext4-sysupgrade.img.gz"
+		if fs.access("/overlay/upper") then
+			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
+		else
+			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-ext4-sysupgrade.img.gz"
+		end
     elseif model:match(".*R4S.*") then
 		model = "nanopi-r4s"
 		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-ext4-sysupgrade.img.gz"
-    elseif model:match(".*D2.*") then
-		model = "newifi-d2"
-		check_update()
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-ramips-mt7621-newifi-d2-squashfs-sysupgrade.bin"
+		if fs.access("/overlay/upper") then
+			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
+		else
+			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-ext4-sysupgrade.img.gz"
+		end
     elseif model:match(".*Pi 4 Model B.*") then
 		model = "Rpi-4B"
 		check_update()
