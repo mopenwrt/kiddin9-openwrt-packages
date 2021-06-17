@@ -182,12 +182,6 @@ jobs:
         bash diy/create_acl_for_luci.sh -a || true &
         bash diy/convert_translation.sh -a || true &
         
-        sed -i \
-        	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
-        	-e 's?\.\./\.\./devel/ninja?\.\./ninja?g' \
-        	-e 's/ca-certificates/ca-bundle/g' \
-        */Makefile &
-        
         sed -i 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?g' */{Makefile,*.mk} &
         find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {} &
         find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" ! -path "*gowebdav*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {} &
@@ -202,6 +196,12 @@ jobs:
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
         # sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
 
+        sed -i \
+        	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
+        	-e 's?\.\./\.\./devel/ninja?\.\./ninja?g' \
+        	-e 's/ca-certificates/ca-bundle/g' \
+        */Makefile
+        
     - name: Apply
       run: |
         git add .
