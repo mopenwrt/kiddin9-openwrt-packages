@@ -65,12 +65,12 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
-        git clone --depth 1 https://github.com/garypang13/openwrt-static-qb && mv -f openwrt-static-qb/* ./ ; rm -Rf openwrt-static-qb &
         git clone --depth 1 https://github.com/garypang13/aria2 &
         git clone --depth 1 https://github.com/garypang13/smartdns-le &
         git clone --depth 1 https://github.com/garypang13/luci-app-eqos &
         git clone --depth 1 https://github.com/garypang13/luci-app-baidupcs-web &
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge &
+        git clone --depth 1 https://github.com/garypang13/qBittorrent-Enhanced-Edition &
         git clone --depth 1 https://github.com/garypang13/autoshare && mv -f autoshare/* ./ ; rm -Rf autoshare &
         git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
@@ -179,6 +179,7 @@ jobs:
         }
         # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion XTLS/Xray-core)/g" xray-core/Makefile &
         # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion klzgrad/naiveproxy)/g" naiveproxy/Makefile &
+          sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion c0re100/qBittorrent-Enhanced-Edition)/g" qBittorrent-Enhanced-Edition/Makefile &
         
         bash diy/create_acl_for_luci.sh -a || true &
         bash diy/convert_translation.sh -a || true &
