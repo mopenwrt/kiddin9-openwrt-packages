@@ -88,7 +88,6 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap &
-        git cone --depth 1 https://github.com/sirpdboy/luci-app-netdata &
         git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot &
         git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge &
         git clone --depth 1 https://github.com/lisaac/luci-app-dockerman dockerman  && mv -n dockerman/applications/* ./ ; rm -Rf dockerman &
@@ -101,6 +100,7 @@ jobs:
         git clone --depth 1 https://github.com/jefferymvp/luci-app-koolproxyR &
         git clone --depth 1 https://github.com/peter-tank/luci-app-dnscrypt-proxy2 &
         git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced &
+        git clone --depth 1 https://github.com/sirpdboy/luci-app-netdata &
         git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus &
         git clone --depth 1 https://github.com/NateLol/luci-app-oled &
         git clone --depth 1 https://github.com/destan19/OpenAppFilter && mv -n OpenAppFilter/* ./ ; rm -Rf OpenAppFilter &
