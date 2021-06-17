@@ -1,7 +1,5 @@
-diff --git a/Makefile b/Makefile
-index d7be678..5463ed0 100644
---- a/Makefile
-+++ b/Makefile
+--- a/qbittorrent/Makefile
++++ b/qbittorrent/Makefile
 @@ -65,11 +65,14 @@ TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
  
  define Package/qbittorrent/conffiles
@@ -17,11 +15,9 @@ index d7be678..5463ed0 100644
  endef
  
  $(eval $(call BuildPackage,qbittorrent))
-diff --git a/files/ipfilter.dat b/files/ipfilter.dat
-new file mode 100644
-index 0000000..a4935de
+
 --- /dev/null
-+++ b/files/ipfilter.dat
++++ b/qbittorrent/files/ipfilter.dat
 @@ -0,0 +1,293 @@
 +14.17.29.0      - 14.17.44.255    ,   0 , Tencent Offline
 +14.17.101.0     - 14.17.101.255   ,   0 , Baidu Offline
