@@ -1,5 +1,5 @@
---- a/qbittorrent/Makefile
-+++ b/qbittorrent/Makefile
+--- a/qBittorrent/Makefile
++++ b/qBittorrent/Makefile
 @@ -65,11 +65,14 @@ TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
  
  define Package/qbittorrent/conffiles
@@ -17,7 +17,7 @@
  $(eval $(call BuildPackage,qbittorrent))
 
 --- /dev/null
-+++ b/qbittorrent/files/ipfilter.dat
++++ b/qBittorrent/files/ipfilter.dat
 @@ -0,0 +1,293 @@
 +14.17.29.0      - 14.17.44.255    ,   0 , Tencent Offline
 +14.17.101.0     - 14.17.101.255   ,   0 , Baidu Offline
