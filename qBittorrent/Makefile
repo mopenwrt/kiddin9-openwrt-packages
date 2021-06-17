@@ -6,58 +6,45 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=qBittorrent
-PKG_VERSION:=4.3.5_v1.2.14
+PKG_NAME:=qbittorrent
+PKG_VERSION:=4.3.5
 PKG_RELEASE=1
 
-STRIP:=true
+PKG_SOURCE:=qBittorrent-release-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/qbittorrent/qBittorrent/tar.gz/release-$(PKG_VERSION)?
+PKG_HASH:=skip
 
-ifeq ($(ARCH),i386)
-	PKG_ARCH:=86
-endif
+PKG_BUILD_DIR:=$(BUILD_DIR)/qBittorrent-release-$(PKG_VERSION)
 
-ifeq ($(ARCH),x86_64)
-	PKG_ARCH:=x86_64
-endif
+PKG_LICENSE:=GPL-2.0+
+PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:qbittorrent:qbittorrent
 
-ifeq ($(ARCH),mipsel)
-	PKG_ARCH:=mipsel-linux-musl
-endif
+PKG_BUILD_DEPENDS:=qttools
 
-ifeq ($(ARCH),mips)
-	PKG_ARCH:=mipsel-linux-musl
-endif
-
-ifeq ($(ARCH),arm64)
-	PKG_ARCH:=aarch64
-endif
-
-ifeq ($(ARCH),aarch64)
-	PKG_ARCH:=aarch64
-endif
-
-ifeq ($(ARCH),arm)
-ifeq ($(BOARD),bcm53xx)
-	PKG_ARCH:=armv5
-else ifeq ($(BOARD),kirkwood)
-	PKG_ARCH:=armv5
-else
-	PKG_ARCH:=armv7
-endif
-endif
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/$(PKG_NAME)
+define Package/qbittorrent
 	SECTION:=net
 	CATEGORY:=Network
-	DEPENDS:=@(TARGET_x86||TARGET_rockchip)
 	SUBMENU:=BitTorrent
+	DEPENDS:=+libgcc +libstdcpp \
+		+rblibtorrent \
+		+libopenssl \
+		+qt5-core \
+		+qt5-network \
+		+qt5-xml \
+		+zlib
 	TITLE:=bittorrent client programmed in C++ / Qt
 	URL:=https://www.qbittorrent.org/
+	PROVIDES:=qBittorrent
 endef
 
-define Package/$(PKG_NAME)/description
+define Package/qbittorrent/description
   qBittorrent is a bittorrent client programmed in C++ / Qt that uses
   libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
   It aims to be a good alternative to all other bittorrent clients out
@@ -65,22 +52,27 @@ define Package/$(PKG_NAME)/description
   well as many features.
 endef
 
-define Download/qbittorrent
-  URL:=https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-$(PKG_VERSION)
-  URL_FILE:=$(PKG_ARCH)-qbittorrent-nox
-  FILE:=qbittorrent-nox
-  HASH:=skip
+CONFIGURE_ARGS += \
+	--disable-gui \
+	--enable-stacktrace=no \
+	--with-boost=$(STAGING_DIR)/usr
+
+MAKE_VARS += \
+	INSTALL_ROOT="$(PKG_INSTALL_DIR)"
+
+
+TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
+
+define Package/qbittorrent/conffiles
+/etc/config/qbittorrent
+/etc/qBittorrent
 endef
 
-define Build/Compile
-endef
-
-define Package/$(PKG_NAME)/install
+define Package/qbittorrent/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(DL_DIR)/qbittorrent-nox $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/qBittorrent
 	$(INSTALL_DATA) ./files/ipfilter.dat $(1)/etc/qBittorrent/ipfilter.dat
 endef
 
-$(eval $(call Download,qbittorrent))
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,qbittorrent))

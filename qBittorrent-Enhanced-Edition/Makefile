@@ -10,45 +10,21 @@ PKG_NAME:=qBittorrent-Enhanced-Edition
 PKG_VERSION:=4.3.5.10
 PKG_RELEASE=1
 
-STRIP:=true
-
-ifeq ($(ARCH),i386)
-	PKG_ARCH:=86
-endif
-
-ifeq ($(ARCH),x86_64)
-	PKG_ARCH:=x86_64-linux-musl
-endif
-
-ifeq ($(ARCH),mipsel)
-	PKG_ARCH:=mipsel-linux-musl
-endif
-
-ifeq ($(ARCH),mips)
-	PKG_ARCH:=mipsel-linux-musl
-endif
-
-ifeq ($(ARCH),arm64)
-	PKG_ARCH:=aarch64-linux-musl
-endif
-
-ifeq ($(ARCH),aarch64)
-	PKG_ARCH:=aarch64-linux-musl
-endif
-
-ifeq ($(ARCH),arm)
-ifeq ($(BOARD),bcm53xx)
-	PKG_ARCH:=armv5
-else ifeq ($(BOARD),kirkwood)
-	PKG_ARCH:=armv5
-else
-	PKG_ARCH:=armv7
-endif
-endif
-
-PKG_SOURCE:=qbittorrent-nox_$(PKG_ARCH)_static.zip
-PKG_SOURCE_URL:=https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-$(PKG_VERSION)/
+PKG_SOURCE:=$(PKG_NAME)-release-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/c0re100/qBittorrent-Enhanced-Edition/tar.gz/release-$(PKG_VERSION)?
 PKG_HASH:=skip
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/qBittorrent-release-$(PKG_VERSION)
+
+PKG_LICENSE:=GPL-2.0+
+PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:qbittorrent:qbittorrent
+
+PKG_BUILD_DEPENDS:=qttools
+
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -56,9 +32,16 @@ define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
-	DEPENDS:=@(TARGET_x86||TARGET_rockchip)
+	DEPENDS:=+libgcc +libstdcpp \
+		+rblibtorrent \
+		+libopenssl \
+		+qt5-core \
+		+qt5-network \
+		+qt5-xml \
+		+zlib
 	TITLE:=bittorrent client programmed in C++ / Qt
 	URL:=https://www.qbittorrent.org/
+	PROVIDES:=qBittorrent
 endef
 
 define Package/$(PKG_NAME)/description
@@ -69,14 +52,25 @@ define Package/$(PKG_NAME)/description
   well as many features.
 endef
 
-define Build/Compile
+CONFIGURE_ARGS += \
+	--disable-gui \
+	--enable-stacktrace=no \
+	--with-boost=$(STAGING_DIR)/usr
+
+MAKE_VARS += \
+	INSTALL_ROOT="$(PKG_INSTALL_DIR)"
+
+
+TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
+
+define Package/$(PKG_NAME)/conffiles
+/etc/config/qbittorrent
+/etc/qBittorrent
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(BUILD_DIR)/qbittorrent-nox $(1)/usr/bin
-	$(INSTALL_DIR) $(1)/etc/qBittorrent
-	$(INSTALL_DATA) ./files/ipfilter.dat $(1)/etc/qBittorrent/ipfilter.dat
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
