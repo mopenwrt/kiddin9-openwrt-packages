@@ -10,11 +10,9 @@ PKG_NAME:=qBittorrent-Enhanced-Edition
 PKG_VERSION:=4.3.5.10
 PKG_RELEASE=1
 
-PKG_SOURCE:=qBittorrent-Enhanced-Edition-release-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-release-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/c0re100/qBittorrent-Enhanced-Edition/tar.gz/release-$(PKG_VERSION)?
 PKG_HASH:=skip
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/qBittorrent-Enhanced-Edition-release-$(PKG_VERSION)
 
 PKG_LICENSE:=GPL-2.0+
 PKG_LICENSE_FILES:=COPYING
@@ -27,13 +25,14 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/qBittorrent-Enhanced-Edition
+define Package/$(PKG_NAME)
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=BitTorrent
 	DEPENDS:=+libgcc +libstdcpp \
 		+rblibtorrent \
 		+libopenssl \
+		+python3 \
 		+qt5-core \
 		+qt5-network \
 		+qt5-xml \
@@ -43,7 +42,7 @@ define Package/qBittorrent-Enhanced-Edition
 	URL:=https://www.qbittorrent.org/
 endef
 
-define Package/qBittorrent-Enhanced-Edition/description
+define Package/$(PKG_NAME)/description
   qBittorrent is a bittorrent client programmed in C++ / Qt that uses
   libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
   It aims to be a good alternative to all other bittorrent clients out
@@ -62,16 +61,16 @@ MAKE_VARS += \
 
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 
-define Package/qBittorrent-Enhanced-Edition/conffiles
+define Package/$(PKG_NAME)/conffiles
 /etc/config/qbittorrent
 /etc/qBittorrent
 endef
 
-define Package/qBittorrent-Enhanced-Edition/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/qbittorrent-nox $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/qBittorrent
 	$(INSTALL_DATA) ./files/ipfilter.dat $(1)/etc/qBittorrent/ipfilter.dat
 endef
 
-$(eval $(call BuildPackage,qBittorrent-Enhanced-Edition))
+$(eval $(call BuildPackage,$(PKG_NAME)))
