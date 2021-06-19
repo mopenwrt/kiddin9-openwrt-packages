@@ -49,7 +49,7 @@ define Package/qbittorrent/description
   libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
   It aims to be a good alternative to all other bittorrent clients out
   there. qBittorrent is fast, stable and provides unicode support as
-  well as many features. 
+  well as many features.
 endef
 
 CONFIGURE_ARGS += \
