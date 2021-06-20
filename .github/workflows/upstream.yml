@@ -51,17 +51,7 @@ jobs:
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
-        
-        git_sparse_clone master "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
-        net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule net/gowebdav net/gowebdav \
-        admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron \
-        libs/quickjspp utils/cpulimit utils/filebrowser multimedia/gmediarender &
-        
-        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
-        utils/cgroupfs-mount devel/ninja libs/libcups &
-        
-        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
-        
+  
         git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
         git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
@@ -141,6 +131,16 @@ jobs:
         git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu &
+        
+        git_sparse_clone master "https://github.com/immortalwrt/packages" "immpackages" net/mwol net/nps net/verysync net/sub-web \
+        net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule net/gowebdav net/gowebdav \
+        admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron \
+        libs/quickjspp utils/cpulimit utils/filebrowser multimedia/gmediarender &
+        
+        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
+        utils/cgroupfs-mount devel/ninja libs/libcups &
+        
+        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
 
         svn export --force https://github.com/immortalwrt/luci/trunk/applications
 
