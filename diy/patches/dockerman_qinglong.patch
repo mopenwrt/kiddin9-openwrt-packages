@@ -703,9 +703,8 @@
 
 --- /dev/null
 +++ b/luci-app-dockerman/root/etc/docker/ql/db/crontab.db
-@@ -0,0 +1,4 @@
+@@ -0,0 +1,3 @@
 +{"name":"更新面板","command":"ql update","schedule":"0 */12 * * *","saved":true,"_id":"mllS0NRPOr2DilJu","created":1621246569344,"status":1,"timestamp":"Mon May 17 2021 18:16:09 GMT+0800 (中国标准时间)","isSystem":1,"isDisabled":0,"pid":4315}
 +{"name":"删除日志","command":"ql rmlog 7","schedule":"30 7 */7 * *","saved":true,"_id":"J8a2YCqZIuwWHCW0","created":1621246569344,"status":1,"timestamp":"Mon May 17 2021 18:16:09 GMT+0800 (中国标准时间)","isSystem":0,"isDisabled":0}
-+{"name":"Dust仓库","command":"ql repo https://gitee.com/mjf521/dust \"i-chenzhe|normal|member|car\" \"backup\"","schedule":"0 */3 * * *","saved":true,"_id":"9Cjw7j6G1AAJED5K","created":1621248470142,"status":1,"timestamp":"Sat Jun 05 2021 18:10:05 GMT+0800 (中国标准时间)","isSystem":0,"isDisabled":0}
 +{"name":"仓库合集","command":"ql extra","schedule":"0 */3 * * *","saved":true,"_id":"lEJsSeZfn73gHdOH","created":1622985231929,"status":1,"timestamp":"Sun Jun 06 2021 21:13:51 GMT+0800 (中国标准时间)","isSystem":0,"isDisabled":0}
 x1.00
