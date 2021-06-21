@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/luci-app-dockerman/root/etc/docker/ql/config/extra.sh
-@@ -0,0 +1,39 @@
+@@ -0,0 +1,36 @@
 +#!/usr/bin/env bash
 +
 +## 添加你需要重启自动执行的任意命令，比如 ql repo
@@ -22,9 +22,6 @@
 +
 +#hyzaw仓库
 +ql repo https://github.com/hyzaw/scripts.git "ddo_"
-+
-+#JDDJ仓库
-+ql repo https://github.com/passerby-b/JDDJ.git "jd_" "scf_test_event"
 +
 +#Wenmoux仓库
 +ql repo https://github.com/Wenmoux/scripts.git "jd|other" "" "" "wen"
