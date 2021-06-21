@@ -20,9 +20,6 @@ ql repo https://github.com/zooPanda/zoo.git "zoo"
 #hyzaw仓库
 ql repo https://github.com/hyzaw/scripts.git "ddo_"
 
-#JDDJ仓库
-ql repo https://github.com/passerby-b/JDDJ.git "jd_" "scf_test_event"
-
 #Wenmoux仓库
 ql repo https://github.com/Wenmoux/scripts.git "jd|other" "" "" "wen"
 
