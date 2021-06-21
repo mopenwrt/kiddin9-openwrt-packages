@@ -1,6 +1,6 @@
-## Version: v2.2.0
-## Date: 2021-06-07
-## Update Content: session管理增加批量操作\n增加go-cqhttp通知方式\n修复页面标题
+## Version: v2.8.0
+## Date: 2021-06-20
+## Update Content: 可持续发展纲要\n1. session管理破坏性修改\n2. 配置管理可编辑config下文件\n3. 自定义脚本改为查看脚本\n4. 移除互助相关
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
 
@@ -10,11 +10,14 @@ AutoDelCron="true"
 ## 在运行 ql repo 命令时，是否自动增加新的本地定时任务
 AutoAddCron="true"
 
+## ql repo命令拉取脚本时需要拉取的文件后缀，直接写文件后缀名即可
+RepoFileExtensions="js py"
+
 ## 由于github仓库拉取较慢，所以会默认添加代理前缀，如不需要请移除
 # GithubProxyUrl="https://ghproxy.com/"
 
 ## 设置定时任务执行的超时时间，默认1h，后缀"s"代表秒(默认值), "m"代表分, "h"代表小时, "d"代表天
-CommandTimeoutTime="1h"
+CommandTimeoutTime="30m"
 
 ## 设置批量执行任务时的并发数，默认同时执行5个任务
 MaxConcurrentNum="10"
@@ -25,16 +28,6 @@ RandomDelay="300"
 
 ## 如果你自己会写shell脚本，并且希望在每次运行 ql update 命令时，额外运行你的 shell 脚本，请赋值为 "true"，默认为true
 EnableExtraShell="true"
-
-## 自动按顺序进行账号间互助（选填） 设置为 true 时，将直接导入code最新日志来进行互助
-AutoHelpOther=""
-
-## 定义 jcode 脚本导出的互助码模板样式（选填）
-## 不填 使用“按编号顺序助力模板”，Cookie编号在前的优先助力
-## 填 0 使用“全部一致助力模板”，所有账户要助力的码全部一致
-## 填 1 使用“均等机会助力模板”，所有账户获得助力次数一致
-## 填 2 使用“随机顺序助力模板”，本套脚本内账号间随机顺序助力，每次生成的顺序都不一致。
-HelpType=""
 
 ## 是否自动启动bot，默认不启动，设置为true时自动启动，目前需要自行克隆bot仓库所需代码，存到ql/repo目录下，文件夹命名为dockerbot
 AutoStartBot=""
@@ -114,101 +107,40 @@ export GOBOT_URL=""
 export GOBOT_TOKEN=""
 export GOBOT_QQ=""
 
-## 如果只是想要屏蔽某个ck不执行某个脚本，可以参考下面 case 这个命令的例子来控制，脚本名称包含后缀
-## case $1 in
-##   test.js)
-##     TempBlockCookie="5"
-##     ;;
-## esac
-
-## 需组合的环境变量列表，env_name需要和var_name一一对应，如何有新活动按照格式添加(不懂勿动)
-env_name=(
-  JD_COOKIE
-  FRUITSHARECODES
-  PETSHARECODES
-  PLANT_BEAN_SHARECODES
-  DREAM_FACTORY_SHARE_CODES
-  DDFACTORY_SHARECODES
-  JDZZ_SHARECODES
-  JDJOY_SHARECODES
-  JXNC_SHARECODES
-  BOOKSHOP_SHARECODES
-  JD_CASH_SHARECODES
-  JDSGMH_SHARECODES
-  JDCFD_SHARECODES
-  JDHEALTH_SHARECODES
-)
-var_name=(
-  Cookie
-  ForOtherFruit
-  ForOtherPet
-  ForOtherBean
-  ForOtherDreamFactory
-  ForOtherJdFactory
-  ForOtherJdzz
-  ForOtherJoy
-  ForOtherJxnc
-  ForOtherBookShop
-  ForOtherCash
-  ForOtherSgmh
-  ForOtherCfd
-  ForOtherHealth
-)
-
-## name_js为脚本文件名，如果使用ql repo命令拉取，文件名含有作者名
-## 所有有互助码的活动，把脚本名称列在 name_js 中，对应 config.sh 中互助码后缀列在 name_config 中，中文名称列在 name_chinese 中。
-## name_js、name_config 和 name_chinese 中的三个名称必须一一对应。
-name_js=(
-  jd_fruit
-  jd_pet
-  jd_plantBean
-  jd_dreamFactory
-  jd_jdfactory
-  jd_jdzz
-  jd_crazy_joy
-  jd_jxnc
-  jd_bookshop
-  jd_cash
-  jd_sgmh
-  jd_cfd
-  jd_health
-)
-name_config=(
-  Fruit
-  Pet
-  Bean
-  DreamFactory
-  JdFactory
-  Jdzz
-  Joy
-  Jxnc
-  BookShop
-  Cash
-  Sgmh
-  Cfd
-  Health
-)
-name_chinese=(
-  东东农场
-  东东萌宠
-  京东种豆得豆
-  京喜工厂
-  东东工厂
-  京东赚赚
-  crazyJoy任务
-  京喜农场
-  口袋书店
-  签到领现金
-  闪购盲盒
-  京喜财富岛
-  东东健康社区
-)
-
 ## 其他需要的变量，脚本中需要的变量使用 export 变量名= 声明即可
+
+
+## ---------------------------------- 项 目 脚 本 功 能 设 置 ----------------------------------
+
+################################## 定义是否自动删除失效的脚本与定时任务（选填） ##################################
+## 有的时候，某些JS脚本只在特定的时间有效，过了时间就失效了，需要自动删除失效的本地定时任务，则设置为 "true" ，否则请设置为 "false"
+## 检测文件：lxk0301/jd_scripts 仓库中的 docker/crontab_list.sh，和 shylocks/Loon 仓库中的 docker/crontab_list.sh
+## 当设置为 "true" 时，会自动从检测文件中读取比对删除的任务（识别以“jd_”、“jr_”、“jx_”开头的任务）
+## 当设置为 "true" 时，脚本只会删除一整行失效的定时任务，不会修改其他现有任务，所以任何时候，您都可以自己调整您的crontab.list
+## 当设置为 "true" 时，如果您有添加额外脚本是以“jd_”“jr_”“jx_”开头的，如检测文件中，会被删除，不是以“jd_”“jr_”“jx_”开头的任务则不受影响
+AutoDelCron="true"
+
+
+################################## 定义是否自动增加新的本地定时任务（选填） ##################################
+## lxk0301 大佬会在有需要的时候，增加定时任务，如需要本地自动增加新的定时任务，则设置为 "true" ，否则请设置为 "false"
+## 检测文件：lxk0301/jd_scripts 仓库中的 docker/crontab_list.sh，和 shylocks/Loon 仓库中的 docker/crontab_list.sh
+## 当设置为 "true" 时，如果检测到检测文件中有增加新的定时任务，那么在本地也增加（识别以“jd_”、“jr_”、“jx_”开头的任务）
+## 当设置为 "true" 时，会自动从检测文件新增加的任务中读取时间，该时间为北京时间
+## 当设置为 "true" 时，脚本只会增加新的定时任务，不会修改其他现有任务，所以任何时候，您都可以自己调整您的crontab.list
+AutoAddCron="true"
+
 
 ################################## 定义删除日志的时间（选填） ##################################
 ## 定义在运行删除旧的日志任务时，要删除多少天以前的日志，请输入正整数，不填则禁用删除日志的功能
 RmLogDaysAgo="7"
+
+
+################################## 定义随机延迟启动任务（选填） ##################################
+## 如果任务不是必须准点运行的任务，那么给它增加一个随机延迟，由您定义最大延迟时间，单位为秒，如 RandomDelay="300" ，表示任务将在 1-300 秒内随机延迟一个秒数，然后再运行
+## 在crontab.list中，在每小时第0-2分、第30-31分、第59分这几个时间内启动的任务，均算作必须准点运行的任务，在启动这些任务时，即使您定义了RandomDelay，也将准点运行，不启用随机延迟
+## 在crontab.list中，除掉每小时上述时间启动的任务外，其他任务在您定义了 RandomDelay 的情况下，一律启用随机延迟，但如果您按照Wiki教程给某些任务添加了 "now"，那么这些任务也将无视随机延迟直接启动
+RandomDelay="300"
+
 
 ## ---------------------------------- 京 东 隐 私 安 全 环 境 变 量 ----------------------------------
 
@@ -216,150 +148,6 @@ RmLogDaysAgo="7"
 ## 自定义lxk0301大佬仓库里京东系列js脚本的USER_AGENTS，不懂不知不会User-Agent的请不要随意填写内容，随意填写了出错概不负责
 ## 如需使用，请自行解除下一行注释
 # export JD_USER_AGENT=""
-
-
-
-
-
-## ---------------------------------- 互 助 码 类 环 境 变 量 ----------------------------------
-
-################################## 1. 定义东东农场互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyFruit1=""
-MyFruit2=""
-MyFruitA="c06d4e7817504aff8320fbfd9ea3e693"
-MyFruitB=""
-
-ForOtherFruit1=""${MyFruitA}@${MyFruitB}""
-ForOtherFruit2=""
-
-
-################################## 2. 定义东东萌宠互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyPet1=""
-MyPet2=""
-MyPetA="MTEyNTEyNTE1MDAwMDAwMDA0OTE2ODQ3MQ=="
-MyPetB=""
-
-ForOtherPet1="${MyPetA}@${MyPetB}"
-ForOtherPet2=""
-
-
-################################## 3. 定义种豆得豆互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyBean1=""
-MyBean2=""
-MyBeanA="323auftuy2dbnuoi6jiojwxqykkdul4nn5mb47y"
-MyBeanB=""
-
-ForOtherBean1="${MyBeanA}@${MyBeanB}"
-ForOtherBean2=""
-
-
-################################## 4. 定义东东工厂互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyJdFactory1=""
-MyJdFactory2=""
-MyJdFactoryA="T023v_hzQxob8VHKJB71lPACcS4CjVWnYaS5kRrbA"
-MyJdFactoryB=""
-
-ForOtherJdFactory1="${MyJdFactoryA}@${MyJdFactoryB}"
-ForOtherJdFactory2=""
-
-
-################################## 5. 定义京喜工厂互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyDreamFactory1=""
-MyDreamFactory2=""
-MyDreamFactoryA="oFdU0lPvrBCeRtLB0au1jV6oPv5fc1BhUaLxeCxUA5s"
-MyDreamFactoryB=""
-
-ForOtherDreamFactory1="${MyDreamFactoryA}@${MyDreamFactoryB}"
-ForOtherDreamFactory2=""
-
-
-################################## 6. 定义京东赚赚互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyJdzz1=""
-MyJdzz2=""
-MyJdzzA="Sv_hzQxob8VHKJB71lPACcS4"
-MyJdzzB=""
-
-ForOtherJdzz1="${MyJdzzA}@${MyJdzzB}"
-ForOtherJdzz2=""
-
-
-################################## 7. 定义疯狂的JOY互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyJoy1=""
-MyJoy2=""
-MyJoyA="dHRNZqPoI-zltBljRSmhLDvMqLmzFwaT"
-MyJoyB=""
-
-ForOtherJoy1="${MyJoyA}@${MyJoyB}"
-ForOtherJoy2=""
-
-
-################################## 8. 定义口袋书店互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyBookShop1=""
-MyBookShop2=""
-MyBookShopA="b0c04df25e93468d84b92da823b60731"
-MyBookShopB=""
-
-ForOtherBookShop1="${MyBookShopA}@${MyBookShopB}"
-ForOtherBookShop2=""
-
-
-################################## 9. 定义签到领现金互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyCash1=""
-MyCash2=""
-MyCashA="Ih43b-iwYvk79WrUy3Qb0zg"
-MyCashB=""
-
-ForOtherCash1="${MyCashA}@${MyCashB}"
-ForOtherCash2=""
-
-
-################################## 10. 定义闪购盲盒互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MySgmh1=""
-MySgmh2=""
-MySgmhA="T023v_hzQxob8VHKJB71lPACcS4CjVQmoaT5kRrbA"
-MySgmhB=""
-
-ForOtherSgmh1="${MySgmhA}@${MySgmhB}"
-ForOtherSgmh2=""
-
-
-################################## 11. 定义京喜财富岛互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyCfd1=""
-MyCfd2=""
-MyCfdA="D904BBABF9D5066C254D3F617B5388402A8E008AF197A20721CD00F566937B9B"
-MyCfdB=""
-
-ForOtherCfd1="${MyCfdA}@${MyCfdB}"
-ForOtherCfd2=""
-
-
-################################## 12. 定义东东健康社区互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyHealth1=""
-MyHealth2=""
-MyHealthA="T023v_hzQxob8VHKJB71lPACcS4CjVfnoaW5kRrbA"
-MyHealthB=""
-
-ForOtherHealth1="${MyHealthA}@${MyHealthB}"
-ForOtherHealth2=""
-
-################################## 12. 城城分现金 ##################################
-MyCity1=""
-MyCityA="HYDly-imRQ--eoebF9M703YbxTfg3s5PAmnIrDsOpYCJ9ZU7v34"
-ForOtherMyCity1="${MyCityA}@${MyCityB}"
-
-##################################################################################################
 
 
 # ---------------------------------- 控 制 脚 本 功 能 环 境 变 量 ----------------------------------
@@ -572,27 +360,8 @@ export JXNC_NOTIFY_LEVEL=""
 ## 请在下方补充您需要用到的额外的环境变量，格式：export 变量名="变量值"
 ## export
 
+export ADOLF_ADDSKU="true"
 
-# ---------------------------------- 互 助 码 填 写 示 例 ----------------------------------
+export Z_HEALTH_EXCHANGE="20京豆"
 
-################################## 互助码填法示例 ##################################
-## **互助码是填在My系列变量中的，ForOther系统变量中只要填入My系列的变量名即可，按注释中的例子拼接，以东东农场为例，如下所示。**
-## **实际上东东农场一个账号只能给别人助力3次，我多写的话，只有前几个会被助力。但如果前面的账号获得的助力次数已经达到上限了，那么还是会尝试继续给余下的账号助力，所以多填也是有意义的。**
-## **ForOther系列变量必须从1开始编号，依次编下去。**
-
-# MyFruit1="e6e04602d5e343258873af1651b603ec"  # 这是Cookie1这个账号的互助码
-# MyFruit2="52801b06ce2a462f95e1d59d7e856ef4"  # 这是Cookie2这个账号的互助码
-# MyFruit3="e2fd1311229146cc9507528d0b054da8"  # 这是Cookie3这个账号的互助码
-# MyFruit4="6dc9461f662d490991a31b798f624128"  # 这是Cookie4这个账号的互助码
-# MyFruit5="30f29addd75d44e88fb452bbfe9f2110"  # 这是Cookie5这个账号的互助码
-# MyFruit6="1d02fc9e0e574b4fa928e84cb1c5e70b"  # 这是Cookie6这个账号的互助码
-# MyFruitA="5bc73a365ff74a559bdee785ea97fcc5"  # 这是我和别人交换互助，另外一个用户A的互助码
-# MyFruitB="6d402dcfae1043fba7b519e0d6579a6f"  # 这是我和别人交换互助，另外一个用户B的互助码
-# MyFruitC="5efc7fdbb8e0436f8694c4c393359576"  # 这是我和别人交换互助，另外一个用户C的互助码
-
-# ForOtherFruit1="${MyFruit2}@${MyFruitB}@${MyFruit4}"   # Cookie1这个账号助力Cookie2的账号的账号、Cookie4的账号以及用户B
-# ForOtherFruit2="${MyFruit1}@${MyFruitA}@${MyFruit4}"   # Cookie2这个账号助力Cookie1的账号的账号、Cookie4的账号以及用户A
-# ForOtherFruit3="${MyFruit1}@${MyFruit2}@${MyFruitC}@${MyFruit4}@${MyFruitA}@${MyFruit6}"  # 解释同上，东东农场实际上只能助力3次
-# ForOtherFruit4="${MyFruit1}@${MyFruit2}@${MyFruit3}@${MyFruitC}@${MyFruit6}@${MyFruitA}"  # 解释同上，东东农场实际上只能助力3次
-# ForOtherFruit5="${MyFruit1}@${MyFruit2}@${MyFruit3}@${MyFruitB}@${MyFruit4}@${MyFruit6}@${MyFruitC}@${MyFruitA}"
-# ForOtherFruit6="${MyFruit1}@${MyFruit2}@${MyFruit3}@${MyFruitA}@${MyFruit4}@${MyFruit5}@${MyFruitC}"
+export ZOO_ADD2CART="true"

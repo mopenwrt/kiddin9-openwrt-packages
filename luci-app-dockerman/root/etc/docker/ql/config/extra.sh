@@ -3,7 +3,7 @@
 ## 添加你需要重启自动执行的任意命令，比如 ql repo
 
 #lxk仓库
-ql repo https://github.com/chinnkarahoi/jd_scripts.git "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
+ql repo https://github.com/JDHelloWorld/jd_scripts "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
 
 #Dust仓库
 # ql repo https://gitee.com/mjf521/dust "i-chenzhe|normal|member|car" "backup"
@@ -24,7 +24,7 @@ ql repo https://github.com/hyzaw/scripts.git "ddo_"
 ql repo https://github.com/passerby-b/JDDJ.git "jd_" "scf_test_event"
 
 #Wenmoux仓库
-ql repo https://github.com/Wenmoux/scripts.git "jd" "" "" "wen"
+ql repo https://github.com/Wenmoux/scripts.git "jd|other" "" "" "wen"
 
 #panghu仓库
 ql repo https://github.com/panghu999/panghu.git "jd_"
