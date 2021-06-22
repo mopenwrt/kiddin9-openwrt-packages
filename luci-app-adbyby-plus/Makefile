@@ -12,7 +12,7 @@ PKG_NAME:=luci-app-adbyby-plus
 PKG_VERSION:=2.0
 PKG_RELEASE:=73
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDIR)/feeds/packages/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

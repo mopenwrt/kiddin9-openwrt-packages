@@ -5,7 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI support for UnblockNeteaseMusic
-LUCI_DEPENDS:=+busybox +dnsmasq-full +ipset +jsonfilter +libupstream-openssl +node +uclient-fetch
+LUCI_DEPENDS:=+busybox +dnsmasq-full +ipset +jsonfilter +libustream-openssl +node +uclient-fetch
 LUCI_PKGARCH:=all
 
 PKG_NAME:=luci-app-unblockneteasemusic
@@ -14,6 +14,6 @@ PKG_RELEASE:=2
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDIR)/feeds/packages/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

@@ -11,6 +11,6 @@ LUCI_TITLE:= LuCI Support for ledtrigger rssi
 LUCI_DEPENDS:=+rssileds
 LUCI_PKGARCH:=all
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDIR)/feeds/packages/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

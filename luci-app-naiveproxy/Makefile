@@ -16,6 +16,6 @@ LUCI_PKGARCH:=all
 
 PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDIR)/feeds/packages/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

@@ -13,7 +13,7 @@ PKG_VERSION=1.4
 PKG_RELEASE:=2
 PKG_MAINTAINER:=Alex Zhuo <1886090@gmail.com>
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include $(TOPDIR)/feeds/packages/luci.mk
 
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
