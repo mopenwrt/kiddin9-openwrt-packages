@@ -17,6 +17,6 @@ PKG_RELEASE:=118071b
 
 PKG_LICENSE:=GPLv3
 
-include $(TOPDIR)/feeds/packages/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

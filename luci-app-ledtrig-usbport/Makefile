@@ -11,6 +11,6 @@ LUCI_TITLE:= LuCI Support for ledtrigger usbport
 LUCI_DEPENDS:=+kmod-usb-ledtrig-usbport
 LUCI_PKGARCH:=all
 
-include $(TOPDIR)/feeds/packages/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

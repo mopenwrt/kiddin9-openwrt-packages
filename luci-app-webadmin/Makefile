@@ -11,7 +11,7 @@ LUCI_DEPENDS:=+uhttpd
 PKG_VERSION:=1.0
 PKG_RELEASE:=3
 
-include $(TOPDIR)/feeds/packages/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
 

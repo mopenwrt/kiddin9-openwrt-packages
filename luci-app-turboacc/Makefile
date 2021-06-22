@@ -44,6 +44,6 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_bbr-cca \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_dnsforwarder
 
-include $(TOPDIR)/feeds/packages/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

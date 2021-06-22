@@ -8,6 +8,6 @@ LUCI_DESCRIPTION:=Provides a webadmin for most basic mosquitto parameters.
 PKG_MAINTAINER:= Karl Palsson <karlp@etactica.com>
 PKG_LICENSE:=Apache-2.0
 
-include $(TOPDIR)/feeds/packages/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

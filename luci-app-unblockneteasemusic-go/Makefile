@@ -10,6 +10,6 @@ PKG_RELEASE:=1
 
 PKG_MAINTAINER:=https://github.com/cnsilvan/luci-app-unblockneteasemusic
 
-include $(TOPDIR)/feeds/packages/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
