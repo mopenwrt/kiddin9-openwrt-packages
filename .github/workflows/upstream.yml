@@ -138,7 +138,7 @@ jobs:
         libs/quickjspp utils/cpulimit utils/filebrowser multimedia/gmediarender &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
-        utils/cgroupfs-mount devel/ninja libs/libcups &
+        utils/cgroupfs-mount libs/libcups &
         
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
 
@@ -200,7 +200,6 @@ jobs:
 
         sed -i \
         	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
-        	-e 's?\.\./\.\./devel/ninja?\.\./ninja?g' \
         	-e 's/ca-certificates/ca-bundle/g' \
         */Makefile
         
