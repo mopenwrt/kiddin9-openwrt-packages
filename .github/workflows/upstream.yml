@@ -140,15 +140,15 @@ jobs:
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
         utils/cgroupfs-mount libs/libcups &
         
-        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
+        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
 
         svn export --force https://github.com/immortalwrt/luci/trunk/applications
 
-        ( for ipk in $(ls applications); do
+        for ipk in $(ls applications); do
         	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
         		rm -rf applications/$ipk
         	fi
-        done ) &
+        done
 
     - name: SSH connection to Actions
       uses: garypang13/debugger-action@master
