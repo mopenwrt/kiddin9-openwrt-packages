@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/luci-app-dockerman/root/etc/docker/ql/config/extra.sh
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,39 @@
 +#!/usr/bin/env bash
 +
 +## 添加你需要重启自动执行的任意命令，比如 ql repo
