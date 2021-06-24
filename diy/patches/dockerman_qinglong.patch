@@ -37,6 +37,9 @@
 +
 +#star261
 +ql repo https://github.com/star261/jd.git "scripts" "code"
++
++#photonmang
++ql repo https://github.com/photonmang/quantumultX.git "JDscripts"
 
 --- a/luci-app-dockerman/Makefile
 +++ b/luci-app-dockerman/Makefile
