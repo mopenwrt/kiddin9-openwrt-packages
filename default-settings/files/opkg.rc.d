@@ -41,7 +41,7 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					if [ -f /etc/inited ]; then
+					if [ -f /etc/inited && `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]; then
 						[ ! -d /etc/backup ] && mkdir /etc/backup
 						find /usr/lib/opkg/info -name "*.control" \( \
 						\( -exec test -f /overlay/upper/{} \; -exec echo {} \; \) -o \
@@ -93,8 +93,9 @@ function opkgupgrade() {
 			rm -f /var/lock/opkg.lock
 }
 (
-	test `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' && opkgupgrade
-	rm -f /var/lock/opkgupgrade.lock
+		opkgupgrade || true
+		rm -f /var/lock/opkg.lock
+
 	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
 		sleep 5
 		/bin/coremark >/tmp/coremark.log
