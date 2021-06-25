@@ -52,8 +52,8 @@ jobs:
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
         svn export --force https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
   
-        git clone --depth 1 https://github.com/garypang13/my-packages && mv -f my-packages/* ./ ; rm -Rf my-packages &
-        git clone --depth 1 https://github.com/garypang13/luci-app-bypass &
+        git clone --depth 1 https://github.com/garypang13/my-packages && mv -n my-packages/* ./ ; rm -Rf my-packages &
+        git clone --depth 1 https://github.com/garypang13/openwrt-bypass && mv -n openwrt-bypass/* ./ ; rm -Rf openwrt-bypass &
         git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter &
         git clone --depth 1 https://github.com/garypang13/aria2 &
         git clone --depth 1 https://github.com/garypang13/smartdns-le &
@@ -61,8 +61,8 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/luci-app-baidupcs-web &
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge &
         git clone --depth 1 https://github.com/garypang13/qBittorrent-Enhanced-Edition &
-        git clone --depth 1 https://github.com/garypang13/autoshare && mv -f autoshare/* ./ ; rm -Rf autoshare &
-        git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -f openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
+        git clone --depth 1 https://github.com/garypang13/autoshare && mv -n autoshare/* ./ ; rm -Rf autoshare &
+        git clone --depth 1 https://github.com/garypang13/openwrt-openvpn && mv -n openwrt-openvpn/* ./ ; rm -Rf openwrt-openvpn &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
         git clone --depth 1 https://github.com/garypang13/luci-app-xlnetacc &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
@@ -73,7 +73,7 @@ jobs:
         git clone --depth 1 https://github.com/BoringCat/luci-app-minieap &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-onliner &
         git clone --depth 1 https://github.com/tty228/luci-app-serverchan &
-        git clone --depth 1 https://github.com/4IceG/luci-app-sms-tool smstool && mv -f smstool/{luci-app-sms-tool,sms-tool} ./ ; rm -Rf smstool &
+        git clone --depth 1 https://github.com/4IceG/luci-app-sms-tool smstool && mv -n smstool/{luci-app-sms-tool,sms-tool} ./ ; rm -Rf smstool &
         git clone --depth 1 https://github.com/immortalwrt/openwrt-ssocks && mv -n openwrt-ssocks/* ./ ; rm -Rf openwrt-ssocks &
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable &
         git clone --depth 1 https://github.com/silime/luci-app-xunlei &
