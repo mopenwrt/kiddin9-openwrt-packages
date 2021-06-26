@@ -107,17 +107,17 @@ jobs:
         git clone --depth 1 https://github.com/yichya/luci-app-xray &
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/* ./ ; rm -rf cupsd1 &
 
-        svn co https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
-        svn co https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
-        svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
-        svn co https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn co https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
-        svn co https://github.com/x-wrt/packages/trunk/net/nft-qos &
-        svn co https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
-        svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
-        svn co https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng/trunk/luci-app-homeconnect &
+        svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
+        svn export https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
+        svn export https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
+        svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/automount &
+        svn export https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
+        svn export https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
+        svn export https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
+        svn export https://github.com/x-wrt/packages/trunk/net/nft-qos &
+        svn export https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
+        svn export https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
+        svn export https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng/trunk/luci-app-homeconnect &
 
         git_sparse_clone master https://github.com/fw876/helloworld helloworld luci-app-ssr-plus &
         git_sparse_clone master https://github.com/vernesong/OpenClash OpenClash luci-app-openclash &
@@ -158,7 +158,7 @@ jobs:
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         mv -n ledelean/* ./ ; rm -Rf ledelean
-        rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} subweb wget autosamba \
+        rm -Rf */.git qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} subweb wget autosamba \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,advancedsetting,softethervpn,chinadns,docker,samba4,smstool,cifs-mount,cifsd} \
         fcgiwrap ddns-scripts_{aliyun,dnspod} ipv6-helper ChinaDNS luci-theme-netgear csstidy samba4
         mv mt/drivers mt/mt-drivers
