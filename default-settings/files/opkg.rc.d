@@ -1,5 +1,6 @@
 #!/bin/sh
 LOCK=/var/lock/opkgupgrade.lock
+BKOPKG="$BKOPKG"
 # 防止重复启动
 [ -f $LOCK ] && exit 1
 touch $LOCK
@@ -24,10 +25,43 @@ if [ ! -f /etc/inited ]; then
 # sh -c "cat '/usr/share/patch/adblock.patch'  | patch -d '/' -p1 --forward" >/dev/null 2>&1
 fi
 
-if [ ! -f "/etc/backup/installed_packages.txt" ]; then
+if [ ! -f "$BKOPKG/user_installed.opkg" ]; then
 	touch /etc/inited
 fi
 
+function bkopkg() {
+
+[ ! -d $BKOPKG ] && mkdir -p $BKOPKG
+
+[ ! -f $BKOPKG/original.txt ] && {
+	echo "Original package list not present -> creating...."
+	opkg list-installed | cut -f 1 -d ' ' > $BKOPKG/original.txt
+}
+
+echo ">>>>>>>>>>>>> Updating package metadata"
+if [ -f $BKOPKG/current.txt ]; then
+	mv $BKOPKG/current.txt $BKOPKG/previous.txt
+else
+	opkg list-installed | cut -f 1 -d ' ' > $BKOPKG/previous.txt
+fi
+opkg list-installed | cut -f 1 -d ' ' > $BKOPKG/current.txt
+
+pkgsincel="`grep -Fvxf $BKOPKG/previous.txt $BKOPKG/current.txt | wc -l`"
+if [ "$pkgsincel" -gt 0 ]; then
+	echo ">>>>>>>>>>>>> Packages since last backup"
+	grep -Fvxf $BKOPKG/previous.txt $BKOPKG/current.txt
+
+       echo "`date +%Y%m%d`" >>  $BKOPKG/added.opkg
+	grep -Fvxf $BKOPKG/previous.txt $BKOPKG/current.txt >> $BKOPKG/added.opkg
+else
+	echo ">>>>>>>>>>>>> No recently added pkgs"
+fi
+
+echo ">>>>>>>>>>>>> Packages since new"
+grep -Fvxf $BKOPKG/original.txt $BKOPKG/current.txt
+grep -Fvxf $BKOPKG/original.txt $BKOPKG/current.txt > $BKOPKG/user_installed.opkg
+
+}
 function opkgupgrade() {
 	c1=0
 	c2=0
@@ -42,18 +76,11 @@ function opkgupgrade() {
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
 					if [ -f /etc/inited && `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]; then
-						[ ! -d /etc/backup ] && mkdir /etc/backup
-						find /usr/lib/opkg/info -name "*.control" \( \
-						\( -exec test -f /overlay/upper/{} \; -exec echo {} \; \) -o \
-						\( -exec test -f /rom/{} \; -exec find {} -name "luci-app*" -o -name "luci-theme*" -o -name "default-settings" -o -name "xray-core" -o -name "trojan*" \; \) \
-						\) | sed -e 's,.*/,,;s/\.control//' >/etc/backup/installed_packages.txt
+						bkopkg
 					fi
-					if [ -f "/etc/backup/installed_packages.txt" ]; then
-						sed -i '/luci-app-opkg/d' /etc/backup/installed_packages.txt
-						sed -i '/luci-app-firewall/d' /etc/backup/installed_packages.txt
-						sed -i '/	rom$/d' /etc/backup/installed_packages.txt
-						sed -i 's/	overlay$//g' /etc/backup/installed_packages.txt
-							for ipk in $(cat /etc/backup/installed_packages.txt); do
+					opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' >> $BKOPKG/user_installed.opkg
+					if [ -f "$BKOPKG/user_installed.opkg" ]; then
+							for ipk in $(cat $BKOPKG/user_installed.opkg); do
 							if [ -f /etc/inited ]; then
 								opkg=$(echo $(opkg list-upgradable) | grep $ipk)
 							else
@@ -66,7 +93,7 @@ function opkgupgrade() {
 											break
 										}
 										[ $c2 == 3 ] && {
-										echo $ipk >> /etc/backup/failed.txt
+										echo $ipk >> $BKOPKG/failed.txt
 										break
 										} || let c2++
 										sleep 1
@@ -77,11 +104,11 @@ function opkgupgrade() {
 							rm -f /etc/config/*-opkg
 					fi
 					touch /etc/inited
-					[ -f "/etc/backup/failed.txt" ] && {
-						for ipk in $(cat /etc/backup/failed.txt); do
+					[ -f "$BKOPKG/failed.txt" ] && {
+						for ipk in $(cat $BKOPKG/failed.txt); do
 							opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
 							[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
-								sed -i '/$ipk/d' /etc/backup/failed.txt
+								sed -i '/$ipk/d' $BKOPKG/failed.txt
 							}
 						done
 					}
