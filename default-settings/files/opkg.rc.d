@@ -1,21 +1,10 @@
 #!/bin/sh
 LOCK=/var/lock/opkgupgrade.lock
-BKOPKG="$BKOPKG"
+BKOPKG="/etc/backup"
 # 防止重复启动
 [ -f $LOCK ] && exit 1
 touch $LOCK
 
-if [ "$(uci get network.wan.ipv6)" == 0 ]; then
-	sysctl -w net.ipv6.conf.all.disable_ipv6=1
-	sysctl -w net.ipv6.conf.lo.disable_ipv6=1
-	sysctl -w net.ipv6.conf.default.disable_ipv6=1
-	sysctl -w net.ipv6.conf.all.disable_ipv6=1
-else
-	sysctl -w net.ipv6.conf.all.disable_ipv6=0
-	sysctl -w net.ipv6.conf.lo.disable_ipv6=0
-	sysctl -w net.ipv6.conf.default.disable_ipv6=0
-	sysctl -w net.ipv6.conf.all.disable_ipv6=0
-fi
 if [ ! -f /etc/inited ]; then
 	[ "$(uci get dhcp.@dnsmasq[0].noresolv)" ] && {
 		uci del dhcp.@dnsmasq[0].noresolv
@@ -62,6 +51,7 @@ grep -Fvxf $BKOPKG/original.txt $BKOPKG/current.txt
 grep -Fvxf $BKOPKG/original.txt $BKOPKG/current.txt > $BKOPKG/user_installed.opkg
 
 }
+
 function opkgupgrade() {
 	c1=0
 	c2=0
@@ -75,10 +65,12 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					if [ -f /etc/inited && `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]; then
+					if [ -f /etc/inited ]; then
 						bkopkg
 					fi
-					opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' >> $BKOPKG/user_installed.opkg
+					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; the
+						opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' >> $BKOPKG/user_installed.opkg
+					if
 					if [ -f "$BKOPKG/user_installed.opkg" ]; then
 							for ipk in $(cat $BKOPKG/user_installed.opkg); do
 							if [ -f /etc/inited ]; then
@@ -120,15 +112,24 @@ function opkgupgrade() {
 			rm -f /var/lock/opkg.lock
 }
 (
+if [ $1 == "sysupdate" ]; then
+	bkopkg
+else
+	(if [[ ! -f /etc/inited ]]; then
 		opkgupgrade || true
-		rm -f /var/lock/opkg.lock
-
+	elif [[ -f /etc/inited && `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
+		opkgupgrade || true
+	fi
+	rm -f /var/lock/opkg.lock
+	
 	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
 		sleep 5
 		/bin/coremark >/tmp/coremark.log
 		cat /tmp/coremark.log | grep "CoreMark 1.0" | cut -d "/" -f 1 >/etc/bench.log
 		sed -i 's/CoreMark 1.0/(CpuMark/g' /etc/bench.log
 		echo " Scores)" >>/etc/bench.log
-	}
-rm -f $LOCK 
-) &
+		rm -f $LOCK
+	}) &
+fi
+
+rm -f $LOCK
