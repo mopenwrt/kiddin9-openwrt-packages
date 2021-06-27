@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=default-settings
 PKG_VERSION:=1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -24,7 +24,7 @@ endef
 
 define Package/default-settings/conffiles
 /etc/config/base_config
-/etc/backup/user_installed.opkg
+/etc/backup/
 endef
 
 define Build/Compile

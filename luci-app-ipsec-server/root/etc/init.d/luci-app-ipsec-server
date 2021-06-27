@@ -9,6 +9,7 @@ CHAP_SECRETS=/etc/ppp/chap-secrets
 L2TP_PATH=/var/etc/xl2tpd
 L2TP_CONFIG_FILE=${L2TP_PATH}/xl2tpd.conf
 L2TP_OPTIONS_FILE=${L2TP_PATH}/options.xl2tpd
+L2TP_LOG_FILE=${L2TP_PATH}/xl2tpd.log
 
 vt_clientip=$(uci -q get $CONFIG.@service[0].clientip)
 vt_l2tp_enabled=$(uci -q get $CONFIG.@service[0].l2tp_enable)
@@ -101,10 +102,10 @@ start() {
 		cat > $L2TP_CONFIG_FILE <<-EOF
 			[global]
 			port = 1701
-			debug avp = yes
-			debug network = yes
-			debug state = yes
-			debug tunnel = yes
+			;debug avp = yes
+			;debug network = yes
+			;debug state = yes
+			;debug tunnel = yes
 			[lns default]
 			ip range = ${vt_remoteip}
 			local ip = ${vt_l2tp_localip}
@@ -130,7 +131,7 @@ start() {
 		}
 		unset user
 
-		xl2tpd -c $L2TP_CONFIG_FILE >/dev/null 2>&1 &
+		xl2tpd -c $L2TP_CONFIG_FILE -D >${L2TP_LOG_FILE} 2>&1 &
 	}
 	
 	cat > $IPSEC_CONN_FILE <<-EOF
