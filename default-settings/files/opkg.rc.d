@@ -68,9 +68,9 @@ function opkgupgrade() {
 					if [ -f /etc/inited ]; then
 						bkopkg
 					fi
-					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; the
+					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
 						opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' >> $BKOPKG/user_installed.opkg
-					if
+					fi
 					if [ -f "$BKOPKG/user_installed.opkg" ]; then
 							for ipk in $(cat $BKOPKG/user_installed.opkg); do
 							if [ -f /etc/inited ]; then
@@ -111,7 +111,7 @@ function opkgupgrade() {
 			done
 			rm -f /var/lock/opkg.lock
 }
-(
+
 if [ $1 == "sysupdate" ]; then
 	bkopkg
 else
