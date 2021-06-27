@@ -152,26 +152,6 @@ start() {
 		  ike=aes128-sha1-modp2048,aes128-sha1-modp1024,3des-sha1-modp1024,3des-sha1-modp1536
 		  esp=aes128-sha1,3des-sha1
 
-		#######################################
-		# EAP Connections
-		#######################################
-
-		# This detects a supported EAP method
-		conn IKEv2-EAP
-		  also=Non-L2TP
-		  keyexchange=ikev2
-		  eap_identity=%any
-		  rightauth=eap-dynamic
-
-		#######################################
-		# PSK Connections
-		#######################################
-
-		conn IKEv2-PSK
-		  also=Non-L2TP
-		  keyexchange=ikev2
-		  authby=secret
-
 		# Cisco IPSec
 		conn IKEv1-PSK-XAuth
 		  also=Non-L2TP
@@ -195,7 +175,6 @@ start() {
 			[ "$enabled" -eq 0 ] && return 0
 			[ -n "$username" ] || return 0
 			[ -n "$password" ] || return 0
-			echo "$username : EAP '$password'" >> $IPSEC_SECRETS_FILE
 			echo "$username : XAUTH '$password'" >> $IPSEC_SECRETS_FILE
 			[ "$vt_l2tp_enabled" = 1 ] && echo "$username l2tp-server $password *" >> $CHAP_SECRETS
 		done
