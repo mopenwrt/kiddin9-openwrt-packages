@@ -24,7 +24,7 @@ endef
 
 define Package/default-settings/conffiles
 /etc/config/base_config
-/etc/backup/
+/etc/backup/user_installed.opkg
 endef
 
 define Build/Compile
