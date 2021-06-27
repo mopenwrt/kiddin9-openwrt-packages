@@ -1,11 +1,11 @@
 msgid "IPSec VPN Server"
 msgstr "IPSec VPN 服务器"
 
-msgid "IPSec VPN connectivity using the native built-in VPN Client on iOS or Andriod (IKEv1 with PSK and Xauth)"
-msgstr "使用iOS 或者 Andriod (IKEv1 with PSK and Xauth) 原生内置 IPSec VPN 客户端进行连接"
+msgid "Use a client that supports IPSec Xauth PSK (iOS or Android) to connect to this server."
+msgstr "使用支持 IPSec Xauth PSK（iOS 或 Android）的客户端连接到此服务端。"
 
-msgid "IPSec VPN Server status"
-msgstr "IPSec VPN 服务器运行状态"
+msgid "Use a client that supports L2TP over IPSec PSK to connect to this server."
+msgstr "使用支持 L2TP over IPSec PSK 的客户端连接到此服务端。"
 
 msgid "Current Condition"
 msgstr "当前状态"

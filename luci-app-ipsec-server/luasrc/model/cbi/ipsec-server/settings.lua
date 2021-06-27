@@ -1,7 +1,6 @@
 local sys = require "luci.sys"
 
 m = Map("luci-app-ipsec-server", translate("IPSec VPN Server"))
-m.description = translate("IPSec VPN connectivity using the native built-in VPN Client on iOS or Andriod (IKEv1 with PSK and Xauth)")
 m.template = "ipsec-server/index"
 
 s = m:section(TypedSection, "service")
@@ -13,7 +12,7 @@ o.cfgvalue = function(t, n)
     return '<font class="ipsec-server_status"></font>'
 end
 
-enabled = s:option(Flag, "enabled", translate("Enable"))
+enabled = s:option(Flag, "enabled", translate("Enable"), translate("Use a client that supports IPSec Xauth PSK (iOS or Android) to connect to this server."))
 enabled.default = 0
 enabled.rmempty = false
 
@@ -41,7 +40,7 @@ if sys.call("command -v xl2tpd > /dev/null") == 0 then
         return '<font class="l2tp_status"></font>'
     end
 
-    o = s:option(Flag, "l2tp_enable", "L2TP " .. translate("Enable"))
+    o = s:option(Flag, "l2tp_enable", "L2TP " .. translate("Enable"), translate("Use a client that supports L2TP over IPSec PSK to connect to this server."))
     o.default = 0
     o.rmempty = false
 

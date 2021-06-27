@@ -168,17 +168,29 @@ start() {
 	: PSK "$vt_secret"
 	EOF
 	
-	local users=$(get_enabled_anonymous_secs "@users")
-	[ -n "$users" ] && {
-		for user in $users; do
+	local ipsec_users=$(get_enabled_anonymous_secs "@ipsec_users")
+	[ -n "$ipsec_users" ] && {
+		for user in $ipsec_users; do
 			eval $(uci -q show "${CONFIG}.${user}" | cut -d'.' -sf 3-)
 			[ "$enabled" -eq 0 ] && return 0
 			[ -n "$username" ] || return 0
 			[ -n "$password" ] || return 0
 			echo "$username : XAUTH '$password'" >> $IPSEC_SECRETS_FILE
-			[ "$vt_l2tp_enabled" = 1 ] && echo "$username l2tp-server $password *" >> $CHAP_SECRETS
 		done
 	}
+	unset user
+	local l2tp_users=$(get_enabled_anonymous_secs "@l2tp_users")
+	[ -n "$l2tp_users" ] && {
+		for user in $l2tp_users; do
+			eval $(uci -q show "${CONFIG}.${user}" | cut -d'.' -sf 3-)
+			[ "$enabled" -eq 0 ] && return 0
+			[ -n "$username" ] || return 0
+			[ -n "$password" ] || return 0
+			[ -n "$ipaddress" ] || ipaddress="*"
+			[ "$vt_l2tp_enabled" = 1 ] && echo "$username l2tp-server $password $ipaddress" >> $CHAP_SECRETS
+		done
+	}
+	unset user
 	
 	ipt_rule add
 	
@@ -188,7 +200,7 @@ start() {
 
 stop() {
 	sed -i '/l2tp-server/d' $CHAP_SECRETS 2>/dev/null
-	ps -w | grep "$L2TP_PATH" | grep -v "grep" | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1
+	top -bn1 | grep "$L2TP_PATH" | grep -v "grep" | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1
 	rm -rf $L2TP_PATH
 	ps -w | grep "/usr/lib/ipsec" | grep -v "grep" | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1
 	ipt_rule del
