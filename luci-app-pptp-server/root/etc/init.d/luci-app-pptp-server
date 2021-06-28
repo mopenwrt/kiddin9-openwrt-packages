@@ -17,9 +17,10 @@ get_enabled_anonymous_secs() {
 ipt_rule() {
 	local action="D"
 	[ "$1" = "add" ] && action="I"
-	iptables -t nat -${action} POSTROUTING -s ${vt_localip%.*}.0/24 -m comment --comment "PPTP VPN Server" -j MASQUERADE
-	iptables -${action} forwarding_rule -s ${vt_localip%.*}.0/24 -m comment --comment "PPTP VPN Server" -j ACCEPT
+	iptables -t nat -${action} POSTROUTING -s ${vt_localip%.*}.0/24 -m comment --comment "PPTP VPN Server" -j MASQUERADE 2>/dev/null
+	iptables -${action} forwarding_rule -s ${vt_localip%.*}.0/24 -m comment --comment "PPTP VPN Server" -j ACCEPT 2>/dev/null
 	iptables -${action} INPUT -p tcp --dport 1723 -m comment --comment "PPTP VPN Server" -j ACCEPT 2>/dev/null
+	iptables -t mangle -${action} OUTPUT -p tcp --sport 1723 -m comment --comment "PPTP VPN Server" -j RETURN 2>/dev/null
 }
 
 gen_include() {

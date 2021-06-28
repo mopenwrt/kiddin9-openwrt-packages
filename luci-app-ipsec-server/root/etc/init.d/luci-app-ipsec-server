@@ -7,6 +7,7 @@ IPSEC_SECRETS_FILE=/etc/ipsec.secrets
 IPSEC_CONN_FILE=/etc/ipsec.conf
 CHAP_SECRETS=/etc/ppp/chap-secrets
 L2TP_PATH=/var/etc/xl2tpd
+L2TP_CONTROL_FILE=${L2TP_PATH}/control
 L2TP_CONFIG_FILE=${L2TP_PATH}/xl2tpd.conf
 L2TP_OPTIONS_FILE=${L2TP_PATH}/options.xl2tpd
 L2TP_LOG_FILE=${L2TP_PATH}/xl2tpd.log
@@ -27,10 +28,12 @@ ipt_rule() {
 	iptables -${action} forwarding_rule -m policy --dir in --pol ipsec --proto esp -m comment --comment "IPSec VPN Server" -j ACCEPT 2>/dev/null
 	iptables -${action} forwarding_rule -m policy --dir out --pol ipsec --proto esp -m comment --comment "IPSec VPN Server" -j ACCEPT 2>/dev/null
 	iptables -${action} INPUT -p udp -m multiport --dports 500,4500 -m comment --comment "IPSec VPN Server" -j ACCEPT 2>/dev/null
+	iptables -t mangle -${action} OUTPUT -p udp -m multiport --sports 500,4500 -m comment --comment "IPSec VPN Server" -j RETURN 2>/dev/null
 	[ "$vt_l2tp_enabled" = 1 ] && {
 		iptables -t nat -${action} POSTROUTING -s ${vt_l2tp_localip%.*}.0/24 -m comment --comment "IPSec VPN Server" -j MASQUERADE 2>/dev/null
 		iptables -${action} forwarding_rule -s ${vt_l2tp_localip%.*}.0/24 -m comment --comment "IPSec VPN Server" -j ACCEPT 2>/dev/null
 		iptables -${action} INPUT -p udp --dport 1701 -m comment --comment "IPSec VPN Server" -j ACCEPT 2>/dev/null
+		iptables -t mangle -${action} OUTPUT -p udp --sport 1701 -m comment --comment "IPSec VPN Server" -j RETURN 2>/dev/null
 	}
 }
 
@@ -131,7 +134,7 @@ start() {
 		}
 		unset user
 
-		xl2tpd -c $L2TP_CONFIG_FILE -D >${L2TP_LOG_FILE} 2>&1 &
+		xl2tpd -c $L2TP_CONFIG_FILE -C $L2TP_CONTROL_FILE -D >${L2TP_LOG_FILE} 2>&1 &
 	}
 	
 	cat > $IPSEC_CONN_FILE <<-EOF
