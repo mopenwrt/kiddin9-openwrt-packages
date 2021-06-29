@@ -30,12 +30,6 @@ define Package/autocore-x86
   VARIANT:=x86
 endef
 
-define Package/autocore-switch
-  TITLE:=wireless auto core loadbalance script.
-  MAINTAINER:=GaryPang
-  DEPENDS:=@swconfig
-endef
-
 define Package/autocore-arm/description
   Display more details info about the devices in LuCI.
 endef
@@ -68,12 +62,6 @@ define Package/autocore-x86/install
 	$(INSTALL_DATA) ./files/x86/nvme_status.htm $(1)/usr/lib/lua/luci/view/admin_status/index/
 endef
 
-define Package/autocore-switch/install
-	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
-	$(INSTALL_DATA) ./files/switch/* $(1)/www/luci-static/resources/view/status/include/
-endef
-
 $(eval $(call Download,armcpuinfo))
 $(eval $(call BuildPackage,autocore-arm))
 $(eval $(call BuildPackage,autocore-x86))
-$(eval $(call BuildPackage,autocore-switch))
