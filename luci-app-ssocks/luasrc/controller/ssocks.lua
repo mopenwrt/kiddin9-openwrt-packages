@@ -1,6 +1,6 @@
 -- This is a free software, use it under GNU General Public License v3.0.
--- Created By [CTCGFW]Project OpenWRT
--- https://github.com/project-openwrt
+-- Created By ImmortalWrt
+-- https://github.com/immortalwrt
 
 module("luci.controller.ssocks", package.seeall)
 
@@ -12,6 +12,7 @@ function index()
 	page = entry({"admin", "services", "ssocks"}, cbi("ssocks"), _("sSocks Server"), 100)
 	page.i18n = "ssocks"
 	page.dependent = true
+	page.acl_depends = { "luci-app-ssocks" }
 	entry({"admin", "services", "ssocks", "status"},call("act_status")).leaf=true
 end
 
