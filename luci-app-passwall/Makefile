@@ -37,7 +37,7 @@ LUCI_PKGARCH:=all
 LUCI_DEPENDS:=+coreutils +coreutils-base64 +coreutils-nohup +curl \
 	+dnsmasq-full +ipset +ip-full +ipt2socks +iptables-mod-tproxy \
 	+libuci-lua +lua +luci-lib-jsonc +microsocks +tcping +resolveip \
-	+unzip +wget-ssl \
+	+unzip \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Brook:brook \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_ChinaDNS_NG:chinadns-ng \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Dns2socks:dns2socks \
@@ -144,6 +144,9 @@ define Package/luci-app-passwall/conffiles
 /usr/share/passwall/rules/proxy_ip
 /usr/share/passwall/rules/block_host
 /usr/share/passwall/rules/block_ip
+endef
+
+define Package/luci-app-passwall/postinst
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
