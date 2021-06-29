@@ -62,15 +62,14 @@ function to_check()
     elseif model:match(".*Pi 4 Model B.*") then
 		model = "Rpi-4B"
 		check_update()
-		if remoteformat > sysverformat and currentTimeStamp > remoteformat then needs_update = true else needs_update = false end
-        download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-bcm27xx-bcm2711-rpi-4-squashfs-sysupgrade.img.gz"
-	else
+		download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-bcm27xx-bcm2711-rpi-4-squashfs-sysupgrade.img.gz"
+    else
 		local needs_update = false
 		return {
             code = 1,
             error = i18n.translate("Can't determine MODEL, or MODEL not supported.")
 			}
-	end
+    end
 	
 
     if needs_update and not download_url then
