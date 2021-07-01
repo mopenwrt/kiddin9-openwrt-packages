@@ -33,19 +33,22 @@ function opkgupgrade() {
 				if [ "$?" == "0" ]; then
 					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
 						def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
-						insed="$(cat $BKOPKG/user_installed.opkg | sed -e '/-zh-cn/d')"
+						insed="$(cat $BKOPKG/user_installed.opkg)"
 						upopkg="$def $insed"
 					fi
 					if [ -f "$BKOPKG/user_installed.opkg" ]; then
 							for ipk in $upopkg; do
 							if [ -f /etc/inited ]; then
-								opkg=$(echo $(opkg list-upgradable) | grep $ipk)
+								opkg=$(opkg list-upgradable | grep $ipk) 2>/dev/null
 							else
 								opkg=1
 							fi
 								if [[ "$opkg" ]]; then
 									while :; do
 										opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
+										if [[ $ipk == "luci-app-*" ]]; then
+											opkg upgrade --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn >>/tmp/opkgupdate.log 2>&1
+										fi
 										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
 											break
 										}
