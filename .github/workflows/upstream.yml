@@ -192,6 +192,9 @@ jobs:
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/config/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
+        sed -i 's/+transmission-daemon/+transmission-daemon +transmission-web-control/' luci-app-transmission/Makefile
+        sed -i 's/++ddns-scripts/++ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod/' luci-app-ddns/Makefile
+        sed -i 's/+aria2/+aria2 +ariang/' luci-app-aria2/Makefile
         # sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
 
         sed -i \
