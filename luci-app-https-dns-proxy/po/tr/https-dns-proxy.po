@@ -282,32 +282,3 @@ msgstr "devre dışı"
 #: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers.disabled/cn.rubyfish.dns.lua:3
 msgid "rubyfish.cn"
 msgstr "rubyfish.cn"
-
-#~ msgid "Running: %s DoH at %s:%s"
-#~ msgstr "Çalışıyor: %s DoH at %s:%s"
-
-#~ msgid ""
-#~ "If update DNSMASQ config is selected, when you add/remove any instances "
-#~ "below, they will be used to override the 'DNS forwardings' section of "
-#~ "%sDHCP and DNS%s (%smore information%s)."
-#~ msgstr ""
-#~ "DNSMASQ yapılandırmasını güncelle seçilirse, aşağıdan herhangi bir örnek "
-#~ "eklediğinizde/kaldırdığınızda, bunlar %sDHCP ve DNS%s için 'DNS "
-#~ "yönlendirme' bölümünü geçersiz kılmak için kullanılacaktır (%sdaha fazla "
-#~ "bilgi%s)."
-
-#~ msgid "Listen address"
-#~ msgstr "Dinleme adresi"
-
-#~ msgid "Listen port"
-#~ msgstr "Dinleme portu"
-
-#~ msgid "Proxy server"
-#~ msgstr "Vekil sunucu"
-
-#~ msgid ""
-#~ "When you add/remove any instances below, they will be used to override "
-#~ "the 'DNS forwardings' section of %sDHCP and DNS%s."
-#~ msgstr ""
-#~ "Aşağıdakilerden herhangi birini eklediğiniz/kaldırdığınızda, bunlar "
-#~ "%sDHCP ve DNS%s'in 'DNS İletimleri' bölümünü geçersiz kılacaktır."
