@@ -33,7 +33,7 @@ function opkgupgrade() {
 				if [ "$?" == "0" ]; then
 					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
 						def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
-						insed="$(cat $BKOPKG/user_installed.opkg)"
+						insed="$(cat $BKOPKG/user_installed.opkg | sed -e '/-zh-cn/d')"
 						upopkg="$def $insed"
 					fi
 					if [ -f "$BKOPKG/user_installed.opkg" ]; then
