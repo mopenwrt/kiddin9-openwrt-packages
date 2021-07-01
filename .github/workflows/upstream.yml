@@ -111,7 +111,6 @@ jobs:
         svn export https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
         svn export https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd &
         svn export https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
-        svn export https://github.com/openwrt/luci/trunk/applications/luci-app-https-dns-proxy &
         svn export https://github.com/x-wrt/packages/trunk/net/nft-qos &
         svn export https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
         svn export https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
@@ -122,7 +121,10 @@ jobs:
         git_sparse_clone master https://github.com/sundaqiang/openwrt-packages luci-wolplus luci-app-services-wolplus &
         git_sparse_clone master https://github.com/brvphoenix/wrtbwmon wrtbwmon1 wrtbwmon &
         git_sparse_clone master https://github.com/lisaac/luci-app-dockerman dockerman applications/luci-app-dockerman &
-
+        
+        git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-transmission applications/luci-app-aria2 \
+        applications/luci-app-ddns applications/luci-app-https-dns-proxy &
+        
         git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu &
