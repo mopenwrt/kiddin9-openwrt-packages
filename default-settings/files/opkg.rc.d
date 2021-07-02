@@ -34,7 +34,7 @@ function opkgupgrade() {
 					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
 						def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
 						insed="$(cat $BKOPKG/user_installed.opkg)"
-						upopkg="$def $insed"
+						upopkg="$insed $def"
 					fi
 					if [ -f "$BKOPKG/user_installed.opkg" ]; then
 							for ipk in $upopkg; do
