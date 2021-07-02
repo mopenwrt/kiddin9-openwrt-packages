@@ -64,13 +64,14 @@ function opkgupgrade() {
 							rm -f /etc/config/*-opkg
 					fi
 					touch /etc/inited
-					[ -f "$BKOPKG/failed.txt" ] && {
+					[ -f $BKOPKG/failed.txt ] && {
 						for ipk in $(cat $BKOPKG/failed.txt); do
 							opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
 							[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
 								sed -i '/$ipk/d' $BKOPKG/failed.txt
 							}
 						done
+						[[ ! "$(cat $BKOPKG/failed.txt)" ]] && rm -f $BKOPKG/failed.txt
 					}
 					rm -f /var/lock/opkg.lock
 					break
@@ -80,7 +81,7 @@ function opkgupgrade() {
 			rm -f /var/lock/opkg.lock
 }
 (
-	if [[ ! -f /etc/inited ]]; then
+	if [[ ! -f /etc/inited || -f $BKOPKG/failed.txt ]]; then
 		opkgupgrade || true
 	elif [[ -f /etc/inited && `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
 		opkgupgrade || true
@@ -93,7 +94,6 @@ function opkgupgrade() {
 		cat /tmp/coremark.log | grep "CoreMark 1.0" | cut -d "/" -f 1 >/etc/bench.log
 		sed -i 's/CoreMark 1.0/(CpuMark/g' /etc/bench.log
 		echo " Scores)" >>/etc/bench.log
-		rm -f $LOCK
 	}
 
 rm -f $LOCK
