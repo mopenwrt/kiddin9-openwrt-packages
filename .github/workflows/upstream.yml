@@ -114,7 +114,6 @@ jobs:
         svn export https://github.com/x-wrt/packages/trunk/net/nft-qos &
         svn export https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
         svn export https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
-        svn export https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng/trunk/luci-app-homeconnect &
 
         git_sparse_clone master https://github.com/vernesong/OpenClash OpenClash luci-app-openclash &
         git_sparse_clone master https://github.com/doushang/luci-app-shortcutmenu shortcutmenu luci-app-shortcutmenu &
