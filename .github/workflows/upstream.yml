@@ -194,6 +194,7 @@ jobs:
         sed -i 's/+transmission-daemon/+transmission-daemon +transmission-web-control/' luci-app-transmission/Makefile
         sed -i 's/+ddns-scripts/+ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod/' luci-app-ddns/Makefile
         sed -i 's/+aria2/+aria2 +ariang/' luci-app-aria2/Makefile
+        sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/g' luci-app-acme/Makefile
         # sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
 
         sed -i \
