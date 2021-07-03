@@ -139,16 +139,7 @@ CONFIGURE_ARGS = \
 		-no-openvg \
 		-no-pch \
 		-no-slog2 \
-		-no-sql-db2 \
-		-no-sql-ibase \
-		-no-sql-mysql \
-		-no-sql-oci \
-		-no-sql-odbc \
-		-no-sql-psql \
-		-no-sql-sqlite \
-		-no-sql-sqlite2 \
-		-no-sql-tds \
-		-no-sqlite \
+		-sql-sqlite \
 		-no-trace \
 		-no-tslib \
 		-no-vulkan \
@@ -164,7 +155,8 @@ CONFIGURE_ARGS = \
 		-nomake examples \
 		-nomake tests \
 		-nomake tools \
-		-v
+		-v 
+
 
 define Build/Compile
 	+$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)
@@ -203,7 +195,7 @@ endef
 $(eval $(call DefineQtbaseLibrary,core,,+QT5_INCLUDE_ATOMIC:libatomic +libpcre2-16 +zlib))
 $(eval $(call DefineQtbaseLibrary,network,core,+libopenssl +zlib))
 $(eval $(call DefineQtbaseLibrary,xml,core,))
-$(eval $(call DefineQtbaseLibrary,sql,core,))
+$(eval $(call DefineQtbaseLibrary,sql,core))
 
 $(foreach lib,$(QTBASE_LIBS),$(eval $(call BuildPackage,qt5-$(lib))))
 $(eval $(call BuildPackage,qtbase))
