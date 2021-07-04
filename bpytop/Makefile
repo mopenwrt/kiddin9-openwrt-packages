@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bpytop
-PKG_VERSION:=1.0.63
+PKG_VERSION:=1.0.67
 PKG_RELEASE:=$(AUTORELEASE)
 
 PYPI_NAME:=bpytop
@@ -43,7 +43,7 @@ define Package/bpytop/install
 	$(call Python3/FixShebang,$(1)/usr/bin/*)
 
 	$(INSTALL_DIR) $(1)/usr/share
-	$(CP) $(PKG_BUILD_DIR)/bpytop-themes $(1)/usr/share/bpytop
+	$(CP) $(PKG_BUILD_DIR)/themes $(1)/usr/share/bpytop
 endef
 
 $(eval $(call Py3Package,bpytop))
