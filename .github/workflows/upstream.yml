@@ -175,6 +175,7 @@ jobs:
         # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion XTLS/Xray-core)/g" xray-core/Makefile &
         # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion klzgrad/naiveproxy)/g" naiveproxy/Makefile &
           sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion c0re100/qBittorrent-Enhanced-Edition)/g" qBittorrent-Enhanced-Edition/Makefile &
+          rm -rf luci-app-passwall/po/zh_Hans
         
         bash diy/create_acl_for_luci.sh -a || true &
         bash diy/convert_translation.sh -a || true &
