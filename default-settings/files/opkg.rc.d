@@ -31,12 +31,10 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					if [[ `uci get system.@system[0].autoupgrade_pkg 2>/dev/null || echo "1"` != '0' ]]; then
-						def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
-						insed="$(cat $BKOPKG/user_installed.opkg)"
-						upopkg="$insed $def"
-					fi
-					if [ -f "$BKOPKG/user_installed.opkg" ]; then
+					def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
+					insed="$(cat $BKOPKG/user_installed.opkg)"
+					upopkg="$insed $def"
+					if [ -n $upopkg ]; then
 							for ipk in $upopkg; do
 							if [ -f /etc/inited ]; then
 								opkg=$(opkg list-upgradable | grep $ipk) 2>/dev/null
@@ -71,7 +69,7 @@ function opkgupgrade() {
 								sed -i '/$ipk/d' $BKOPKG/failed.txt
 							}
 						done
-						[[ ! "$(cat $BKOPKG/failed.txt)" ]] && rm -f $BKOPKG/failed.txt
+						mv $BKOPKG/failed.txt $BKOPKG/failed_.txt
 					}
 					rm -f /var/lock/opkg.lock
 					break
