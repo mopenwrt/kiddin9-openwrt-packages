@@ -34,7 +34,7 @@ function opkgupgrade() {
 					def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
 					insed="$(cat $BKOPKG/user_installed.opkg)"
 					upopkg="$insed $def"
-					if [ -n $upopkg ]; then
+					if [ -n "$upopkg" ]; then
 							for ipk in $upopkg; do
 							if [ -f /etc/inited ]; then
 								opkg=$(opkg list-upgradable | grep $ipk) 2>/dev/null
