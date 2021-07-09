@@ -5,6 +5,9 @@
 #lxk仓库
 ql repo https://github.com/JDHelloWorld/jd_scripts "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
 
+#curtinlv
+ql repo https://github.com/curtinlv/JD-Script.git "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
+
 #超级盒子
 ql raw https://gitee.com/mjf521/dust/raw/dust/normal/jx_superbox.js
 
