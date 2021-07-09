@@ -1,12 +1,15 @@
 --- /dev/null
 +++ b/luci-app-dockerman/root/etc/docker/ql/config/extra.sh
-@@ -0,0 +1,39 @@
+@@ -0,0 +1,42 @@
 +#!/usr/bin/env bash
 +
 +## 添加你需要重启自动执行的任意命令，比如 ql repo
 +
 +#lxk仓库
 +ql repo https://github.com/JDHelloWorld/jd_scripts "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
++
++#curtinlv
++ql repo https://github.com/curtinlv/JD-Script.git "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
 +
 +#超级盒子
 +ql raw https://gitee.com/mjf521/dust/raw/dust/normal/jx_superbox.js
