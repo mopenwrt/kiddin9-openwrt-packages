@@ -121,7 +121,7 @@ jobs:
         git_sparse_clone master https://github.com/brvphoenix/wrtbwmon wrtbwmon1 wrtbwmon &
         git_sparse_clone master https://github.com/lisaac/luci-app-dockerman dockerman applications/luci-app-dockerman &
         
-        git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-transmission applications/luci-app-aria2 \
+        git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
@@ -141,7 +141,7 @@ jobs:
         svn export --force https://github.com/immortalwrt/luci/trunk/applications
 
         for ipk in $(ls applications); do
-        	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
+        	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 && $ipk != "luci-app-transmission" ]]; then
         		rm -rf applications/$ipk
         	fi
         done
@@ -192,7 +192,6 @@ jobs:
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/config/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
-        sed -i 's/+transmission-daemon/+transmission-daemon +transmission-web-control/' luci-app-transmission/Makefile
         sed -i 's/+ddns-scripts/+ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod/' luci-app-ddns/Makefile
         sed -i 's/+aria2/+aria2 +ariang/' luci-app-aria2/Makefile
         sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/g' luci-app-acme/Makefile
