@@ -131,7 +131,7 @@ jobs:
         
         git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
-        package/kernel/rtl8821cu package/kernel/rtl88x2bu &
+        package/kernel/rtl8821cu package/kernel/rtl88x2bu
         
         git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule net/gowebdav \
