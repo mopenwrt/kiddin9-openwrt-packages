@@ -15,7 +15,7 @@ PKG_LICENSE:=AGPL-3.0
 PKG_MAINTAINER:=lisaac <lisaac.cn@gmail.com> \
 		Florian Eckert <fe@dev.tdt.de>
 
-PKG_VERSION:=v0.5.22
+PKG_VERSION:=v0.5.23
 
 define Package/luci-app-dockerman/conffiles
 /etc/config/dockerman
