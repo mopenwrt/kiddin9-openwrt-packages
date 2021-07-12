@@ -13,13 +13,13 @@ end
 
 function check_update()
 		needs_update, notice,md5 = false, false, false
-		remote_version = luci.sys.exec("echo -n $(curl -s https://op.supes.top/firmware/" ..model.. "/version.txt)")
+		remote_version = luci.sys.exec("curl -s https://op.supes.top/firmware/" ..model.. "/version.txt")
 		updatelogs = luci.sys.exec("curl -s https://op.supes.top/firmware/" ..model.. "/updatelogs.txt")
-		remoteformat = luci.sys.exec("date -d $(echo " ..remote_version.. " | awk '{printf $1}' | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
-		fnotice = luci.sys.exec("echo -n " ..remote_version.. " | awk '{printf $NF}'")
-		dateyr = luci.sys.exec("echo -n " ..remote_version.. " | awk -F. '{printf $1\".\"$2}'")
-		md5 = luci.sys.exec("echo -n " ..remote_version.. " | awk '{printf $2}'")
-		remote_version = luci.sys.exec("echo -n " ..remote_version.. " | awk '{printf $1}' | awk -F. '{printf $1\".\"$2\".\"$3}'")
+		remoteformat = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $1}' | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
+		fnotice = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $NF}'")
+		dateyr = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F. '{printf $1\".\"$2}'")
+		md5 = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $2}'")
+		remote_version = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $1}' | awk -F. '{printf $1\".\"$2\".\"$3}'")
 		if remoteformat > sysverformat then
 			needs_update = true
 			if currentTimeStamp > remoteformat or fnotice == "1" then
