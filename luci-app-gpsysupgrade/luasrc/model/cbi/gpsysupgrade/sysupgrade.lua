@@ -17,7 +17,7 @@ function check_update()
 		updatelogs = luci.sys.exec("curl -s https://op.supes.top/firmware/" ..model.. "/updatelogs.txt")
 		remoteformat = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $1}' | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
 		fnotice = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $NF}'")
-		dateyr = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F. '{printf $1\".\"$2}'")
+		dateyr = luci.sys.exec("echo \"" ..remote_version.. "\" | awk -F. '{printf $1\".\"$2}'")
 		md5 = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $2}'")
 		remote_version = luci.sys.exec("echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $1}' | awk -F. '{printf $1\".\"$2\".\"$3}'")
 		if remoteformat > sysverformat then
