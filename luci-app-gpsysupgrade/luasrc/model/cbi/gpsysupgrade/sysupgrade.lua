@@ -30,7 +30,7 @@ end
 
 function to_check()
     if not model or model == "" then model = api.auto_get_model() end
-	sysverformat = luci.sys.exec("date -d $(echo " ..system_version.. " | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
+	sysverformat = luci.sys.exec("date -d $(echo " ..get_system_version().. " | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
 	currentTimeStamp = luci.sys.exec("expr $(date -d \"$(date '+%Y-%m-%d %H:%M:%S')\" +%s) - 172800")
 	if model == "x86_64" then
 		check_update()
@@ -74,7 +74,7 @@ function to_check()
     if needs_update and not download_url then
         return {
             code = 1,
-            now_version = system_version,
+            now_version = get_system_version(),
             version = remote_version,
             error = i18n.translate(
                 "New version found, but failed to get new version download url.")
@@ -85,7 +85,7 @@ function to_check()
         code = 0,
         update = needs_update,
 		notice = notice,
-        now_version = system_version,
+        now_version = get_system_version(),
         version = remote_version,
 		md5 = md5,
 	logs = updatelogs,
