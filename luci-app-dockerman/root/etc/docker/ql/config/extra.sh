@@ -5,6 +5,12 @@
 #lxk仓库
 ql repo https://github.com/JDHelloWorld/jd_scripts "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
 
+#cdle
+ql repo https://github.com/cdle/jd_study.git "jd_"
+
+#smiek2221
+ql repo https://github.com/smiek2221/scripts.git "jd_" "" "^MovementFaker|^JDJRValidator|^sign"
+
 #curtinlv
 ql repo https://github.com/curtinlv/JD-Script.git "jd_|jx_|getJDCookie" "activity|backUp" "^jd[^_]|USER"
 
