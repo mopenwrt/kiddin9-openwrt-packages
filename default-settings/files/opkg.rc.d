@@ -44,7 +44,7 @@ function opkgupgrade() {
 								if [[ "$opkg" ]]; then
 									while :; do
 										opkg upgrade --force-overwrite --force-checksum $ipk >>/tmp/opkgupdate.log 2>&1
-										if [[ $ipk == "luci-app-*" ]]; then
+										if [[ $ipk == luci-app-* ]]; then
 											opkg upgrade --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn >>/tmp/opkgupdate.log 2>&1
 										fi
 										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
