@@ -163,21 +163,9 @@ local system_version = require "luci.model.cbi.gpsysupgrade.sysupgrade".get_syst
 	//]]>
 
 </script>
-<style>
-.alert-message > h4 {
-    font-size: 120%;
-    font-weight: bold;
-}
-#updatelogs{
-font-family:"Microsoft Yahei";
-line-height:1.5rem;
-}
-.version{
-margin-bottom:15px
-}
-</style>
-<div class="version">
-	<label class="value-title" style="float:left">
+
+<div class="cbi-value">
+	<label class="value-title" style="float:left;">
 		<%:Current system version%>
 	</label>
 	
@@ -185,15 +173,14 @@ margin-bottom:15px
 			<span>【 <%=system_version%> 】</span>
 		&nbsp;&nbsp;&nbsp;<span id="_sysup-check_btn-detail"></span>
 		</div>
-		</div>
-	<pre id="updatelogs"></pre>
+	<pre id="updatelogs" style="font-family:Microsoft Yahei;line-height:1.5rem;"></div>
 <div id="retain" style="display:none;margin:0.5rem;">
 	<p style="margin-top:0.4rem;"><button class="btn"><input type="checkbox" checked id="kconfig"> <%:Keep settings and retain the current configuration%></button></p>
 <p style="margin-top:0.5rem;"><button class="btn"><input type="checkbox" checked id="kopkg"> <%:Retain the current packages%></button></p>
 </div>
 						<input class="cbi-button cbi-input-apply cbi-button-reset" type="button" id="_sysup-check_btn" onclick="onBtnClick_sysup(this);" value="<%:Check update%>" style="margin-top:0.5rem;"/>
 			
-
+</div>
 <p class="alert-message notice reboot-message" style="display:none">
 	<img src="<%=resource%>/icons/loading.gif" alt="<%:Loading%>" style="vertical-align:middle" />
 	<span><%:Device is rebooting...%></span>
