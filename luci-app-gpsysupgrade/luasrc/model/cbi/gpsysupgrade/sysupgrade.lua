@@ -7,7 +7,7 @@ local ipkg = require("luci.model.ipkg")
 local api = require "luci.model.cbi.gpsysupgrade.api"
 
 function get_system_version()
-	local system_version = luci.sys.exec("[ -f '/etc/openwrt_version' ] && cat /etc/openwrt_version")
+	local system_version = luci.sys.exec("[ -f '/etc/openwrt_version' ] && echo -n `cat /etc/openwrt_version`")
     return system_version
 end
 
