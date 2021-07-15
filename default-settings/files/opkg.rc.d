@@ -52,6 +52,7 @@ function opkgupgrade() {
 										}
 										[ $c2 == 3 ] && {
 										echo $ipk >> $BKOPKG/failed.txt
+										sed -i '/$ipk/d' $BKOPKG/user_installed.opkg
 										break
 										} || let c2++
 										sleep 1
