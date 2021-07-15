@@ -122,7 +122,8 @@ jobs:
         git_sparse_clone master https://github.com/lisaac/luci-app-dockerman dockerman applications/luci-app-dockerman &
         
         git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
-        applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme &
+        applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
+        applications/luci-app-ksmbd applications/luci-app-samba4 &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
         utils/cgroupfs-mount &
@@ -195,6 +196,8 @@ jobs:
         sed -i 's/+ddns-scripts/+ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod/' luci-app-ddns/Makefile
         sed -i 's/+aria2/+aria2 +ariang/' luci-app-aria2/Makefile
         sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/g' luci-app-acme/Makefile
+        sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
+        sed -i 's/\(+samba4-server\)/\1 +autoshare-samba/' luci-app-samba4/Makefile
 
         sed -i \
         	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
