@@ -16,8 +16,21 @@
  #!/bin/sh
  
  uci -q batch <<-EOF >/dev/null 2>&1
++	service adguardhome stop
 +	service adguardhome disable
 +	rm -f /etc/init.d/adguardhome
  	delete ucitrack.@AdGuardHome[-1]
  	add ucitrack AdGuardHome
  	set ucitrack.@AdGuardHome[-1].init=AdGuardHome
+
+--- a/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
++++ b/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
+@@ -37,7 +37,7 @@ else
+ 	local version=uci:get("AdGuardHome","AdGuardHome","version")
+ 	local testtime=fs.stat(binpath,"mtime")
+ 	if testtime~=tonumber(binmtime) or version==nil then
+-		local tmp=luci.sys.exec(binpath.." --version | grep -m 1 -E 'v[0-9.]+' -o ")
++		local tmp=luci.sys.exec(binpath.." --version | grep -m 1 -E '[v ][0-9.]+' -o ")
+ 		version=string.sub(tmp, 1)
+ 		if version=="" then version="core error" end
+ 		uci:set("AdGuardHome","AdGuardHome","version",version)
