@@ -12,7 +12,7 @@
 
 --- a/luci-app-adguardhome/root/etc/uci-defaults/40_luci-AdGuardHome
 +++ b/luci-app-adguardhome/root/etc/uci-defaults/40_luci-AdGuardHome
-@@ -1,6 +1,8 @@
+@@ -1,6 +1,9 @@
  #!/bin/sh
  
  uci -q batch <<-EOF >/dev/null 2>&1
