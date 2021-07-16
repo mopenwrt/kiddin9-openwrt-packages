@@ -44,6 +44,8 @@ uci_get_by_type(){
 
 GLOBAL_SERVER=$(uci_get_by_type global global_server)
 gfw_mode=$(uci_get_by_type global gfw_mode 0)
+adguardhome=$(uci_get_by_type global adguardhome 0)
+adg_port=$(uci_get_by_type global adg_port 5553)
 run_mode=$(uci_get_by_type global run_mode router)
 SO_SERVER=$(uci_get_by_type socks5_proxy server 0)
 [ $SO_SERVER = same ] && SO_SERVER=$GLOBAL_SERVER
@@ -766,7 +768,7 @@ gen_dns(){
 	case $run_mode in
 	all) port=5335;;
 	gfw|oversea) port=5336;;
-	*) port=5337;;
+	*) [[ $adguardhome == 1 && "$(netstat -tunlp | grep $adg_port | grep -i AdGuardHome)" ]] && port=$adg_port || port=5337;;
 	esac
 	cat >$DNS_FILE <<-EOF
 		no-resolv
