@@ -811,6 +811,7 @@ gen_dns(){
 		[ $run_mode = all -a "$dns_c" = 1 ] && echo "server=/$doh_d_dom/127.0.0.1#5336" >$DNS_DIR/white.conf
 		if [ -s $T_FILE/white.list ];then
 			cp -f $T_FILE/white.list $O
+			sed -i "s/\r//g" $O
 			D=$(cat $O)
 			for i in $D;do
 				sed -i -e "/\/$i\//d" -e "/\.$i\//d" $DNS_DIR/black.conf 2>/dev/null
