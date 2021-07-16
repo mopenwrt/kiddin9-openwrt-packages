@@ -1,9 +1,6 @@
 #!/bin/sh
 
 uci -q batch <<-EOF >/dev/null 2>&1
-	service adguardhome stop
-	service adguardhome disable
-	rm -f /etc/init.d/adguardhome
 	delete ucitrack.@AdGuardHome[-1]
 	add ucitrack AdGuardHome
 	set ucitrack.@AdGuardHome[-1].init=AdGuardHome
