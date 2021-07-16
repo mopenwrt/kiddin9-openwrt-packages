@@ -82,6 +82,7 @@ case "$ACTION" in
 				echo -e "\toption create_mask '0666'" >> $config_file
 				echo -e "\toption dir_mask '0777'" >> $config_file
 				echo -e "\toption device '$device'" >> $config_file
+				echo -e "\toption force_root '1'" >> $config_file
 				/etc/init.d/ksmbd reload
 				return
 			fi
