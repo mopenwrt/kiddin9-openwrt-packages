@@ -125,8 +125,8 @@ jobs:
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
         applications/luci-app-ksmbd applications/luci-app-samba4 &
         
-        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy net/openvpn \
-        utils/cgroupfs-mount &
+        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy \
+        net/openvpn net/adguardhome utils/cgroupfs-mount &
         
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
         
@@ -199,6 +199,7 @@ jobs:
         sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
         sed -i 's/\(+samba4-server\)/\1 +autoshare-samba/' luci-app-samba4/Makefile
         sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
+        sed -i '/init.d/d' adguardhome/Makefile
 
         sed -i \
         	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
