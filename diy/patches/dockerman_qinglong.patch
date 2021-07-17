@@ -75,7 +75,7 @@
 
 --- a/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
 +++ b/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
-@@ -88,12 +88,25 @@
+@@ -88,12 +88,24 @@
  	}
  
  	function show_reslov_dialog() {
@@ -90,7 +90,6 @@
 +		var t = document.getElementById("dialog_reslov_text");
 +		t.value = "docker run -dit \
 +			-v /etc/docker/ql/config:/ql/config \
-+			-v /etc/docker/ql/log:/ql/log \
 +			-v /etc/docker/ql/db:/ql/db \
 +			-v /opt/ql/scripts:/ql/scripts \
 +			--net host \
