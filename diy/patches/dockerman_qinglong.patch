@@ -75,7 +75,7 @@
 
 --- a/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
 +++ b/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
-@@ -88,12 +88,24 @@
+@@ -88,12 +88,25 @@
  	}
  
  	function show_reslov_dialog() {
@@ -92,6 +92,7 @@
 +			-v /etc/docker/ql/config:/ql/config \
 +			-v /etc/docker/ql/db:/ql/db \
 +			-v /opt/ql/scripts:/ql/scripts \
++			-v /opt/ql/log:/ql/log \
 +			--net host \
 +			--name qinglong \
 +			--hostname qinglong \
