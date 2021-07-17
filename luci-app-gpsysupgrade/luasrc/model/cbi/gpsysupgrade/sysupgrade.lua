@@ -133,7 +133,7 @@ if not retain or retain == "" then
 	local result = api.exec("/sbin/sysupgrade", {file}, nil, api.command_timeout) == 0
 else
 	if retain:match(".*-k.*") then
-		echo -e "/etc/backup/installed_packages.txt">/lib/upgrade/keep.d/luci-app-gpsysupgrade
+		luci.sys.exec("echo -e /etc/backup/installed_packages.txt>/lib/upgrade/keep.d/luci-app-gpsysupgrade")
 	end
 	local result = api.exec("/sbin/sysupgrade", {retain, file}, nil, api.command_timeout) == 0
 end
