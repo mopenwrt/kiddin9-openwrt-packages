@@ -8,5 +8,5 @@ config AdGuardHome 'AdGuardHome'
 	option verbose '0'
 	option binpath '/usr/bin/AdGuardHome'
 	option upxflag ''
-	option upprotect '$configpath $workdir/data/stats.db'
+	option upprotect '$binpath $configpath $workdir/data/stats.db'
 
