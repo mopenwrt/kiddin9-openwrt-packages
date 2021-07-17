@@ -78,7 +78,6 @@ function opkgupgrade() {
 				[ $c3 == 10 ] && break || let c3++
 			done
 			rm -f /var/lock/opkg.lock
-			[[ 
 			if [[ "`uci get bypass.@global[0].adguardhome`" == 1 && -f /etc/init.d/AdGuardHome && ! "`ps -w | grep -i AdGuardHome | grep -v grep`" ]]; then
 				service bypass reload
 			fi
