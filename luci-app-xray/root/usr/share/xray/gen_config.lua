@@ -351,6 +351,11 @@ local function tproxy_tcp_inbound()
         port = proxy.tproxy_port_tcp,
         protocol = "dokodemo-door",
         tag = "tproxy_tcp_inbound",
+        sniffing = proxy.tproxy_sniffing == "1" and {
+            enabled = true,
+            destOverride = {"http", "tls"},
+            metadataOnly = false
+        } or nil,
         settings = {
             network = "tcp",
             followRedirect = true
@@ -534,6 +539,11 @@ end
 local function dns_server_outbound()
     return {
         protocol = "dns",
+        streamSettings = {
+            sockopt = {
+                mark = tonumber(proxy.mark)
+            }
+        },
         tag = "dns_server_outbound"
     }
 end
@@ -669,7 +679,7 @@ local xray = {
     dns = dns_conf(),
     api = api_conf(),
     routing = {
-        domainStrategy = "AsIs",
+        domainStrategy = proxy.routing_domain_strategy or "AsIs",
         rules = rules()
     }
 }
