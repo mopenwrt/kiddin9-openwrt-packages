@@ -14,7 +14,7 @@
  	echo "luci enable switch=$enabled"
  	(sleep 10 && [ -z "$(pgrep $binpath)" ] && logger "AdGuardHome" "no process in 10s cancel redirect" && _do_redirect 0 )&
 +	if [[ "`uci get bypass.@global[0].adguardhome 2>/dev/null`" == 1 ]]; then
-+		/etc/init.d/bypass reload
++		/etc/init.d/bypass reload 2>/dev/null
 +	fi
  }
  
