@@ -9,4 +9,14 @@
  	done
  	uci delete dhcp.@dnsmasq[0].resolvfile 2>/dev/null
  	uci set dhcp.@dnsmasq[0].noresolv=1
+@@ -499,6 +499,9 @@ start_service() {
+ 	echo "AdGuardHome service enabled"
+ 	echo "luci enable switch=$enabled"
+ 	(sleep 10 && [ -z "$(pgrep $binpath)" ] && logger "AdGuardHome" "no process in 10s cancel redirect" && _do_redirect 0 )&
++	if [[ "`uci get bypass.@global[0].adguardhome 2>/dev/null`" == 1 ]]; then
++		service bypass reload
++	fi
+ }
+ 
+ reload_service()
 
