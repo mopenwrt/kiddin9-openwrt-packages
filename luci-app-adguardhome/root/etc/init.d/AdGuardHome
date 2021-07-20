@@ -500,7 +500,7 @@ start_service() {
 	echo "luci enable switch=$enabled"
 	(sleep 10 && [ -z "$(pgrep $binpath)" ] && logger "AdGuardHome" "no process in 10s cancel redirect" && _do_redirect 0 )&
 	if [[ "`uci get bypass.@global[0].adguardhome 2>/dev/null`" == 1 ]]; then
-		service bypass reload
+		/etc/init.d/bypass reload
 	fi
 }
 
