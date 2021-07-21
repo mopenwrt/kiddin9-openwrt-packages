@@ -503,7 +503,7 @@ start_service() {
 		c1=0
 		while ! ps -w | grep -i AdGuardHome | grep -v grep >/dev/null 2>&1; do
 			sleep 1
-			[ $c1 == 5 ] && return || let c1++
+			[ $c1 == 5 ] && break || let c1++
 		done
 		/etc/init.d/bypass reload 2>/dev/null
 	fi
