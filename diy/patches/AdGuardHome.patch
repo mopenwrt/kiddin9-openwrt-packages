@@ -1,14 +1,5 @@
 --- a/luci-app-adguardhome/root/etc/init.d/AdGuardHome
 +++ b/luci-app-adguardhome/root/etc/init.d/AdGuardHome
-@@ -2,7 +2,7 @@
- 
- USE_PROCD=1
- 
--START=95
-+START=99
- STOP=01
- 
- CONFIGURATION=AdGuardHome
 @@ -29,7 +29,7 @@ set_forward_dnsmasq()
  		if [ "$server" = "$addr" ]; then
  			continue
