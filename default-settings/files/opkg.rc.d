@@ -96,4 +96,4 @@ function opkgupgrade() {
 	}
 
 rm -f $LOCK
-)
+) &
