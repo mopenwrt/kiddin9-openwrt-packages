@@ -17,11 +17,6 @@ PKG_MAINTAINER:=lisaac <lisaac.cn@gmail.com> \
 
 PKG_VERSION:=v0.5.23-2
 
-define Package/luci-app-dockerman/conffiles
-/etc/config/dockerman
-/etc/docker/
-endef
-
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
