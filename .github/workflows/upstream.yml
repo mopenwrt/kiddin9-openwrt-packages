@@ -187,7 +187,6 @@ jobs:
         rm -rf miniupnpd/patches/106-spam-syslog-ignoring.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         # sed -i 's/+docker-ce/+dockerd \\\n\t+docker \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
-        sed -i 's/openwrt-xray/xray-core/g' luci-app-xray/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
