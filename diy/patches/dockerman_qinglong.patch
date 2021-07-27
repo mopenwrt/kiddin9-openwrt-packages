@@ -8,18 +8,6 @@
  	+ttyd
  LUCI_PKGARCH:=all
  
-@@ -16,6 +17,11 @@ PKG_MAINTAINER:=lisaac <lisaac.cn@gmail.com> \
- 
- PKG_VERSION:=v0.5.17
- 
-+define Package/luci-app-dockerman/conffiles
-+/etc/config/dockerman
-+/etc/docker/
-+endef
-+
- include $(TOPDIR)/feeds/luci/luci.mk
- 
- # call BuildPackage - OpenWrt buildroot signature
 
 --- a/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
 +++ b/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
