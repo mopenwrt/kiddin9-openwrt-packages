@@ -97,12 +97,11 @@
 	function writeInto(){
 		var t = document.getElementById("dialog_reslov_text");
 		t.value = "docker run -dit \
-			-v /etc/docker/ql/config:/ql/config \
-			-v /etc/docker/ql/db:/ql/db \
+			-v /opt/ql/config:/ql/config \
+			-v /opt/ql/db:/ql/db \
 			-v /opt/ql/scripts:/ql/scripts \
 			-v /opt/ql/log:/ql/log \
 			-v /opt/ql/repo:/ql/repo \
-			-v /opt/ql/raw:/ql/raw \
 			--net host \
 			--name qinglong \
 			--hostname qinglong \
