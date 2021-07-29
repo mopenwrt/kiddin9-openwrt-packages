@@ -2,10 +2,10 @@
 	"luci-app-frpc": {
 	"description": "Grant UCI access for luci-app-frpc",
 	"read": {
-		"uci": [ "frpc" ]
+		"uci": [ "frp" ]
 		},
 	"write": {
-		"uci": [ "frpc" ]
+		"uci": [ "frp" ]
 		}
 	}
 }
