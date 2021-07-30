@@ -100,7 +100,7 @@ jobs:
         git clone --depth 1 https://github.com/peter-tank/luci-app-autorepeater &
         git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mvdir feed-netkeeper &
         git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon wrtbwmon1 && mvdir wrtbwmon1 &
-        git clone --depth 1 https://github.com/brvphoenix/wrtbwmon 2 && mvdir wrtbwmon2 &
+        git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon2 && mvdir wrtbwmon2 &
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mvdir ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c &
