@@ -49,6 +49,7 @@ jobs:
           )
         function mvdir() {
         mv -n `find $1/* -maxdepth 0 -type d` ./
+        rm -rf $1
         }
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
         git clone --depth 1 https://github.com/fw876/helloworld && mvdir helloworld &
