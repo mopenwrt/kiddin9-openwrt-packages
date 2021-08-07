@@ -1,7 +1,6 @@
 #
 # This is free software, lisence use MIT.
 # 
-# Copyright (C) 2020 KFERMercer <KFER.Mercer@gmail.com>
 # 
 # <https://github.com/kiddin9/openwrt-packages>
 #
@@ -119,6 +118,7 @@ jobs:
         svn export https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman &
         svn export https://github.com/doushang/luci-app-shortcutmenu/tunk/luci-app-shortcutmenu &
         svn export https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
+        svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf &
         
         git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
