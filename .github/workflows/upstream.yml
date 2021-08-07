@@ -103,6 +103,7 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mvdir ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c &
+        git clone --depth 1 https://github.com/sirpdboy/netspeedtest && mvdir netspeedtest &
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1 &
 
         svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
