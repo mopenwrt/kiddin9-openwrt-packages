@@ -35,7 +35,7 @@ GO_PKG_LDFLAGS+= \
 	-X '$(GO_PKG)/version.ExGoVersionInfo=$(GO_ARM) $(GO_MIPS)$(GO_MIPS64)'
 
 include $(INCLUDE_DIR)/package.mk
-include ../../lang/golang/golang-package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/UnblockNeteaseMusic-Go/config
 config UNBLOCKNETEASEMUSIC_GO_COMPRESS_GOPROXY
