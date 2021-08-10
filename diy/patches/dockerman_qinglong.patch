@@ -11,7 +11,7 @@
 
 --- a/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
 +++ b/luci-app-dockerman/luasrc/view/dockerman/newcontainer_resolve.htm
-@@ -88,12 +88,28 @@
+@@ -88,12 +88,29 @@
  	}
  
  	function show_reslov_dialog() {
@@ -30,6 +30,7 @@
 +			-v /opt/ql/scripts:/ql/scripts \
 +			-v /opt/ql/log:/ql/log \
 +			-v /opt/ql/repo:/ql/repo \
++			-v /opt/ql/jbot:/ql/jbot \
 +			-v /opt/ql/ninja:/ql/ninja \
 +			-p 5700:5700 \
 +			-p 5701:5701 \
