@@ -15,19 +15,22 @@ diff --git a/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua b/luci-app-oa
 index 990dd8485..cd8ec46f6 100755
 --- a/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua
 +++ b/luci-app-oaf/luasrc/model/cbi/appfilter/appfilter.lua
-@@ -183,6 +183,7 @@ while true do
- end
+@@ -184,12 +184,12 @@ end
  fd:close()
  
-+--[[
  local config_users=m.uci:get_all("appfilter.user.users")
- if config_users~=nil then
- local r=utl.split(config_users, "%s+", nil, true)
-@@ -191,6 +192,7 @@ for i=1,max,1 do
- 	users:value(r[i], r[i]);
+-if config_users~=nil then
+-local r=utl.split(config_users, "%s+", nil, true)
+-local max = table.getn(r)
+-for i=1,max,1 do
+-	users:value(r[i], r[i]);
+-end
++if config_users~=nil and config_users~=false then
++	local r=utl.split(config_users, "%s+", nil, true)
++	local max = table.getn(r)
++	for i=1,max,1 do
++		users:value(r[i], r[i]);
++	end
  end
- end
-+--]]
  m:section(SimpleSection).template = "admin_network/user_status"
  local dir, fd
- dir = "/tmp/upload/"
