@@ -1,15 +1,12 @@
+# SPDX-License-Identifier: GPL-3.0-only
 #
-# Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
-#
-# This is free software, licensed under the GNU General Public License v3.
-#
+# Copyright (C) 2021 ImmortalWrt.org
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nps
-PKG_VERSION:=0.26.9
-PKG_RELEASE:=4
+PKG_VERSION:=0.26.10
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ehang-io/nps/tar.gz/v$(PKG_VERSION)?
@@ -17,9 +14,9 @@ PKG_HASH:=skip
 
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILE:=LICENSE
-PKG_MAINTAINTER:=CN_SZTL <cnsztl@immortalwrt.org>
+PKG_MAINTAINTER:=Tianling Shen <cnsztl@immortalwrt.org>
 
-PKG_CONFIG_DEPENDS := \
+PKG_CONFIG_DEPENDS:= \
 	CONFIG_NPC_COMPRESS_UPX \
 	CONFIG_NPS_COMPRESS_UPX
 
@@ -37,20 +34,13 @@ include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 define Package/nps/template
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=A intranet penetration proxy server
-  DEPENDS:=$(GO_ARCH_DEPENDS)
+  TITLE:=A intranet penetration proxy server ($(1))
+  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
   URL:=https://ehang-io.github.io/nps
 endef
 
-define Package/npc
-  $(call Package/nps/template)
-  TITLE+= (client)
-endef
-
-define Package/nps
-  $(call Package/nps/template)
-  TITLE+= (server)
-endef
+Package/npc = $(call Package/nps/template,client)
+Package/nps = $(call Package/nps/template,server)
 
 define Package/nps/description/template
   NPS is a lightweight, high-performance, powerful intranet penetration proxy server,
