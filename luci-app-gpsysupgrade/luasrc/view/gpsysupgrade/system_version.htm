@@ -173,6 +173,18 @@ local system_version = require "luci.model.cbi.gpsysupgrade.sysupgrade".get_syst
 			<span>【 <%=system_version%> 】</span>
 		&nbsp;&nbsp;&nbsp;<span id="_sysup-check_btn-detail"></span>
 		</div>
+<style>
+#updatelogs .alert-message p{
+	text-align:left;
+	}
+#updatelogs .alert-message a{
+    color: orangered;
+text-decoration: underline;
+}
+.red{
+    color: orangered;
+}
+</style>
 	<pre id="updatelogs" style="font-family:Microsoft Yahei;line-height:1.5rem;"></div>
 <div id="retain" style="display:none;margin:0.5rem;">
 	<p style="margin-top:0.4rem;"><button class="btn"><input type="checkbox" checked id="kconfig"> <%:Keep settings and retain the current configuration%></button></p>
