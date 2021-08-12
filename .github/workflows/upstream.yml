@@ -103,7 +103,6 @@ jobs:
         git clone --depth 1 https://github.com/linkease/ddnsto-openwrt && mvdir ddnsto-openwrt &
         git clone --depth 1 https://github.com/sensec/luci-app-udp2raw &
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c &
-        git clone --depth 1 https://github.com/sirpdboy/netspeedtest && mvdir netspeedtest &
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1 &
 
         svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
@@ -120,6 +119,7 @@ jobs:
         svn export https://github.com/doushang/luci-app-shortcutmenu/tunk/luci-app-shortcutmenu &
         svn export https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
         svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf &
+        svn export https://github.com/sirpdboy/netspeedtest/trunk/luci-app-netspeedtest &
         
         git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
