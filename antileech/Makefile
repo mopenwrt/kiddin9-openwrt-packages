@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 #PKG_SOURCE:=antileech-2.3.1.tar.gz
 #PKG_SOURCE_URL:=@SF/amule
-#PKG_MD5SUM:=a892a1cc00d03e943e03434d182fe73e
+#PKG_MD5SUM:=skip
 
 PKG_BUILD_DEPENDS:=libgd
 
