@@ -177,7 +177,7 @@ jobs:
         cp -rf diy/.packages/* ./ || true
         sed -i 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?g' */{Makefile,*.mk} || true &
         find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {} &
-        find ./*/ -maxdepth 1 -name "Makefile" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {} &
+        find ./*/ -maxdepth 1 -name "Makefile" | xargs -i sed -i -e "s/\(PKG_HASH\|PKG_MD5SUM\|PKG_MIRROR_HASH\):=.*/\1:=skip/g" {} &
         rm -f subconverter/patches/010-missing-header.patch
         rm -rf miniupnpd/patches/106-spam-syslog-ignoring.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
