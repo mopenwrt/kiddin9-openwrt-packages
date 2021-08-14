@@ -126,7 +126,7 @@ jobs:
         applications/luci-app-ksmbd applications/luci-app-samba4 &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy \
-        net/openvpn net/adguardhome utils/cgroupfs-mount &
+        net/openvpn utils/cgroupfs-mount &
         
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
         
@@ -134,7 +134,7 @@ jobs:
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu
         
-        git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/mwol net/nps net/verysync net/sub-web \
+        git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/adguardhome net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule net/gowebdav \
         admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron libs/quickjspp \
         utils/cpulimit utils/filebrowser utils/phicomm-k3screenctrl multimedia/gmediarender multimedia/UnblockNeteaseMusic-Go
@@ -169,21 +169,15 @@ jobs:
 
     - name: Modify
       run: |
-        getversion() {
-        	ver=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$1/releases/latest) | grep -o -E "[0-9].+")
-        	[ $ver ] && echo $ver || git ls-remote --tags git://github.com/$1 | cut -d/ -f3- | sort -t. -nk1,2 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+"
-        }
-        # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion XTLS/Xray-core)/g" xray-core/Makefile &
-        # sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion klzgrad/naiveproxy)/g" naiveproxy/Makefile &
-          sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$(getversion c0re100/qBittorrent-Enhanced-Edition)/g" qBittorrent-Enhanced-Edition/Makefile &
-          rm -rf luci-app-passwall/po/zh_Hans
+        rm -rf luci-app-passwall/po/zh_Hans
         
-        bash diy/create_acl_for_luci.sh -a || true &
-        bash diy/convert_translation.sh -a || true &
+        bash diy/create_acl_for_luci.sh -a >/dev/null 2>&1 || true &
+        bash diy/convert_translation.sh -a >/dev/null 2>&1 || true &
         
+        cp -rf diy/.packages/* ./ || true
         sed -i 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?g' */{Makefile,*.mk} || true &
         find */luasrc/view/ -maxdepth 2 -name "*.htm" | xargs -i sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' {} &
-        find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" ! -path "*gowebdav*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {} &
+        find ./*/ -maxdepth 1 -name "Makefile" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {} &
         rm -f subconverter/patches/010-missing-header.patch
         rm -rf miniupnpd/patches/106-spam-syslog-ignoring.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
@@ -198,12 +192,33 @@ jobs:
         sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
         sed -i 's/\(+samba4-server\)/\1 +autoshare-samba/' luci-app-samba4/Makefile
         sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
-        sed -i '/init.d/d' adguardhome/Makefile
 
         sed -i \
         	-e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?g' \
         	-e 's/ca-certificates/ca-bundle/g' \
         */Makefile
+
+        for pkg in $(find */Makefile ! -path 'luci-*' ! -path 'lua-maxminddb*' ! -path 'natflow*' ! -path 'shadowsocksr-libev*' ! -path 'ngrokc*'); do
+            pkg=$(echo $pkg | cut -d / -f 1)
+            over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg/Makefile | cut -f 2 -d '=')" || true
+            [ "$over" ] && {
+            repo="$(grep PKG_SOURCE_URL $pkg/Makefile | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
+            [ "$repo" ] && {
+            ver="$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$repo/releases/latest) | grep -o -E "[0-9].+")" || true
+            [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+")" || true
+            echo "$repo-$ver"
+            [ "$ver" ] && {
+              function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
+              if version_lt "$over" "$ver"; then
+                sed -i 's/PKG_SOURCE_VERSION:=[0-9a-z]\{7,\}/PKG_SOURCE_VERSION:=v$(PKG_VERSION)/' $pkg/Makefile || true
+                sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/g" $pkg/Makefile || true
+              fi || true
+            }
+            }
+            }
+        done
+        sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(git ls-remote --tags git://github.com/AdguardTeam/AdGuardHome | cut -d/ -f3- | sort -t. -nk2 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+")?" adguardhome/Makefile
+        sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/Wind4/vlmcsd/releases/latest))?" vlmcsd/Makefile
         
     - name: Apply
       run: |
