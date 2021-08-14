@@ -10,7 +10,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rclone-webui-react
-PKG_VERSION:=0.1.0
+PKG_VERSION:=2.0.5
 PKG_RELEASE:=1
 
 
