@@ -198,7 +198,7 @@ jobs:
         	-e 's/ca-certificates/ca-bundle/g' \
         */Makefile
 
-        for pkg in $(find */Makefile ! -path 'luci-*' ! -path 'natflow*' ! -path 'ngrokc*'); do
+        for pkg in $(find */Makefile ! -path 'luci-*' ! -path 'natflow*' ! -path 'ngrokc*' ! -path 'amule*' ! -path 'blibtorrent*'); do
             pkg=$(echo $pkg | cut -d / -f 1)
             over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg/Makefile | cut -f 2 -d '=')" || true
             [ "$over" ] && {
