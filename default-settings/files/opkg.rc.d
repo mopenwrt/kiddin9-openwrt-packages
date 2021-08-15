@@ -47,7 +47,7 @@ function opkgupgrade() {
 										if [[ $ipk == luci-app-* ]]; then
 											opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn >>/tmp/opkgupdate.log 2>&1
 										fi
-										[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
+										[[ "$(opkg list-installed | grep $ipk)" ]] && {
 											break
 										}
 										[ $c2 == 3 ] && {
