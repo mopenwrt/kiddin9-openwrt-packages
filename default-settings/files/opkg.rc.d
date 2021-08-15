@@ -31,34 +31,30 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					def="$(opkg list-installed | cut -f 1 -d ' ' | xargs -i grep -E 'luci-app*|luci-theme*|default-settings|xray-core|trojan*' | grep -vE 'luci-app-opkg|luci-app-firewall')"
+					def="$(opkg list-upgradable | cut -f 1 -d ' ' | xargs -i grep -vE 'luci-app-opkg|firewall|base-files|busybox|dnsmasq-full|miniupnpd|luci-mod-network|luci-mod-status|luci-mod-system')"
 					insed="$(cat $BKOPKG/user_installed.opkg)"
-					upopkg="$insed $def"
-					if [ -n "$upopkg" ]; then
+					for ipk in $insed; do
+						uged+="$(opkg list-upgradable | grep $ipk)" 2>/dev/null
+					done
+					upopkg="$uged $def"
+					if [ "$upopkg" != " " ]; then
 							for ipk in $upopkg; do
-							if [ -f /etc/inited ]; then
-								opkg=$(opkg list-upgradable | grep $ipk) 2>/dev/null
-							else
-								opkg=1
-							fi
-								if [[ "$opkg" ]]; then
-									while :; do
-										opkg install --force-overwrite --force-checksum --force-depends $ipk >>/tmp/opkgupdate.log 2>&1
-										if [[ $ipk == luci-app-* ]]; then
-											opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn >>/tmp/opkgupdate.log 2>&1
-										fi
-										[[ "$(opkg list-installed | grep $ipk)" ]] && {
-											break
-										}
-										[ $c2 == 3 ] && {
+								while :; do
+									opkg install --force-overwrite --force-checksum --force-depends $ipk >>/tmp/opkgupdate.log 2>&1
+									if [[ $ipk == luci-app-* ]]; then
+										opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn >>/tmp/opkgupdate.log 2>&1
+									fi
+									[[ "$(opkg list-installed | grep $ipk)" ]] && {
+										break
+									}
+									[ $c2 == 3 ] && {
 										echo $ipk >> $BKOPKG/failed.txt
 										sed -i '/$ipk/d' $BKOPKG/user_installed.opkg
 										break
-										} || let c2++
-										sleep 1
+									} || let c2++
+									sleep 1
 									rm -f /var/lock/opkg.lock
-									done
-								fi
+								done
 							done
 							rm -f /etc/config/*-opkg
 					fi
