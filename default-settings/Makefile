@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=default-settings
 PKG_VERSION:=1
-PKG_RELEASE:=8
+PKG_RELEASE:=9
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -17,7 +17,7 @@ define Package/default-settings
   SECTION:=luci
   CATEGORY:=LuCI
   TITLE:=Default Settings
-  MAINTAINER:=GaryPang
+  MAINTAINER:=Kiddin'
   PKGARCH:=all
   DEPENDS:=+luci-base
 endef
