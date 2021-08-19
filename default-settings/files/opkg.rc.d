@@ -31,7 +31,7 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					def="$(opkg list-upgradable | cut -f 1 -d ' ' | xargs -i grep -vE 'luci-app-opkg|firewall|base-files|busybox|dnsmasq-full|miniupnpd|luci-mod-network|luci-mod-status|luci-mod-system')"
+					def="$(opkg list-upgradable | cut -f 1 -d ' ' | grep -vE 'luci-app-opkg|firewall|base-files|busybox|dnsmasq-full|miniupnpd|luci-mod-network|luci-mod-status|luci-mod-system')"
 					insed="$(cat $BKOPKG/user_installed.opkg)"
 					for ipk in $insed; do
 						uged+="$(opkg list-upgradable | grep $ipk)" 2>/dev/null
@@ -62,7 +62,7 @@ function opkgupgrade() {
 					[ -f $BKOPKG/failed.txt ] && {
 						for ipk in $(cat $BKOPKG/failed.txt); do
 							opkg install --force-overwrite --force-checksum --force-depends $ipk >>/tmp/opkgupdate.log 2>&1
-							[[ "$(echo $(opkg list-installed) | grep $ipk)" ]] && {
+							[[ "$(opkg list-installed | grep $ipk)" ]] && {
 								sed -i '/$ipk/d' $BKOPKG/failed.txt
 							}
 						done
