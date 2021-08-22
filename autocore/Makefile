@@ -41,10 +41,6 @@ define Download/armcpuinfo
   HASH:=skip
 endef
 
-define Build/Prepare
-	sed -i 's/cpu_arch="?"/cpu_arch="ARMv8 Processor"/' $(DL_DIR)/cpuinfo
-endef
-
 define Build/Compile
 endef
 
