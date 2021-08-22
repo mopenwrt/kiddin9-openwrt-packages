@@ -31,12 +31,11 @@ function opkgupgrade() {
 			while :; do
 			opkg update >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
-					def="$(opkg list-upgradable | cut -f 1 -d ' ' | grep -vE 'luci-app-opkg|firewall|base-files|busybox|dnsmasq-full|miniupnpd|luci-mod-network|luci-mod-status|luci-mod-system')"
-					insed="$(cat $BKOPKG/user_installed.opkg)"
-					for ipk in $insed; do
-						uged+="$(opkg list-upgradable | grep $ipk)" 2>/dev/null
-					done
-					upopkg="$uged $def"
+					def="$(opkg list-upgradable | cut -f 1 -d ' ' | grep -vE 'luci-app-opkg|firewall|base-files|luci-base|busybox|dnsmasq-full|coremark|miniupnpd|luci-mod-network|luci-mod-status|luci-mod-system')"
+					if [ ! -f /etc/inited ]; then
+						insed="$(cat $BKOPKG/user_installed.opkg)"
+					fi
+					upopkg="$insed $def"
 					if [ "$upopkg" != " " ]; then
 							for ipk in $upopkg; do
 								while :; do
