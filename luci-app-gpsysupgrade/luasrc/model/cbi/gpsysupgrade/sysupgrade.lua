@@ -43,21 +43,11 @@ function to_check()
     elseif model:match(".*R2S.*") then
 		model = "nanopi-r2s"
 		check_update()
-		if fs.access("/overlay/upper") then
-			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
-		else
-			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-ext4-sysupgrade.img.gz"
-			md5 = ""
-		end
+		download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r2s-squashfs-sysupgrade.img.gz"
     elseif model:match(".*R4S.*") then
 		model = "nanopi-r4s"
 		check_update()
-		if fs.access("/overlay/upper") then
-			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
-		else
-			download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-ext4-sysupgrade.img.gz"
-			md5 = ""
-		end
+		download_url = "https://op.supes.top/firmware/" ..model.. "/" ..dateyr.. "-openwrt-rockchip-armv8-nanopi-r4s-squashfs-sysupgrade.img.gz"
     elseif model:match(".*Pi 4 Model B.*") then
 		model = "Rpi-4B"
 		check_update()
@@ -102,7 +92,7 @@ function to_download(url,md5)
 
     local tmp_file = util.trim(util.exec("mktemp -u -t firmware_download.XXXXXX"))
 
-    local result = api.exec(api.curl, {api._unpack(api.curl_args), "-o", tmp_file, url}, nil, api.command_timeout) == 0
+    local result = sys.exec("curl -skL --connect-timeout 3 --retry 3 -m 60 " ..url.. " -o " ..tmp_file.. "")
 
 	local md5local = sys.exec("echo -n $(md5sum " .. tmp_file .. " | awk '{print $1}')")
 	
@@ -114,7 +104,7 @@ function to_download(url,md5)
         }
 	end
 
-    if not result then
+    if result == 0 then
         api.exec("/bin/rm", {"-f", tmp_file})
         return {
             code = 1,
