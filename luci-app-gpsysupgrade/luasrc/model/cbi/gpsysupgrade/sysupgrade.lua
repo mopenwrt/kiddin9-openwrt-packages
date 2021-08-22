@@ -125,15 +125,8 @@ else
 	if retain:match(".*-k.*") then
 		luci.sys.exec("echo -e /etc/backup/user_installed.opkg>/lib/upgrade/keep.d/luci-app-gpsysupgrade")
 	end
-	local result = api.exec("/sbin/sysupgrade", {retain, file}, nil, api.command_timeout) == 0
+	sys.exec("/sbin/sysupgrade " ..retain.. " " ..file.. "")
 end
-
-    if not result or not fs.access(file) then
-        return {
-            code = 1,
-            error = i18n.translatef("System upgrade failed")
-        }
-    end
 
     return {code = 0}
 end
