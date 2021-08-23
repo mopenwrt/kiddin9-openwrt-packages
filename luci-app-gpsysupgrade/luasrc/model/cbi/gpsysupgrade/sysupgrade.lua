@@ -12,7 +12,7 @@ function get_system_version()
 end
 
 function check_update()
-		needs_update, notice,md5 = false, false, false
+		needs_update, notice, md5 = false, false, false
 		remote_version = luci.sys.exec("curl -s https://op.supes.top/firmware/" ..model.. "/version.txt")
 		updatelogs = luci.sys.exec("curl -s https://op.supes.top/firmware/" ..model.. "/updatelogs.txt")
 		remoteformat = luci.sys.exec("date -d $(echo \"" ..remote_version.. "\" | tr '\r\n' ',' | awk -F, '{printf $1}' | awk -F. '{printf $3\"-\"$1\"-\"$2}') +%s")
@@ -74,11 +74,11 @@ function to_check()
     return {
         code = 0,
         update = needs_update,
-		notice = notice,
+        notice = notice,
         now_version = get_system_version(),
         version = remote_version,
-		md5 = md5,
-	logs = updatelogs,
+        md5 = md5,
+        logs = updatelogs,
         url = download_url
     }
 end

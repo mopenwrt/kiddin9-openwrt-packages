@@ -97,7 +97,11 @@ local system_version = require "luci.model.cbi.gpsysupgrade.sysupgrade".get_syst
 					if(ckeckDetailElm) {
 						var urlNode = '';
 						if(json.version) {
-							urlNode = '<em style="color:red;">最新版本号：' + json.version + '</em>';
+							if(json.notice) {
+								urlNode = '<em style="color:red;">最新版本号：' + json.version + ' &nbsp;正式版</em>';
+							} else {
+								urlNode = '<em style="color:red;">最新版本号：' + json.version + ' &nbsp;尝鲜版</em>';
+							}
 						}
 						if(json.logs) {
 							logs = '<div class="alert alert-message">' + json.logs + '</div>';
