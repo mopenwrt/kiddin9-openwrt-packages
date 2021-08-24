@@ -51,9 +51,6 @@ jobs:
         mv -n `find $1/* -maxdepth 0 -type d` ./
         rm -rf $1
         }
-        git clone --depth 1 https://github.com/Lienol/openwrt-package &
-        git clone --depth 1 https://github.com/fw876/helloworld && mvdir helloworld &
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mvdir openwrt-passwall &
         git clone --depth 1 https://github.com/kiddin9/my-packages && mvdir my-packages &
         git clone --depth 1 https://github.com/kiddin9/openwrt-bypass && mvdir openwrt-bypass &
         git clone --depth 1 https://github.com/kiddin9/luci-app-dnsfilter &
@@ -64,6 +61,8 @@ jobs:
         git clone --depth 1 https://github.com/kiddin9/qBittorrent-Enhanced-Edition &
         git clone --depth 1 https://github.com/kiddin9/autoshare && mvdir autoshare &
         git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && my-packages openwrt-openvpn &
+        git clone --depth 1 https://github.com/Lienol/openwrt-package &
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mvdir openwrt-passwall &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
         git clone --depth 1 https://github.com/kiddin9/luci-app-xlnetacc &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
@@ -106,6 +105,7 @@ jobs:
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c &
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1 &
 
+        svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus &
         svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
         svn export https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
         svn export https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
