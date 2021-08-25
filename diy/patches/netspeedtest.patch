@@ -43,43 +43,6 @@
 -
 +$(eval $(call BuildPackage,$(PKG_NAME)))
 
---- a/luci-app-netspeedtest/luasrc/controller/netspeedtest.lua
-+++ b/luci-app-netspeedtest/luasrc/controller/netspeedtest.lua
-@@ -1,17 +1,16 @@
--
- module("luci.controller.netspeedtest", package.seeall)
- 
- function index()
- 
--	entry({"admin","network","netspeedtest"},cbi("netspeedtest/netspeedtest", {hideapplybtn=true, hidesavebtn=true, hideresetbtn=true}),_("netspeedtest"),90).dependent=true
-+	entry({"admin","network","netspeedtest"}, cbi("netspeedtest", {hideapplybtn=true, hidesavebtn=true, hideresetbtn=true}), _("netspeedtest"),90).dependent=true
- 
--	entry({"admin", "network","test_iperf0"}, post("test_iperf0"), nil).leaf = true
-+	entry({"admin","network","test_iperf0"}, post("test_iperf0"), nil).leaf = true
- 
--	entry({"admin", "network","test_iperf1"}, post("test_iperf1"), nil).leaf = true
-+	entry({"admin","network","test_iperf1"}, post("test_iperf1"), nil).leaf = true
- 
--	entry({"admin","network","netspeedtest", "run"}, call("run"))
-+	entry({"admin","network","netspeedtest","run"}, call("run"))
- 
--	entry({"admin", "network", "netspeedtest", "realtime_log"}, call("get_log")) 
-+	entry({"admin","network","netspeedtest","realtime_log"}, call("get_log")) 
- 
- end
- 
-
---- a/luci-app-netspeedtest/luasrc/model/cbi/netspeedtest/netspeedtest.lua
-+++ b/luci-app-netspeedtest/luasrc/model/cbi/netspeedtest.lua
-@@ -8,7 +8,7 @@ else
- 	status = translate("<strong><font color=\"red\">iperf3 服务端已停止</font></strong>")
- end
- 
--o = Map("netspeedtest", "<font color='green'>" .. translate("netspeedtest") .."</font>",translate( "Network speed diagnosis test (including intranet and extranet)") )
-+o = Map("netspeedtest", translate("netspeedtest"), translate("Network speed diagnosis test (including intranet and extranet)"))
- 
- t = o:section(TypedSection, "netspeedtest", translate('iperf3 lanspeedtest'))
- t.anonymous = true
 diff --git a/luci-app-netspeedtest/root/etc/init.d/netspeedtest b/luci-app-netspeedtest/root/etc/init.d/netspeedtest
 old mode 100644
 new mode 100755
