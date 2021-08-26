@@ -14,7 +14,7 @@ done
 po_dir="$({ find luci-app* -type d -maxdepth 2 -name "zh-cn"; } 2>"/dev/null")"
 for e in ${po_dir}
 do
-	ln -sf zh-cn ../zh_Hans
+	ln -sf zh-cn $e/../zh_Hans
 done
 
 makefile_file="$({ find luci-app* -type f -maxdepth 1 -name Makefile; } 2>"/dev/null")"
