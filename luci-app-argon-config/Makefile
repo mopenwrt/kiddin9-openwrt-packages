@@ -35,7 +35,7 @@ define Package/luci-app-argon-config/install
 	$(INSTALL_DIR) $(1)/
 	cp -pR ./root/* $(1)/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	po2lmo ./po/zh_Hans/argon-config.po $(1)/usr/lib/lua/luci/i18n/argon-config.zh-cn.lmo
+	po2lmo ./po/zh-cn/argon-config.po $(1)/usr/lib/lua/luci/i18n/argon-config.zh-cn.lmo
 endef
 
 

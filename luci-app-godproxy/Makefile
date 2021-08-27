@@ -29,7 +29,7 @@ define Package/luci-app-godproxy/install
 	$(INSTALL_DIR) $(1)/
 	cp -pR ./root/* $(1)/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	po2lmo ./po/zh_Hans/koolproxy.po $(1)/usr/lib/lua/luci/i18n/koolproxy.zh-cn.lmo
+	po2lmo ./po/zh-cn/koolproxy.po $(1)/usr/lib/lua/luci/i18n/koolproxy.zh-cn.lmo
 
 ifeq ($(ARCH),mipsel)
 	$(INSTALL_BIN) ./bin/mipsel $(1)/usr/share/koolproxy/koolproxy
