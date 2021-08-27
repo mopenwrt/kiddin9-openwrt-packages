@@ -60,7 +60,7 @@ jobs:
         git clone --depth 1 https://github.com/kiddin9/luci-theme-edge &
         git clone --depth 1 https://github.com/kiddin9/qBittorrent-Enhanced-Edition &
         git clone --depth 1 https://github.com/kiddin9/autoshare && mvdir autoshare &
-        git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && my-packages openwrt-openvpn &
+        git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && mvdir openwrt-openvpn &
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mvdir openwrt-passwall &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
