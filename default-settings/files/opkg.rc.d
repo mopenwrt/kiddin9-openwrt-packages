@@ -57,8 +57,7 @@ function opkgupgrade() {
 							done
 							rm -f /etc/config/*-opkg
 					fi
-					touch /etc/inited
-					[ -f $BKOPKG/failed.txt ] && {
+					[[ -f $BKOPKG/failed.txt &&  -f /etc/inited ]] && {
 						for ipk in $(cat $BKOPKG/failed.txt); do
 							opkg install --force-overwrite --force-checksum --force-depends $ipk >>/tmp/opkgupdate.log 2>&1
 							[[ "$(opkg list-installed | grep $ipk)" ]] && {
@@ -67,6 +66,7 @@ function opkgupgrade() {
 						done
 						mv $BKOPKG/failed.txt $BKOPKG/failed_.txt
 					}
+					touch /etc/inited
 					rm -f /var/lock/opkg.lock
 					break
 				fi
