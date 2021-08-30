@@ -175,7 +175,7 @@ jobs:
       run: |
         shopt -s extglob
         (
-        for pkg in $(ls !(luci-*|natflow|ngrokc|amule|blibtorrent|ps3netsrv)/Makefile); do
+        for pkg in $(ls !(luci-*|natflow|ngrokc|amule|rblibtorrent|ps3netsrv)/Makefile); do
             over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg | cut -f 2 -d '=')" || true
             if [ "$over" ]; then
               repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
