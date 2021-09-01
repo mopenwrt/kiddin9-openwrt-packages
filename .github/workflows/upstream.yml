@@ -201,12 +201,12 @@ jobs:
         sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/amule-project/amule/releases/latest))?" amule/Makefile
         touch /tmp/ok
         ) &
-        bash diy/create_acl_for_luci.sh -a >/dev/null 2>&1 || true
-        bash diy/convert_translation.sh -a >/dev/null 2>&1 || true
+        bash diy/create_acl_for_luci.sh -a >/dev/null 2>&1 || true &
+        bash diy/convert_translation.sh -a >/dev/null 2>&1 || true &
         
         cp -rf diy/.packages/* ./ || true
-        
-        #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"` &
+        (
+        #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"`
         rm -f subconverter/patches/010-missing-header.patch
         rm -f miniupnpd/patches/106-spam-syslog-ignoring.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
@@ -221,11 +221,6 @@ jobs:
         sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
         sed -i 's/\(+samba4-server\)/\1 +autoshare-samba/' luci-app-samba4/Makefile
         sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
-        for pkg in $(ls -d luci-*); do
-          if [ "$(grep "luci.mk" $pkg/Makefile)" ]; then
-            sed -i '/\(PKG_VERSION\|PKG_RELEASE\):=/d' $pkg/Makefile
-          fi
-        done
         
         sed -i \
           -e 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?' \
@@ -233,6 +228,13 @@ jobs:
           -e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?' \
           -e 's/ca-certificates/ca-bundle/' \
           */Makefile
+        ) &
+        
+        for pkg in $(ls -d luci-*); do
+          if [ "$(grep "luci.mk" $pkg/Makefile)" ]; then
+            sed -i '/\(PKG_VERSION\|PKG_RELEASE\):=/d' $pkg/Makefile
+          fi
+        done
         
         for pkg in $(ls -d */); do
           if [ "$(grep "PKG_RELEASE" $pkg/Makefile)" ]; then
