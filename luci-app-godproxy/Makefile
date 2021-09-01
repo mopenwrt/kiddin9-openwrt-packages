@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-godproxy
 PKG_VERSION:=3.8.5
-PKG_RELEASE:=52
+PKG_RELEASE:=53
 
 include $(INCLUDE_DIR)/package.mk
 

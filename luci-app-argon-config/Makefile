@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=luci-app-argon-config
 LUCI_PKGARCH:=all
 PKG_VERSION:=0.9
-PKG_RELEASE:=19
+PKG_RELEASE:=20
 
 include $(INCLUDE_DIR)/package.mk
 
