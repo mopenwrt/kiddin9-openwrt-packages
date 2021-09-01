@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dsmboot
 PKG_VERSION:=5.2
-PKG_RELEASE:=5967.1
+PKG_RELEASE:=6
 
 include $(INCLUDE_DIR)/package.mk
 

@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=microsocks
 PKG_VERSION=1.0.2
-PKG_RELEASE:=2
+PKG_RELEASE:=15
 
 PKG_MAINTAINER:=lean
 PKG_LICENSE:=MIT

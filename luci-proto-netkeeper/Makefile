@@ -8,8 +8,6 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Support for Netkeeper
 LUCI_DEPENDS:=+netkeeper
 LUCI_PKGARCH:=all
-PKG_VERSION:=1.3
-PKG_RELEASE:=3
 
 include $(TOPDIR)/feeds/luci/luci.mk
 

@@ -6,7 +6,6 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI Support for advanced and filebrowser
-PKG_VERSION:=1.9
 
 define Package/luci-app-advanced/conffiles
 /etc/config/advanced

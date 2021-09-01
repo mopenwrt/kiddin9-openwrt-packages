@@ -6,8 +6,6 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-passwall
-PKG_VERSION:=4.34
-PKG_RELEASE:=1
 #20210818
 
 include $(INCLUDE_DIR)/package.mk

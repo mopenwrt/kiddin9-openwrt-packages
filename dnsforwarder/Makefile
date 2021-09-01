@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsforwarder
 PKG_VERSION:=6.1.15
-PKG_RELEASE:=11
+PKG_RELEASE:=13
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/1715173329/dnsforwarder.git

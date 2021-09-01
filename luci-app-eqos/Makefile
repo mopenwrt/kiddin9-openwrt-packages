@@ -8,7 +8,6 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-eqos
-PKG_RELEASE:=1
 PKG_MAINTAINER:=Jianhui Zhao <jianhuizhao329@gmail.com> GaryPang <https://github.com/garypang13/luci-app-eqos>
 
 LUCI_TITLE:=EQOS - LuCI interface

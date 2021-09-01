@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=scutclient
 PKG_BASE_VERSION:=3.1.2
-PKG_RELEASE:=$(AUTORELESE)
+PKG_RELEASE:=20
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/scutclient/scutclient.git

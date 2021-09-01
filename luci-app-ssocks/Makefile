@@ -11,8 +11,6 @@ LUCI_TITLE:=LuCI support for sSocks
 LUCI_DEPENDS:=+busybox +iptables +ssocksd
 LUCI_PKGARCH:=all
 PKG_NAME:=luci-app-ssocks
-PKG_VERSION:=1.0
-PKG_RELEASE:=1
 
 PKG_MAINTAINER:=ImmortalWrt
 

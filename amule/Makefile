@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aMule
 PKG_VERSION:=2.3.3
-PKG_RELEASE:=5
+PKG_RELEASE:=14
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/amule-project/amule.git

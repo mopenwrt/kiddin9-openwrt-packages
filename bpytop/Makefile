@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bpytop
 PKG_VERSION:=1.0.67
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=25
 
 PYPI_NAME:=bpytop
 PKG_HASH:=skip

@@ -9,7 +9,7 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=r8152
 PKG_VERSION:=2.15
-PKG_RELEASE:=1
+PKG_RELEASE:=14
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/1715173329/realtek-r8152-linux/tar.gz/v$(PKG_VERSION)?

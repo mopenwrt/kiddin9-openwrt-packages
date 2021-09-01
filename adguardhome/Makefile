@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adguardhome
 PKG_VERSION:=0.107.0-b.9
-PKG_RELEASE:=1
+PKG_RELEASE:=6
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=v$(PKG_VERSION)
@@ -50,6 +50,11 @@ endef
 
 define Package/adguardhome/conffiles
 /etc/adguardhome.yaml
+endef
+
+define Package/adguardhome/postinst
+#!/bin/sh
+	/etc/init.d/AdGuardHome restart
 endef
 
 define Package/adguardhome/description

@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=UnblockNeteaseMusic
 PKG_BASE_VERSION:=0.26.1
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=17
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/1715173329/UnblockNeteaseMusic.git

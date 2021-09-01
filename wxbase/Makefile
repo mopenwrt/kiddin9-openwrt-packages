@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wxbase
 PKG_VERSION:=2.8.12
-PKG_RELEASE:=2
+PKG_RELEASE:=10
 
 PKG_SOURCE:=wxGTK-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/wxwindows

@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=subconverter
 PKG_BASE_VERSION:=0.6.4
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=17
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tindy2013/subconverter.git
