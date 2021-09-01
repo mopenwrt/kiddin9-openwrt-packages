@@ -235,7 +235,9 @@ jobs:
           */Makefile
         
         for pkg in $(ls -d */); do
-          sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=$(git rev-list --count master $pkg)/" $pkg/Makefile || true
+          if [ "$(grep "PKG_RELEASE" $pkg/Makefile)" ]; then
+            sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=$(git rev-list --count master $pkg)/" $pkg/Makefile || true
+          fi
         done
         
         while [ ! -f /tmp/ok ]; do
@@ -248,7 +250,9 @@ jobs:
         git add .
         git commit -m "${Emoji[$[$RANDOM % ${#Emoji[@]}]]} Sync $(date +%Y-%m-%d" "%H:%M:%S)" || true
         for pkg in $(ls -d */); do
-          sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=$(git rev-list --count master $pkg)/" $pkg/Makefile || true
+          if [ "$(grep "PKG_RELEASE" $pkg/Makefile)" ]; then
+            sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=$(git rev-list --count master $pkg)/" $pkg/Makefile || true
+          fi
         done
         git reset --soft HEAD^
         git add .
