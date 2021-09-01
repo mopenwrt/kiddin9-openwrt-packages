@@ -36,7 +36,7 @@ jobs:
 
     - name: Syn upstream
       run: |
-        git rm -r --cache * &&
+        git rm -r --cache * &
         rm -rf `find ./* -maxdepth 0 -type d ! -name "diy"`
         
         function git_sparse_clone() (
