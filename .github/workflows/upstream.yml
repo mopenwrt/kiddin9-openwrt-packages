@@ -25,6 +25,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
+      with:
+        fetch-depth: 0
 
     - name: Set git identity
       run : |
@@ -34,8 +36,8 @@ jobs:
 
     - name: Syn upstream
       run: |
+        git rm -r --cache * &&
         rm -rf `find ./* -maxdepth 0 -type d ! -name "diy"`
-        git rm -r --cache *
         
         function git_sparse_clone() (
           branch="$1" rurl="$2" localdir="$3" && shift 3
@@ -61,8 +63,9 @@ jobs:
         git clone --depth 1 https://github.com/kiddin9/qBittorrent-Enhanced-Edition &
         git clone --depth 1 https://github.com/kiddin9/autoshare && mvdir autoshare &
         git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && mvdir openwrt-openvpn &
+        git clone --depth 1 https://github.com/fw876/helloworld && mvdir helloworld &
+        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
-        git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall && mvdir openwrt-passwall &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
         git clone --depth 1 https://github.com/kiddin9/luci-app-xlnetacc &
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk &
@@ -108,7 +111,6 @@ jobs:
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c &
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1 &
 
-        svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus &
         svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
         svn export https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
         svn export https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
@@ -151,18 +153,15 @@ jobs:
         	fi
         done
 
-    - name: SSH connection to Actions
-      uses: kiddin9/debugger-action@master
-      if: 1 == 0
-
     - name: Delete duplicated packages
       run: |
+        mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
         mv -n applications/* ./ ; rm -Rf applications
         mv -n ledelean/* ./ ; rm -Rf ledelean
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         rm -Rf */.git qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} subweb wget autosamba frp \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,advancedsetting,softethervpn,chinadns,docker,smstool,cifs-mount,cifsd} \
-        fcgiwrap ddns-scripts_{aliyun,dnspod} ipv6-helper ChinaDNS luci-theme-netgear csstidy samba4 UnblockNeteaseMusicGo xray-core
+        fcgiwrap ddns-scripts_{aliyun,dnspod} ipv6-helper ChinaDNS luci-theme-netgear csstidy samba4 UnblockNeteaseMusicGo
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
 
@@ -170,6 +169,10 @@ jobs:
       run: |
         sed -i "s/\r//g" open-app-filter/src/appfilter_ubus.c
         find "diy/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 -E --forward --no-backup-if-mismatch"
+
+    - name: SSH connection to Actions
+      uses: kiddin9/debugger-action@master
+      if: 1 == 0
 
     - name: Modify
       run: |
@@ -218,6 +221,11 @@ jobs:
         sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
         sed -i 's/\(+samba4-server\)/\1 +autoshare-samba/' luci-app-samba4/Makefile
         sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
+        for pkg in $(ls -d luci-*); do
+          if [ "$(grep "luci.mk" $pkg/Makefile)" ]; then
+            sed -i '/\(PKG_VERSION\|PKG_RELEASE\):=/d' $pkg/Makefile
+          fi
+        done
         
         sed -i \
           -e 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?' \
@@ -225,14 +233,24 @@ jobs:
           -e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?' \
           -e 's/ca-certificates/ca-bundle/' \
           */Makefile
-          
+        
+        for pkg in $(ls -d */); do
+          sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=$(git rev-list --count master $pkg)/" $pkg/Makefile || true
+        done
+        
         while [ ! -f /tmp/ok ]; do
           sleep 1
         done
-        
+      
     - name: Apply
       run: |
         Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
+        git add .
+        git commit -m "${Emoji[$[$RANDOM % ${#Emoji[@]}]]} Sync $(date +%Y-%m-%d" "%H:%M:%S)" || true
+        for pkg in $(ls -d */); do
+          sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=$(git rev-list --count master $pkg)/" $pkg/Makefile || true
+        done
+        git reset --soft HEAD^
         git add .
         git commit -m "${Emoji[$[$RANDOM % ${#Emoji[@]}]]} Sync $(date +%Y-%m-%d" "%H:%M:%S)" || true
         git push
@@ -243,3 +261,4 @@ jobs:
       with:
         retain_days: 1
         keep_minimum_runs: 3
+
