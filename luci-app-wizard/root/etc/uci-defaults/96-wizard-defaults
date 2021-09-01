@@ -9,8 +9,8 @@ uci set wizard.default=wizard
 uci set wizard.default.wifi_ssid="$SSID"
 uci set wizard.default.wifi_key="$KEY"
 uci set wizard.default.lan_ipaddr="$IPADDR"
+uci set wizard.default.lan_netmask="$NETMASK"
 uci set wizard.default.wan_proto="$DHCP"
-NETMASK=$(uci get network.lan.netmask 2>/dev/null)
 
 uci commit wizard
 /etc/init.d/wizard stop
