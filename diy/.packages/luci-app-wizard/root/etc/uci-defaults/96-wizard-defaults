@@ -4,6 +4,7 @@ KEY=$(uci get wireless.@wifi-iface[0].key 2>/dev/null)
 IPADDR=$(uci get network.lan.ipaddr 2>/dev/null)
 NETMASK=$(uci get network.lan.netmask 2>/dev/null)
 DHCP=$(uci get network.wan.proto 2>/dev/null)
+/etc/init.d/wizard disable
 
 uci set wizard.default=wizard
 uci set wizard.default.wifi_ssid="$SSID"
@@ -13,5 +14,4 @@ uci set wizard.default.lan_netmask="$NETMASK"
 uci set wizard.default.wan_proto="$DHCP"
 
 uci commit wizard
-/etc/init.d/wizard stop
 exit 0
