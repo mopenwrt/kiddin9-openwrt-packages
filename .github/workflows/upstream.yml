@@ -230,7 +230,7 @@ jobs:
           */Makefile
         ) &
         
-        for pkg in $(ls -d luci-*); do
+        for pkg in $(find -maxdepth 1 -type d -name "luci-*" ! -name "luci-app-dockerman"); do
           if [ "$(grep "luci.mk" $pkg/Makefile)" ]; then
             sed -i '/\(PKG_VERSION\|PKG_RELEASE\):=/d' $pkg/Makefile
           fi
