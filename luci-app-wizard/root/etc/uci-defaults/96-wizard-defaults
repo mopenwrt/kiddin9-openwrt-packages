@@ -13,8 +13,8 @@ uci set wizard.default.wifi_key="$KEY"
 uci set wizard.default.lan_ipaddr="$IPADDR"
 uci set wizard.default.lan_netmask="$NETMASK"
 uci set wizard.default.wan_proto="$PROTO"
-uci set wizard.default.wan_pppoe_user='$USERNAME'
-uci set wizard.default.wan_pppoe_pass='$PASSWORD'
+uci set wizard.default.wan_pppoe_user="$USERNAME"
+uci set wizard.default.wan_pppoe_pass="$PASSWORD"
 
 uci commit wizard
 
