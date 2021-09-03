@@ -1,19 +1,28 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"PO-Revision-Date: 2021-05-15 14:32+0000\n"
+"Last-Translator: Marco Mihai Condrache <marcomihaicondrache@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsnft-qos/it/>\n"
+"Language: it\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:136
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:155
 msgid "Bytes Total"
-msgstr ""
+msgstr "Bytes totali"
 
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:141
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:160
 msgid "Collecting data..."
-msgstr ""
+msgstr "Raccolta dati..."
 
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:222
 msgid "Comment"
-msgstr ""
+msgstr "Commento"
 
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:50
 msgid "Default Download Rate"
@@ -89,12 +98,12 @@ msgstr ""
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:156
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:244
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:134
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:153
 msgid "IP Address"
-msgstr ""
+msgstr "Indirizzo IP"
 
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:128
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:161
@@ -149,7 +158,7 @@ msgstr ""
 
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:65
 msgid "No information available"
-msgstr ""
+msgstr "Nessuna informazione disponibile"
 
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:137
 #: applications/luci-app-nft-qos/luasrc/view/nft-qos/rate.htm:156
@@ -162,7 +171,7 @@ msgstr ""
 
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:197
 msgid "Protocol"
-msgstr ""
+msgstr "Protocollo"
 
 #: applications/luci-app-nft-qos/luasrc/controller/nft-qos.lua:21
 #: applications/luci-app-nft-qos/luasrc/model/cbi/nft-qos/nft-qos.lua:24

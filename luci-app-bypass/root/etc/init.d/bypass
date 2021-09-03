@@ -772,6 +772,9 @@ gen_dns(){
 		if [[ -f /etc/init.d/AdGuardHome ]]; then
 			if [ $adguardhome == 1 ]; then
 				if [[ ! "$(netstat -tunlp | grep 53 | grep -i AdGuardHome)" ]]; then
+					uci del dhcp.@dnsmasq[0].dns_redirect 2>/dev/null
+					uci add_list dhcp.lan.dhcp_option="6,$(uci get network.lan.ipaddr)"
+					uci commit dhcp
 					masqport="$(uci get AdGuardHome.AdGuardHome.old_port 2>/dev/null)"
 					adgconf="$(uci get AdGuardHome.AdGuardHome.configpath)"	
 					[ "$masqport" ] || masqport="$(grep "  port:.*" $adgconf | cut -f 4 -d " ")"
