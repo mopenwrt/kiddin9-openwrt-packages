@@ -769,7 +769,7 @@ gen_dns(){
 	gfw|oversea) port=5336;;
 	*) port=5337;;
 	esac
-	if [[ -f /etc/init.d/AdGuardHome ]]; then
+	if [[ -x /etc/init.d/AdGuardHome && "$(which AdGuardHome)" ]]; then
 		if [ $adguardhome == 1 ]; then
 			if [[ ! "$(netstat -tunlp | grep 53 | grep -i AdGuardHome)" ]]; then
 				uci del dhcp.@dnsmasq[0].dns_redirect 2>/dev/null
@@ -790,6 +790,8 @@ gen_dns(){
 			uci commit AdGuardHome
 			/etc/init.d/AdGuardHome stop
 		fi
+	elif [ $adguardhome == 1 ]; then
+		log "请确保系统中存在luci-app-adguardhome以及adg主程序!"
 	fi
 	cat >$DNS_FILE <<-EOF
 		no-resolv
