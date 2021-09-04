@@ -126,6 +126,7 @@ jobs:
         svn export https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus &
         svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf &
         svn export https://github.com/sirpdboy/netspeedtest/trunk/luci-app-netspeedtest &
+        svn export https://github.com/messense/aliyundrive-webdav/trunk/openwrt aliyundrive && mvdir aliyundrive &
         
         git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
