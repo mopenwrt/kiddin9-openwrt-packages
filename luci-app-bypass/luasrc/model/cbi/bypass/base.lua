@@ -66,7 +66,6 @@ o.default=1
 
 o=s:option(Flag,"adguardhome",translate("Used with AdGuardHome"),
 translate("Luci-app-adguardhome require"))
-o:depends("run_mode","router")
 o.default=0
 
 o=s:option(ListValue,"dports",translate("Proxy Ports"))
