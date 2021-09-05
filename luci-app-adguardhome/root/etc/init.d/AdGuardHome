@@ -548,11 +548,13 @@ stop_service()
 	fi
 	echo "AdGuardHome service disabled"
 	touch /var/run/AdGserverdis
+	killall AdGuardHome 2>/dev/null
+	/etc/init.d/dnsmasq restart
 }
 
 boot() {
 	rc_procd boot_service "$@"
-	if eval "type service_started" 2>/dev/null >/dev/null; then
+	if eval "type service_started" 2>/dev/null; then
 		service_started
 	fi
 }
