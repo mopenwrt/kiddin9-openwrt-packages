@@ -2,8 +2,6 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-vssr
 
-PKG_MAINTAINER:=lean	jerrykuku <jerrykuku@qq.com>
-
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan \
