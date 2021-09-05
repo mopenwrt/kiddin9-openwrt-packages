@@ -29,7 +29,7 @@
  	fi
  	echo "AdGuardHome service disabled"
  	touch /var/run/AdGserverdis
-+	killall AdGuardHome 2>/dev/null
++	killall -9 AdGuardHome 2>/dev/null
 +	/etc/init.d/dnsmasq restart
  }
  
