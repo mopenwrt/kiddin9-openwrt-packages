@@ -13,11 +13,12 @@
  	echo "AdGuardHome service enabled"
  	echo "luci enable switch=$enabled"
  	(sleep 10 && [ -z "$(pgrep $binpath)" ] && logger "AdGuardHome" "no process in 10s cancel redirect" && _do_redirect 0 )&
-+	if [[ "`uci get bypass.@global[0].global_server 2>/dev/null`" && "`uci get bypass.@global[0].adguardhome 2>/dev/null`" == 1 ]]; then
++	if [[ "`uci get bypass.@global[0].global_server 2>/dev/null`" && "`uci get bypass.@global[0].adguardhome 2>/dev/null`" == 1 && ! "$(netstat -tunlp | grep 53 | grep -i AdGuardHome)" ]]; then
 +		c1=0
 +			sleep 1
 +		while ! netstat -tunlp | grep 53 | grep -i AdGuardHome 2>&1; do
 +			/etc/init.d/bypass restart 2>/dev/null
++			sleep 1
 +			[ $c1 == 5 ] && break || let c1++
 +		done
 +	fi
