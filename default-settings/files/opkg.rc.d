@@ -22,14 +22,13 @@ function opkgupgrade() {
 	c1=0
 	c2=0
 	c3=0
-	rm -f /tmp/opkgupdate.log
 	while ! curl --retry 3 -m 5 https://op.supes.top >/dev/null 2>&1;do
-		echo "无法连接仓库服务器,请检查网络. $c1" >>/tmp/opkgupdate.log
+		echo "无法连接仓库服务器,请检查网络. $c1" | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log
 		[ $c1 == 120 ] && return || let c1++
 		sleep 5
 	done
 			while :; do
-			opkg update >>/tmp/opkgupdate.log 2>&1
+			opkg update | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1
 				if [ "$?" == "0" ]; then
 					def="$(opkg list-upgradable | cut -f 1 -d ' ' | grep -vE 'luci-app-opkg|luci-lib-fs|firewall|base-files|luci-base|busybox|dnsmasq-full|coremark|miniupnpd|luci-mod-network|luci-mod-status|luci-mod-system')"
 					if [ ! -f /etc/inited ]; then
@@ -39,9 +38,9 @@ function opkgupgrade() {
 					if [ "$upopkg" != " " ]; then
 							for ipk in $upopkg; do
 								while :; do
-									opkg install --force-overwrite --force-checksum --force-depends $ipk >>/tmp/opkgupdate.log 2>&1
+									opkg install --force-overwrite --force-checksum --force-depends $ipk | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1
 									if [[ $ipk == luci-app-* ]]; then
-										opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn >>/tmp/opkgupdate.log 2>&1
+										opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1
 									fi
 									[[ "$(opkg list-installed | grep $ipk)" ]] && {
 										break
@@ -59,7 +58,7 @@ function opkgupgrade() {
 					fi
 					[[ -f $BKOPKG/failed.txt &&  -f /etc/inited ]] && {
 						for ipk in $(cat $BKOPKG/failed.txt); do
-							opkg install --force-overwrite --force-checksum --force-depends $ipk >>/tmp/opkgupdate.log 2>&1
+							opkg install --force-overwrite --force-checksum --force-depends $ipk | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1
 							[[ "$(opkg list-installed | grep $ipk)" ]] && {
 								sed -i '/$ipk/d' $BKOPKG/failed.txt
 							}
