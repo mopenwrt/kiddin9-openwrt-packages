@@ -6,7 +6,7 @@ BKOPKG="/etc/backup"
 touch $LOCK
 mkdir -p $BKOPKG
 if [ ! -f /etc/inited ]; then
-	[ "$(uci get dhcp.@dnsmasq[0].noresolv)" ] && {
+	[ "$(uci get dhcp.@dnsmasq[0].noresolv) 2>/dev/null" ] && {
 		uci del dhcp.@dnsmasq[0].noresolv
 		uci commit dhcp
 		service dnsmasq reload
