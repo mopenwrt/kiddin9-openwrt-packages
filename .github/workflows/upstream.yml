@@ -180,6 +180,7 @@ jobs:
         shopt -s extglob
         (
         for pkg in $(ls !(luci-*|natflow|ngrokc|amule|rblibtorrent|ps3netsrv)/Makefile); do
+          if [ ! -d "`dirname $pkg`/patches" ]; then
             over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg | cut -f 2 -d '=')" || true
             if [ "$over" ]; then
               repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
@@ -196,6 +197,7 @@ jobs:
                   fi
               fi
             fi
+          fi
         done
         sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(git ls-remote --tags git://github.com/AdguardTeam/AdGuardHome | cut -d/ -f3- | sort -t. -nk2 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+")?" adguardhome/Makefile
         sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/Wind4/vlmcsd/releases/latest))?" vlmcsd/Makefile
