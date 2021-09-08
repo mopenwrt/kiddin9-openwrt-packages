@@ -133,7 +133,7 @@ jobs:
         applications/luci-app-ksmbd applications/luci-app-samba4 &
         
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy \
-        net/openvpn utils/cgroupfs-mount &
+        net/openvpn utils/cgroupfs-mount net/ariang &
         
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
         
