@@ -63,7 +63,6 @@ jobs:
         git clone --depth 1 https://github.com/kiddin9/qBittorrent-Enhanced-Edition &
         git clone --depth 1 https://github.com/kiddin9/autoshare && mvdir autoshare &
         git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && mvdir openwrt-openvpn &
-        git clone --depth 1 https://github.com/fw876/helloworld && mvdir helloworld &
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall &
         git clone --depth 1 https://github.com/Lienol/openwrt-package &
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust &
@@ -112,6 +111,7 @@ jobs:
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1 &
 
         svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot &
+        svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus &
         svn export https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns &
         svn export https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
         svn export https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync &
@@ -119,7 +119,6 @@ jobs:
         svn export https://github.com/coolsnowwolf/packages/trunk/net/mwan3 &
         svn export https://github.com/x-wrt/packages/trunk/net/nft-qos &
         svn export https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos &
-        svn export https://github.com/immortalwrt/immortalwrt/trunk/package/lean/shadowsocksr-libev &
         svn export https://github.com/vernesong/OpenClash/trunk/luci-app-openclash &
         svn export https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman &
         svn export https://github.com/doushang/luci-app-shortcutmenu/tunk/luci-app-shortcutmenu &
@@ -132,14 +131,14 @@ jobs:
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
         applications/luci-app-ksmbd applications/luci-app-samba4 &
         
-        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/shadowsocks-libev net/https-dns-proxy \
-        net/openvpn utils/cgroupfs-mount net/ariang &
+        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/https-dns-proxy \
+        net/openvpn utils/cgroupfs-mount net/ariang net/xray-core &
         
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan &
         
-        git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
+        git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
-        package/kernel/rtl8821cu package/kernel/rtl88x2bu &
+        package/kernel/rtl8821cu package/kernel/rtl88x2bu package/kernel/shortcut-fe package/kernel/fast-classifier &
         
         git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/adguardhome net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule net/gowebdav \
@@ -162,7 +161,8 @@ jobs:
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         rm -Rf */.git qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} subweb wget autosamba frp \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,advancedsetting,softethervpn,chinadns,docker,smstool,cifs-mount,cifsd} \
-        fcgiwrap ddns-scripts_{aliyun,dnspod} ipv6-helper ChinaDNS luci-theme-netgear csstidy samba4 UnblockNeteaseMusicGo
+        fcgiwrap ddns-scripts_{aliyun,dnspod} ipv6-helper ChinaDNS luci-theme-netgear csstidy samba4 UnblockNeteaseMusicGo \
+        xray-plugin
         mv mt/drivers mt/mt-drivers
         cp -Rf mt/* ./ && rm -Rf mt
 
@@ -179,7 +179,7 @@ jobs:
       run: |
         shopt -s extglob
         (
-        for pkg in $(ls !(luci-*|natflow|ngrokc|amule|rblibtorrent|ps3netsrv|rclone)/Makefile); do
+        for pkg in $(ls !(luci-*|natflow|ngrokc|amule|rblibtorrent|ps3netsrv|rclone|xray-core)/Makefile); do
             over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg | cut -f 2 -d '=')" || true
             if [ "$over" ]; then
               repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
@@ -208,7 +208,6 @@ jobs:
         cp -rf diy/.packages/* ./ || true
         (
         #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"`
-        rm -f subconverter/patches/010-missing-header.patch
         rm -f miniupnpd/patches/106-spam-syslog-ignoring.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         # sed -i 's/+docker-ce/+dockerd \\\n\t+docker \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
