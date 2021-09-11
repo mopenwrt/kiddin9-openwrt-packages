@@ -231,7 +231,7 @@ jobs:
         cp -rf diy/.packages/* ./ || true
         #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"`
         rm -f miniupnpd/patches/106-spam-syslog-ignoring.patch
-        rm -f amule/patches/001-amule-dlp.patch
+        rm -f amule/patches/001_amule-dlp.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         # sed -i 's/+docker-ce/+dockerd \\\n\t+docker \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
