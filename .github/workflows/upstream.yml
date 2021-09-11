@@ -64,15 +64,15 @@ jobs:
         git clone --depth 1 https://github.com/kiddin9/qBittorrent-Enhanced-Edition
         git clone --depth 1 https://github.com/kiddin9/autoshare && mvdir autoshare
         git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && mvdir openwrt-openvpn
+        git clone --depth 1 https://github.com/kiddin9/luci-app-xlnetacc
+        ) &
+        (
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall
         git clone --depth 1 https://github.com/Lienol/openwrt-package
         git clone --depth 1 https://github.com/BoringCat/luci-app-mentohust
-        git clone --depth 1 https://github.com/kiddin9/luci-app-xlnetacc
         git clone --depth 1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-autoipsetadder
         git clone --depth 1 https://github.com/NateLol/luci-app-beardropper
-        ) &
-        (
         git clone --depth 1 https://github.com/riverscn/openwrt-iptvhelper && mvdir openwrt-iptvhelper
         git clone --depth 1 https://github.com/project-lede/luci-app-godproxy
         git clone --depth 1 https://github.com/BoringCat/luci-app-minieap
@@ -82,6 +82,8 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable
         git clone --depth 1 https://github.com/silime/luci-app-xunlei
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap
+        ) &
+        (
         git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot
         git clone --depth 1 https://github.com/shanglanxin/luci-app-homebridge
         git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon
@@ -93,12 +95,12 @@ jobs:
         git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced
         git clone --depth 1 https://github.com/sirpdboy/luci-app-netdata
         git clone --depth 1 https://github.com/sirpdboy/luci-app-poweroffdevice
-        ) &
-        (
         git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset
         git clone --depth 1 https://github.com/wolandmaster/luci-app-rtorrent
         git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus
         git clone --depth 1 https://github.com/NateLol/luci-app-oled
+        ) &
+        (
         git clone --depth 1 https://github.com/destan19/OpenAppFilter && mvdir OpenAppFilter
         git clone --depth 1 https://github.com/esirplayground/luci-app-poweroff
         git clone --depth 1 https://github.com/lvqier/luci-app-dnsmasq-ipset
@@ -135,6 +137,7 @@ jobs:
         svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf
         svn export https://github.com/sirpdboy/netspeedtest/trunk/luci-app-netspeedtest
         svn export https://github.com/messense/aliyundrive-webdav/trunk/openwrt aliyundrive && mvdir aliyundrive
+        svn export https://github.com/kiddin9/openwrt-amule/trunk/antileech
         ) &
 
         (
@@ -228,6 +231,7 @@ jobs:
         cp -rf diy/.packages/* ./ || true
         #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"`
         rm -f miniupnpd/patches/106-spam-syslog-ignoring.patch
+        rm -f amule/patches/001-amule-dlp.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         # sed -i 's/+docker-ce/+dockerd \\\n\t+docker \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
         sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
