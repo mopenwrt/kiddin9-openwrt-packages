@@ -82,6 +82,7 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable
         git clone --depth 1 https://github.com/silime/luci-app-xunlei
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap
+        git clone --depth 1 https://github.com/kiddin9/openwrt-amule && mvdir openwrt-amule
         ) &
         (
         git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot
@@ -137,7 +138,6 @@ jobs:
         svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf
         svn export https://github.com/sirpdboy/netspeedtest/trunk/luci-app-netspeedtest
         svn export https://github.com/messense/aliyundrive-webdav/trunk/openwrt aliyundrive && mvdir aliyundrive
-        svn export https://github.com/kiddin9/openwrt-amule/trunk/antileech
         ) &
 
         (
@@ -158,7 +158,7 @@ jobs:
         ) &
         
         git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/adguardhome net/mwol net/nps net/verysync net/sub-web \
-        net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/amule net/gowebdav \
+        net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/gowebdav \
         admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron libs/quickjspp \
         utils/cpulimit utils/filebrowser utils/phicomm-k3screenctrl multimedia/gmediarender multimedia/UnblockNeteaseMusic-Go
 
@@ -223,7 +223,6 @@ jobs:
         done
         sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(curl -s https://api.github.com/repos/AdguardTeam/AdGuardHome/tags | jq -r '.[0].name' | grep -o -E "[0-9].+")?" adguardhome/Makefile
         sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/Wind4/vlmcsd/releases/latest))?" vlmcsd/Makefile
-        sed -i 's/PKG_SOURCE_VERSION:=v$(PKG_VERSION)/PKG_SOURCE_VERSION:=$(PKG_VERSION)/' amule/Makefile
         touch /tmp/ok
         bash diy/create_acl_for_luci.sh -a >/dev/null 2>&1 || true
         bash diy/convert_translation.sh -a >/dev/null 2>&1 || true
@@ -231,10 +230,9 @@ jobs:
         cp -rf diy/.packages/* ./ || true
         #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"`
         rm -f miniupnpd/patches/106-spam-syslog-ignoring.patch
-        rm -f amule/patches/001_amule-dlp.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
         # sed -i 's/+docker-ce/+dockerd \\\n\t+docker \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
-        sed -i 's/+amule/+amule +antileech/' luci-app-amule/Makefile
+        sed -i 's/+amule/+amule-dlp +antileech/' luci-app-amule/Makefile
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
