@@ -53,6 +53,7 @@ jobs:
         mv -n `find $1/* -maxdepth 0 -type d` ./
         rm -rf $1
         }
+        
         git clone --depth 1 https://github.com/kiddin9/my-packages && mvdir my-packages &
         git clone --depth 1 https://github.com/kiddin9/openwrt-bypass && mvdir openwrt-bypass &
         git clone --depth 1 https://github.com/kiddin9/luci-app-dnsfilter &
@@ -179,13 +180,32 @@ jobs:
       run: |
         shopt -s extglob
         (
+        function latesttag() {
+          script='query {
+            repository(owner: \"'"$1"'\", name: \"'"$2"'\") {
+              refs(refPrefix: \"refs/tags/\", last: 2, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {
+                edges {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }'
+          script="$(echo $script)"
+          (curl -gs -H 'Content-Type: application/json' \
+             -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" \
+             -X POST -d "{ \"query\": \"$script\"}" https://api.github.com/graphql) | jq -r '.data.repository.refs.edges[-1].node.name'
+        }
         for pkg in $(ls !(luci-*|natflow|ngrokc|amule|rblibtorrent|ps3netsrv|rclone|xray-core)/Makefile); do
             over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg | cut -f 2 -d '=')" || true
             if [ "$over" ]; then
               repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
               if [ "$repo" ]; then
-                ver="$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$repo/releases/latest) | grep -o -E "[0-9].+")" || true
-                [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+")" || true
+                owner="$(echo $repo | cut -f 1 -d '/')"
+                name="$(echo $repo | cut -f 2 -d '/')"
+                ver="$(latesttag $owner $name | grep -o -E "[0-9].+")" || true
+                # [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+")" || true
                 echo "$repo-$ver"
                   if [ "$ver" ]; then
                     function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
