@@ -65,6 +65,7 @@ jobs:
         git clone --depth 1 https://github.com/kiddin9/autoshare && mvdir autoshare
         git clone --depth 1 https://github.com/kiddin9/openwrt-openvpn && mvdir openwrt-openvpn
         git clone --depth 1 https://github.com/kiddin9/luci-app-xlnetacc
+        git clone --depth 1 https://github.com/kiddin9/openwrt-amule-dlp && mvdir openwrt-amule-dlp
         ) &
         (
         git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall
@@ -82,7 +83,6 @@ jobs:
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-usb3disable
         git clone --depth 1 https://github.com/silime/luci-app-xunlei
         git clone --depth 1 https://github.com/ysc3839/luci-proto-minieap
-        git clone --depth 1 https://github.com/kiddin9/openwrt-amule && mvdir openwrt-amule
         ) &
         (
         git clone --depth 1 https://github.com/zzsj0928/luci-app-pushbot
