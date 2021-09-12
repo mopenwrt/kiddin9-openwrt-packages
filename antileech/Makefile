@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=antileech
 PKG_VERSION:=2.3.2
-PKG_RELEASE:=13
+PKG_RELEASE:=14
 
 #PKG_SOURCE:=antileech-2.3.1.tar.gz
 #PKG_SOURCE_URL:=@SF/amule
@@ -26,7 +26,7 @@ define Package/antileech
   CATEGORY:=Network
   TITLE:=AntiLeech for amule
   URL:=http://www.amule.org/
-  DEPENDS:=+libc +amule +libwxbase
+  DEPENDS:=+libc +libwxbase
 endef
 
 TARGET_LDFLAGS += \
