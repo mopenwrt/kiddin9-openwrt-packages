@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aMule-DLP
 PKG_VERSION:=2.3.3
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/persmule/amule-dlp.git
@@ -52,8 +52,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	unzip $(DL_DIR)/AmuleWebUI.zip -d $(PKG_BUILD_DIR)/src/webserver/
-	mv -f $(PKG_BUILD_DIR)/src/webserver/AmuleWebUI-Reloaded-master $(PKG_BUILD_DIR)/src/webserver/AmuleWebUI-Reloaded
+	unzip $(DL_DIR)/AmuleWebUI.zip -d $(DL_DIR)
 	
 endef
 
@@ -111,6 +110,7 @@ define Package/amule-dlp/install
 
 	$(INSTALL_DIR) $(1)/usr/share
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/amule-dlp $(1)/usr/share/
+	$(CP) $(DL_DIR)/AmuleWebUI-Reloaded-master $(1)/usr/share/amule-dlp/webserver/AmuleWebUI-Reloaded
 endef
 
 $(eval $(call Download,AmuleWebUI))
