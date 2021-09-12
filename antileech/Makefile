@@ -1,7 +1,7 @@
 #
-# Copyright (C) 2007-2009 OpenWrt.org
+# Copyright (C) 2007-2021 OpenWrt.org
 #
-# This is free software, licensed under the GNU General Public License v2.
+# This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
 #
 
@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=antileech
 PKG_VERSION:=2.3.2
-PKG_RELEASE:=14
+PKG_RELEASE:=15
 
 #PKG_SOURCE:=antileech-2.3.1.tar.gz
 #PKG_SOURCE_URL:=@SF/amule

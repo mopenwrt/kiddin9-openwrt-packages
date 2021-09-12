@@ -1,5 +1,5 @@
-# Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
+#
+# Copyright (C) 2007-2021 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aMule-DLP
 PKG_VERSION:=2.3.3
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/persmule/amule-dlp.git
