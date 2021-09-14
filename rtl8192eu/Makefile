@@ -1,9 +1,5 @@
 #
-# Copyright (C) 2020 stepheny
-# <https://github.com/aircrack-ng/rtl8812au/pull/619>
-#
 # Copyright (C) 2021 ImmortalWrt
-# <https://immortalwrt.org>
 #
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
@@ -11,18 +7,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=rtl8812au-ac
-PKG_RELEASE:=25
+PKG_NAME:=rtl8192eu
+PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=https://github.com/aircrack-ng/rtl8812au.git
+PKG_SOURCE_URL:=https://github.com/Mange/rtl8192eu-linux-driver.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE:=2021-05-22
+PKG_SOURCE_DATE:=2021-05-12
 PKG_SOURCE_VERSION:=HEAD
 PKG_MIRROR_HASH:=skip
-
-PKG_LICENSE:=GPL-2.0
-PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=Marty Jones <mj8263788@gmail.com>
 
 PKG_BUILD_PARALLEL:=1
 
@@ -31,13 +23,12 @@ STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backpor
 include $(INCLUDE_DIR)/kernel.mk
 include $(INCLUDE_DIR)/package.mk
 
-define KernelPackage/rtl8812au-ac
+define KernelPackage/rtl8192eu
   SUBMENU:=Wireless Drivers
-  TITLE:=Realtek RTL8812AU/21AU wireless drivers
-  DEPENDS:=+kmod-cfg80211 +kmod-usb-core +@DRIVER_11N_SUPPORT +@DRIVER_11AC_SUPPORT
-  FILES:=$(PKG_BUILD_DIR)/rtl8812au.ko
-  AUTOLOAD:=$(call AutoProbe,rtl8812au)
-  CONFLICTS:=kmod-rtl8812au-ct
+  TITLE:=Realtek RTL8192EU support
+  DEPENDS:=+kmod-cfg80211 +kmod-usb-core +@DRIVER_11N_SUPPORT
+  FILES:=$(PKG_BUILD_DIR)/rtl8192eu.ko
+  AUTOLOAD:=$(call AutoProbe,rtl8192eu)
 endef
 
 NOSTDINC_FLAGS = \
@@ -49,10 +40,6 @@ NOSTDINC_FLAGS = \
 	-I$(STAGING_DIR)/usr/include/mac80211/uapi \
 	-include backport/autoconf.h \
 	-include backport/backport.h
-
-EXTRA_KCONFIG:= \
-	CONFIG_88XXAU=m \
-	USER_MODULE_NAME=rtl8812au
 
 EXTRA_CFLAGS:= \
 	-DRTW_SINGLE_WIPHY \
@@ -67,6 +54,10 @@ else
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
 endif
 
+EXTRA_KCONFIG:= \
+	CONFIG_RTL8192EU=m \
+	USER_MODULE_NAME=rtl8192eu
+
 MAKE_OPTS:= \
 	$(KERNEL_MAKE_FLAGS) \
 	M="$(PKG_BUILD_DIR)" \
@@ -80,4 +71,4 @@ define Build/Compile
 		modules
 endef
 
-$(eval $(call KernelPackage,rtl8812au-ac))
+$(eval $(call KernelPackage,rtl8192eu))

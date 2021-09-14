@@ -17,7 +17,7 @@ PKG_RELEASE=2
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/hzeller/gmrender-resurrect.git
 PKG_SOURCE_DATE:=2021-01-15
-PKG_SOURCE_VERSION:=v$(PKG_VERSION)
+PKG_SOURCE_VERSION:=baca12bcfd573d9a30aaecbfbd05623352a1e1e8
 PKG_MIRROR_HASH:=skip
 
 PKG_REMOVE_FILES:=autogen.sh aclocal.m4

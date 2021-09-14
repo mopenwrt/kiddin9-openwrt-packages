@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aliyundrive-webdav
 PKG_VERSION:=0.1.26
-PKG_RELEASE:=8
+PKG_RELEASE:=9
 
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=messense <messense@icloud.com>
@@ -43,7 +43,20 @@ define Package/$(PKG_NAME)/conffiles
 /etc/config/aliyundrive-webdav
 endef
 
+define Download/sha256sum
+	FILE:=$(PKG_SOURCE).sha256
+	URL_FILE:=$(FILE)
+	URL:=$(PKG_SOURCE_URL)
+	HASH:=skip
+endef
+$(eval $(call Download,sha256sum))
+
 define Build/Prepare
+	mv $(DL_DIR)/$(PKG_SOURCE).sha256 .
+	cp $(DL_DIR)/$(PKG_SOURCE) .
+	shasum -a 256 -c $(PKG_SOURCE).sha256
+	rm $(PKG_SOURCE).sha256 $(PKG_SOURCE)
+
 	tar -C $(PKG_BUILD_DIR)/ -zxf $(DL_DIR)/$(PKG_SOURCE)
 endef
 

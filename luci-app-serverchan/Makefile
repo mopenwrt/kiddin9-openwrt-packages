@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-serverchan
 
-PKG_MAINTAINER:=tty228
+PKG_MAINTAINER:=tty228 <tty228@yeah.net>
 
 LUCI_TITLE:=LuCI support for serverchan
 LUCI_PKGARCH:=all

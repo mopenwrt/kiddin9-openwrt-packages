@@ -1,9 +1,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-dnsfilter
-PKG_LICENSE:=GPLv2
 
-PKG_MAINTAINER:=small_5 GaryPang
+PKG_LICENSE:=GPLv2
+PKG_MAINTAINER:=small_5 kiddin9
 
 LUCI_TITLE:=LuCI support for DNSFilter
 LUCI_PKGARCH:=all
