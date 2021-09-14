@@ -153,7 +153,7 @@ jobs:
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
         
         git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
-        package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac \
+        package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac package/kernel/rtl8192eu \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu package/kernel/shortcut-fe package/kernel/fast-classifier
         ) &
         
@@ -198,29 +198,30 @@ jobs:
         function latesttag() {
           (curl -gs -H 'Content-Type: application/json' \
              -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" \
-             -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\") {refs(refPrefix: \"refs/tags/\", last: 2, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {edges {node {name}}}}}"}' https://api.github.com/graphql) | jq -r '.data.repository.refs.edges[-1].node.name'
+             -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\") {refs(refPrefix: \"refs/tags/\", last: 2, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {edges {node {name target {oid}}}}}}"}' https://api.github.com/graphql)
         }
-        for pkg in $(ls !(luci-*|natflow|ngrokc|rblibtorrent|ps3netsrv|rclone|xray-core)/Makefile); do
-            over="$(grep -E PKG_VERSION:=[0-9.]+$ $pkg | cut -f 2 -d '=')" || true
+        for pkg in $(ls !(luci-*|natflow|ps3netsrv|rblibtorrent|rclone|xray-core|shadowsocksr-libev|rtl8821cu)/Makefile); do
+            sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=HEAD/" $pkg || true
+            over="$(grep -E PKG_VERSION:=.*$ $pkg | cut -f 2 -d '=' | sed -e 's/^\(v\|release-\)//' | grep -E "[0-9]")" || true
             if [ "$over" ]; then
               repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
               if [ "$repo" ]; then
                 owner="$(echo $repo | cut -f 1 -d '/')"
                 name="$(echo $repo | cut -f 2 -d '/')"
-                ver="$(latesttag $owner $name | grep -o -E "[0-9].+")" || true
-                # [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].+")" || true
+                ver="$(latesttag $owner $name | jq -r '.data.repository.refs.edges[-1].node.name' | sed -e 's/^\(v\|release-\)//' | grep -E "^[^()]*$" | grep -E "[0-9]")" || true
+                # [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].*")" || true
                 echo "$repo-$ver"
                   if [ "$ver" ]; then
                     function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
                     if version_lt "$over" "$ver"; then
-                      sed -i 's/PKG_SOURCE_VERSION:=[0-9a-z]\{7,\}/PKG_SOURCE_VERSION:=v$(PKG_VERSION)/' $pkg || true
+                      sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(latesttag $owner $name | jq -r '.data.repository.refs.edges[-1].node.target.oid')/" $pkg || true
                       sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/" $pkg || true
                     fi || true
                   fi
               fi
             fi
         done
-        sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(curl -s https://api.github.com/repos/AdguardTeam/AdGuardHome/tags | jq -r '.[0].name' | grep -o -E "[0-9].+")?" adguardhome/Makefile
+        sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(curl -s https://api.github.com/repos/AdguardTeam/AdGuardHome/tags | jq -r '.[0].name' | grep -o -E "[0-9].*")?" adguardhome/Makefile
         sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/Wind4/vlmcsd/releases/latest))?" vlmcsd/Makefile
         touch /tmp/ok
         bash diy/create_acl_for_luci.sh -a >/dev/null 2>&1 || true
