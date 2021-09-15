@@ -9,11 +9,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mentohust
 PKG_VERSION:=0.3.1
-PKG_RELEASE:=13
+PKG_RELEASE:=14
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git
-PKG_SOURCE_VERSION:=HEAD
+PKG_SOURCE_VERSION:=557cffca8032b6d8ac948be8a79255dc64a1915d
 PKG_MIRROR_HASH:=skip
 
 MAKE_PATH:=src
