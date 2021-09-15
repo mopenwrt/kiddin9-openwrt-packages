@@ -117,29 +117,26 @@ jobs:
         git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c
         git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1
         ) &
+        svn export https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
         (
         svn export https://github.com/Lienol/openwrt/trunk/package/lean/luci-app-autoreboot
         svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus
         svn export https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-ddns/trunk/tencentcloud_ddns luci-app-tencentddns
-        svn export https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean
         svn export https://github.com/coolsnowwolf/lede/trunk/package/network/services/shellsync
         svn export https://github.com/coolsnowwolf/packages/trunk/net/miniupnpd
-        ) &
-        (
         svn export https://github.com/coolsnowwolf/packages/trunk/net/mwan3
         svn export https://github.com/x-wrt/packages/trunk/net/nft-qos
         svn export https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos
         svn export https://github.com/vernesong/OpenClash/trunk/luci-app-openclash
         svn export https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman
-        svn export https://github.com/doushang/luci-app-shortcutmenu/tunk/luci-app-shortcutmenu
         ) &
         (
+        svn export https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu
         svn export https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
         svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf
         svn export https://github.com/sirpdboy/netspeedtest/trunk/luci-app-netspeedtest
         svn export https://github.com/messense/aliyundrive-webdav/trunk/openwrt aliyundrive && mvdir aliyundrive
         ) &
-
         (
         git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
         applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
@@ -148,7 +145,6 @@ jobs:
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/https-dns-proxy \
         net/openvpn utils/cgroupfs-mount net/ariang net/xray-core
         ) &
-        
         (
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
         
@@ -195,35 +191,36 @@ jobs:
       run: |
         shopt -s extglob
         (
-        function latesttag() {
+        function latest() {
           (curl -gs -H 'Content-Type: application/json' \
              -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" \
-             -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\") {refs(refPrefix: \"refs/tags/\", last: 2, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {edges {node {name target {oid}}}}}}"}' https://api.github.com/graphql)
+             -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\"){refs(refPrefix:\"refs/tags/\",last:1,orderBy:{field:TAG_COMMIT_DATE,direction:ASC}){edges{node{name target{oid}}}}defaultBranchRef{target{...on Commit {oid}}}}}"}' https://api.github.com/graphql)
         }
-        for pkg in $(ls !(luci-*|natflow|ps3netsrv|rblibtorrent|rclone|xray-core|shadowsocksr-libev|rtl8821cu)/Makefile); do
-            sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=HEAD/" $pkg || true
+        for pkg in $(ls !(luci-*|natflow|ps3netsrv|rblibtorrent|rclone|xray-core|shadowsocksr-libev|rtl8821cu|n2n_v2|ngrok-c)/Makefile); do
+          repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
+          if [ "$repo" ]; then
+            owner="$(echo $repo | cut -f 1 -d '/')"
+            name="$(echo $repo | cut -f 2 -d '/')"
+            latest="$(latest $owner $name)"
+            sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(echo $latest | jq -r '.data.repository.defaultBranchRef.target.oid')/" $pkg || true
             over="$(grep -E PKG_VERSION:=.*$ $pkg | cut -f 2 -d '=' | sed -e 's/^\(v\|release-\)//' | grep -E "[0-9]")" || true
             if [ "$over" ]; then
-              repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
-              if [ "$repo" ]; then
-                owner="$(echo $repo | cut -f 1 -d '/')"
-                name="$(echo $repo | cut -f 2 -d '/')"
-                ver="$(latesttag $owner $name | jq -r '.data.repository.refs.edges[-1].node.name' | sed -e 's/^\(v\|release-\)//' | grep -E "^[^()]*$" | grep -E "[0-9]")" || true
-                # [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].*")" || true
-                echo "$repo-$ver"
-                  if [ "$ver" ]; then
-                    function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
-                    if version_lt "$over" "$ver"; then
-                      sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(latesttag $owner $name | jq -r '.data.repository.refs.edges[-1].node.target.oid')/" $pkg || true
-                      sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/" $pkg || true
-                    fi || true
-                  fi
+              ver="$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.name' | sed -e 's/^\(v\|release-\)//' | grep -E "^[^()]*$" | grep -E "[0-9]")" || true
+              # [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].*")" || true
+              echo "$repo-$ver"
+              if [ "$ver" ]; then
+                function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
+                if version_lt "$over" "$ver"; then
+                  sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.target.oid')/" $pkg || true
+                  sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/" $pkg || true
+                fi || true
               fi
             fi
+          fi
         done
-        sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(curl -s https://api.github.com/repos/AdguardTeam/AdGuardHome/tags | jq -r '.[0].name' | grep -o -E "[0-9].*")?" adguardhome/Makefile
-        sed -i "s?PKG_VERSION:=.*?PKG_VERSION:=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/Wind4/vlmcsd/releases/latest))?" vlmcsd/Makefile
         touch /tmp/ok
+        ) &
+        (
         bash diy/create_acl_for_luci.sh -a >/dev/null 2>&1 || true
         bash diy/convert_translation.sh -a >/dev/null 2>&1 || true
         
