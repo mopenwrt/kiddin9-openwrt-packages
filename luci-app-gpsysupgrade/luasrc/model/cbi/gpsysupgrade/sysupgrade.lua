@@ -122,7 +122,7 @@ function to_flash(file,retain)
 if not retain or retain == "" then
 	local result = api.exec("/sbin/sysupgrade", {file}, nil, api.command_timeout) == 0
 else
-	if retain:match(".*-k.*") then
+	if retain:match(".*-q .*") then
 		luci.sys.exec("echo -e /etc/backup/user_installed.opkg>/lib/upgrade/keep.d/luci-app-gpsysupgrade")
 	end
 	sys.exec("/sbin/sysupgrade " ..retain.. " " ..file.. "")
