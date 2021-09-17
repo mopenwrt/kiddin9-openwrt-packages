@@ -196,7 +196,7 @@ jobs:
              -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" \
              -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\"){refs(refPrefix:\"refs/tags/\",last:1,orderBy:{field:TAG_COMMIT_DATE,direction:ASC}){edges{node{name target{oid}}}}defaultBranchRef{target{...on Commit {oid}}}}}"}' https://api.github.com/graphql)
         }
-        for pkg in $(ls !(luci-*|natflow|ps3netsrv|rblibtorrent|rclone|xray-core|shadowsocksr-libev|rtl8821cu|n2n_v2|ngrokc)/Makefile); do
+        for pkg in $(ls !(luci-*|natflow|ps3netsrv|rblibtorrent|shadowsocksr-libev|n2n_v2|rtl8821cu)/Makefile); do
           repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
           if [ "$repo" ]; then
             owner="$(echo $repo | cut -f 1 -d '/')"
@@ -227,7 +227,9 @@ jobs:
         cp -rf diy/.packages/* ./ || true
         #sed -i 's?"http://" + window.location.hostname?window.location.protocol + "//" + window.location.hostname?g' `find luci-app*/luasrc/view/ -maxdepth 2 -name "*.htm"`
         rm -f miniupnpd/patches/106-spam-syslog-ignoring.patch
+        rm -f rclone/patches/010-change-default-config-path.patch
         sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
+        sed -i 's/+libstdcpp/+libstdcpp +zlib/' ngrokc/Makefile
         # sed -i 's/+docker-ce/+dockerd \\\n\t+docker \\\n\t+cgroupfs-mount/' luci-app-dockerman/Makefile
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
