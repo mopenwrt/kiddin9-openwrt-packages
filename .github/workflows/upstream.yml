@@ -207,12 +207,12 @@ jobs:
             if [ "$over" ]; then
               ver="$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.name' | sed -e 's/^\(v\|release-\)//' | grep -E "^[^()]*$" | grep -E "[0-9]")" || true
               # [ "$ver" ] || ver="$(git ls-remote --tags git://github.com/$repo | cut -d/ -f3- | sort -t. -nk1,3 | awk '/^[^{]*$/{version=$1}END{print version}' | grep -o -E "[0-9].*")" || true
-              echo "$repo-$ver"
+              echo "$repo-$over-$ver"
               if [ "$ver" ]; then
                 function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
                 if version_lt "$over" "$ver"; then
-                  sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.target.oid')/" $pkg || true
-                  sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/" $pkg || true
+                  sed -i -e "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.target.oid')/" \
+                         -e "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/" $pkg || true
                 fi || true
               fi
             fi
