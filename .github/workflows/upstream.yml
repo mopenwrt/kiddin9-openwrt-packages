@@ -155,7 +155,7 @@ jobs:
         
         git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/adguardhome net/mwol net/nps net/verysync net/sub-web \
         net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gost net/gowebdav \
-        admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron libs/quickjspp \
+        admin/bpytop libs/jpcre2 libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 \
         utils/cpulimit utils/filebrowser utils/phicomm-k3screenctrl multimedia/gmediarender multimedia/UnblockNeteaseMusic-Go
 
         svn export --force https://github.com/immortalwrt/luci/trunk/applications
