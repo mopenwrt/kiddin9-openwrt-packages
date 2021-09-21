@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=subconverter
 PKG_BASE_VERSION:=0.7.0
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tindy2013/subconverter.git
 PKG_SOURCE_DATE:=2021-09-20
-PKG_SOURCE_VERSION:=fc641444aad07ebb620ac7c0c9501ffeddfa60d3
+PKG_SOURCE_VERSION:=09d07713f3ae8cbed7c9e931e4d73a6365d97861
 PKG_MIRROR_HASH:=skip
 
 PKG_VERSION:=$(PKG_BASE_VERSION)-$(PKG_SOURCE_DATE)-$(call version_abbrev,$(PKG_SOURCE_VERSION))
@@ -20,7 +20,7 @@ PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 
-PKG_BUILD_DEPENDS:=jpcre2 libcron quickjspp rapidjson
+PKG_BUILD_DEPENDS:=jpcre2 libcron quickjspp rapidjson toml11
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -31,7 +31,8 @@ define Package/subconverter
   CATEGORY:=Utilities
   TITLE:=Utility to convert between various subscription format
   URL:=https://github.com/tindy2013/subconverter
-  DEPENDS:=+libatomic +libpthread +libstdcpp +libevent2 +libyaml-cpp +libpcre2 +libcurl +zlib
+  DEPENDS:=+libatomic +libcurl +libevent2 +libpcre2 +libpthread \
+	+libstdcpp +libyaml-cpp +zlib
 endef
 
 define Package/subconverter/description
