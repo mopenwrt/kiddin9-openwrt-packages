@@ -198,6 +198,12 @@ while : ; do
 			sleep ${RETRY_SECONDS} &
 		else
 			write_log 7 "Waiting ${CHECK_SECONDS} seconds (Check Interval)"
+			[ -f /etc/config/dhcp.fs ] || cat /etc/config/dhcp > /etc/config/dhcp.fs
+			if ! uci -q show dhcp.@dnsmasq[0] >/dev/null; then
+				cat /etc/config/dhcp.fs > /etc/config/dhcp
+				/etc/init.d/dnsmasq reload
+				write_log 3 "DHCP failsafe mode."
+			fi
 			[ -f /etc/config/wireless.fs ] || cat /etc/config/wireless > /etc/config/wireless.fs
 			cat /etc/config/wireless.fs > /etc/config/wireless
 			reload_wifi

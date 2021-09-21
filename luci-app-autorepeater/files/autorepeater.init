@@ -4,6 +4,7 @@ STOP=10
 
 . /usr/lib/autorepeater/autorepeater_functions.sh
 boot() {
+	[ -f "/etc/config/dhcp.fs" ] || cat /etc/config/dhcp > /etc/config/dhcp.fs
 	[ -f "/etc/config/wireless.fs" ] || cat /etc/config/wireless > /etc/config/wireless.fs
 	start
 	#return 0
