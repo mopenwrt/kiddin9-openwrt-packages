@@ -195,7 +195,7 @@ jobs:
         function latest() {
           (curl -gs -H 'Content-Type: application/json' \
              -H "Authorization: Bearer ${{ secrets.REPO_TOKEN }}" \
-             -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\"){refs(refPrefix:\"refs/tags/\",last:1,orderBy:{field:TAG_COMMIT_DATE,direction:ASC}){edges{node{name target{oid}}}}defaultBranchRef{target{...on Commit {oid}}}}}"}' https://api.github.com/graphql)
+             -X POST -d '{ "query": "query {repository(owner: \"'"$1"'\", name: \"'"$2"'\"){refs(refPrefix:\"refs/tags/\",last:1,orderBy:{field:TAG_COMMIT_DATE,direction:ASC}){edges{node{name target{commitUrl}}}}defaultBranchRef{target{...on Commit {oid}}}}}"}' https://api.github.com/graphql)
         }
         for pkg in $(ls !(luci-*|natflow|ps3netsrv|rblibtorrent|shadowsocksr-libev|n2n_v2|rtl8821cu)/Makefile); do
           repo="$(grep PKG_SOURCE_URL $pkg | grep github | cut -f 4-5 -d '/' | sed -e 's/.git//' | grep -E '[0-9a-zA-Z_-]+$')" || true
@@ -212,7 +212,7 @@ jobs:
               if [ "$ver" ]; then
                 function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
                 if version_lt "$over" "$ver"; then
-                  sed -i -e "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.target.oid')/" \
+                  sed -i -e "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=$(echo $latest | jq -r '.data.repository.refs.edges[-1].node.target.commitUrl' | cut -f 7 -d /)/" \
                          -e "s/PKG_VERSION:=.*/PKG_VERSION:=$ver/" $pkg || true
                 fi || true
               fi
