@@ -150,7 +150,7 @@ jobs:
         
         git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac package/kernel/rtl8192eu \
-        package/kernel/rtl8821cu package/kernel/rtl88x2bu package/kernel/shortcut-fe package/kernel/fast-classifier
+        package/kernel/rtl8821cu package/kernel/rtl88x2bu
         ) &
         
         git_sparse_clone master "https://github.com/immortalwrt/packages" "immpkgs" net/adguardhome net/mwol net/nps net/verysync net/sub-web \
@@ -168,8 +168,9 @@ jobs:
 
     - name: Delete duplicated packages
       run: |
+        shopt -s extglob
         mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
-        mv -n applications/* ./ ; rm -Rf applications
+        mv -n applications/!(luci-app-turboacc) ./ ; rm -Rf applications
         mv -n ledelean/* ./ ; rm -Rf ledelean
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         rm -Rf */.git qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder} subweb wget autosamba frp \
