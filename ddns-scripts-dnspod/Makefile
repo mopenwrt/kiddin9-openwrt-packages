@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ddns-scripts-dnspod
 PKG_VERSION:=1.0.3
-PKG_RELEASE:=11
+PKG_RELEASE:=12
 
 PKG_LICENSE:=GPLv2
 PKG_MAINTAINER:=Small_5
