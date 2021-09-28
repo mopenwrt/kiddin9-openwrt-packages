@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-netspeedtest
 PKG_VERSION:=1.6
-PKG_RELEASE:=13
+PKG_RELEASE:=14
 PKG_LICENSE:=GPLv2
 PKG_MAINTAINER:=sirpdboy
 
@@ -19,15 +19,20 @@ define Package/$(PKG_NAME)
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
 	TITLE:=LuCI Support for netspeedtest
-	PKGARCH:=all
 	DEPENDS:=+python3 +iperf3
+	DESCRIPTION:=LuCI support Network speed test intranet and Extranet
+	PKGARCH:=all
+endef
+
+define Package/$(PKG_NAME)/description
+	Luci Support for netspeedtest.
 endef
 
 define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/conffiles
-	/etc/config/netspeedtest
+/etc/config/netspeedtest
 endef
 
 define Package/$(PKG_NAME)/install
@@ -36,7 +41,8 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/
 	cp -pR ./root/* $(1)/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	po2lmo ./po/zh-cn/netspeedtest.po $(1)/usr/lib/lua/luci/i18n/netspeedtest.zh-cn.lmo
+	po2lmo ./po/zh-cn/netspeedtest.po $(1)/usr/lib/lua/luci/i18n/netspeedtest.lmo
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
+
