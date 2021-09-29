@@ -27,8 +27,8 @@ ifeq ($(ARCH),powerpc64)
 endif
 
 PKG_NAME:=verysync
-PKG_VERSION:=2.10.2
-PKG_RELEASE:=16
+PKG_VERSION:=2.10.4
+PKG_RELEASE:=17
 
 PKG_SOURCE:=$(PKG_NAME)-linux-$(PKG_ARCH_VERYSYNC)-v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dl.verysync.com/releases/v$(PKG_VERSION)/ \
