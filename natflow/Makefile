@@ -10,7 +10,7 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=natflow
 PKG_VERSION:=1.0.2
-PKG_RELEASE:=17
+PKG_RELEASE:=18
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE).tar.xz
 PKG_SOURCE_URL:=https://github.com/ptpt52/natflow.git
@@ -44,6 +44,8 @@ include $(INCLUDE_DIR)/kernel-defaults.mk
 define Build/Compile/natflow
 	+$(MAKE) $(PKG_JOBS) -C "$(LINUX_DIR)" \
 		$(KERNEL_MAKE_FLAGS) \
+		ARCH="$(LINUX_KARCH)" \
+		CROSS_COMPILE="$(KERNEL_CROSS)" \
 		M="$(PKG_BUILD_DIR)" \
 		modules
 endef
