@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aliyundrive-webdav
 PKG_VERSION:=0.4.2
-PKG_RELEASE:=18
+PKG_RELEASE:=19
 
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=messense <messense@icloud.com>
