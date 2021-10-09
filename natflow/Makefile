@@ -10,7 +10,7 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=natflow
 PKG_VERSION:=1.0.2
-PKG_RELEASE:=18
+PKG_RELEASE:=19
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE).tar.xz
 PKG_SOURCE_URL:=https://github.com/ptpt52/natflow.git
@@ -28,8 +28,7 @@ define KernelPackage/natflow
   SUBMENU:=Fast Forward Stacks
   TITLE:=natflow kernel driver
   KCONFIG:= \
-	CONFIG_NETFILTER_INGRESS=y \
-	CONFIG_NF_FLOW_TABLE
+	    CONFIG_NETFILTER_INGRESS=y
   FILES:=$(PKG_BUILD_DIR)/natflow.ko
   AUTOLOAD:=$(call AutoLoad,96,natflow)
   DEPENDS:= +kmod-ipt-conntrack +kmod-ipt-nat +kmod-ipt-ipset
