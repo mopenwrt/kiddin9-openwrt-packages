@@ -18,6 +18,4 @@ uci set wizard.default.wan_pppoe_pass="$PASSWORD"
 
 uci commit wizard
 
-/etc/init.d/wizard disable
-
 exit 0
