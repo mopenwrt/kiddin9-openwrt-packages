@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=hysteria
 PKG_VERSION:=0.8.5
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/HyNetwork/hysteria/tar.gz/v$(PKG_VERSION)?
@@ -18,7 +18,6 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_HYSTERIA_COMPRESS_UPX
 
 PKG_BUILD_DEPENDS:=golang/host
-PKG_BUILD_DEPENDS += HYSTERIA_COMPRESS_UPX:upx/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
