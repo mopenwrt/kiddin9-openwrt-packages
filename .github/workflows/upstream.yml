@@ -140,10 +140,10 @@ jobs:
         ) &
         (
         git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
-        applications/luci-app-ddns applications/luci-app-https-dns-proxy applications/luci-app-acme \
+        applications/luci-app-ddns applications/luci-app-acme \
         applications/luci-app-ksmbd applications/luci-app-samba4
         
-        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" net/https-dns-proxy \
+        git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" \
         net/openvpn utils/cgroupfs-mount net/ariang net/xray-core
         ) &
         (
