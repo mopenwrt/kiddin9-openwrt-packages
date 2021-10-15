@@ -114,10 +114,12 @@ h.template = "cbi/nullsection"
 ss = h:option(DummyValue, "_dummy", translate("Service Status"))
 ss.template = packageName .. "/status"
 ss.value = packageStatus
+if packageStatusCode ~= -1 then
+	buttons = h:option(DummyValue, "_dummy", translate("Service Control"))
+	buttons.template = packageName .. "/buttons"
+end
 
 c = m:section(NamedSection, "config", "https-dns-proxy", translate("Configuration"))
-o = c:option(Flag, "enabled", translate("Enable"))
-o.default = 1
 d1 = c:option(ListValue, "update_dnsmasq_config", translate("Update DNSMASQ Config on Start/Stop"), translatef("If update option is selected, the 'DNS forwardings' section of %sDHCP and DNS%s will be automatically updated to use selected DoH providers (%smore information%s).", "<a href=\"" .. dispatcher.build_url("admin/network/dhcp") .. "\">", "</a>", "<a href=\"" .. readmeURL .. "#default-settings" .. "\" target=\"_blank\">", "</a>"))
 d1:value('*', translate("Update all configs"))
 local dnsmasq_num = 0
