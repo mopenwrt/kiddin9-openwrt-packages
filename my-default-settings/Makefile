@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=my-default-settings
 PKG_VERSION:=1
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -38,7 +38,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DATA) ./files/wifi-init.sh $(1)/lib/wifi/wifi-init.sh
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/wifi-init.init $(1)/etc/init.d/wifi-init
-	$(INSTALL_BIN) ./files/packages.init $(1)/etc/rc.d/packages
+	$(INSTALL_BIN) ./files/packages.init $(1)/etc/init.d/packages
 	$(INSTALL_DIR) $(1)/etc/profile.d
 	$(INSTALL_BIN) ./files/sysinfo.sh $(1)/etc/profile.d/sysinfo.sh
 	$(INSTALL_DIR) $(1)/sbin
