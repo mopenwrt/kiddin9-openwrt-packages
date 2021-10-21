@@ -10,7 +10,7 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=natflow
 PKG_VERSION:=1.0.2
-PKG_RELEASE:=19
+PKG_RELEASE:=20
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE).tar.xz
 PKG_SOURCE_URL:=https://github.com/ptpt52/natflow.git
@@ -65,5 +65,27 @@ define Package/natflow-boot/install
 	$(INSTALL_BIN) ./files/natflow-boot.init $(1)/etc/init.d/natflow-boot
 endef
 
+define Package/natflow-auth
+  CATEGORY:=X
+  SUBMENU:=Fast Forward Stacks
+  TITLE:=natflow auth init script
+  DEPENDS:= +kmod-natflow +ipset +lua-ipops
+endef
+
+define Package/natflow-auth/conffiles
+/etc/config/natflow
+endef
+
+define Package/natflow-auth/install
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/natflow-user.init $(1)/etc/init.d/natflow-user
+	$(INSTALL_BIN) ./files/natflow-zone.init $(1)/etc/init.d/natflow-zone
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) ./files/natflow.config $(1)/etc/config/natflow
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) ./files/natflow-user.sh $(1)/usr/sbin/natflow-user
+endef
+
 $(eval $(call KernelPackage,natflow))
 $(eval $(call BuildPackage,natflow-boot))
+$(eval $(call BuildPackage,natflow-auth))

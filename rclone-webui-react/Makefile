@@ -1,12 +1,13 @@
 # SPDX-Identifier-License: GPL-3.0-or-later
 #
-# Copyright (C) 2019 ElonH <elonhhuang@gmail.com>
+# Copyright (C) 2019 Elon Huang <elonhhuang@gmail.com>
+# Copyright (C) 2021 ImmortalWrt.org
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rclone-webui-react
 PKG_VERSION:=2.0.5
-PKG_RELEASE:=9
+PKG_RELEASE:=10
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
 PKG_SOURCE_URL:=https://github.com/rclone/rclone-webui-react/releases/download/v$(PKG_VERSION)/currentbuild.zip?
@@ -14,7 +15,8 @@ PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILE:=LICENSE
-PKG_MAINTAINER:=ElonH <elonhhuang@gmail.com>
+PKG_MAINTAINER:=Elon Huang <elonhhuang@gmail.com> \
+		Tianling Shen <cnsztl@immortalwrt.org>
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -26,7 +28,7 @@ define Package/rclone-webui-react
   SUBMENU:=Cloud Manager
   TITLE:=A reactjs based web UI for rclone
   URL:=https://github.com/rclone/rclone-webui-react
-  DEPENDS:=+rclone
+  DEPENDS:=+rclone-config
   PKGARCH:=all
 endef
 
