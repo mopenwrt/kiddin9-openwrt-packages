@@ -236,7 +236,7 @@ jobs:
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
-        sed -i 's/+ddns-scripts/+ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod/' luci-app-ddns/Makefile
+        sed -i 's/+ddns-scripts/+ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod +ddns-scripts-cloudflare/' luci-app-ddns/Makefile
         sed -i 's/+aria2/+aria2 +ariang/' luci-app-aria2/Makefile
         sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/' luci-app-acme/Makefile
         sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
