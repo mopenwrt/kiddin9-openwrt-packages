@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=trojan-go
 PKG_VERSION:=0.10.6
-PKG_RELEASE:=17
+PKG_RELEASE:=18
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/p4gefau1t/trojan-go/tar.gz/v$(PKG_VERSION)?
@@ -53,6 +53,7 @@ config TROJAN_GO_COMPRESS_GOPROXY
 
 config TROJAN_GO_COMPRESS_UPX
 	bool "Compress executable files with UPX"
+	depends on @!mips64
 	default y
 
 endmenu
