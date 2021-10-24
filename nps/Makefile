@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nps
 PKG_VERSION:=0.26.10
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ehang-io/nps/tar.gz/v$(PKG_VERSION)?
@@ -53,13 +53,15 @@ Package/nps/description = $(Package/nps/description/template)
 define Package/npc/config
 	config NPC_COMPRESS_UPX
 		bool "Compress executable files with UPX"
-		default y
+		depends on !mips64
+		default y if mips||mipsel
 endef
 
 define Package/nps/config
 	config NPS_COMPRESS_UPX
 		bool "Compress executable files with UPX"
-		default y
+		depends on !mips64
+		default y if mips||mipsel
 endef
 
 define Build/Compile
