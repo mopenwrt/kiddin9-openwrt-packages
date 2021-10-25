@@ -139,16 +139,11 @@ jobs:
         svn export https://github.com/linkease/istore-ui/trunk/app-store-ui
         ) &
         (
-        git_sparse_clone openwrt-21.02 "https://github.com/openwrt/luci" "opluci" applications/luci-app-aria2 \
-        applications/luci-app-ddns applications/luci-app-acme \
-        applications/luci-app-ksmbd applications/luci-app-samba4
-        
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" \
-        net/openvpn utils/cgroupfs-mount net/ariang net/xray-core
+        net/openvpn utils/cgroupfs-mount net/xray-core
+        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
         ) &
         (
-        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
-        
         git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
         package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac package/kernel/rtl8192eu \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu
@@ -236,11 +231,6 @@ jobs:
         sed -i '/\/etc\/config\/AdGuardHome/a /etc/AdGuardHome.yaml' luci-app-adguardhome/Makefile
         sed -i 's/+rclone\( \|$\)/+rclone +fuse-utils\1/g' luci-app-rclone/Makefile
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
-        sed -i 's/+ddns-scripts/+ddns-scripts +ddns-scripts-aliyun +ddns-scripts-dnspod +ddns-scripts-cloudflare/' luci-app-ddns/Makefile
-        sed -i 's/+aria2/+aria2 +ariang/' luci-app-aria2/Makefile
-        sed -i 's/+acme\( \|$\)/+acme +acme-dnsapi\1/' luci-app-acme/Makefile
-        sed -i 's/\(+ksmbd-server\)/\1 +autoshare-ksmbd/' luci-app-ksmbd/Makefile
-        sed -i 's/\(+samba4-server\)/\1 +autoshare-samba/' luci-app-samba4/Makefile
         sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
         sed -i 's/+vsftpd$/+vsftpd-alt/' luci-app-vsftpd/Makefile
         
