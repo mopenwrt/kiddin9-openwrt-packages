@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=brook
 PKG_VERSION:=20210701
-PKG_RELEASE:=20
+PKG_RELEASE:=21
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/txthinking/brook/tar.gz/v$(PKG_VERSION)?
@@ -55,7 +55,7 @@ define Package/brook/config
 
 	config BROOK_COMPRESS_UPX
 		bool "Compress executable files with UPX"
-		depends on @!mips64
+		depends on !mips64
 		default y
 endef
 
