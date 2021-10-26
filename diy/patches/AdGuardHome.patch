@@ -51,18 +51,6 @@
  	$(AGH_VERSION_PKG).buildtime=$(AGH_BUILD_TIME) \
  	$(AGH_VERSION_PKG).goarm=$(GO_ARM) \
  	$(AGH_VERSION_PKG).gomips=$(GO_MIPS)
-@@ -52,6 +52,11 @@ define Package/adguardhome/conffiles
- /etc/adguardhome.yaml
- endef
- 
-+define Package/adguardhome/postinst
-+#!/bin/sh
-+	/etc/init.d/AdGuardHome restart
-+endef
-+
- define Package/adguardhome/description
- Free and open source, powerful network-wide ads and trackers blocking DNS server.
- endef
 
 --- a/luci-app-adguardhome/root/usr/share/AdGuardHome/links.txt
 +++ b/luci-app-adguardhome/root/usr/share/AdGuardHome/links.txt
