@@ -141,7 +141,7 @@ jobs:
         (
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" \
         net/openvpn utils/cgroupfs-mount net/xray-core
-        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow luci-app-wizard luci-app-macvlan
+        git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-wizard luci-app-macvlan
         ) &
         (
         git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
