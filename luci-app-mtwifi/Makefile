@@ -1,10 +1,11 @@
 include $(TOPDIR)/rules.mk
 
+PKG_NAME:=luci-app-mtwifi
 PKG_LICENSE:=GPLv2
 PKG_MAINTAINER:=Hua Shao <nossiac@163.com>
 
 LUCI_TITLE:=LuCI support for mt wifi driver
-LUCI_DEPENDS:=@TARGET_ramips +mt_wifi @!PACKAGE_kmod-mt7615d_dbdc
+LUCI_DEPENDS:=@TARGET_ramips +mt_wifi
 LUCI_PKGARCH:=all
 
 define Package/luci-app-mtwifi/conffiles
