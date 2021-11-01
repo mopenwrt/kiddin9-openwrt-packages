@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vlmcsd
 PKG_VERSION:=svn1113
-PKG_RELEASE:=14
+PKG_RELEASE:=15
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/Wind4/vlmcsd/tar.gz/$(PKG_VERSION)?
@@ -35,7 +35,7 @@ define Package/vlmcsd/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/vlmcsd $(1)/usr/bin/vlmcsd
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_BIN) ./files/vlmcsd.ini $(1)/etc/vlmcsd.ini
+	$(INSTALL_BIN) ./files/vlmcsd.ini $(1)/etc/vlmcsd/vlmcsd.ini
 endef
 
 $(eval $(call BuildPackage,vlmcsd))
