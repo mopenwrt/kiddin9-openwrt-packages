@@ -5,9 +5,10 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI support for wol From sundaqiang
+LUCI_TITLE:=LuCI support for wolplus From sundaqiang
 LUCI_DEPENDS:=+etherwake
 LUCI_PKGARCH:=all
+PKG_MAINTAINER:=sundaqiang
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
