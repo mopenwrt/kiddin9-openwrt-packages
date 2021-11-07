@@ -151,6 +151,8 @@ define Package/$(PKG_NAME)/conffiles
 /usr/share/passwall/rules/proxy_ip
 /usr/share/passwall/rules/block_host
 /usr/share/passwall/rules/block_ip
+/usr/share/passwall/rules/lanlist_ipv4
+/usr/share/passwall/rules/lanlist_ipv6
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
