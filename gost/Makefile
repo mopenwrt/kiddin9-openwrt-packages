@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gost
 PKG_VERSION:=2.11.1
-PKG_RELEASE:=25
+PKG_RELEASE:=26
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ginuerzh/gost/tar.gz/v$(PKG_VERSION)?
@@ -14,7 +14,7 @@ PKG_HASH:=skip
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILE:=LICENSE
-PKG_MAINTAINER:=CN_SZTL <cnsztl@immortalwrt.org>
+PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_GOST_COMPRESS_GOPROXY \
