@@ -5,8 +5,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go-aliyundrive-webdav
-PKG_VERSION:=1.0.16
-PKG_RELEASE:=6
+PKG_VERSION:=1.0.17
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/LinkLeong/go-aliyundrive-webdav/tar.gz/v$(PKG_VERSION)?
