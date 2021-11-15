@@ -1,5 +1,6 @@
 include $(TOPDIR)/rules.mk
 
+PKG_NAME:=luci-app-mtwifi
 PKG_LICENSE:=GPLv2
 PKG_MAINTAINER:=Hua Shao <nossiac@163.com>
 
