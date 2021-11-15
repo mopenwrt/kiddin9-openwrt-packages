@@ -1,3 +1,24 @@
 /create_acl_for_luci.ok
 /create_acl_for_luci.warn
 /create_acl_for_luci.err
+/luci-app-godproxy/rulesupdate.log
+/qt5
+/openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder}
+/subweb
+/wget
+/autosamba
+frp
+/amule mt-drivers
+/coremark
+/npc
+/luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,k3*}
+/fcgiwrap ddns-scripts_{aliyun,dnspod}
+/ipv6-helper
+/ChinaDNS
+/luci-theme-netgear
+/csstidy
+/samba4
+/UnblockNeteaseMusicGo
+/k3*
+/default-settings
+/autocore
