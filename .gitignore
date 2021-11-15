@@ -8,7 +8,7 @@
 /wget
 /autosamba
 frp
-/amule mt-drivers
+/amule
 /coremark
 /npc
 /luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,k3*}
