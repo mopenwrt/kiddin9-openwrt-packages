@@ -787,7 +787,12 @@ gen_dns(){
 			fi
 		elif [ "$(uci -q get AdGuardHome.AdGuardHome.redirect)" == "exchange" ]; then
 			uci -q set AdGuardHome.AdGuardHome.enabled='0'
-			uci -q del AdGuardHome.AdGuardHome.redirect
+			redirect="$(uci -q get AdGuardHome.AdGuardHome.old_redirect)"
+			if [ "$redirect" ]; then
+				uci -q set AdGuardHome.AdGuardHome.redirect="$redirect"
+			else
+				uci -q del AdGuardHome.AdGuardHome.redirect
+			fi
 			uci commit AdGuardHome
 			/etc/init.d/AdGuardHome stop
 		fi
@@ -1029,8 +1034,13 @@ stop(){
 	killall -q -9 smartdns-le chinadns-ng kcptun-client microsocks
 	if [[ $adguardhome == 1 && ! "$GLOBAL_SERVER" ]]; then
 		if [[ -f /etc/init.d/AdGuardHome && "$(uci -q get AdGuardHome.AdGuardHome.redirect)" == "exchange" ]]; then
-			uci -q del AdGuardHome.AdGuardHome.redirect
-			uci set AdGuardHome.AdGuardHome.enabled='0'
+			redirect="$(uci -q get AdGuardHome.AdGuardHome.old_redirect)"
+			if [[ ! "$redirect" || "$redirect" == "exchange" ]]; then
+				uci -q del AdGuardHome.AdGuardHome.redirect
+			else
+				uci -q set AdGuardHome.AdGuardHome.redirect="$redirect"
+			fi
+			uci -q set AdGuardHome.AdGuardHome.enabled='0'
 			uci commit AdGuardHome
 			/etc/init.d/AdGuardHome stop
 		fi
