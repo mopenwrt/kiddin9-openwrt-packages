@@ -171,8 +171,7 @@ jobs:
         mv -n openwrt-package/* ./ ; rm -Rf openwrt-package
         cp -rf diy/.packages/* ./ || true
         rm -Rf */.git
-        mv -f mt/drivers mt-drivers
-        mv -f mt/* ./ && rm -Rf mt
+        mv -f mt/drivers mt-drivers && cp -rf mt/* ./ && rm -Rf mt
 
     - name: Apply patches
       run: |
