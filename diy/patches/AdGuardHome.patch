@@ -17,15 +17,6 @@
  }
  
  get_filesystem()
-@@ -416,7 +417,7 @@ start_service() {
- 	do_crontab
- 	if [ "$enabled" == "0" ]; then
- 		_do_redirect 0
--		return
-+		exit
- 	fi
- 	#what need to do before reload
- 	config_get workdir $CONFIGURATION workdir "/etc/AdGuardHome"
 @@ -499,12 +500,23 @@ start_service() {
  	echo "AdGuardHome service enabled"
  	echo "luci enable switch=$enabled"
