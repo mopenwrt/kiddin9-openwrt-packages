@@ -417,7 +417,7 @@ start_service() {
 	do_crontab
 	if [ "$enabled" == "0" ]; then
 		_do_redirect 0
-		exit
+		return
 	fi
 	#what need to do before reload
 	config_get workdir $CONFIGURATION workdir "/etc/AdGuardHome"
