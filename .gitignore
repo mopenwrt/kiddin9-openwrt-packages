@@ -12,7 +12,8 @@ frp
 /coremark
 /npc
 /luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,k3*}
-/fcgiwrap ddns-scripts_{aliyun,dnspod}
+/fcgiwrap
+/ddns-scripts_{aliyun,dnspod}
 /ipv6-helper
 /ChinaDNS
 /luci-theme-netgear
