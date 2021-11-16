@@ -43,9 +43,6 @@ fi
 							for ipk in $upopkg; do
 								while [ ! "$(opkg list-installed | cut -f 1 -d ' ' | grep -w $ipk)" ]; do
 									opkg install --force-overwrite --force-checksum --force-depends $ipk 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
-									if [[ $ipk == luci-app-* ]]; then
-										opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
-									fi
 									[ $c2 eq 3 ] && {
 										echo $ipk >> $BKOPKG/failed.txt
 										sed -i "/^$ipk$/d" $BKOPKG/user_installed.opkg
@@ -54,6 +51,9 @@ fi
 									sleep 1
 									rm -f /var/lock/opkg.lock
 								done
+								if [[ $ipk == luci-app-* ]]; then
+									opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
+								fi
 							done
 							rm -f /etc/config/*-opkg
 					fi
@@ -69,6 +69,9 @@ fi
 						sleep 1
 						rm -f /var/lock/opkg.lock
 					done
+					if [[ $ipk == luci-app-* ]]; then
+						opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
+					fi
 					mv $BKOPKG/failed.txt $BKOPKG/failed_.txt >/dev/null 2>&1
 					touch /etc/inited
 					rm -f /var/lock/opkg.lock
