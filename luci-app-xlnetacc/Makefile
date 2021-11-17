@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-xlnetacc
 PKG_VERSION:=1.1
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_LICENSE:=GPLv2
 PKG_MAINTAINER:=Sense <sensec@gmail.com>

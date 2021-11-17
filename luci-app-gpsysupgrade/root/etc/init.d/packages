@@ -41,8 +41,11 @@ fi
 					upopkg="$insed $def"
 					if [ "$upopkg" != " " ]; then
 							for ipk in $upopkg; do
-								while [ ! "$(opkg list-installed | cut -f 1 -d ' ' | grep -w $ipk)" ]; do
+								while :; do
 									opkg install --force-overwrite --force-checksum --force-depends $ipk 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
+									[[ "$(opkg list-installed | cut -f 1 -d ' ' | grep -w $ipk)" ]] && {
+										break
+									}
 									[ $c2 eq 3 ] && {
 										echo $ipk >> $BKOPKG/failed.txt
 										sed -i "/^$ipk$/d" $BKOPKG/user_installed.opkg
