@@ -111,7 +111,6 @@ add_wizard() {
 		uci commit dhcp
 		/etc/init.d/odhcpd disable
 		/etc/init.d/odhcpd stop
-		echo "$ipv6"
 	else
 		uci -q set dhcp.lan.ra='hybrid'
 		uci -q set dhcp.lan.dhcpv6='hybrid'
