@@ -11,7 +11,7 @@ add_wizard() {
 	local cfg="$1"
 	local wan_proto wan_ipaddr wan_netmask wan_gateway wan_pppoe_user wan_pppoe_pass
 	local wifi_ssid wifi_key
-	local lan_ipaddr lan_netmask lan_dns dhcp
+	local lan_ipaddr lan_netmask lan_dns lan_gateway dhcp
 	local device ipv6
 
 	config_get wan_proto "$cfg" wan_proto
@@ -39,6 +39,12 @@ add_wizard() {
 				uci set network.wan.ipaddr="${wan_ipaddr}"
 				uci set network.wan.netmask="${wan_netmask}"
 				uci set network.wan.gateway="${wan_gateway}"
+			
+			config_get wan_dns "$cfg" wan_dns
+				test -n "${wan_dns}" && {
+					uci set network.wan.peerdns='0'
+					uci set network.wan.dns="${wan_dns}"
+				}
 			}
 		;;
 		pppoe)
