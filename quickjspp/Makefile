@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=quickjspp
-PKG_RELEASE:=14
+PKG_RELEASE:=15
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ftk/quickjspp.git
 PKG_SOURCE_DATE:=2021-09-13
-PKG_SOURCE_VERSION:=6014b8cc61e5718cfa60361af157e817634bc1c3
+PKG_SOURCE_VERSION:=7ebc0dab0a92f8d97b8796375cece678ca480fec
 PKG_MIRROR_HASH:=skip
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>

@@ -99,33 +99,35 @@ add_wizard() {
 	config_get dhcp "$cfg" dhcp
 
 	test -n "${siderouter}" && {
-		uci set network.lan.gateway="${lan_gateway}"
-		uci set dhcp.lan.ignore="${dhcp}"
+		uci -q set network.lan.gateway="${lan_gateway}"
+		test -n "$dhcp" && {
+		uci -q set dhcp.lan.ignore="1"
+		} || uci -q del dhcp.lan.ignore
 	} || {
-		uci del network.lan.gateway
-		uci del dhcp.lan.ignore
+		uci -q del network.lan.gateway
+		uci -q del dhcp.lan.ignore
 	}
 
 	config_get ipv6 "$cfg" ipv6
 
-	if [[ "$ipv6" == "0" ]]; then
-		uci -q delete dhcp.lan.dhcpv6
+	test -n "${ipv6}" && {
 		uci -q delete dhcp.lan.ra
+		uci -q delete dhcp.lan.dhcpv6
 		uci -q set network.lan.delegate='0'
 		uci -q set network.wan.ipv6='0'
 		uci -q delete network.globals.ula_prefix
 		uci commit dhcp
 		/etc/init.d/odhcpd disable
 		/etc/init.d/odhcpd stop
-	else
+	} || {
 		uci -q set dhcp.lan.ra='hybrid'
 		uci -q set dhcp.lan.dhcpv6='hybrid'
 		uci -q del network.lan.delegate
-		uci set network.wan.ipv6='auto'
+		uci -q set network.wan.ipv6='auto'
 		uci commit dhcp
 		/etc/init.d/odhcpd enable
 		/etc/init.d/odhcpd start
-	fi
+	}
 
 	uci commit network
 	uci commit wireless
