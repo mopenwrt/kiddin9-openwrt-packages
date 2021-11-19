@@ -9,10 +9,10 @@ boot() {
 add_wizard() {
 	[ "x$XBOOT" = "x1" ] && return 0
 	local cfg="$1"
-	local wan_proto wan_ipaddr wan_netmask wan_gateway wan_dns wan_pppoe_user wan_pppoe_pass
+	local wan_proto wan_ipaddr wan_netmask wan_gateway wan_pppoe_user wan_pppoe_pass
 	local wifi_ssid wifi_key
-	local lan_ipaddr lan_netmask
-	local device
+	local lan_ipaddr lan_netmask lan_dns
+	local device ipv6
 
 	config_get wan_proto "$cfg" wan_proto
 
@@ -24,12 +24,6 @@ add_wizard() {
 			uci set network.wan.device="$device"
 			uci set network.wan.proto='dhcp'
 			uci set network.wan.metric='40'
-
-			config_get wan_dns "$cfg" wan_dns
-			test -n "${wan_dns}" && {
-				uci set network.wan.peerdns='0'
-				uci set network.wan.dns="${wan_dns}"
-			}
 		;;
 		static)
 			config_get wan_ipaddr "$cfg" wan_ipaddr
@@ -45,12 +39,6 @@ add_wizard() {
 				uci set network.wan.ipaddr="${wan_ipaddr}"
 				uci set network.wan.netmask="${wan_netmask}"
 				uci set network.wan.gateway="${wan_gateway}"
-
-				config_get wan_dns "$cfg" wan_dns
-				test -n "${wan_dns}" && {
-					uci set network.wan.peerdns='0'
-					uci set network.wan.dns="${wan_dns}"
-				}
 			}
 		;;
 		pppoe)
@@ -65,18 +53,11 @@ add_wizard() {
 			uci set network.wan.password="${wan_pppoe_pass}"
 			uci set network.wan.keepalive='5 5'
 			uci set network.wan.mtu='1492'
-			uci set network.wan.ipv6='1'
 
 			uci get network.wan6 2>/dev/null && {
 				uci set network.wan6.device='@wan'
 				uci set network.wan6.reqaddress='try'
 				uci set network.wan6.reqprefix='auto'
-			}
-
-			config_get wan_dns "$cfg" wan_dns
-			test -n "${wan_dns}" && {
-				uci set network.wan.peerdns='0'
-				uci set network.wan.dns="${wan_dns}"
 			}
 		;;
 	esac
@@ -87,6 +68,11 @@ add_wizard() {
 		uci set network.lan.ipaddr="${lan_ipaddr}"
 		uci set network.lan.netmask="${lan_netmask}"
 	}
+	
+	config_get lan_dns "$cfg" lan_dns
+			test -n "${lan_dns}" && {
+				uci set network.lan.dns="${lan_dns}"
+			}
 
 	config_get wifi_ssid "$cfg" wifi_ssid
 	config_get wifi_key "$cfg" wifi_key
@@ -102,9 +88,38 @@ add_wizard() {
 		done
 	}
 
+	config_get siderouter "$cfg" siderouter
+	config_get lan_gateway "$cfg" lan_gateway
+
+	test -n "${siderouter}" && test -n "${lan_gateway}" && {
+		uci set network.lan.gateway="${lan_gateway}"
+	}
+
+	config_get ipv6 "$cfg" ipv6
+
+	if [[ "$ipv6" == "0" ]]; then
+		uci -q delete dhcp.lan.dhcpv6
+		uci -q delete dhcp.lan.ra
+		uci -q set network.lan.delegate='0'
+		uci -q set network.wan.ipv6='0'
+		uci -q delete network.globals.ula_prefix
+		uci commit dhcp
+		/etc/init.d/odhcpd disable
+		/etc/init.d/odhcpd stop
+		echo "$ipv6"
+	else
+		uci -q set dhcp.lan.ra='hybrid'
+		uci -q set dhcp.lan.dhcpv6='hybrid'
+		uci -q del network.lan.delegate
+		uci set network.wan.ipv6='auto'
+		uci commit dhcp
+		/etc/init.d/odhcpd enable
+		/etc/init.d/odhcpd start
+	fi
+
 	uci commit network
 	uci commit wireless
-	(sleep 15
+	(
 	 /etc/init.d/network reload
 	 /etc/init.d/dnsmasq reload)&
 }

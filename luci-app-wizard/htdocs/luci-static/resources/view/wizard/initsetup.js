@@ -59,13 +59,8 @@ return view.extend({
 		o.value('255.255.0.0');
 		o.value('255.0.0.0');
 
-		o = s.taboption('wansetup', form.Value, 'wan_gateway', _('IPv4 gateway'));
-		o.depends('wan_proto', 'static');
-		o.datatype = 'ip4addr';
-
-		o = s.taboption('wansetup', form.DynamicList, 'wan_dns', _('Use custom DNS servers'));
-		o.datatype = 'ip4addr';
-		o.cast = 'string';
+		o = s.taboption('wansetup', form.Flag, 'ipv6', _('Enable IPv6'), _('Enable/Disable IPv6'));
+		o.default = o.enabled;
 
 		if (has_wifi) {
 			o = s.taboption('wifisetup', form.Value, 'wifi_ssid', _('<abbr title=\"Extended Service Set Identifier\">ESSID</abbr>'));
@@ -84,6 +79,17 @@ return view.extend({
 		o.value('255.255.255.0');
 		o.value('255.255.0.0');
 		o.value('255.0.0.0');
+
+		o = s.taboption('lansetup', form.DynamicList, 'lan_dns', _('Use custom DNS servers'));
+		o.datatype = 'ip4addr';
+		o.cast = 'string';
+
+		o = s.taboption('lansetup', form.Flag, 'siderouter', _('Siderouter'));
+		
+		o = s.taboption('lansetup', form.Value, 'lan_gateway', _('IPv4 gateway'));
+		o.depends('siderouter', '1');
+		o.datatype = 'ip4addr';
+		o.placeholder = '请输入主路由IP';
 
 		return m.render();
 	}

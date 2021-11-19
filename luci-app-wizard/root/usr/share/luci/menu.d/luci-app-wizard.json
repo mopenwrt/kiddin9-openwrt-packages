@@ -4,7 +4,7 @@
 		"order": 30,
 		"action": {
 			"type": "view",
-			"path": "wizard/wizard"
+			"path": "wizard/initsetup"
 		},
 		"depends": {
 			"acl": [ "luci-app-wizard" ],

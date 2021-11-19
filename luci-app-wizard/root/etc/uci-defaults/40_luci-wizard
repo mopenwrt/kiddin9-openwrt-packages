@@ -6,6 +6,7 @@ uci -q batch <<-EOF >/dev/null
 	add ucitrack wizard
 	set ucitrack.@wizard[-1].init=wizard
 	commit ucitrack
+	chmod +x /etc/init.d/wizard 2>/dev/null
 EOF
 
 rm -f /tmp/luci-indexcache
