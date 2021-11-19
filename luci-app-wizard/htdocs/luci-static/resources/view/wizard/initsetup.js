@@ -90,6 +90,9 @@ return view.extend({
 		o.depends('siderouter', '1');
 		o.datatype = 'ip4addr';
 		o.placeholder = '请输入主路由IP';
+		
+		o = s.taboption('lansetup', form.Flag, 'dhcp', _('DHCP Server'));
+		o.depends('siderouter', '1');
 
 		return m.render();
 	}
