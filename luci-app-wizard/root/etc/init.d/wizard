@@ -94,7 +94,7 @@ add_wizard() {
 
 	test -n "${siderouter}" && {
 		uci set network.lan.gateway="${lan_gateway}"
-		uci set network.lan.dhcp="${dhcp}"
+		uci set dhcp.lan.ignore="${dhcp}"
 	} || {
 		uci del network.lan.gateway
 		uci del dhcp.lan.ignore
