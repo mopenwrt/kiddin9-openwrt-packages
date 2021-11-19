@@ -89,7 +89,7 @@ return view.extend({
 		o.value('255.255.0.0');
 		o.value('255.0.0.0');
 
-		o = s.taboption('lansetup', form.DynamicList, 'lan_dns', _('Use custom DNS servers'));
+		o = s.taboption('lansetup', form.DynamicList, 'lan_dns', _('Use custom DNS servers'), _('留空则使用运营商DNS, 推荐: 223.5.5.5'));
 		o.datatype = 'ip4addr';
 		o.cast = 'string';
 
@@ -100,7 +100,7 @@ return view.extend({
 		o.datatype = 'ip4addr';
 		o.placeholder = '请输入主路由IP';
 		
-		o = s.taboption('lansetup', form.Flag, 'dhcp', _('DHCP Server'));
+		o = s.taboption('lansetup', form.Flag, 'dhcp', _('DHCP Server'), _('开启此DHCP则需要关闭主路由的DHCP, 关闭此DHCP则需要手动将所有上网设备的网关和DNS改为此旁路由的IP'));
 		o.depends('siderouter', '1');
 		o.default = o.enabled;
 
