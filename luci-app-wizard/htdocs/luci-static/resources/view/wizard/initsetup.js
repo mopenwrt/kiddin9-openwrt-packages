@@ -93,6 +93,7 @@ return view.extend({
 		
 		o = s.taboption('lansetup', form.Flag, 'dhcp', _('DHCP Server'));
 		o.depends('siderouter', '1');
+		o.default = o.enabled;
 
 		return m.render();
 	}
