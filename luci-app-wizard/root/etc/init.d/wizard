@@ -93,17 +93,20 @@ add_wizard() {
 	config_get lan_gateway "$cfg" lan_gateway
 	config_get dhcp "$cfg" dhcp
 
-	test -n "${siderouter}" && {
+	if [ -n "${siderouter}" ]; then
 		uci -q set network.lan.gateway="${lan_gateway}"
-		uci add_list wizard.default.lan_dns='223.5.5.5'
-		test -n "$dhcp" && {
+		uci -q set wizard.default.lan_dns='223.5.5.5'
+		if [ -n "$dhcp" ]; then
 		uci -q set dhcp.lan.ignore="1"
-		} || uci -q del dhcp.lan.ignore
-	} || {
+		else
+		uci -q del dhcp.lan.ignore
+		fi
+	else
 		uci -q del network.lan.gateway
 		uci -q del dhcp.lan.ignore
 		uci -q del wizard.default.lan_dns
-	}
+	fi
+	uci commit wizard
 
 	config_get lan_dns "$cfg" lan_dns
 		uci -q set network.lan.dns="${lan_dns}"
