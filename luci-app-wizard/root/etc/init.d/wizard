@@ -92,25 +92,18 @@ add_wizard() {
 	config_get siderouter "$cfg" siderouter
 	config_get lan_gateway "$cfg" lan_gateway
 	config_get dhcp "$cfg" dhcp
+	config_get lan_dns "$cfg" lan_dns
 
 	if [ -n "${siderouter}" ]; then
 		uci -q set network.lan.gateway="${lan_gateway}"
-		uci -q set wizard.default.lan_dns='223.5.5.5'
-		if [ -n "$dhcp" ]; then
-		uci -q set dhcp.lan.ignore="1"
-		else
-		uci -q del dhcp.lan.ignore
-		fi
+		[ -n "$lan_dns" ] && uci -q set network.lan.dns="${lan_dns}" || uci -q set network.lan.dns='223.5.5.5'
+		[ -n "$dhcp" ] && uci -q set dhcp.lan.ignore="1" || uci -q del dhcp.lan.ignore
 	else
 		uci -q del network.lan.gateway
 		uci -q del dhcp.lan.ignore
-		uci -q del wizard.default.lan_dns
-	fi
-	uci commit wizard
-
-	config_get lan_dns "$cfg" lan_dns
 		uci -q set network.lan.dns="${lan_dns}"
-
+	fi
+	
 	config_get ipv6 "$cfg" ipv6
 
 	test -n "${ipv6}" && {

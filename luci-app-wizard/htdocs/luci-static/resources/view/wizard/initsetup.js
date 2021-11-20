@@ -99,6 +99,7 @@ return view.extend({
 		o.depends('siderouter', '1');
 		o.datatype = 'ip4addr';
 		o.placeholder = '请输入主路由IP';
+		o.rmempty = false;
 		
 		o = s.taboption('lansetup', form.Flag, 'dhcp', _('DHCP Server'), _('开启此DHCP则需要关闭主路由的DHCP, 关闭此DHCP则需要手动将所有上网设备的网关和DNS改为此旁路由的IP'));
 		o.depends('siderouter', '1');
