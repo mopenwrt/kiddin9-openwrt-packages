@@ -73,9 +73,12 @@ add_wizard() {
 	config_get lan_dns "$cfg" lan_dns
 
 	[ -n "$lan_dns" ] && {
-		uci set network.wan.peerdns='0'
+		uci -q set network.wan.peerdns='0'
 		uci -q set network.lan.dns="${lan_dns}"
-		} || uci del network.wan.peerdns
+		} || {
+		uci -q del network.wan.peerdns
+		uci -q del network.lan.dns
+		}
 
 	if [ "${siderouter}" != "old_siderouter" ]; then
 	if [ -n "${siderouter}" ]; then
