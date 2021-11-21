@@ -91,7 +91,6 @@ return view.extend({
 		o.cast = 'string';
 
 		o = s.taboption('lansetup', form.Flag, 'siderouter', _('Siderouter'));
-		o.rmempty = false;
 		
 		o = s.taboption('lansetup', form.Value, 'lan_gateway', _('IPv4 gateway'));
 		o.depends('siderouter', '1');
@@ -113,7 +112,6 @@ return view.extend({
 		
 		o = s.taboption('firmware', form.Flag, 'ipv6', _('Enable IPv6'), _('Enable/Disable IPv6'));
 		o.default = o.enabled;
-		o.rmempty = false;
 
 		return m.render();
 	}

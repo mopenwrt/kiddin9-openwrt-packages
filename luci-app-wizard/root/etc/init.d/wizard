@@ -12,7 +12,7 @@ add_wizard() {
 	local wan_proto wan_ipaddr wan_netmask wan_gateway wan_pppoe_user wan_pppoe_pass
 	local wifi_ssid wifi_key
 	local lan_ipaddr lan_netmask lan_dns lan_gateway dhcp
-	local device ipv6
+	local device ipv6 old_ipv6 siderouter old_siderouter
 
 	config_get wan_proto "$cfg" wan_proto
 
@@ -90,23 +90,29 @@ add_wizard() {
 	}
 
 	config_get siderouter "$cfg" siderouter
+	config_get old_siderouter "$cfg" old_siderouter
 	config_get lan_gateway "$cfg" lan_gateway
 	config_get dhcp "$cfg" dhcp
 	config_get lan_dns "$cfg" lan_dns
-
-	if [ "${siderouter}" == "1" ]; then
+	
+	if [ "${siderouter}" != "old_siderouter" ]; then
+	if [ -n "${siderouter}" ]; then
 		uci -q set network.lan.gateway="${lan_gateway}"
 		[ -n "$lan_dns" ] && uci -q set network.lan.dns="${lan_dns}" || uci -q set network.lan.dns='223.5.5.5'
 		[ -n "$dhcp" ] && uci -q set dhcp.lan.ignore="1" || uci -q del dhcp.lan.ignore
-	elif [ "${siderouter}" == "0" ]; then
+	else
 		uci -q del network.lan.gateway
 		uci -q del dhcp.lan.ignore
 		uci -q set network.lan.dns="${lan_dns}"
 	fi
+	uci -q set wizard.default.old_siderouter="${siderouter}"
+	fi
 	
 	config_get ipv6 "$cfg" ipv6
-
-	if [ "${ipv6}" == "0" ]; then
+	config_get old_ipv6 "$cfg" old_ipv6
+	
+	if [ "${ipv6}" != "old_ipv6" ]; then
+	if [ -n "${ipv6}" ]; then
 		uci -q delete dhcp.lan.ra
 		uci -q delete dhcp.lan.dhcpv6
 		uci -q set network.lan.delegate='0'
@@ -115,7 +121,7 @@ add_wizard() {
 		uci commit dhcp
 		/etc/init.d/odhcpd disable
 		/etc/init.d/odhcpd stop
-	elif [ "${ipv6}" == "1" ]; then
+	else
 		uci -q set dhcp.lan.ra='hybrid'
 		uci -q set dhcp.lan.dhcpv6='hybrid'
 		uci -q del network.lan.delegate
@@ -124,7 +130,10 @@ add_wizard() {
 		/etc/init.d/odhcpd enable
 		/etc/init.d/odhcpd start
 	fi
-
+	uci -q set wizard.default.old_ipv6="${ipv6}"
+	fi
+	
+	uci commit wizard
 	uci commit network
 	uci commit wireless
 	(
