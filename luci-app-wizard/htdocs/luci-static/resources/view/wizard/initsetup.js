@@ -5,6 +5,7 @@
 'require uci';
 'require rpc';
 'require form';
+'require fs';
 
 return view.extend({
 	load: function() {
