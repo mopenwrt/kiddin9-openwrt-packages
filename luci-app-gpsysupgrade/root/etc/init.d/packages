@@ -28,7 +28,7 @@ fi
 	c4=0
 	while ! curl --retry 3 -m 5 https://op.supes.top >/dev/null 2>&1;do
 		echo "无法连接仓库服务器,请检查网络. $c1" | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log
-		[ $c1 eq 120 ] && return || let c1++
+		[ $c1 -eq 120 ] && return || let c1++
 		sleep 5
 	done
 			while :; do
@@ -46,7 +46,7 @@ fi
 									[[ "$(opkg list-installed | cut -f 1 -d ' ' | grep -w $ipk)" ]] && {
 										break
 									}
-									[ $c2 eq 3 ] && {
+									[ $c2 -eq 3 ] && {
 										echo $ipk >> $BKOPKG/failed.txt
 										sed -i "/^$ipk$/d" $BKOPKG/user_installed.opkg
 										break
@@ -80,7 +80,7 @@ fi
 					rm -f /var/lock/opkg.lock
 					break
 				fi
-				[ $c3 eq 10 ] && break || let c3++
+				[ $c3 -eq 10 ] && break || let c3++
 			done
 			rm -f /var/lock/opkg.lock
 }
