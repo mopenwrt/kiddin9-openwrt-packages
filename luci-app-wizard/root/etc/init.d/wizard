@@ -79,11 +79,11 @@ add_wizard() {
 	
 	[ "$dhcp" == "0" ] && dhcp="1"
 	if [[ -n "${lan_gateway} != $(uci -q get network.lan.gateway)" || -n "${dhcp} != $(uci -q get dhcp.lan.ignore)" ]]; then
-	if [ -n "${siderouter}" ]; then
+	if [ "${siderouter}" == "1" ]; then
 		uci -q set network.lan.gateway="${lan_gateway}"
 		[ -n "$lan_dns" ] || uci -q set network.lan.dns='223.5.5.5'
 		[ -n "$dhcp" ] && uci -q set dhcp.lan.ignore="1" || uci -q del dhcp.lan.ignore
-	else
+	elif [ "${siderouter}" == "0" ]; then
 		uci -q del network.lan.gateway
 		uci -q del dhcp.lan.ignore
 	fi
