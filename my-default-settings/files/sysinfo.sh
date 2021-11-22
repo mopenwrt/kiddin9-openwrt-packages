@@ -89,7 +89,10 @@ function storage_info()
 
 # query various systems and send some stuff to the background for overall faster execution.
 # Works only with ambienttemp and batteryinfo since A20 is slow enough :)
-ip_address=$(get_ip_addresses &)
+while [ ! -n "$(get_ip_addresses)" ];do
+sleep 1
+done
+ip_address=$(get_ip_addresses)
 storage_info
 critical_load=$(( 1 + $(grep -c processor /proc/cpuinfo) / 2 ))
 

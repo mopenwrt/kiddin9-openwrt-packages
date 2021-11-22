@@ -13,7 +13,7 @@ add_wizard() {
 	local cfg="$1"
 	local wan_proto wan_ipaddr wan_netmask wan_gateway wan_pppoe_user wan_pppoe_pass
 	local lan_ipaddr lan_netmask lan_dns lan_gateway dhcp
-	local device ipv6 old_ipv6 siderouter old_siderouter
+	local device ipv6 old_ipv6
 
 	config_get wan_proto "$cfg" wan_proto
 
@@ -77,7 +77,6 @@ add_wizard() {
 		uci -q del network.lan.dns
 		}
 
-	if [ "${siderouter}" != "${old_siderouter}" ]; then
 	if [ -n "${siderouter}" ]; then
 		uci -q set network.lan.gateway="${lan_gateway}"
 		[ -n "$lan_dns" ] || uci -q set network.lan.dns='223.5.5.5'
@@ -85,8 +84,6 @@ add_wizard() {
 	else
 		uci -q del network.lan.gateway
 		uci -q del dhcp.lan.ignore
-	fi
-	uci -q set wizard.default.old_siderouter="${siderouter}"
 	fi
 	
 	config_get ipv6 "$cfg" ipv6
