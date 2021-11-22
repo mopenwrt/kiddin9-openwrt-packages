@@ -99,7 +99,6 @@ add_wizard() {
 		uci -q set network.lan.delegate='0'
 		uci -q set network.wan.ipv6='0'
 		uci -q delete network.globals.ula_prefix
-		uci commit dhcp
 		/etc/init.d/odhcpd disable
 		/etc/init.d/odhcpd stop
 	else
@@ -107,7 +106,6 @@ add_wizard() {
 		uci -q set dhcp.lan.dhcpv6='hybrid'
 		uci -q del network.lan.delegate
 		uci -q set network.wan.ipv6='auto'
-		uci commit dhcp
 		/etc/init.d/odhcpd enable
 		/etc/init.d/odhcpd start
 	fi
@@ -115,10 +113,10 @@ add_wizard() {
 	fi
 	
 	uci commit wizard
+	uci commit dhcp
 	uci commit network
-	uci commit wireless
 	(
-	 /etc/init.d/network reload
+	 /etc/init.d/network restart
 	 /etc/init.d/dnsmasq reload)&
 }
 
