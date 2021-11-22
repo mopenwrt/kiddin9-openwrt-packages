@@ -9,7 +9,7 @@ curl = "/usr/bin/curl"
 curl_args = {"-skfL", "--connect-timeout 3", "--retry 3"}
 wget = "/usr/bin/wget"
 wget_args = {"--no-check-certificate", "--quiet", "--timeout=100", "--tries=3"}
-command_timeout = 40
+command_timeout = 60
 LEDE_BOARD = nil
 DISTRIB_TARGET = nil
 
