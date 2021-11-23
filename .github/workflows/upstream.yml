@@ -116,6 +116,7 @@ jobs:
         git_clone https://github.com/sensec/luci-app-udp2raw
         git_clone https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c
         git_clone https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1
+        git clone https://github.com/QiuSimons/openwrt-mos && mvdir openwrt-mos
         ) &
         svn export https://github.com/coolsnowwolf/lede/trunk/package/lean ledelean &
         (
