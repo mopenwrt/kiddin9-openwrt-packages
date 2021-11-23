@@ -35,11 +35,10 @@
  	start
  }
  
-@@ -539,11 +551,13 @@ stop_service()
+@@ -539,11 +551,12 @@ stop_service()
  	fi
  	echo "AdGuardHome service disabled"
  	touch /var/run/AdGserverdis
-+	killall -9 AdGuardHome 2>/dev/null
 +	/etc/init.d/dnsmasq restart
  }
  
