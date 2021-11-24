@@ -55,7 +55,7 @@ fi
 									rm -f /var/lock/opkg.lock
 								done
 								if [[ $ipk == luci-app-* ]]; then
-									opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
+									opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
 								fi
 							done
 							rm -f /etc/config/*-opkg
@@ -73,7 +73,7 @@ fi
 						rm -f /var/lock/opkg.lock
 					done
 					if [[ $ipk == luci-app-* ]]; then
-						opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-4)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
+						opkg install --force-overwrite --force-checksum luci-i18n-"$(echo $ipk | cut -d - -f 3-)"-zh-cn 2>&1 | sed -e "s/^/$(date +%Y-%m-%d" "%H:%M:%S) /" >>/tmp/opkgupdate.log 2>&1 || true
 					fi
 					mv $BKOPKG/failed.txt $BKOPKG/failed_.txt >/dev/null 2>&1
 					touch /etc/inited
