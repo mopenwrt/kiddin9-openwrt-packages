@@ -89,10 +89,6 @@ function storage_info()
 
 # query various systems and send some stuff to the background for overall faster execution.
 # Works only with ambienttemp and batteryinfo since A20 is slow enough :)
-while [ ! -n "$(get_ip_addresses)" ];do
-sleep 1
-done
-ip_address=$(get_ip_addresses)
 storage_info
 critical_load=$(( 1 + $(grep -c processor /proc/cpuinfo) / 2 ))
 
@@ -123,6 +119,13 @@ swap_info=$(LC_ALL=C free -m | grep "^Swap")
 swap_usage=$( (awk '/Swap/ { printf("%3.0f", $3/$2*100) }' <<<${swap_info} 2>/dev/null || echo 0) | tr -c -d '[:digit:]')
 swap_total=$(awk '{print $(2)}' <<<${swap_info})
 
+c=0
+while [ ! -n "$(get_ip_addresses)" ];do
+[ $c -eq 3 ] && break || let c++
+sleep 1
+done
+ip_address="$(get_ip_addresses)"
+[ ! -n "$ip_address" ] && ip_address="10.0.0.1"
 
 # display info
 display "系统负载" "${load%% *}" "${critical_load}" "0" "" "${load#* }"
@@ -150,5 +153,3 @@ display "数据存储" "$data_usage" "90" "1" "%" " of $data_total"
 display "媒体存储" "$media_usage" "90" "1" "%" " of $media_total"
 echo ""
 echo ""
-
-
