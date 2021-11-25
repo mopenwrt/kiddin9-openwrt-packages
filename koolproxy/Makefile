@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=koolproxy
 PKG_VERSION:=3.8.5
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
