@@ -50,6 +50,7 @@ function get_ip_addresses()
 		# match only interface names starting with e (Ethernet), br (bridge), w (wireless), r (some Ralink drivers use ra<number> format)
 		if [[ $intf =~ $SHOW_IP_PATTERN ]]; then
 			local tmp=$(ip -4 addr show dev $intf | awk '/inet/ {print $2}' | cut -d'/' -f1)
+			echo "$intf $(ip -4 addr show dev $intf)"
 			# add both name and IP - can be informative but becomes ugly with long persistent/predictable device names
 			#[[ -n $tmp ]] && ips+=("$intf: $tmp")
 			# add IP only
@@ -119,14 +120,17 @@ swap_info=$(LC_ALL=C free -m | grep "^Swap")
 swap_usage=$( (awk '/Swap/ { printf("%3.0f", $3/$2*100) }' <<<${swap_info} 2>/dev/null || echo 0) | tr -c -d '[:digit:]')
 swap_total=$(awk '{print $(2)}' <<<${swap_info})
 
-[ -f /etc/config/network ] && {
+[ ! -f /etc/config/network ] && {
+printf "System initializing please wait..."
+echo ""
+}
 c=0
 while [ ! -n "$(get_ip_addresses)" ];do
-[ $c -eq 3 ] && break || let c++
+[ $c -eq 6 ] && break || let c++
 sleep 1
 done
 ip_address="$(get_ip_addresses)"
-} || ip_address="10.0.0.1"
+#[ ! -n "$ip_address" ] && ip_address="10.0.0.1"
 
 # display info
 display "系统负载" "${load%% *}" "${critical_load}" "0" "" "${load#* }"
@@ -139,14 +143,7 @@ display "交换内存" "$swap_usage" "10" "0" " %" " of $swap_total""Mb"
 printf "IP  地址:  \x1B[92m%s\x1B[0m" "$ip_address"
 echo "" # fixed newline
 
-
-a=0;b=0;c=0
-display "CPU 温度" "$board_temp" "45" "0" "°C" "" ; a=$?
-display "环境温度" "$amb_temp" "40" "0" "°C" "" ; b=$?
-(( ($a+$b) >0 )) && echo "" # new line only if some value is displayed
-
-
-display "启动存储" "$boot_usage" "90" "1" "%" " of $boot_total"
+printf "CPU 信息: \x1B[92m%s\x1B[0m\t" "$(/sbin/cpuinfo)"
 display "系统存储" "$root_usage" "90" "1" "%" " of $root_total"
 echo ""
 
