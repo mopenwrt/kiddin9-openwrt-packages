@@ -50,7 +50,6 @@ function get_ip_addresses()
 		# match only interface names starting with e (Ethernet), br (bridge), w (wireless), r (some Ralink drivers use ra<number> format)
 		if [[ $intf =~ $SHOW_IP_PATTERN ]]; then
 			local tmp=$(ip -4 addr show dev $intf | awk '/inet/ {print $2}' | cut -d'/' -f1)
-			echo "$intf $(ip -4 addr show dev $intf)"
 			# add both name and IP - can be informative but becomes ugly with long persistent/predictable device names
 			#[[ -n $tmp ]] && ips+=("$intf: $tmp")
 			# add IP only
@@ -121,7 +120,8 @@ swap_usage=$( (awk '/Swap/ { printf("%3.0f", $3/$2*100) }' <<<${swap_info} 2>/de
 swap_total=$(awk '{print $(2)}' <<<${swap_info})
 
 [ ! -f /etc/config/network ] && {
-printf "System initializing please wait..."
+printf "      System initializing please wait..."
+echo ""
 echo ""
 }
 c=0

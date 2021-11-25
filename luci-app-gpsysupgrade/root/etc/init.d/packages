@@ -87,15 +87,15 @@ fi
 (
 	if [[ ! -f /etc/inited || -f $BKOPKG/failed.txt ]]; then
 		opkgupgrade || true
-	elif [[ -f /etc/inited && `uci -q get wizard.default.autoupgrade_pkg || echo "1"` != '0' ]]; then
+	elif [[ -f /etc/inited && "$(uci -q get wizard.default.autoupgrade_pkg)" != '0' ]]; then
 		opkgupgrade || true
 	fi
 	rm -f /var/lock/opkg.lock
-	
-	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" ]] && {
+
+	[[ -f "/bin/coremark" && ! -f "/etc/bench.log" && "$(uci -q get wizard.default.coremark)" == '1' ]] && {
 		sleep 5
 		/bin/coremark >/tmp/coremark.log
-		cat /tmp/coremark.log | grep "CoreMark 1.0" | cut -d "/" -f 1 >/etc/bench.log
+		cat /tmp/coremark.log | grep "CoreMark 1.0" | cut -d "/" -f 1 | cut -d "." -f -2 >/etc/bench.log
 		sed -i 's/CoreMark 1.0/(CpuMark/g' /etc/bench.log
 		echo " Scores)" >>/etc/bench.log
 	}
