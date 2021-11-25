@@ -119,7 +119,7 @@ swap_info=$(LC_ALL=C free -m | grep "^Swap")
 swap_usage=$( (awk '/Swap/ { printf("%3.0f", $3/$2*100) }' <<<${swap_info} 2>/dev/null || echo 0) | tr -c -d '[:digit:]')
 swap_total=$(awk '{print $(2)}' <<<${swap_info})
 
-[ -d /sys/class/net ] && {
+[ -f /etc/config/network ] && {
 c=0
 while [ ! -n "$(get_ip_addresses)" ];do
 [ $c -eq 3 ] && break || let c++
