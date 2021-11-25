@@ -125,12 +125,11 @@ printf "System initializing please wait..."
 echo ""
 }
 c=0
-while [ ! -n "$(get_ip_addresses)" ];do
-[ $c -eq 6 ] && break || let c++
+while [ ! -f /etc/config/network ];do
+[ $c -eq 8 ] && break || let c++
 sleep 1
 done
 ip_address="$(get_ip_addresses)"
-#[ ! -n "$ip_address" ] && ip_address="10.0.0.1"
 
 # display info
 display "系统负载" "${load%% *}" "${critical_load}" "0" "" "${load#* }"
