@@ -139,6 +139,7 @@ jobs:
         svn export https://github.com/messense/aliyundrive-webdav/trunk/openwrt aliyundrive && mvdir aliyundrive
         svn export https://github.com/linkease/istore/trunk/luci/luci-app-store
         svn export https://github.com/linkease/istore-ui/trunk/app-store-ui
+        svn export https://github.com/coolsnowwolf/lede/trunk/package/network/utils/dpdk
         ) &
         (
         git_sparse_clone master "https://github.com/openwrt/packages" "oppackages" \
