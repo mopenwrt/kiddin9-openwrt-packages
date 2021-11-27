@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aliyundrive-webdav
 PKG_VERSION:=1.0.0
-PKG_RELEASE:=31
+PKG_RELEASE:=32
 
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=messense <messense@icloud.com>
@@ -28,18 +28,18 @@ PKG_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/aliyundrive-webdav
+define Package/$(PKG_NAME)
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
 	TITLE:=WebDAV server for AliyunDrive
 	URL:=https://github.com/messense/aliyundrive-webdav
 endef
 
-define Package/aliyundrive-webdav/description
+define Package/$(PKG_NAME)/description
 WebDAV server for AliyunDrive.
 endef
 
-define Package/aliyundrive-webdav/conffiles
+define Package/$(PKG_NAME)/conffiles
 /etc/config/aliyundrive-webdav
 endef
 
@@ -61,10 +61,10 @@ define Build/Prepare
 endef
 
 define Build/Compile
-	echo "aliyundrive-webdav using precompiled binary."
+	echo "$(PKG_NAME) using precompiled binary."
 endef
 
-define Package/aliyundrive-webdav/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/aliyundrive-webdav $(1)/usr/bin/aliyundrive-webdav
 	$(INSTALL_DIR) $(1)/etc/init.d
@@ -73,4 +73,4 @@ define Package/aliyundrive-webdav/install
 	$(INSTALL_CONF) ./files/aliyundrive-webdav.config $(1)/etc/config/aliyundrive-webdav
 endef
 
-$(eval $(call BuildPackage,aliyundrive-webdav))
+$(eval $(call BuildPackage,$(PKG_NAME)))
