@@ -5,18 +5,12 @@
 # See /LICENSE for more information.
 #
 
+
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mtk-eip93
-PKG_RELEASE:=21
-
-PKG_SOURCE_URL:=https://github.com/vschagen/mtk-eip93.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=ca08387bf8352652129019bb19e2423ab313d5cb
-PKG_MIRROR_HASH:=skip
-
-MAKE_PATH:=src
+PKG_RELEASE:=22
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -33,12 +27,12 @@ define KernelPackage/crypto-hw-eip93
 	+kmod-crypto-sha256
   KCONFIG:=
   TITLE:=MTK EIP93 crypto module.
-  FILES:=$(PKG_BUILD_DIR)/src/crypto-hw-eip93.ko
+  FILES:=$(PKG_BUILD_DIR)/crypto-hw-eip93.ko
   AUTOLOAD:=$(call AutoProbe,crypto-hw-eip93)
 endef
 
 define KernelPackage/crypto-hw-eip93/description
-Kernel module to enable EIP-93 Crypto engine as found
+Kernel module to enable EIP-93 Crypto engine as found 
 in the Mediatek MT7621 SoC.
 It enables DES/3DES/AES ECB/CBC/CTR and
 IPSEC offload with authenc(hmac(sha1/sha256), aes/cbc/rfc3686)
@@ -46,7 +40,7 @@ endef
 
 MAKE_OPTS:= \
 	$(KERNEL_MAKE_FLAGS) \
-	M="$(PKG_BUILD_DIR)/src"
+	M="$(PKG_BUILD_DIR)"
 
 define Build/Compile
 	$(MAKE) -C "$(LINUX_DIR)" \
