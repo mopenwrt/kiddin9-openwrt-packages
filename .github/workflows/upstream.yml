@@ -233,6 +233,7 @@ jobs:
         sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
         sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
         sed -i 's/+vsftpd$/+vsftpd-alt/' luci-app-vsftpd/Makefile
+        sed -i 's/ +luci-ssl-openssl$//' luci-app-nginx-manager/Makefile
         
         sed -i \
           -e 's?include \.\./\.\./\(lang\|devel\)?include $(TOPDIR)/feeds/packages/\1?' \
