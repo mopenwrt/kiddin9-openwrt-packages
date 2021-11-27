@@ -147,8 +147,8 @@ jobs:
         git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-macvlan
         ) &
         (
-        git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap package/kernel/mtk-eip93 \
-        package/kernel/r8152 package/kernel/r8168 package/kernel/rtl8188eu package/kernel/rtl8812au-ac package/kernel/rtl8192eu \
+        git_sparse_clone openwrt-21.02 "https://github.com/immortalwrt/immortalwrt" "immwrt" package/kernel/mt7601u-ap \
+        package/kernel/rtl8188eu package/kernel/rtl8812au-ac package/kernel/rtl8192eu \
         package/kernel/rtl8821cu package/kernel/rtl88x2bu
         ) &
         
