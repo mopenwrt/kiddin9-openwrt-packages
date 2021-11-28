@@ -96,7 +96,6 @@ jobs:
         git_clone https://github.com/peter-tank/luci-app-dnscrypt-proxy2
         git_clone https://github.com/sirpdboy/luci-app-advanced
         git_clone https://github.com/sirpdboy/luci-app-netdata
-        git_clone https://github.com/sirpdboy/luci-app-poweroffdevice
         git_clone https://github.com/sirpdboy/luci-app-autotimeset
         git_clone https://github.com/wolandmaster/luci-app-rtorrent
         git_clone https://github.com/jerrykuku/luci-app-jd-dailybonus
