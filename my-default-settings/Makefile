@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=my-default-settings
 PKG_VERSION:=1
-PKG_RELEASE:=18
+PKG_RELEASE:=19
 
 include $(INCLUDE_DIR)/package.mk
 
