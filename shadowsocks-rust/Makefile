@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shadowsocks-rust
 PKG_VERSION:=1.12.4
-PKG_RELEASE:=20
+PKG_RELEASE:=21
 
 PKG_SOURCE_HEADER:=shadowsocks-v$(PKG_VERSION)
 PKG_SOURCE_BODY:=unknown-linux-musl
@@ -69,7 +69,7 @@ define Package/shadowsocks-rust/Default
   endef
 endef
 
-SHADOWSOCKS_COMPONENTS:=sslocal ssmanager ssserver ssurl
+SHADOWSOCKS_COMPONENTS:=sslocal ssmanager ssserver ssurl ssservice
 define shadowsocks-rust/templates
   $(foreach component,$(SHADOWSOCKS_COMPONENTS),
     $(call Package/shadowsocks-rust/Default,$(component))
