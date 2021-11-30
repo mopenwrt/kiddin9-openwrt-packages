@@ -13,7 +13,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uugamebooster
 PKG_VERSION:=v2.18.2
-PKG_RELEASE:=17
+PKG_RELEASE:=18
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -29,16 +29,6 @@ define Package/$(PKG_NAME)/description
 NetEase's UU Game Booster Accelerates Triple-A Gameplay and Market
 endef
 
-ifeq ($(ARCH),x86_64)
-	UU_ARCH:=x86_64
-	PKG_MD5SUM:=skip
-endif
-
-ifeq ($(ARCH),mipsel)
-	UU_ARCH:=mipsel
-	PKG_MD5SUM:=skip
-endif
-
 ifeq ($(ARCH),arm)
 	UU_ARCH:=arm
 	PKG_MD5SUM:=skip
@@ -49,7 +39,17 @@ ifeq ($(ARCH),aarch64)
 	PKG_MD5SUM:=skip
 endif
 
-PKG_SOURCE_URL:=http://uu.gdl.netease.com/uuplugin/openwrt-$(UU_ARCH)/$(PKG_VERSION)/uu.tar.gz?
+ifeq ($(ARCH),mipsel)
+	UU_ARCH:=mipsel
+	PKG_MD5SUM:=skip
+endif
+
+ifeq ($(ARCH),x86_64)
+	UU_ARCH:=x86_64
+	PKG_MD5SUM:=skip
+endif
+
+PKG_SOURCE_URL:=https://uu.gdl.netease.com/uuplugin/openwrt-$(UU_ARCH)/$(PKG_VERSION)/uu.tar.gz?
 PKG_SOURCE:=$(PKG_NAME)-$(UU_ARCH)-$(PKG_VERSION).tar.gz
 
 STRIP:=true
@@ -62,6 +62,10 @@ define Build/Prepare
 endef
 
 define Build/Compile
+endef
+
+define Package/$(PKG_NAME)/conffiles
+/root/.uuplugin_uuid
 endef
 
 define Package/$(PKG_NAME)/install
