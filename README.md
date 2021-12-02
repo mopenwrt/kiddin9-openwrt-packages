@@ -8,3 +8,4 @@
 | X86_64         | [📥](https://op.supes.top/packages/x86_64/)         |          PC软路由    |
 | aarch64_generic    | [📥](https://op.supes.top/packages/aarch64_generic/)     |   R2S/R4S等        |
 | aarch64_cortex-a72    | [📥](https://op.supes.top/packages/aarch64_cortex-a72/)     |  树莓派4B等           | 
+| mipsel_24kc    | [📥](https://op.supes.top/packages/mipsel_24kc/)     |  k2p,ac2100等           | 
