@@ -77,7 +77,7 @@ jobs:
         git_clone https://github.com/rufengsuixing/luci-app-autoipsetadder
         git_clone https://github.com/NateLol/luci-app-beardropper
         git_clone https://github.com/riverscn/openwrt-iptvhelper && mvdir openwrt-iptvhelper
-        git_clone https://github.com/project-lede/luci-app-godproxy  && mv -f luci-app-godproxy/ikoolproxy ikoolproxy
+        git_clone https://github.com/iwrt/luci-app-ikoolproxy  && mv -f luci-app-ikoolproxy/ikoolproxy ikoolproxy
         git_clone https://github.com/BoringCat/luci-app-minieap
         git_clone https://github.com/rufengsuixing/luci-app-onliner
         git_clone https://github.com/tty228/luci-app-serverchan
