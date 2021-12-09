@@ -6,7 +6,7 @@
 /luci-app-samba4
 /luci-app-advancedsetting
 /luci-app-softethervpn5
-/luci-app-cifs-mount
+/luci-app-cifs
 /luci-app-cifsd
 /luci-app-mosquitto
 /ddns-scripts_aliyun
