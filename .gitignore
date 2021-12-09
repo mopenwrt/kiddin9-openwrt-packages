@@ -3,9 +3,14 @@
 /create_acl_for_luci.err
 /luci-app-godproxy/rulesupdate.log
 /qt5
-/openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder}
-/luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,mosquitto}
-/ddns-scripts_{aliyun,dnspod}
+/luci-app-samba4
+/luci-app-advancedsetting
+/luci-app-softethervpn5
+/luci-app-cifs-mount
+/luci-app-cifsd
+/luci-app-mosquitto
+/ddns-scripts_aliyun
+/ddns-scripts_dnspod
 /subweb
 /wget
 /autosamba
