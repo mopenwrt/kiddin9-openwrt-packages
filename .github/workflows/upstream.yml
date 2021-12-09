@@ -161,7 +161,7 @@ jobs:
         svn export --force https://github.com/immortalwrt/luci/trunk/applications
 
         for ipk in $(ls applications); do
-        	if [[ $ipk != "luci-app-transmission" && $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
+        	if [[ $(ls -l applications/$ipk/po | wc -l) -gt 3 ]]; then
         		rm -rf applications/$ipk
         	fi
         done
