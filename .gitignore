@@ -4,6 +4,8 @@
 /luci-app-godproxy/rulesupdate.log
 /qt5
 /openwrt-{chinadns*,simple-obfs,v2ray-plugin,dnsforwarder}
+/luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,mosquitto}
+/ddns-scripts_{aliyun,dnspod}
 /subweb
 /wget
 /autosamba
@@ -11,9 +13,7 @@
 /amule
 /coremark
 /npc
-/luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,mosquitto}
 /fcgiwrap
-/ddns-scripts_{aliyun,dnspod}
 /ipv6-helper
 /ChinaDNS
 /luci-theme-netgear
