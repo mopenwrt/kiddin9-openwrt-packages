@@ -11,7 +11,7 @@
 /amule
 /coremark
 /npc
-/luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,samba4}
+/luci-app-{flowoffload,sfe,samba4,appfilter,advancedsetting,softethervpn,chinadns,smstool,cifs-mount,cifsd,mosquitto}
 /fcgiwrap
 /ddns-scripts_{aliyun,dnspod}
 /ipv6-helper
