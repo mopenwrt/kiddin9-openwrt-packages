@@ -122,7 +122,7 @@ swap_total=$(awk '{print $(2)}' <<<${swap_info})
 [ -f /etc/config/network ] && {
 c=0
 while [ ! -n "$(get_ip_addresses)" ];do
-[ $c -eq 6 ] && break || let c++
+[ $c -eq 7 ] && break || let c++
 sleep 1
 done
 ip_address="$(get_ip_addresses)"
@@ -140,7 +140,7 @@ printf "IP  地址:  \x1B[92m%s\x1B[0m" "$ip_address"
 echo "" # fixed newline
 
 display "系统存储" "$root_usage" "90" "1" "%" " of $root_total"
-printf "CPU 信息: \x1B[92m%s\x1B[0m\t" "$(/sbin/cpuinfo)"
+printf "CPU 信息: \x1B[92m%s\x1B[0m\t" "$(echo `/sbin/cpuinfo | cut -d '(' -f -1`)"
 echo ""
 
 display "数据存储" "$data_usage" "90" "1" "%" " of $data_total"
