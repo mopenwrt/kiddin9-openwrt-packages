@@ -8,6 +8,7 @@
 /luci-app-softethervpn5
 /luci-app-cifs
 /luci-app-cifsd
+/luci-app-smstool
 /luci-app-mosquitto
 /ddns-scripts_aliyun
 /ddns-scripts_dnspod
