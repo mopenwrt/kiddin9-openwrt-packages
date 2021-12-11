@@ -4,7 +4,7 @@ PKG_NAME:=luci-app-mosdns
 
 LUCI_TITLE:=LuCI Support for mosdns
 LUCI_PKGARCH:=all
-LUCI_DEPENDS:=+mosdns
+LUCI_DEPENDS:=+mosdns +jsonfilter
 
 define Package/$(PKG_NAME)/conffiles
 /etc/mosdns/config.yaml
